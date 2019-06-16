@@ -1,7 +1,7 @@
 <?php
 /*
  * PoiXson phpUtils - PHP Utilities Library
- * @copyright 2004-2016
+ * @copyright 2004-2019
  * @license GPL-3
  * @author lorenzo at poixson.com
  * @link http://poixson.com/
@@ -69,19 +69,23 @@ final class San {
 
 
 
+//TODO: is this needed?
+/*
 	public static function SafePath($path) {
 		$path = Strings::Trim($path, ' ');
 		if (empty($path))
 			$path = \getcwd();
 		$temp = \realpath($path);
-		if (empty($temp)) throw new \Exception(\sprintf('Path not found! %s', $path));
+		if (empty($temp))
+			throw new \Exception(\sprintf('Path not found! %s', $path));
 		$path = $temp;
 		unset($temp);
 		return $path.'/';
 	}
 	public static function SafeDir($dir) {
 		$dir = Strings::Trim($dir, ' ', '/');
-		if (empty($dir)) throw new \Exception('dir argument is required');
+		if (empty($dir))
+			throw new \Exception('dir argument is required');
 		$temp = self::AlphaNumSafe($dir);
 		if ($dir != $temp) {
 			throw new \Exception(sprintf(
@@ -91,10 +95,13 @@ final class San {
 			));
 		}
 		unset($temp);
-		if (Strings::StartsWith($dir, '.'))    throw new \Exception('Invalid dir argument, cannot start with .');
-		if (\mb_strpos($dir, '..') !== FALSE)  throw new \Exception('Invalid dir argument, cannot contain ..');
+		if (Strings::StartsWith($dir, '.'))
+			throw new \Exception('Invalid dir argument, cannot start with .');
+		if (\mb_strpos($dir, '..') !== FALSE)
+			throw new \Exception('Invalid dir argument, cannot contain ..');
 		return $dir.'/';
 	}
+*/
 
 
 

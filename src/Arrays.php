@@ -1,7 +1,7 @@
 <?php
 /*
  * PoiXson phpUtils - PHP Utilities Library
- * @copyright 2004-2016
+ * @copyright 2004-2019
  * @license GPL-3
  * @author lorenzo at poixson.com
  * @link http://poixson.com/
@@ -14,24 +14,10 @@ final class Arrays {
 
 
 
-	public static function TrimFlatMerge($glue, ...$data) {
-		$glue = (string) $glue;
-		self::TrimFlat($data);
-		return \implode(
-			$glue,
-			$data
-		);
-	}
-
-
-
 	public static function Flatten(...$data) {
-		if (\count($data) == 1 && \reset($data) === NULL) {
-			return NULL;
-		}
 		$result = [];
 		\array_walk_recursive(
-			$data, // @codeCoverageIgnore
+			$data,
 			function($arr) use (&$result) {
 				$result[] = $arr;
 			}
@@ -41,24 +27,30 @@ final class Arrays {
 
 
 
-	public static function TrimFlat(&$data) {
-		if ($data === NULL)
-			return;
-		$data = self::Flatten($data);
-		self::Trim($data);
+	public static function TrimFlat(...$data) {
+		$result = [];
+		\array_walk_recursive(
+			$data,
+			function($arr) use (&$result) {
+				if ($arr === NULL || $arr === '')         return;
+				if (\is_array($arr) && \count($arr) == 0) return;
+				$result[] = $arr;
+			}
+		);
+		return $result;
 	}
 
 
 
 	public static function Trim(&$data) {
-		if ($data === NULL) {
+		if ($data === NULL)
 			return;
-		}
 		if (!\is_array($data)) {
 			$data = [$data];
 		}
 		foreach ($data as $k => $v) {
-			if ($v === NULL || $v === '') {
+			if ($v === NULL || $v === ''
+			|| (\is_array($v) && \count($v) == 0) ) {
 				unset($data[$k]);
 			}
 		}
@@ -67,27 +59,26 @@ final class Arrays {
 
 
 	// make array if not already
-	public static function MakeContain($data) {
-		if ($data === NULL) {
+	public static function MakeArray($data) {
+		if ($data === NULL)
 			return NULL;
-		}
-		if (\is_array($data)) {
+		if (\is_array($data))
 			return $data;
-		}
 		$str = (string) $data;
-		if (empty($str)) {
+		if (empty($str))
 			return [];
-		}
 		return [ $str ];
 	}
+
+
+
 	// explode() with multiple delimiters
-	public static function toArray($data, ...$delims) {
-		if (\is_array($data)) {
+	public static function Explode($data, ...$delims) {
+		if (\is_array($data))
 			return $data;
-		}
-		if (count($delims) == 0) {
+		// default delims
+		if (\count($delims) == 0)
 			$delims = [ ' ', ',', ';', "\t", "\r", "\n" ];
-		}
 		$data = (string) $data;
 		$first_delim = NULL;
 		foreach ($delims as $v) {
@@ -95,15 +86,16 @@ final class Arrays {
 			$first_delim = $v;
 			break;
 		}
-		if (empty($first_delim)) {
-			throw \NullPointerException('Delim argument is required!');
-		}
+		if (empty($first_delim))
+			throw new \RuntimeException('Delim argument is required!');
 		foreach ($delims as $v) {
 			if (empty($v)) continue;
 			if ($v == $first_delim) continue;
 			$data = \str_replace($v, $first_delim, $data);
 		}
-		return \explode($first_delim, $data);
+		$result = \explode($first_delim, $data);
+		self::Trim($result);
+		return $result;
 	}
 
 

@@ -1,7 +1,7 @@
 <?php
 /*
  * PoiXson phpUtils - PHP Utilities Library
- * @copyright 2004-2016
+ * @copyright 2004-2019
  * @license GPL-3
  * @author lorenzo at poixson.com
  * @link http://poixson.com/
@@ -22,17 +22,14 @@ final class Numbers {
 	 *         being trimmed.
 	 */
 	public static function isNumber($value) {
-		if ($value === NULL) {
+		if ($value === NULL)
 			return FALSE;
-		}
 		$value = \trim( (string)$value );
-		if ($value === '') {
+		if ($value === '')
 			return FALSE;
-		}
 		$value = Strings::TrimFront($value, '0');
-		if ($value == '') {
+		if ($value == '')
 			return TRUE;
-		}
 		$i = ((string) ((int)$value) );
 		return ($value === $i);
 	}
@@ -47,21 +44,18 @@ final class Numbers {
 
 	/**
 	 * Check the min and max of a value and return the result.
-	 * @param int $value -
-	 * @param int $min -
-	 * @param int $max -
+	 * @param int $value
+	 * @param int $min
+	 * @param int $max
 	 * @return int value
 	 */
 	public static function MinMax($value, $min=FALSE, $max=FALSE) {
-		if ($min !== FALSE && $max !== FALSE && $min > $max) {
+		if ($min !== FALSE && $max !== FALSE && $min > $max)
 			throw new \Exception('Min must be less than Max!');
-		}
-		if ($min !== FALSE && $value < $min) {
+		if ($min !== FALSE && $value < $min)
 			return $min;
-		}
-		if ($max !== FALSE && $value > $max) {
+		if ($max !== FALSE && $value > $max)
 			return $max;
-		}
 		return $value;
 	}
 
@@ -74,9 +68,8 @@ final class Numbers {
 
 
 	public static function Round($value, $places=0) {
-		if ($places == 0) {
+		if ($places == 0)
 			return \round($value);
-		}
 		$pow = \pow(10, $places);
 		return self::PadZeros(
 			\round($value * $pow) / $pow,
@@ -84,9 +77,8 @@ final class Numbers {
 		);
 	}
 	public static function Floor($value, $places=0) {
-		if ($places == 0) {
+		if ($places == 0)
 			return \floor($value);
-		}
 		$pow = \pow(10, $places);
 		return self::PadZeros(
 			\floor($value * $pow) / $pow,
@@ -94,9 +86,8 @@ final class Numbers {
 		);
 	}
 	public static function Ceil($value, $places=0) {
-		if ($places == 0) {
+		if ($places == 0)
 			return \ceil($value);
-		}
 		$pow = \pow(10, $places);
 		return self::PadZeros(
 			\ceil($value * $pow) / $pow,
@@ -105,17 +96,14 @@ final class Numbers {
 	}
 	public static function PadZeros($value, $places) {
 		$str = (string) (double) $value;
-		if ($places <= 0) {
+		if ($places <= 0)
 			return $str;
-		}
 		$pos = \mb_strrpos($str, '.');
-		if ($pos === FALSE) {
-			return $str.'.'.\str_repeat('0', $places);
-		}
+		if ($pos === FALSE)
+			return $str . '.' . \str_repeat('0', $places);
 		$pos = \mb_strlen($str) - ($pos + 1);
-		if ($pos < $places) {
-			return $str.\str_repeat('0', $places - $pos);
-		}
+		if ($pos < $places)
+			return $str . \str_repeat('0', $places - $pos);
 		return $str;
 	}
 
@@ -127,11 +115,10 @@ final class Numbers {
 	 * @return string - Formatted size.
 	 */
 	public static function FormatBytes($size) {
-		if (empty($size)) {
+		if (empty($size))
 			return NULL;
-		}
 		$size = \trim((string) $size);
-		if (\mb_strtolower(\mb_substr($size, -1, 1)) == 'b') {
+		if ( \mb_strtolower(\mb_substr($size, -1, 1)) == 'b' ) {
 			$size = \trim(\mb_substr($size, 0, -1));
 		}
 		switch ( \mb_strtolower(\mb_substr($size, -1, 1)) ) {
@@ -151,22 +138,17 @@ final class Numbers {
 			$size = (double) $size;
 			break;
 		}
-		if ($size < 0) {
+		if ($size < 0)
 			return NULL;
-		}
-		if ($size < Defines::KB) {
-			return \round($size, 0).'B';
-		}
-		if ($size < Defines::MB) {
-			return \round($size / Defines::KB, 2).'KB';
-		}
-		if ($size < Defines::GB) {
-			return \round($size / Defines::MB, 2).'MB';
-		}
-		if ($size < Defines::TB) {
-			return \round($size / Defines::GB, 2).'GB';
-		}
-		return \round($size / Defines::TB, 2).'TB';
+		if ($size < Defines::KB)
+			return \round($size, 0) . 'B';
+		if ($size < Defines::MB)
+			return \round($size / Defines::KB, 2) . 'KB';
+		if ($size < Defines::GB)
+			return \round($size / Defines::MB, 2) . 'MB';
+		if ($size < Defines::TB)
+			return \round($size / Defines::GB, 2) . 'GB';
+		return \round($size / Defines::TB, 2) . 'TB';
 	}
 
 
@@ -179,11 +161,10 @@ final class Numbers {
 	 */
 	public static function FormatRoman($value, $max=FALSE) {
 		$value = (int) $value;
-		if ( ($max !== FALSE && $value > $max) || $value < 0) {
-			return ((string) $value);
-		}
+		if ( ($max !== FALSE && $value > $max) || $value < 0)
+			return (string) $value;
 		$result = '';
-		$lookup = array(
+		$lookup = [
 			'M' => 1000,
 			'CM'=> 900,
 			'D' => 500,
@@ -197,7 +178,7 @@ final class Numbers {
 			'V' => 5,
 			'IV'=> 4,
 			'I' => 1
-		);
+		];
 		foreach ($lookup as $roman => $num) {
 			$matches = \intval($value / $num);
 			$result .= \str_repeat($roman, $matches);
@@ -258,7 +239,7 @@ final class Numbers {
 				$value += ($val * Defines::S_YEAR);
 				break;
 			default:
-				continue;
+				continue 2;
 			}
 		}
 		return $value;
@@ -346,32 +327,26 @@ final class Numbers {
 			return \implode(' ', $result);
 		return \implode('  ', $result);
 	}
-	public static function SecondsToText($seconds, $shorthand=TRUE, $maxParts=FALSE, $deviance=1.0) {
+	public static function SecondsToText($seconds, $shorthand=FALSE, $maxParts=FALSE, $deviance=1.0) {
 		// future
 		if ( $seconds < 0 ) {
 			$seconds = 0 - $seconds;
-			if ( ($seconds * $deviance) < Defines::S_HOUR ) {
+			if ( ($seconds * $deviance) < Defines::S_HOUR )
 				return 'Soon';
-			}
-			if ( ($seconds * $deviance) < Defines::S_DAY ) {
+			if ( ($seconds * $deviance) < Defines::S_DAY )
 				return 'Soon Today';
-			}
-			if ( ($seconds * $deviance) < (Defines::S_DAY * 2) ) {
+			if ( ($seconds * $deviance) < (Defines::S_DAY * 2) )
 				return 'Tomorrow';
-			}
 			return self::SecondsToString($seconds, $shorthand, $maxParts, $deviance).' from now';
 		}
 		// now
-		if ( $seconds * $deviance < Defines::S_HOUR ) {
+		if ( $seconds * $deviance < Defines::S_HOUR )
 			return 'Now';
-		}
 		// past
-		if ( ($seconds * $deviance) < Defines::S_DAY ) {
+		if ( ($seconds * $deviance) < Defines::S_DAY )
 			return 'Today';
-		}
-		if ( ($seconds * $deviance) < (Defines::S_DAY * 2) ) {
+		if ( ($seconds * $deviance) < (Defines::S_DAY * 2) )
 			return 'Yesterday';
-		}
 		return self::SecondsToString($seconds, $shorthand, $maxParts, $deviance).' ago';
 	}
 
