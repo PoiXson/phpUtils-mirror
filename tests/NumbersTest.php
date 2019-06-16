@@ -1,7 +1,7 @@
 <?php
 /*
  * PoiXson phpUtils - Website Utilities Library
- * @copyright 2004-2016
+ * @copyright 2004-2019
  * @license GPL-3
  * @author lorenzo at poixson.com
  * @link http://poixson.com/
@@ -9,6 +9,7 @@
 namespace pxn\phpUtils\tests;
 
 use pxn\phpUtils\Numbers;
+use pxn\phpUtils\Defines;
 
 
 /**
@@ -22,18 +23,20 @@ class NumbersTest extends \PHPUnit\Framework\TestCase {
 	 * @covers ::isNumber
 	 */
 	public function testIsNumber() {
+		$this->assertFalse( Numbers::isNumber(NULL      ), "Value: NULL"       );
+		$this->assertFalse( Numbers::isNumber(''        ), "Value: ''"         );
 		$this->assertTrue ( Numbers::isNumber('1'       ), "Value: '1'"        );
 		$this->assertTrue ( Numbers::isNumber('0'       ), "Value: '0'"        );
 		$this->assertTrue ( Numbers::isNumber('000'     ), "Value: '000'"      );
 		$this->assertTrue ( Numbers::isNumber('-1'      ), "Value: '-1'"       );
 		$this->assertTrue ( Numbers::isNumber(' 1 '     ), "Value: ' 1 '"      );
+		$this->assertTrue ( Numbers::isNumber('99999999'), "Value: '99999999'" );
+		$this->assertTrue ( Numbers::isNumber('007'     ), "Value: '007'"      );
 		$this->assertFalse( Numbers::isNumber(' - 1 '   ), "Value: ' - 1 '"    );
 		$this->assertFalse( Numbers::isNumber('1a'      ), "Value: '1a'"       );
 		$this->assertFalse( Numbers::isNumber('a1'      ), "Value: 'a1'"       );
 		$this->assertFalse( Numbers::isNumber('1 a'     ), "Value: '1 a'"      );
 		$this->assertFalse( Numbers::isNumber('a'       ), "Value: 'a'"        );
-		$this->assertTrue ( Numbers::isNumber('99999999'), "Value: '99999999'" );
-		$this->assertTrue ( Numbers::isNumber('007'     ), "Value: '007'"      );
 		$this->assertFalse( Numbers::isNumber('0x5F12'  ), "Value: '0x5F12'"   );
 	}
 
@@ -59,6 +62,10 @@ class NumbersTest extends \PHPUnit\Framework\TestCase {
 		// max only
 		$this->assertEquals(      1, Numbers::MinMax( 999.9, FALSE, 1) );
 		$this->assertEquals( -999.9, Numbers::MinMax(-999.9, FALSE, 1) );
+		// exception
+		$this->expectException(\Exception::class);
+		$this->expectExceptionMessage('Min must be less than Max!');
+		Numbers::MinMax(1, 2, 0);
 	}
 
 
@@ -73,6 +80,7 @@ class NumbersTest extends \PHPUnit\Framework\TestCase {
 	 * @covers ::Round
 	 */
 	public function testRound() {
+		$this->assertEquals( '123',    Numbers::Round(123,     0) );
 		$this->assertEquals( '123.00', Numbers::Round(123,     2) );
 		$this->assertEquals( '123.45', Numbers::Round(123.45,  2) );
 		$this->assertEquals( '123.46', Numbers::Round(123.456, 2) );
@@ -84,6 +92,7 @@ class NumbersTest extends \PHPUnit\Framework\TestCase {
 	 * @covers ::Floor
 	 */
 	public function testFloor() {
+		$this->assertEquals( '123',    Numbers::Floor(123,     0) );
 		$this->assertEquals( '123.00', Numbers::Floor(123,     2) );
 		$this->assertEquals( '123.45', Numbers::Floor(123.45,  2) );
 		$this->assertEquals( '123.45', Numbers::Floor(123.456, 2) );
@@ -95,6 +104,7 @@ class NumbersTest extends \PHPUnit\Framework\TestCase {
 	 * @covers ::Ceil
 	 */
 	public function testCeil() {
+		$this->assertEquals( '123',    Numbers::Ceil(123,      0) );
 		$this->assertEquals( '123.00', Numbers::Ceil(123,      2) );
 		$this->assertEquals( '123.45', Numbers::Ceil(123.45,   2) );
 		$this->assertEquals( '123.46', Numbers::Ceil(123.456,  2) );
@@ -107,6 +117,7 @@ class NumbersTest extends \PHPUnit\Framework\TestCase {
 	 */
 	public function testPadZeros() {
 		$this->assertEquals(     '1', Numbers::PadZeros(    1, 0) );
+		$this->assertEquals(   '1.2', Numbers::PadZeros(  1.2, 0) );
 		$this->assertEquals( '1.000', Numbers::PadZeros(    1, 3) );
 		$this->assertEquals( '1.200', Numbers::PadZeros(  1.2, 3) );
 		$this->assertEquals( '1.234', Numbers::PadZeros(1.234, 3) );
@@ -119,6 +130,8 @@ class NumbersTest extends \PHPUnit\Framework\TestCase {
 	 * @covers ::FormatBytes
 	 */
 	public function testFormatBytes() {
+		$this->assertEquals(     NULL, Numbers::FormatBytes( ''   ) );
+		$this->assertEquals(     NULL, Numbers::FormatBytes( -1   ) );
 		$this->assertEquals(     '1B', Numbers::FormatBytes( 1    ) );
 		$this->assertEquals(    '1KB', Numbers::FormatBytes( 1024 ) );
 		$this->assertEquals( '1.01KB', Numbers::FormatBytes( 1030 ) );
@@ -207,6 +220,7 @@ class NumbersTest extends \PHPUnit\Framework\TestCase {
 	 * @covers ::SecondsToString
 	 */
 	public function testSecondsToString() {
+		$this->assertEquals(                      '--', Numbers::SecondsToString(       0) );
 		$this->assertEquals(                    '1sec', Numbers::SecondsToString(       1) );
 		$this->assertEquals(                   '42sec', Numbers::SecondsToString(      42) );
 		$this->assertEquals(                    '1min', Numbers::SecondsToString(      60) );
@@ -215,13 +229,36 @@ class NumbersTest extends \PHPUnit\Framework\TestCase {
 		$this->assertEquals(           '5hr 2min 1sec', Numbers::SecondsToString(   18121) );
 		$this->assertEquals(                    '5day', Numbers::SecondsToString(  432000) );
 		$this->assertEquals(                   '15day', Numbers::SecondsToString( 1296000) );
-		$this->assertEquals(                   '30day', Numbers::SecondsToString( 2592000) );
 		$this->assertEquals(                     '1yr', Numbers::SecondsToString(31536000) );
 		$this->assertEquals( '1yr 38day 1hr 1min 1sec', Numbers::SecondsToString(34822861) );
 		$this->assertEquals(                '1 Second', Numbers::SecondsToString(       1, FALSE) );
 		$this->assertEquals(      '2 Hours  2 Minutes', Numbers::SecondsToString(    7320, FALSE) );
 		$this->assertEquals(                  '1 Year', Numbers::SecondsToString(31536000, FALSE) );
 		$this->assertEquals(         '2 Years  2 Days', Numbers::SecondsToString(63244800, FALSE) );
+		$this->assertEquals(                    '1mon', Numbers::SecondsToString( 2592000, TRUE, FALSE, 0.9) );
+	}
+
+
+
+	/**
+	 * @covers ::SecondsToText
+	 */
+	public function testSecondsToText() {
+		// future
+		$this->assertEquals( 'Soon',       Numbers::SecondsToText( -1     ) );
+		$this->assertEquals( 'Soon',       Numbers::SecondsToText( -3599  ) );
+		$this->assertEquals( 'Soon Today', Numbers::SecondsToText( -3600  ) );
+		$this->assertEquals( 'Soon Today', Numbers::SecondsToText( -86399 ) );
+		$this->assertEquals( 'Tomorrow',   Numbers::SecondsToText( -86400 ) );
+		$this->assertEquals( '5 Days from now', Numbers::SecondsToText(-432000) );
+		// now
+		$this->assertEquals( 'Now', Numbers::SecondsToText(0) );
+		$this->assertEquals( 'Now', Numbers::SecondsToText(3599) );
+		$this->assertEquals( 'Today', Numbers::SecondsToText(3600) );
+		$this->assertEquals( 'Today', Numbers::SecondsToText(86399) );
+		// past
+		$this->assertEquals( 'Yesterday', Numbers::SecondsToText(86400) );
+		$this->assertEquals( '5 Days ago', Numbers::SecondsToText(432000) );
 	}
 
 
