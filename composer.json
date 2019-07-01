@@ -40,6 +40,7 @@
 		"ext-mbstring":    "*",
 		"51systems/doctrine-encrypt": "v6.*",
 		"filp/whoops":     "2.*",
+		"pxn/composerlocaldev": "1.*",
 		"phpunit/phpunit": "8.*"
 	}
 }
