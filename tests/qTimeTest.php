@@ -5,16 +5,16 @@
  * @license GPL-3
  * @author lorenzo at poixson.com
  * @link http://poixson.com/
- */
+ * /
 namespace pxn\phpUtils\tests;
 
 use pxn\phpUtils\qTime;
 use pxn\phpUtils\General;
 
 
-/**
+/ **
  * @coversDefaultClass \pxn\phpUtils\qTime
- */
+ * /
 class qTimeTest extends \PHPUnit\Framework\TestCase {
 
 
@@ -27,11 +27,11 @@ class qTimeTest extends \PHPUnit\Framework\TestCase {
 		// times are in seconds
 		$this->PerformTest(0.500);
 	}
-	/**
+	/ **
 	 * @covers ::getTimeSinceStart
 	 * @covers ::getTimeSinceLast
 	 * @covers \pxn\phpUtils\General::Sleep
-	 */
+	 * /
 	private function PerformTest($sleepTime) {
 		// test global
 		qTime::getGlobal()->Reset();
@@ -73,3 +73,4 @@ class qTimeTest extends \PHPUnit\Framework\TestCase {
 
 
 }
+*/

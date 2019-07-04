@@ -5,7 +5,7 @@
  * @license GPL-3
  * @author lorenzo at poixson.com
  * @link http://poixson.com/
- */
+ * /
 namespace pxn\phpUtils\tests;
 
 use pxn\phpUtils\Defines;
@@ -18,7 +18,7 @@ class DefinesTest extends \PHPUnit\Framework\TestCase {
 	public function testValues() {
 		// php version
 		$this->assertGreaterThanOrEqual( 50600, Defines::PHP_MIN_VERSION );
-		$this->assertLessThanOrEqual   ( 70000, Defines::PHP_MIN_VERSION );
+		$this->assertLessThanOrEqual   ( 70100, Defines::PHP_MIN_VERSION );
 		// common characters
 		$this->assertEquals( Defines::DIR_SEP, \DIRECTORY_SEPARATOR );
 		$this->assertEquals( Defines::NEWLINE, Defines::EOL         );
@@ -44,3 +44,4 @@ class DefinesTest extends \PHPUnit\Framework\TestCase {
 
 
 }
+*/

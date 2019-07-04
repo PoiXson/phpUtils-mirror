@@ -5,15 +5,15 @@
  * @license GPL-3
  * @author lorenzo at poixson.com
  * @link http://poixson.com/
- */
+ * /
 namespace pxn\phpUtils\tests;
 
 use pxn\phpUtils\examples\BasicEnumExample;
 
 
-/**
+/ **
  * @coversDefaultClass \pxn\phpUtils\BasicEnum
- */
+ * /
 class BasicEnumTest extends \PHPUnit\Framework\TestCase {
 
 	const EXAMPLE_CONSTANTS = [
@@ -26,9 +26,9 @@ class BasicEnumTest extends \PHPUnit\Framework\TestCase {
 
 
 
-	/**
+	/ **
 	 * @covers ::getConstants
-	 */
+	 * /
 	public function testConstants() {
 		// verify constants exist
 		$this->assertEquals(
@@ -39,10 +39,10 @@ class BasicEnumTest extends \PHPUnit\Framework\TestCase {
 
 
 
-	/**
+	/ **
 	 * @covers ::isValidName
 	 * @covers ::getByName
-	 */
+	 * /
 	public function testByName() {
 		// isValidName
 		$this->assertTrue ( BasicEnumExample::isValidName('DOG'       ) );
@@ -64,10 +64,10 @@ class BasicEnumTest extends \PHPUnit\Framework\TestCase {
 
 
 
-	/**
+	/ **
 	 * @covers ::isValidValue
 	 * @covers ::getByValue
-	 */
+	 * /
 	public function testByValue() {
 		// isValidValue
 		$this->assertTrue ( BasicEnumExample::isValidValue('woof'       ) );
@@ -90,3 +90,4 @@ class BasicEnumTest extends \PHPUnit\Framework\TestCase {
 
 
 }
+*/

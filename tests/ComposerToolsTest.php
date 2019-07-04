@@ -5,24 +5,24 @@
  * @license GPL-3
  * @author lorenzo at poixson.com
  * @link http://poixson.com/
- */
+ * /
 namespace pxn\phpUtils\tests;
 
 use pxn\phpUtils\ComposerTools;
 use pxn\phpUtils\Strings;
 
 
-/**
+/ **
  * @coversDefaultClass \pxn\phpUtils\ComposerTools
- */
+ * /
 class ComposerToolsTest extends \PHPUnit\Framework\TestCase {
 
 
 
-	/**
+	/ **
 	 * @covers ::get
 	 * @covers ::__construct
-	 */
+	 * /
 	public function testInstances() {
 		$a = ComposerTools::get();
 		$b = ComposerTools::get();
@@ -33,10 +33,10 @@ class ComposerToolsTest extends \PHPUnit\Framework\TestCase {
 
 
 
-	/**
+	/ **
 	 * @covers ::getFilePath
 	 * @covers ::SanPath
-	 */
+	 * /
 	public function testPaths() {
 		$expect = \realpath(__DIR__.'/../composer.json');
 		// default path
@@ -60,11 +60,11 @@ class ComposerToolsTest extends \PHPUnit\Framework\TestCase {
 
 
 
-	/**
+	/ **
 	 * @covers ::getName
 	 * @covers ::getVersion
 	 * @covers ::getHomepage
-	 */
+	 * /
 	public function testValues() {
 		$composer = ComposerTools::get();
 		$this->assertNotNull($composer);
@@ -85,3 +85,4 @@ class ComposerToolsTest extends \PHPUnit\Framework\TestCase {
 
 
 }
+*/
