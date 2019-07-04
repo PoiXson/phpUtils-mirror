@@ -1,7 +1,7 @@
 <?php
 /*
  * PoiXson phpUtils - PHP Utilities Library
- * @copyright 2004-2016
+ * @copyright 2004-2019
  * @license GPL-3
  * @author lorenzo at poixson.com
  * @link http://poixson.com/
@@ -22,15 +22,14 @@ final class General {
 
 	// cast variable type
 	public static function castType($data, $type) {
+		if ($type === NULL)
+			return $data;
 		switch (\mb_strtolower(\mb_substr( (string) $type, 0, 1))) {
 			// string
 			case 's':
 				return ((string) $data);
-			// integer
+			// integer/long
 			case 'i':
-				return ((integer) $data);
-//TODO: php 7 may have support for this?
-			// long
 			case 'l':
 				return ((integer) $data);
 			// float
@@ -49,9 +48,8 @@ final class General {
 	}
 	// convert to boolean
 	public static function toBoolean($value) {
-		if ($value === NULL) {
+		if ($value === NULL)
 			return NULL;
-		}
 		if (\gettype($value) === 'boolean')
 			return $value;
 		$val = \mb_strtolower(trim( (string) $value ));
@@ -89,8 +87,8 @@ final class General {
 	 *     Possible values: get, post, cookie, session
 	 * @return object - Returns the requested value, cast to requested type.
 	 */
-	public static function getVar($name, $type='str', $source=['get','post']) {
-		$source = Arrays::MakeContain($source);
+	public static function getVar($name, $type='s', $source=['g','p']) {
+		$source = Arrays::MakeArray($source);
 		$value = NULL;
 		foreach ($source as $src) {
 			$v = NULL;
@@ -113,8 +111,7 @@ final class General {
 				$v = self::session($name, $type);
 				break;
 			default:
-				fail("Unknown value source: $src",
-					Defines::EXIT_CODE_INTERNAL_ERROR);
+				throw new \InvalidArgumentException("Unknown value source: $src");
 			}
 			// value found
 			if ($v !== NULL) {
@@ -127,25 +124,25 @@ final class General {
 
 
 	// get var
-	public static function get($name, $type) {
+	public static function get($name, $type=NULL) {
 		if (isset($_GET[$name]))
 			return self::castType($_GET[$name], $type);
 		return NULL;
 	}
 	// post var
-	public static function post($name, $type) {
+	public static function post($name, $type=NULL) {
 		if (isset($_POST[$name]))
 			return self::castType($_POST[$name], $type);
 		return NULL;
 	}
 	// cookie var
-	public static function cookie($name, $type) {
+	public static function cookie($name, $type=NULL) {
 		if (isset($_COOKIE[$name]))
 			return self::castType($_COOKIE[$name], $type);
 		return NULL;
 	}
 	// php session var
-	public static function session($name, $type) {
+	public static function session($name, $type=NULL) {
 		if (isset($_SESSION[$name]))
 			return self::castType($_SESSION[$name], $type);
 		return NULL;
@@ -211,7 +208,10 @@ final class General {
 	 * @param int $ms - Milliseconds to sleep.
 	 */
 	public static function Sleep($ms) {
-		\usleep($ms * 1000.0);
+		$ms = (int) $ms;
+		if ($ms > 0.0) {
+			\usleep($ms * 1000.0);
+		}
 	}
 
 
