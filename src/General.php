@@ -40,14 +40,17 @@ final class General {
 				return ((double) $data);
 			// boolean
 			case 'b':
-				return self::toBoolean($data);
+				return self::castBoolean($data);
 			default:
 				break;
 		}
 		return $data;
 	}
+
+
+
 	// convert to boolean
-	public static function toBoolean($value) {
+	public static function castBoolean($value) {
 		if ($value === NULL)
 			return NULL;
 		if (\gettype($value) === 'boolean')
@@ -160,7 +163,7 @@ final class General {
 	 *     'action' => 'display'
 	 * );
 	 */
-	public static function ParseModRewrite() {
+	public static function ParseModRewriteVars() {
 		// parse mod_rewrite uri
 		if (isset($_SERVER['REDIRECT_STATUS'])) {
 			$data = $_SERVER['REQUEST_URI'];
