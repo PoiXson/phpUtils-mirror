@@ -39,7 +39,6 @@ final class Strings {
 
 
 	public static function Trim($text, ...$remove) {
-		$remove = Arrays::MakeContain($remove);
 		Arrays::TrimFlat($remove);
 		if (\count($remove) == 0) {
 			$remove = self::DEFAULT_TRIM_CHARS;
@@ -105,7 +104,6 @@ final class Strings {
 		return $text;
 	}
 	public static function TrimFront($text, ...$remove) {
-		$remove = Arrays::MakeContain($remove);
 		Arrays::TrimFlat($remove);
 		if (\count($remove) == 0) {
 			$remove = self::DEFAULT_TRIM_CHARS;
@@ -156,7 +154,6 @@ final class Strings {
 		return $text;
 	}
 	public static function TrimEnd($text, ...$remove) {
-		$remove = Arrays::MakeContain($remove);
 		Arrays::TrimFlat($remove);
 		if (\count($remove) == 0) {
 			$remove = self::DEFAULT_TRIM_CHARS;
@@ -238,7 +235,6 @@ final class Strings {
 
 
 	public static function MergeDuplicates($text, ...$search) {
-		$search = Arrays::MakeContain($search);
 		Arrays::TrimFlat($search);
 		if (\count($search) == 0) {
 			$search = [ ' ' ];
@@ -292,7 +288,6 @@ final class Strings {
 		if (\mb_strlen($text) <= $width) {
 			return [ $text ];
 		}
-		$lineEndings = Arrays::MakeContain($lineEndings);
 		Arrays::TrimFlat($lineEndings);
 		if (\count($lineEndings) == 0) {
 			$lineEndings = self::DEFAULT_TRIM_CHARS;
@@ -539,12 +534,11 @@ final class Strings {
 		);
 		return $part;
 	}
-	public static function findPart(&$data, $patterns) {
+	public static function findPart(&$data, ...$patterns) {
 		if (empty($data)) {
 			return NULL;
 		}
 		$data = (string) $data;
-		$patterns = Arrays::MakeContain($patterns);
 		// find next delim
 		$pos   = \mb_strlen($data);
 		$delim = NULL;
