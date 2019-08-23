@@ -36,10 +36,14 @@
 			"examples/"
 		]
 	},
+	"require": {
+		"ext-mbstring": "*"
+	},
+	"suggest": {
+		"51systems/doctrine-encrypt": "v6.*"
+	},
 	"require-dev": {
-		"ext-mbstring":    "*",
-		"51systems/doctrine-encrypt": "v6.*",
-		"filp/whoops":     "2.*",
+		"filp/whoops": "2.*",
 		"pxn/composerlocaldev": "1.*",
 		"phpunit/phpunit": "8.*"
 	}
