@@ -108,11 +108,15 @@ function ExitNow($code=1) {
 		unset($app);
 	}
 	// set rendered
-	if (\class_exists('pxn\\phpPortal\\WebApp')) {
-		$app = \pxn\phpPortal\WebApp::peak();
-		if ($app != NULL) {
-			$app->setRendered();
+	{
+		$clss = '\\pxn\\phpPortal\\WebApp';
+		if (\class_exists($clss)) {
+			$app = $clss::peak();
+			if ($app != NULL) {
+				$app->setRendered();
+			}
 		}
+		unset($clss);
 	}
 	// exit code
 	if ($code !== NULL) {

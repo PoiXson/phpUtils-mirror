@@ -29,6 +29,7 @@ define('pxn\\phpUtils\\inited_1', TRUE);
 	\ini_set('html_errors',    $isShell ? 'Off' : 'On');
 	\ini_set('log_errors',     'On');
 	\ini_set('error_log',      $isShell ? '/var/log/php_shell_error' : 'error_log');
+	unset($isShell);
 }
 
 // php version 5.6 required

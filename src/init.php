@@ -42,8 +42,12 @@ require('init_2.php');
 
 # init 3 - defines
 \pxn\phpUtils\Defines::init();
-if (\class_exists('\\pxn\\phpPortal\\DefinesPortal')) {
-	\pxn\phpPortal\DefinesPortal::init();
+{
+	$clss = '\\pxn\\phpPortal\\DefinesPortal';
+	if (\class_exists($clss)) {
+		$clss::init();
+	}
+	unset($clss);
 }
 // paths
 \pxn\phpUtils\Paths::init();
@@ -52,8 +56,12 @@ if (\class_exists('\\pxn\\phpPortal\\DefinesPortal')) {
 
 # init 4 - configs
 \pxn\phpUtils\ConfigGeneral::init();
-if (\class_exists('\\pxn\\phpPortal\\ConfigPortal')) {
-	\pxn\phpPortal\ConfigPortal::init();
+{
+	$clss = '\\pxn\\phpPortal\\ConfigPortal';
+	if (\class_exists($clss)) {
+		$clss::init();
+	}
+	unset($clss);
 }
 // load shell args
 if (System::isShell()) {
@@ -69,7 +77,3 @@ require('init_5.php');
 
 # init 6 - globals
 require ('Globals.php');
-
-
-
-return TRUE;
