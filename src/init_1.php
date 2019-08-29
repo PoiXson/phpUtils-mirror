@@ -32,9 +32,9 @@ define('pxn\\phpUtils\\inited_1', TRUE);
 	unset($isShell);
 }
 
-// php version 5.6 required
-if (\PHP_VERSION_ID < 50600) {
-	echo '<p>PHP 5.6 or newer is required!</p>'; exit(1);
+// php version 7.2 required
+if (\PHP_VERSION_ID < 70200) {
+	echo '<p>PHP 7.2 or newer is required!</p>'; exit(1);
 }
 
 // atomic defines
