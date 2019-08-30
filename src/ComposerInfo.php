@@ -13,7 +13,7 @@ class ComposerInfo {
 
 	private static $instances = [];
 
-	protected $path;
+	protected $filePath;
 	protected $json;
 
 
@@ -62,31 +62,31 @@ class ComposerInfo {
 //		if (!isset($this->json->version)) {
 //			throw new \Exception("Version field not found in composer.json $filePath");
 //		}
-		$this->path = $filePath;
+		$this->filePath = $filePath;
 	}
 
 
 
-	public static function SanPath($path) {
+	public static function SanPath($filePath) {
 		// trim filename from end
-		if (Strings::EndsWith($path, 'composer.json', FALSE)) {
-			$path = \dirname($path);
+		if (Strings::EndsWith($filePath, 'composer.json', FALSE)) {
+			$filePath = \dirname($filePath);
 		}
 		// normalize path
-		$path = \realpath($path);
+		$filePath = \realpath($filePath);
 		// trim /src from end of path
-		if (Strings::EndsWith($path, '/src', FALSE)) {
-			$path = \realpath($path.'/../');
+		if (Strings::EndsWith($filePath, '/src', FALSE)) {
+			$filePath = \realpath($filePath.'/../');
 		}
 		// validate path
-		if (empty($path) || $path == '/') {
+		if (empty($filePath) || $filePath == '/') {
 			throw new \Exception('Invalid path');
 		}
 		// append filename
-		return $path.'/composer.json';
+		return $filePath.'/composer.json';
 	}
 	public function getFilePath() {
-		return $this->path;
+		return $this->filePath;
 	}
 
 
