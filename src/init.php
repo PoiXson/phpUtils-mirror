@@ -11,7 +11,7 @@
 # init 3 - defines
 # init 4 - configs
 # init 5 - debug
-# init 6 - globals
+# init 6 - global functions
 namespace pxn\phpUtils;
 
 
@@ -83,5 +83,5 @@ require('init_5.php');
 
 
 
-# init 6 - globals
+# init 6 - global functions
 require ('Globals.php');

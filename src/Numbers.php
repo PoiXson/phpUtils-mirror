@@ -4,8 +4,8 @@
  * @copyright 2004-2019
  * @license GPL-3
  * @author lorenzo at poixson.com
- * @link http://poixson.com/
- */
+ * @link https://poixson.com/
+ * /
 namespace pxn\phpUtils;
 
 
@@ -14,13 +14,13 @@ final class Numbers {
 
 
 
-	/**
+	/ **
 	 * This function is a more specific test of a value. The native
 	 * \is_numeric() function also returns true for hex values.
 	 * @param string $value
 	 * @return boolean Returns true if only contains number characters after
 	 *         being trimmed.
-	 */
+	 * /
 	public static function isNumber($value) {
 		if ($value === NULL)
 			return FALSE;
@@ -42,13 +42,13 @@ final class Numbers {
 
 
 
-	/**
+	/ **
 	 * Check the min and max of a value and return the result.
 	 * @param int $value
 	 * @param int $min
 	 * @param int $max
 	 * @return int value
-	 */
+	 * /
 	public static function MinMax($value, $min=FALSE, $max=FALSE) {
 		if ($min !== FALSE && $max !== FALSE && $min > $max)
 			throw new \Exception('Min must be less than Max!');
@@ -109,11 +109,11 @@ final class Numbers {
 
 
 
-	/**
+	/ **
 	 * Convert bytes to human readable format.
 	 * @param int $size - Integer in bytes to convert.
 	 * @return string - Formatted size.
-	 */
+	 * /
 	public static function FormatBytes($size) {
 		if (empty($size))
 			return NULL;
@@ -153,12 +153,12 @@ final class Numbers {
 
 
 
-	/**
+	/ **
 	 * Convert a number to roman numerals.
 	 * @param int $value -
 	 * @param int $max -
 	 * @return string - Roman numerals string representing input number.
-	 */
+	 * /
 	public static function FormatRoman($value, $max=FALSE) {
 		$value = (int) $value;
 		if ( ($max !== FALSE && $value > $max) || $value < 0)
@@ -195,11 +195,11 @@ final class Numbers {
 
 
 
-	/**
+	/ **
 	 * String to seconds.
 	 * @param string $text - String to convert.
 	 * @return int seconds
-	 */
+	 * /
 	public static function StringToSeconds($text) {
 		$str = '';
 		$value = 0;
@@ -244,11 +244,11 @@ final class Numbers {
 		}
 		return $value;
 	}
-	/**
+	/ **
 	 * Seconds to formatted string.
 	 * @param int $seconds - Integer to convert.
 	 * @return string
-	 */
+	 * /
 	public static function SecondsToString($seconds, $shorthand=TRUE, $maxParts=FALSE, $deviance=1.0) {
 		$maxParts = (
 			$maxParts == FALSE
@@ -353,3 +353,4 @@ final class Numbers {
 
 
 }
+*/

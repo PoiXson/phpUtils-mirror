@@ -4,8 +4,8 @@
  * @copyright 2004-2019
  * @license GPL-3
  * @author lorenzo at poixson.com
- * @link http://poixson.com/
- */
+ * @link https://poixson.com/
+ * /
 namespace pxn\phpUtils;
 
 
@@ -70,7 +70,7 @@ final class San {
 
 
 //TODO: is this needed?
-/*
+/ *
 	public static function SafePath($path) {
 		$path = Strings::Trim($path, ' ');
 		if (empty($path))
@@ -101,8 +101,9 @@ final class San {
 			throw new \Exception('Invalid dir argument, cannot contain ..');
 		return $dir.'/';
 	}
-*/
+* /
 
 
 
 }
+*/

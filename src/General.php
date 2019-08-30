@@ -4,8 +4,8 @@
  * @copyright 2004-2019
  * @license GPL-3
  * @author lorenzo at poixson.com
- * @link http://poixson.com/
- */
+ * @link https://poixson.com/
+ * /
 namespace pxn\phpUtils;
 
 
@@ -81,7 +81,7 @@ final class General {
 
 
 	// get,post,cookie (highest priority last)
-	/**
+	/ **
 	 * Gets a value from a specific list of sources.
 	 * @param string $name - Name or key requested.
 	 * @param string $type - Casts value to this type.
@@ -89,7 +89,7 @@ final class General {
 	 * @param array/string $source - String or array of strings. (from least to greatest importance)
 	 *     Possible values: get, post, cookie, session
 	 * @return object - Returns the requested value, cast to requested type.
-	 */
+	 * /
 	public static function getVar($name, $type='s', $source=['g','p']) {
 		$source = Arrays::MakeArray($source);
 		$value = NULL;
@@ -153,7 +153,7 @@ final class General {
 
 
 
-	/**
+	/ **
 	 * Parses REQUEST_URI from http request header and inserts into $_GET array.
 	 * @example:
 	 * URL: http://example.com/page/home/?action=display
@@ -162,7 +162,7 @@ final class General {
 	 *     'page' => 'home',
 	 *     'action' => 'display'
 	 * );
-	 */
+	 * /
 	public static function ParseModRewriteVars() {
 		// parse mod_rewrite uri
 		if (isset($_SERVER['REDIRECT_STATUS'])) {
@@ -195,9 +195,9 @@ final class General {
 
 
 
-	/**
+	/ **
 	 * @return double - Returns current timestamp in seconds.
-	 */
+	 * /
 	public static function getTimestamp($places=3) {
 		$time = \explode(' ', \microtime(), 2);
 		if ($places <= 0) {
@@ -206,10 +206,10 @@ final class General {
 		$timestamp = ((double) $time[0]) + ((double) $time[1]);
 		return Numbers::Round($timestamp, $places);
 	}
-	/**
+	/ **
 	 * Sleep execution for x milliseconds.
 	 * @param int $ms - Milliseconds to sleep.
-	 */
+	 * /
 	public static function Sleep($ms) {
 		$ms = (int) $ms;
 		if ($ms > 0.0) {
@@ -225,11 +225,11 @@ final class General {
 
 
 
-	/**
+	/ **
 	 * Sends http headers to disable page caching.
 	 * @return boolean - TRUE if successful; FALSE if headers already sent.
 	 * @codeCoverageIgnore
-	 */
+	 * /
 	public static function NoPageCache() {
 		if (System::isShell()) {
 			return;
@@ -250,12 +250,12 @@ final class General {
 
 
 
-	/**
+	/ **
 	 * Forward to provided url.
 	 * @param string $url - The url/address in which to forward to.
 	 * @param number $delay - Optional delay in seconds before forwarding.
 	 * @codeCoverageIgnore
-	 */
+	 * /
 	public static function ForwardTo($url, $delay=0) {
 		if (System::isShell()) {
 			echo "--FORWARD: $url\n";
@@ -273,11 +273,11 @@ final class General {
 
 
 
-	/**
+	/ **
 	 * Scroll to the bottom of the page.
 	 * @param string $id - Optional id of element in which to scroll.
 	 * @codeCoverageIgnore
-	 */
+	 * /
 	public static function ScrollToBottom($id=NULL) {
 		if (System::isShell()) {
 			echo "--SCROLL--\n";
@@ -295,22 +295,22 @@ final class General {
 
 
 
-	/**
+	/ **
 	 * Checks for GD support.
 	 * @return boolean - TRUE if GD functions are available.
-	 */
+	 * /
 	public static function GDSupported() {
 		return \function_exists('gd_info');
 	}
 
 
 
-	/**
+	/ **
 	 * Validates an object by class name.
 	 * @param string $className - Name of class to look for.
 	 * @param object $object - Object to validate.
 	 * @return boolean - TRUE if object matches class name.
-	 */
+	 * /
 	public static function InstanceOfClass($className, $object) {
 		if (empty($className)) return FALSE;
 		if ($object == NULL)   return FALSE;
@@ -322,11 +322,11 @@ final class General {
 //			get_parent_class($clss) == $className ||
 			\is_subclass_of($object, $className);
 	}
-	/**
+	/ **
 	 * Validates an object by class name, throwing an exception if invalid.
 	 * @param string $className - Name of class to check for.
 	 * @param object $object - Object to validate.
-	 */
+	 * /
 	public static function ValidateClass($className, $object) {
 		if (empty($className))
 			throw new \InvalidArgumentException('classname not defined');
@@ -339,3 +339,4 @@ final class General {
 
 
 }
+*/

@@ -1,45 +1,46 @@
 <?php
 /*
  * PoiXson phpUtils - PHP Utilities Library
- * @copyright 2004-2016
+ * @copyright 2004-2019
  * @license GPL-3
  * @author lorenzo at poixson.com
- * @link http://poixson.com/
+ * @link https://poixson.com/
  */
 namespace pxn\phpUtils\app;
 
-use pxn\phpUtils\ConfigGeneral;
-use pxn\phpUtils\Paths;
-use pxn\phpUtils\Strings;
-use pxn\phpUtils\Defines;
+//use pxn\phpUtils\ConfigGeneral;
+//use pxn\phpUtils\Paths;
+//use pxn\phpUtils\Strings;
+//use pxn\phpUtils\Defines;
 
-use pxn\phpUtils\xLogger\xLog;
-use pxn\phpUtils\xLogger\xLevel;
-use pxn\phpUtils\xLogger\formatters\FullFormat;
-use pxn\phpUtils\xLogger\handlers\ShellHandler;
+//use pxn\phpUtils\xLogger\xLog;
+//use pxn\phpUtils\xLogger\xLevel;
+//use pxn\phpUtils\xLogger\formatters\FullFormat;
+//use pxn\phpUtils\xLogger\handlers\ShellHandler;
 
 
 abstract class App {
 
-	const KEY_RENDER_MODE = 'Render Mode';
-	const DEFAULT_RENDER_MODE = 'main';
+//	const KEY_RENDER_MODE = 'Render Mode';
+//	const DEFAULT_RENDER_MODE = 'main';
 
-	private static $apps        = [];
-	private static $instance    = NULL;
-	private static $inited      = FALSE;
-	private static $hasRendered = NULL;
+//	private static $apps        = [];
+//	private static $instance    = NULL;
+//	private static $inited      = FALSE;
+//	private static $hasRendered = NULL;
 
-	private   $initedApp = FALSE;
-	protected $active    = NULL;
-	protected $name      = NULL;
-	protected $classpath = NULL;
+//	private   $initedApp = FALSE;
+//	protected $active    = NULL;
+//	protected $name      = NULL;
+//	protected $classpath = NULL;
 
-	protected $render  = NULL;
-	protected $renders = [];
+//	protected $render  = NULL;
+//	protected $renders = [];
 
 
 
 	public static function get() {
+/*
 		// pick an app by weight
 		if (self::$instance == NULL) {
 			$selected = NULL;
@@ -60,6 +61,7 @@ abstract class App {
 			self::$hasRendered = FALSE;
 		}
 		return self::$instance;
+*/
 	}
 	public static function peak() {
 		return self::$instance;
@@ -71,6 +73,7 @@ abstract class App {
 
 
 
+/*
 	// init/register this app
 	public static function register() {
 		// init the framework
@@ -360,6 +363,7 @@ abstract class App {
 	public function getClasspath() {
 		return $this->classpath;
 	}
+*/
 
 
 

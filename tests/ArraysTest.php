@@ -4,23 +4,23 @@
  * @copyright 2004-2019
  * @license GPL-3
  * @author lorenzo at poixson.com
- * @link http://poixson.com/
- */
+ * @link https://poixson.com/
+ * /
 namespace pxn\phpUtils\tests;
 
 use pxn\phpUtils\Arrays;
 
 
-/**
+/ **
  * @coversDefaultClass \pxn\phpUtils\Arrays
- */
+ * /
 class ArraysTest extends \PHPUnit\Framework\TestCase {
 
 
 
-	/**
+	/ **
 	 * @covers ::Flatten
-	 */
+	 * /
 	public function testFlatten() {
 		// strings
 		$this->assertEquals(
@@ -60,9 +60,9 @@ class ArraysTest extends \PHPUnit\Framework\TestCase {
 
 
 
-	/**
+	/ **
 	 * @covers ::TrimFlat
-	 */
+	 * /
 	public function testTrimFlat() {
 		// strings
 		$this->assertEquals(
@@ -102,9 +102,9 @@ class ArraysTest extends \PHPUnit\Framework\TestCase {
 
 
 
-	/**
+	/ **
 	 * @covers ::Trim
-	 */
+	 * /
 	public function testTrim() {
 		// strings
 		$array = [ 'a', 'b', 'c', '', NULL ];
@@ -145,9 +145,9 @@ class ArraysTest extends \PHPUnit\Framework\TestCase {
 
 
 
-	/**
+	/ **
 	 * @covers ::MakeArray
-	 */
+	 * /
 	public function testMakeArray() {
 		// clean
 		$this->assertEquals(
@@ -173,9 +173,9 @@ class ArraysTest extends \PHPUnit\Framework\TestCase {
 
 
 
-	/**
+	/ **
 	 * @covers ::Explode
-	 */
+	 * /
 	public function testExplode() {
 		// simple string
 		$this->assertEquals(
@@ -200,3 +200,4 @@ class ArraysTest extends \PHPUnit\Framework\TestCase {
 
 
 }
+*/

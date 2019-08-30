@@ -7,7 +7,6 @@
  * @link https://poixson.com/
  */
 
-
 # init 5 - debug
 namespace pxn\phpUtils;
 
