@@ -32,11 +32,6 @@ define('pxn\\phpUtils\\inited_1', TRUE);
 	unset($isShell);
 }
 
-// php version 7.2 required
-if (\PHP_VERSION_ID < 70200) {
-	echo '<p>PHP 7.2 or newer is required!</p>'; exit(1);
-}
-
 // atomic defines
 if (\defined('pxn\\phpUtils\\INDEX_DEFINE')) {
 	echo '<h2>Unknown state! init.php already loaded?</h2>';

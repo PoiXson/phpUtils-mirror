@@ -54,6 +54,14 @@ require('init_2.php');
 
 
 
+// check php version
+if (\PHP_VERSION_ID < \pxn\phpUtils\Defines::PHP_MIN_VERSION) {
+	echo '<p>PHP '.\pxn\phpUtils\Defines::PHP_MIN_VERSION_STR
+		.' or newer is required!</p>'; exit(1);
+}
+
+
+
 # init 4 - configs
 \pxn\phpUtils\ConfigGeneral::init();
 {
