@@ -9,7 +9,7 @@
 namespace pxn\phpUtils;
 
 
-class ComposerTools {
+class ComposerInfo {
 
 	private static $instances = [];
 

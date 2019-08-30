@@ -1,21 +1,21 @@
 <?php
 /*
  * PoiXson phpUtils - Website Utilities Library
- * @copyright 2004-2016
+ * @copyright 2004-2019
  * @license GPL-3
  * @author lorenzo at poixson.com
- * @link http://poixson.com/
+ * @link https://poixson.com/
  * /
 namespace pxn\phpUtils\tests;
 
-use pxn\phpUtils\ComposerTools;
+use pxn\phpUtils\ComposerInfo;
 use pxn\phpUtils\Strings;
 
 
 / **
- * @coversDefaultClass \pxn\phpUtils\ComposerTools
+ * @coversDefaultClass \pxn\phpUtils\ComposerInfo
  * /
-class ComposerToolsTest extends \PHPUnit\Framework\TestCase {
+class ComposerInfoTest extends \PHPUnit\Framework\TestCase {
 
 
 
@@ -24,8 +24,8 @@ class ComposerToolsTest extends \PHPUnit\Framework\TestCase {
 	 * @covers ::__construct
 	 * /
 	public function testInstances() {
-		$a = ComposerTools::get();
-		$b = ComposerTools::get();
+		$a = ComposerInfo::get();
+		$b = ComposerInfo::get();
 		$this->assertNotNull($a);
 		$this->assertNotNull($b);
 		$this->assertTrue($a === $b);
@@ -40,19 +40,19 @@ class ComposerToolsTest extends \PHPUnit\Framework\TestCase {
 	public function testPaths() {
 		$expect = \realpath(__DIR__.'/../composer.json');
 		// default path
-		$composer = ComposerTools::get();
+		$composer = ComposerInfo::get();
 		$this->assertNotNull($composer);
 		$this->assertEquals($expect, $composer->getFilePath());
 		unset($composer);
 		// exact path
 		$path = \realpath(__DIR__.'/../');
-		$composer = ComposerTools::get($path.'/composer.json');
+		$composer = ComposerInfo::get($path.'/composer.json');
 		$this->assertNotNull($composer);
 		$this->assertEquals($expect, $composer->getFilePath());
 		unset($composer, $path);
 		// invalid path
 		try {
-			$composer = ComposerTools::get('notexisting');
+			$composer = ComposerInfo::get('notexisting');
 			$this->assertFalse(TRUE, 'Expected exception not thrown!');
 			return;
 		} catch (\Exception $ignore) {}
@@ -66,7 +66,7 @@ class ComposerToolsTest extends \PHPUnit\Framework\TestCase {
 	 * @covers ::getHomepage
 	 * /
 	public function testValues() {
-		$composer = ComposerTools::get();
+		$composer = ComposerInfo::get();
 		$this->assertNotNull($composer);
 		// name
 		$name = $composer->getName();
