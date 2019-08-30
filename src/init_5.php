@@ -104,6 +104,14 @@ if ($pxnUtils_DEBUG === NULL) {
 
 
 
+if (debug()) {
+	// filp whoops
+	if (\class_exists('Whoops\\Run')) {
+		$whoops = new \Whoops\Run();
+		$whoops->prependHandler(new \Whoops\Handler\PrettyPageHandler());
+		$whoops->register();
+	}
+}
 /*
 // Kint backtracer
 if (file_exists(paths::getLocal('portal').DIR_SEP.'kint.php')) {
