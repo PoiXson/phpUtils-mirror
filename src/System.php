@@ -5,7 +5,7 @@
  * @license GPL-3
  * @author lorenzo at poixson.com
  * @link https://poixson.com/
- * /
+ */
 namespace pxn\phpUtils;
 
 
@@ -19,9 +19,10 @@ final class System {
 	public static function RequireLinux() {
 		$os = \PHP_OS;
 		if ($os != 'Linux') {
-			throw new \Exception(
+			fail(
 				'Sorry, only Linux is currently supported. Contact '.
-				'the developer if you\'d like to help add support for another OS.'
+				'the developer if you\'d like to help add support for '.\PHP_OS,
+				Defines::EXIT_CODE_GENERAL
 			);
 		}
 	}
@@ -36,8 +37,9 @@ final class System {
 
 	public static function isShell() {
 		if (self::$isShell == NULL) {
-			self::$isShell = isset($_SERVER['SHELL'])
-					&& ! empty($_SERVER['SHELL']);
+			self::$isShell =
+				isset($_SERVER['SHELL']) &&
+				! empty($_SERVER['SHELL']);
 		}
 		return self::$isShell;
 	}
@@ -45,14 +47,14 @@ final class System {
 		$isShell = self::isShell();
 		if (!$isShell) {
 			fail('This script can only run in shell!',
-				Defines::EXIT_CODE_NOPERM);
+				Defines::EXIT_CODE_GENERAL);
 		}
 	}
 	public static function RequireWeb() {
 		$isShell = self::isShell();
 		if ($isShell) {
 			fail('Cannot run this script in shell!',
-				Defines::EXIT_CODE_NOPERM);
+				Defines::EXIT_CODE_GENERAL);
 		}
 	}
 
@@ -92,6 +94,7 @@ final class System {
 
 
 
+/*
 	public static function exec($command) {
 		$command = \trim($command);
 		if (empty($command))
@@ -121,7 +124,7 @@ final class System {
 
 
 
-	public static function mkDir($dir, $mode=644) {
+	public static function mkdir($dir, $mode=644) {
 		if (empty($dir))     throw new \Exception('dir argument is required');
 		if (!\is_int($mode)) throw new \Exception('mode argument must be an integer!');
 		$oct = \octdec($mode);
@@ -165,7 +168,7 @@ final class System {
 		// ensure created directories exist
 		if (!\is_dir($dir)) throw new \Exception("Failed to create directory: $dir");
 	}
-	public static function rmDir($dir) {
+	public static function rmdir($dir) {
 		if (empty($dir)) throw new \Exception('dir argument is required');
 		$log = self::log();
 		// ensure exists
@@ -203,8 +206,8 @@ final class System {
 	public static function log() {
 		return Logger::get('SHELL');
 	}
+*/
 
 
 
 }
-*/
