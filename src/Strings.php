@@ -301,8 +301,8 @@ final class Strings {
 			}
 			// find place to wrap line
 			for ($i=$width; $i>0; $i--) {
-				$chr = \mb_substr($text, $i, 1);
-				if (\in_array($chr, $lineEndings)) {
+				$char = \mb_substr($text, $i, 1);
+				if (\in_array($char, $lineEndings)) {
 					$lines[] = \mb_substr($text, 0, $i);
 					$text = \mb_substr($text, $i + 1);
 					continue 2;
@@ -323,40 +323,40 @@ final class Strings {
 
 
 
-	public static function PadLeft($str, $size, $chr=' ') {
-		$padding = self::getPadding($str, $size, $chr);
+	public static function PadLeft($str, $size, $char=' ') {
+		$padding = self::getPadding($str, $size, $char);
 		return $str.$padding;
 	}
-	public static function PadRight($str, $size, $chr=' ') {
-		$padding = self::getPadding($str, $size, $chr);
+	public static function PadRight($str, $size, $char=' ') {
+		$padding = self::getPadding($str, $size, $char);
 		return $padding.$str;
 	}
-	private static function getPadding($str, $size, $chr=' ') {
-		if (empty($chr)) {
-			$chr = ' ';
+	private static function getPadding($str, $size, $char=' ') {
+		if (empty($char)) {
+			$char = ' ';
 		}
 		$len = $size - \mb_strlen($str);
 		if ($len < 0) {
 			return '';
 		}
-		$chrLen = \mb_strlen($chr);
-		if ($chrLen > 1) {
+		$charLen = \mb_strlen($char);
+		if ($charLen > 1) {
 			$padding = \str_repeat(
-				$chr,
-				\floor($len / $chrLen)
+				$char,
+				\floor($len / $charLen)
 			);
 			$padding .= \mb_substr(
-				$chr,
+				$char,
 				0,
-				$len % $chrLen
+				$len % $charLen
 			);
 			return $padding;
 		}
-		return \str_repeat($chr, $len);
+		return \str_repeat($char, $len);
 	}
-	public static function PadCenter($str, $size, $chr=' ') {
-		if (empty($chr)) {
-			$chr = ' ';
+	public static function PadCenter($str, $size, $char=' ') {
+		if (empty($char)) {
+			$char = ' ';
 		}
 		$len = $size - \mb_strlen($str);
 		if ($len < 0) {
@@ -364,7 +364,7 @@ final class Strings {
 		}
 		$padLeft  = \floor( ((double) $len) / 2.0);
 		$padRight = \ceil(  ((double) $len) / 2.0);
-		return \str_repeat($chr, $padLeft) . $str . \str_repeat($chr, $padRight);
+		return \str_repeat($char, $padLeft) . $str . \str_repeat($char, $padRight);
 	}
 
 
