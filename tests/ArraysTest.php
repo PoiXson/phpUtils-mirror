@@ -5,22 +5,22 @@
  * @license GPL-3
  * @author lorenzo at poixson.com
  * @link https://poixson.com/
- * /
+ */
 namespace pxn\phpUtils\tests;
 
 use pxn\phpUtils\Arrays;
 
 
-/ **
+/**
  * @coversDefaultClass \pxn\phpUtils\Arrays
- * /
+ */
 class ArraysTest extends \PHPUnit\Framework\TestCase {
 
 
 
-	/ **
+	/**
 	 * @covers ::Flatten
-	 * /
+	 */
 	public function testFlatten() {
 		// strings
 		$this->assertEquals(
@@ -60,9 +60,9 @@ class ArraysTest extends \PHPUnit\Framework\TestCase {
 
 
 
-	/ **
+	/**
 	 * @covers ::TrimFlat
-	 * /
+	 */
 	public function testTrimFlat() {
 		// strings
 		$this->assertEquals(
@@ -102,6 +102,7 @@ class ArraysTest extends \PHPUnit\Framework\TestCase {
 
 
 
+/*
 	/ **
 	 * @covers ::Trim
 	 * /
@@ -142,12 +143,13 @@ class ArraysTest extends \PHPUnit\Framework\TestCase {
 			$array
 		);
 	}
+*/
 
 
 
-	/ **
+	/**
 	 * @covers ::MakeArray
-	 * /
+	 */
 	public function testMakeArray() {
 		// clean
 		$this->assertEquals(
@@ -161,7 +163,7 @@ class ArraysTest extends \PHPUnit\Framework\TestCase {
 		);
 		// empty string
 		$this->assertEquals(
-			[],
+			[''],
 			Arrays::MakeArray('')
 		);
 		// string
@@ -173,9 +175,9 @@ class ArraysTest extends \PHPUnit\Framework\TestCase {
 
 
 
-	/ **
+	/**
 	 * @covers ::Explode
-	 * /
+	 */
 	public function testExplode() {
 		// simple string
 		$this->assertEquals(
@@ -184,7 +186,7 @@ class ArraysTest extends \PHPUnit\Framework\TestCase {
 		);
 		// string
 		$this->assertEquals(
-			[ 'a', 'b', 5=>'c' ],
+			[ 'a', 'b', 'c' ],
 			Arrays::Explode('a-b-++=c', '-', '=', '+')
 		);
 		// array
@@ -192,12 +194,8 @@ class ArraysTest extends \PHPUnit\Framework\TestCase {
 			[ 'abc' ],
 			Arrays::Explode([ 'abc' ])
 		);
-		// missing required delim
-		$this->expectException(\RuntimeException::class);
-		Arrays::Explode('abc', '');
 	}
 
 
 
 }
-*/

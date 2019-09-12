@@ -5,7 +5,7 @@
  * @license GPL-3
  * @author lorenzo at poixson.com
  * @link https://poixson.com/
- * /
+ */
 namespace pxn\phpUtils;
 
 
@@ -81,7 +81,7 @@ final class General {
 
 
 	// get,post,cookie (highest priority last)
-	/ **
+	/**
 	 * Gets a value from a specific list of sources.
 	 * @param string $name - Name or key requested.
 	 * @param string $type - Casts value to this type.
@@ -89,7 +89,7 @@ final class General {
 	 * @param array/string $source - String or array of strings. (from least to greatest importance)
 	 *     Possible values: get, post, cookie, session
 	 * @return object - Returns the requested value, cast to requested type.
-	 * /
+	 */
 	public static function getVar($name, $type='s', $source=['g','p']) {
 		$source = Arrays::MakeArray($source);
 		$value = NULL;
@@ -153,6 +153,8 @@ final class General {
 
 
 
+//TODO
+/*
 	/ **
 	 * Parses REQUEST_URI from http request header and inserts into $_GET array.
 	 * @example:
@@ -186,6 +188,7 @@ final class General {
 			}
 		}
 	}
+*/
 
 
 
@@ -195,23 +198,22 @@ final class General {
 
 
 
-	/ **
+	/**
 	 * @return double - Returns current timestamp in seconds.
-	 * /
+	 */
 	public static function getTimestamp($places=3) {
+		$places = Numbers::MinMax($places, 0, 4);
 		$time = \explode(' ', \microtime(), 2);
-		if ($places <= 0) {
+		if ($places <= 0)
 			return (int) $time[1];
-		}
-		$timestamp = ((double) $time[0]) + ((double) $time[1]);
+		$timestamp = ((double) $time[1]) + ((double) $time[0]);
 		return Numbers::Round($timestamp, $places);
 	}
-	/ **
+	/**
 	 * Sleep execution for x milliseconds.
 	 * @param int $ms - Milliseconds to sleep.
-	 * /
+	 */
 	public static function Sleep($ms) {
-		$ms = (int) $ms;
 		if ($ms > 0.0) {
 			\usleep($ms * 1000.0);
 		}
@@ -225,6 +227,7 @@ final class General {
 
 
 
+/*
 	/ **
 	 * Sends http headers to disable page caching.
 	 * @return boolean - TRUE if successful; FALSE if headers already sent.
@@ -292,19 +295,22 @@ final class General {
 				'//--></script>'.Defines::EOL.Defines::EOL;
 		}
 	}
+*/
 
 
 
-	/ **
+	/**
 	 * Checks for GD support.
 	 * @return boolean - TRUE if GD functions are available.
-	 * /
+	 */
 	public static function GDSupported() {
 		return \function_exists('gd_info');
 	}
 
 
 
+//TODO: is this useful?
+/*
 	/ **
 	 * Validates an object by class name.
 	 * @param string $className - Name of class to look for.
@@ -335,8 +341,8 @@ final class General {
 		if (!self::InstanceOfClass($className, $object))
 			throw new \InvalidArgumentException('Class object isn\'t of type '.$className);
 	}
+*/
 
 
 
 }
-*/

@@ -5,7 +5,7 @@
  * @license GPL-3
  * @author lorenzo at poixson.com
  * @link https://poixson.com/
- * /
+ */
 namespace pxn\phpUtils;
 
 
@@ -15,6 +15,9 @@ final class Strings {
 	const DEFAULT_TRIM_CHARS = [ ' ', "\t", "\r", "\n" ];
 
 
+
+//TODO: is this useful?
+/*
 	public static function mb_ucfirst($str, $full=TRUE) {
 		return \mb_strtoupper(\mb_substr($str, 0, 1)).
 			($full
@@ -22,13 +25,16 @@ final class Strings {
 				: \mb_substr($str, 1)
 			);
 	}
+*/
 
 
 
+/*
 //TODO: untested
 //	public static function isBase64($str) {
 //		return ( FALSE != preg_match('%^[a-zA-Z0-9/+]*={0,2}$%', $this->getValue()) );
 //	}
+*/
 
 
 
@@ -39,7 +45,6 @@ final class Strings {
 
 
 	public static function Trim($text, ...$remove) {
-		Arrays::TrimFlat($remove);
 		if (\count($remove) == 0) {
 			$remove = self::DEFAULT_TRIM_CHARS;
 		}
@@ -52,59 +57,36 @@ final class Strings {
 		}
 		// trim single chars
 		if ($allshort) {
-			$last = $text;
 			while (\in_array(\mb_substr($text, 0, 1), $remove)) {
 				$text = \mb_substr($text, 1);
-				if ($text === $last) {
-					break;
-				}
-				$last = $text;
 			}
 			while (\in_array(\mb_substr($text,-1, 1), $remove)) {
 				$text = \mb_substr($text, 0, -1);
-				if ($text === $last) {
-					break;
-				}
-				$last = $text;
 			}
-			unset($last);
 		// trim variable length strings
 		} else {
 			do {
 				$more = FALSE;
 				foreach ($remove as $str) {
 					$len = \mb_strlen($str);
-					if ($len == 0) {
+					if ($len == 0)
 						continue;
-					}
-					$last = $text;
 					while (\mb_substr($text, 0, $len) == $str) {
 						$text = \mb_substr($text, $len);
-						if ($text === $last) {
-							break;
-						}
-						$last = $text;
 						$more = TRUE;
 					}
 					while (\mb_substr($text, 0 - $len, $len) == $str) {
 						$text = \mb_substr($text, 0, 0 - $len);
-						if ($text === $last) {
-							break;
-						}
-						$last = $text;
 						$more = TRUE;
 					}
-					if ($more) {
+					if ($more)
 						break;
-					}
 				}
 			} while ($more);
-			unset($last);
 		}
 		return $text;
 	}
 	public static function TrimFront($text, ...$remove) {
-		Arrays::TrimFlat($remove);
 		if (\count($remove) == 0) {
 			$remove = self::DEFAULT_TRIM_CHARS;
 		}
@@ -117,44 +99,29 @@ final class Strings {
 		}
 		// trim single chars
 		if ($allshort) {
-			$last = $text;
 			while (\in_array(\mb_substr($text, 0, 1), $remove)) {
 				$text = \mb_substr($text, 1);
-				if ($text === $last) {
-					break;
-				}
-				$last = $text;
 			}
-			unset($last);
 		// trim variable length strings
 		} else {
 			do {
 				$more = FALSE;
 				foreach ($remove as $str) {
 					$len = \mb_strlen($str);
-					if ($len == 0) {
+					if ($len == 0)
 						continue;
-					}
-					$last = $text;
 					while (\mb_substr($text, 0, $len) == $str) {
 						$text = \mb_substr($text, $len);
-						if ($text === $last) {
-							break;
-						}
-						$last = $text;
 						$more = TRUE;
 					}
-					if ($more) {
+					if ($more)
 						break;
-					}
 				}
 			} while ($more);
-			unset($last);
 		}
 		return $text;
 	}
 	public static function TrimEnd($text, ...$remove) {
-		Arrays::TrimFlat($remove);
 		if (\count($remove) == 0) {
 			$remove = self::DEFAULT_TRIM_CHARS;
 		}
@@ -167,50 +134,36 @@ final class Strings {
 		}
 		// trim single chars
 		if ($allshort) {
-			$last = $text;
 			while (\in_array(\mb_substr($text, -1, 1), $remove)) {
 				$text = \mb_substr($text, 0, -1);
-				if ($text === $last) {
-					break;
-				}
-				$last = $text;
 			}
-			unset($last);
 		// trim variable length strings
 		} else {
 			do {
 				$more = FALSE;
 				foreach ($remove as $str) {
 					$len = \mb_strlen($str);
-					if ($len == 0) {
+					if ($len == 0)
 						continue;
-					}
-					$last = $text;
 					while (\mb_substr($text, 0 - $len, $len) == $str) {
 						$text = \mb_substr($text, 0, 0 - $len);
-						if ($text === $last) {
-							break;
-						}
-						$last = $text;
 						$more = TRUE;
 					}
-					if ($more) {
+					if ($more)
 						break;
-					}
 				}
 			} while ($more);
-			unset($last);
 		}
 		return $text;
 	}
 
 
 
-	/ **
+	/**
 	 * Removes paired quotes from a string.
 	 * @param string $text - String in which to remove quotes.
 	 * @return string - String with ' and " quotes removed.
-	 * /
+	 */
 	public static function TrimQuotes($text) {
 		while (\mb_strlen($text) > 1) {
 			$f = \mb_substr($text,  0, 1);
@@ -234,8 +187,9 @@ final class Strings {
 
 
 
+//TODO: is this useful?
+/*
 	public static function MergeDuplicates($text, ...$search) {
-		Arrays::TrimFlat($search);
 		if (\count($search) == 0) {
 			$search = [ ' ' ];
 		}
@@ -259,9 +213,12 @@ final class Strings {
 		unset ($last);
 		return $text;
 	}
+*/
 
 
 
+//TODO
+/*
 	public static function WrapLines($text, $width, ...$lineEndings) {
 		// array of lines
 		if (\is_array($text)) {
@@ -288,7 +245,8 @@ final class Strings {
 		if (\mb_strlen($text) <= $width) {
 			return [ $text ];
 		}
-		Arrays::TrimFlat($lineEndings);
+//TODO: is this needed?
+//		Arrays::TrimFlat($lineEndings);
 		if (\count($lineEndings) == 0) {
 			$lineEndings = self::DEFAULT_TRIM_CHARS;
 		}
@@ -314,6 +272,7 @@ final class Strings {
 		}
 		return $lines;
 	}
+*/
 
 
 
@@ -325,20 +284,19 @@ final class Strings {
 
 	public static function PadLeft($str, $size, $char=' ') {
 		$padding = self::getPadding($str, $size, $char);
-		return $str.$padding;
+		return $padding.$str;
 	}
 	public static function PadRight($str, $size, $char=' ') {
 		$padding = self::getPadding($str, $size, $char);
-		return $padding.$str;
+		return $str.$padding;
 	}
 	private static function getPadding($str, $size, $char=' ') {
 		if (empty($char)) {
 			$char = ' ';
 		}
 		$len = $size - \mb_strlen($str);
-		if ($len < 0) {
+		if ($len < 0)
 			return '';
-		}
 		$charLen = \mb_strlen($char);
 		if ($charLen > 1) {
 			$padding = \str_repeat(
@@ -359,9 +317,8 @@ final class Strings {
 			$char = ' ';
 		}
 		$len = $size - \mb_strlen($str);
-		if ($len < 0) {
+		if ($len < 0)
 			return $str;
-		}
 		$padLeft  = \floor( ((double) $len) / 2.0);
 		$padRight = \ceil(  ((double) $len) / 2.0);
 		return \str_repeat($char, $padLeft) . $str . \str_repeat($char, $padRight);
@@ -369,6 +326,8 @@ final class Strings {
 
 
 
+//TODO: is this useful?
+/*
 	// array [row] [column]
 	public static function PadColumns($data, ...$widths) {
 		// find column widths
@@ -410,6 +369,7 @@ final class Strings {
 		}
 		return $output;
 	}
+*/
 
 
 
@@ -502,12 +462,13 @@ final class Strings {
 
 
 
+//TODO: is this useful?
+/*
 	public static function peakPart(&$data, $patterns=' ') {
 		$result = self::findPart($data, $patterns);
 		// pattern not found
-		if ($result == NULL) {
+		if ($result == NULL)
 			return $data;
-		}
 		return \mb_substr($data, 0, $result['POS']);
 	}
 	public static function grabPart(&$data, $patterns=' ') {
@@ -535,9 +496,8 @@ final class Strings {
 		return $part;
 	}
 	public static function findPart(&$data, ...$patterns) {
-		if (empty($data)) {
+		if (empty($data))
 			return NULL;
-		}
 		$data = (string) $data;
 		// find next delim
 		$pos   = \mb_strlen($data);
@@ -561,14 +521,14 @@ final class Strings {
 				break;
 			}
 		}
-		if ($delim == NULL) {
+		if ($delim == NULL)
 			return NULL;
-		}
 		return [
 			'POS' => $pos,
 			'PAT' => $delim
 		];
 	}
+*/
 
 
 
@@ -579,9 +539,8 @@ final class Strings {
 
 
 	public static function BuildPath(...$parts) {
-		if (empty($parts)) {
+		if (empty($parts))
 			return '';
-		}
 		$prepend = self::StartsWith(\reset($parts), '/');
 		$append  = self::EndsWith  (\end($parts),   '/');
 		$cleaned = [];
@@ -639,4 +598,3 @@ final class Strings {
 
 
 }
-*/

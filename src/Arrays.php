@@ -5,12 +5,14 @@
  * @license GPL-3
  * @author lorenzo at poixson.com
  * @link https://poixson.com/
- * /
+ */
 namespace pxn\phpUtils;
 
 
 final class Arrays {
 	private final function __construct() {}
+
+	const DEFAULT_EXPLODE_DELIMS = [ ' ', ',', ';', "\t", "\r", "\n" ];
 
 
 
@@ -42,6 +44,8 @@ final class Arrays {
 
 
 
+//TODO: is this useful?
+/*
 	public static function Trim(&$data) {
 		if ($data === NULL)
 			return;
@@ -55,6 +59,7 @@ final class Arrays {
 			}
 		}
 	}
+*/
 
 
 
@@ -64,41 +69,38 @@ final class Arrays {
 			return NULL;
 		if (\is_array($data))
 			return $data;
-		$str = (string) $data;
-		if (empty($str))
-			return [];
-		return [ $str ];
+		return [ $data ];
 	}
 
 
 
 	// explode() with multiple delimiters
 	public static function Explode($data, ...$delims) {
-		if (\is_array($data))
-			return $data;
+		$data = self::MakeArray($data);
 		// default delims
 		if (\count($delims) == 0)
-			$delims = [ ' ', ',', ';', "\t", "\r", "\n" ];
-		$data = (string) $data;
-		$first_delim = NULL;
-		foreach ($delims as $v) {
-			if (empty($v)) continue;
-			$first_delim = $v;
-			break;
+			$delims = self::DEFAULT_EXPLODE_DELIMS;
+		foreach ($delims as $delim) {
+			if (empty($delim)) continue;
+			$result = [];
+			foreach ($data as $part) {
+				if (empty($part)) continue;
+				$pos = \mb_strpos($part, $delim);
+				if ($pos === FALSE) {
+					$result[] = $part;
+				} else {
+					$array = \explode($delim, $part);
+					foreach ($array as $str) {
+						if (!empty($str))
+							$result[] = $str;
+					}
+				}
+			}
+			$data = $result;
 		}
-		if (empty($first_delim))
-			throw new \RuntimeException('Delim argument is required!');
-		foreach ($delims as $v) {
-			if (empty($v)) continue;
-			if ($v == $first_delim) continue;
-			$data = \str_replace($v, $first_delim, $data);
-		}
-		$result = \explode($first_delim, $data);
-		self::Trim($result);
-		return $result;
+		return $data;
 	}
 
 
 
 }
-*/
