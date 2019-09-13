@@ -37,7 +37,8 @@
 		]
 	},
 	"require": {
-		"ext-mbstring": "*"
+		"ext-mbstring": "*",
+		"php": "^7.3"
 	},
 	"suggest": {
 		"51systems/doctrine-encrypt": "v6.*"
