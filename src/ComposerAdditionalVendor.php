@@ -9,16 +9,17 @@
 namespace pxn\phpUtils;
 
 
-class ComposerVendorLoader {
+class ComposerAdditionalVendor {
 
 	protected static $autoload = NULL;
 
 
 
 	// register the parent autoloader
-	public static function Register($autoload) {
+	public static function Register(\Composer\Autoload\ClassLoader $autoload) {
 		self::$autoload = $autoload;
 	}
+
 
 
 	// example: AddVendor('pxn\\LibName', '../../LibName/')
