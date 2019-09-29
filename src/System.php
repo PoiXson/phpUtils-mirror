@@ -60,6 +60,14 @@ final class System {
 
 
 
+	public static function getUser() {
+		if (isset($_SERVER['USER']))
+			return $_SERVER['USER'];
+		$who = \exec('whoami');
+		if (empty($who))
+			return NULL;
+		return $who;
+	}
 	public static function denySuperUser() {
 		$who = self::isSuperUser();
 		if (!empty($who)) {
@@ -69,15 +77,7 @@ final class System {
 	}
 	public static function isSuperUser($who=NULL) {
 		if (empty($who)) {
-			$who = \get_current_user();
-			if (self::isSuperUser($who) != FALSE) {
-				return $who;
-			}
-			$who = \exec('whoami');
-			if (self::isSuperUser($who) != FALSE) {
-				return $who;
-			}
-			return FALSE;
+			$who = self::getUser();
 		}
 		$who = \strtolower($who);
 		if ($who == 'root') {
