@@ -43,6 +43,9 @@ final class System {
 		}
 		return self::$isShell;
 	}
+	public static function isWeb() {
+		return ! self::isShell();
+	}
 	public static function RequireShell() {
 		$isShell = self::isShell();
 		if (!$isShell) {
@@ -56,6 +59,12 @@ final class System {
 			fail('Cannot run this script in shell!',
 				Defines::EXIT_CODE_GENERAL);
 		}
+	}
+
+
+
+	public static function isUsrInstalled() {
+		return Strings::StartsWith(Paths::entry(), '/usr/');
 	}
 
 
