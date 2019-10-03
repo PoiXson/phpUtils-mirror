@@ -6,7 +6,7 @@
  * @author lorenzo at poixson.com
  * @link https://poixson.com/
  * /
-namespace pxn\phpUtils;
+namespace pxn\phpUtils\config;
 
 
 class ConfigGeneral {
