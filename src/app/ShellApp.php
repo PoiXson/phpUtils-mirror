@@ -5,22 +5,42 @@
  * @license GPL-3
  * @author lorenzo at poixson.com
  * @link https://poixson.com/
- * /
+ */
 namespace pxn\phpUtils\app;
 
-use pxn\phpUtils\ShellTools;
 use pxn\phpUtils\System;
-use pxn\phpUtils\ConfigGeneral;
 use pxn\phpUtils\Defines;
 
 
 abstract class ShellApp extends App {
 
+	protected $symfonyApp = NULL;
 
 
-//	public function __construct() {
-//		parent::__construct();
-//	}
+
+	public function __construct() {
+		self::ValidateShell();
+		$this->symfonyApp = new \Symfony\Component\Console\Application();
+		parent::__construct();
+	}
+
+
+
+	public function run() {
+		if (Debug()) {
+			echo " [Debug Mode] \n";
+		}
+		$this->symfonyApp->run();
+	}
+
+
+
+	public function printFail($msg) {
+		echo "\n *** FATAL: $msg *** \n\n";
+	}
+
+
+
 	public static function ValidateShell() {
 		if (!System::isShell()) {
 			$name = $this->getName();
@@ -31,38 +51,4 @@ abstract class ShellApp extends App {
 
 
 
-	public function &getPageContents() {
-		return 'PAGE';
-	}
-
-
-
-	protected function getWeight() {
-		return System::isShell()
-			? 1000
-			: -1;
-	}
-
-
-
-	public static function setAllowShortFlagValues($enabled=TRUE) {
-		ConfigGeneral::setAllowShortFlagValues($enabled);
-	}
-
-
-
-	protected function doRender() {
-		self::ValidateShell();
-		ShellTools::init();
-		echo "\n";
-		if (Debug()) {
-			echo " [Debug Mode] \n";
-		}
-		// return false in case not overridden
-		return FALSE;
-	}
-
-
-
 }
-*/
