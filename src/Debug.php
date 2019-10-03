@@ -82,7 +82,8 @@ final class Debug {
 */
 		// default off
 		if (self::$debug === NULL) {
-			self::setDebug(FALSE, 'default');
+			self::$desc = 'default';
+			self::EnableDisable(FALSE);
 		}
 	}
 
@@ -105,11 +106,7 @@ final class Debug {
 		self::$desc = $desc;
 		// set change
 		if (self::$debug != $last) {
-			if (self::$debug) {
-				self::EnableDebug();
-			} else {
-				self::DisableDebug();
-			}
+			self::EnableDisable(self::$debug);
 		}
 	}
 
@@ -121,22 +118,30 @@ final class Debug {
 
 
 
-	private static function EnableDebug() {
+	private static function EnableDisable($debug) {
+		$isShell = System::isShell();
+		\error_reporting(\E_ALL);
+		\ini_set('display_errors', $debug   ? 'On' : 'Off');
+		\ini_set('html_errors',    $isShell ? 'Off' : 'On');
+		\ini_set('log_errors',     'On');
+		\ini_set('error_log',      $isShell ? '/var/log/php_shell_error' : 'error_log');
 		// filp whoops
 		if (\class_exists('Whoops\\Run')) {
-			// @codeCoverageIgnoreStart
-			$whoops = new \Whoops\Run();
-			if (System::isShell()) {
-				$whoops->prependHandler(new \Whoops\Handler\PlainTextHandler());
+			if ($debug) {
+				// @codeCoverageIgnoreStart
+				$whoops = new \Whoops\Run();
+				if ($isShell) {
+					$whoops->prependHandler(new \Whoops\Handler\PlainTextHandler());
+				} else {
+					$whoops->prependHandler(new \Whoops\Handler\PrettyPageHandler());
+				}
+				$whoops->register();
+				// @codeCoverageIgnoreEnd
 			} else {
-				$whoops->prependHandler(new \Whoops\Handler\PrettyPageHandler());
-			}
-			$whoops->register();
-			// @codeCoverageIgnoreEnd
-		}
-	}
-	private static function DisableDebug() {
 //TODO: clear whoops handlers or unregister
+			}
+		}
+		unset($isShell);
 	}
 
 
