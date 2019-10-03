@@ -13,6 +13,7 @@ class FileFinder {
 
 	protected $searchPaths = [];
 	protected $searchFiles = [];
+	protected $searchExts  = [];
 
 
 
@@ -41,24 +42,59 @@ class FileFinder {
 	public function searchFiles(string...$files) {
 		$this->searchFiles = \array_merge($this->searchFiles, $files);
 	}
+	public function searchExtensions(string...$exts) {
+		$this->searchExts = \array_merge($this->searchExts, $exts);
+	}
 
 
 
 	public function find() {
+		return $this->doFind(FALSE);
+	}
+	public function findAll() {
+		return $this->doFind(TRUE);
+	}
+	protected function doFind(bool $all=FALSE) {
+		$found = [];
 		foreach ($this->searchPaths as $path) {
-			if (count($this->searchFiles) == 0) {
+			if (\count($this->searchFiles) == 0) {
 				if (\is_dir($path)) {
-					return $path;
+					if ($all) {
+						$found[$path] = TRUE;
+					} else {
+						return $path;
+					}
 				}
 			} else {
 				foreach ($this->searchFiles as $file) {
 					$path = Strings::ForceEndsWith($path, '/');
 					$filePath = $path.$file;
-					if (\file_exists($filePath)) {
-						return $filePath;
+					if (\count($this->searchExts) == 0) {
+						if (\file_exists($filePath)) {
+							if ($all) {
+								$found[$filePath] = TRUE;
+							} else {
+								return $filePath;
+							}
+						}
+					} else {
+						foreach ($this->searchExts as $ext) {
+							$ext = Strings::TrimFront($ext, '.');
+							$fileExtPath = "$filePath.$ext";
+							if (\file_exists($fileExtPath)) {
+								if ($all) {
+									$found[$fileExtPath] = TRUE;
+								} else {
+									return $fileExtPath;
+								}
+							}
+						} // end foreach searchExts
 					}
-				}
+				} // end foreach searchFiles
 			}
+		} // end foreach searchPaths
+		if ($all) {
+			return \array_keys($found);
 		}
 		return NULL;
 	}
