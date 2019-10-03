@@ -5,216 +5,96 @@
  * @license GPL-3
  * @author lorenzo at poixson.com
  * @link https://poixson.com/
- * /
+ */
 namespace pxn\phpUtils\config;
 
 
-class Config {
+class Config extends ConfigDAO {
 
-	protected static $instances = [];
-
-	protected $name = NULL;
-	protected $file = NULL;
-
-	protected $daoArray = [];
+	protected $file  = NULL;
+	protected $mtime = NULL;
 
 
 
-	public static function get($name) {
-		if (isset(self::$instances[$name])) {
-			return self::$instances[$name];
+	protected function __construct(string $file=NULL) {
+		if ($file !== NULL) {
+			$this->file = $file;
 		}
-		$config = new self($name);
-		self::$instances[$name] = $config;
-		return $config;
-	}
-	public static function peak($name) {
-		if (isset(self::$instances[$name])) {
-			return self::$instances[$name];
-		}
-		return NULL;
+		parent::__construct();
 	}
 
 
 
-	protected function __construct($name) {
-		$this->name = $name;
-	}
+	#################
+	## Load Config ##
+	#################
 
 
 
-	public function LoadFile($file) {
-		if (empty($file)) {
-			fail("File argument is required!",
-				Defines::EXIT_CODE_INTERNAL_ERROR);
-		}
-		if (!\file_exists($file)) {
-			fail("File not found: $file",
-				Defines::EXIT_CODE_IO_ERROR);
-		}
-		$this->file = $file;
-		$raw = \file_get_contents($file);
-		if ($raw === FALSE) {
-			fail("Failed to load file: $file",
-				Defines::EXIT_CODE_IO_ERROR);
-		}
-		$result = $this->LoadString($raw);
-		unset ($raw);
-		if (!$result) {
-			fail("Failed to decode json file: $file",
-				Defines::EXIT_CODE_IO_ERROR);
-		}
-	}
-	public function LoadString($data) {
-		if (empty($data)) {
-			return FALSE;
-		}
-		$json = \json_decode($data);
-		if ($json == NULL) {
-			fail("Failed to decode json data!",
-				Defines::EXIT_CODE_IO_ERROR);
-		}
-		foreach ($json as $key => $val) {
-			if (empty($key) || empty($val)) {
-				continue;
+	public function LoadFile(string $file=NULL) {
+		if (!empty($file)) {
+			$file = (string) $file;
+			if (!empty($file)) {
+				$this->file = $file;
 			}
-			$dao = new ConfigDAO(
-				$this->name,
-				$key,
-				$val
-			);
-			$this->daoArray[$key] = $dao;
 		}
-		return TRUE;
-	}
-
-
-
-	public function getDAO($key) {
-		$dao = $this->peakDAO($key);
-		if ($dao == NULL) {
-			$dao = new ConfigDAO(
-				$this->name,
-				$key
-			);
-			$this->daoArray[$key] = $dao;
+		if (empty($this->file)) {
+			throw new \RuntimeException('Config file not set');
 		}
-		return $dao;
-	}
-	public function peakDAO($key) {
-		$key = self::ValidateKey($key);
-		if (isset($this->daoArray[$key])) {
-			return $this->daoArray[$key];
+		{
+			$f = \realpath($this->file);
+			if (empty($f) || !\file_exists($f)) {
+				throw new \RuntimeException("Config file not found: {$this->file}");
+			}
+			$this->file = $f;
+			unset($f);
 		}
-		return NULL;
-	}
-
-
-
-	public function getValue($key) {
-		$dao = $this->peakDAO($key);
-		if ($dao == NULL) {
-			return NULL;
+		$data = \file_get_contents($this->file);
+		if ($data === FALSE) {
+			throw new \RuntimeException("Failed to read config file: {$this->file}");
 		}
-		return $dao->getValue();
-	}
-	public function getString($key) {
-		$value = $this->getValue($key);
-		if ($value === NULL) {
-			return NULL;
+		// detect file type
+		{
+			$pos = \mb_strrpos($this->file, '.');
+			if ($pos === FALSE) {
+				throw new \RuntimeException("Unknown config file type: {$this->file}");
+			}
+			$ext = \mb_substr($this->file, $pos);
+			if ($ext == '.json') {
+				$this->LoadStringJson($data);
+			} elseif ($ext == '.yml') {
+				$this->LoadStringYaml($data);
+			} else {
+				throw new \RuntimeException("Unknown config file type: $ext");
+			}
+			unset($pos);
 		}
-		return (string) $value;
+		$this->mtime = \filemtime($this->file);
 	}
-	public function getInt($key) {
-		$value = $this->getValue($key);
-		if ($value === NULL) {
-			return NULL;
+	public function LoadStringJson(string $data) {
+		if (empty($data)) return;
+		$json = \json_decode($data, TRUE, \JSON_OBJECT_AS_ARRAY | \JSON_THROW_ON_ERROR);
+		if ($json === NULL) {
+			throw new \RuntimeException("Failed to parse config file");
 		}
-		return (integer) $value;
+		$this->data = $json;
 	}
-	public function getLong($key) {
-		$value = $this->getValue($key);
-		if ($value === NULL) {
-			return NULL;
+	public function LoadStringYaml(string $data) {
+		if (empty($data)) return;
+		$yaml = \yaml_parse($data);
+		if ($yaml === NULL) {
+			throw new \RuntimeException("Failed to parse config file");
 		}
-		return (integer) $value;
-	}
-	public function getFloat($key) {
-		$value = $this->getValue($key);
-		if ($value === NULL) {
-			return NULL;
-		}
-		return (float) $value;
-	}
-	public function getDouble($key) {
-		$value = $this->getValue($key);
-		if ($value === NULL) {
-			return NULL;
-		}
-		return (double) $value;
-	}
-	public function getBool($key) {
-		$value = $this->getValue($key);
-		if ($value === NULL) {
-			return NULL;
-		}
-		return ($value != FALSE);
+		$this->data = $yaml;
 	}
 
 
 
-	public function peakValue($key) {
-		$dao = $this->peakDAO($key);
-		if ($dao == NULL) {
-			return NULL;
-		}
-		return $dao->peakValue();
-	}
-	public function peakSuper($key) {
-		$dao = $this->peakDAO($key);
-		if ($dao == NULL) {
-			return NULL;
-		}
-		return $dao->peakSuper();
-	}
-
-
-
-	public function setValue($key, $value) {
-		$dao = $this->getDAO($key);
-		$dao->setValue($value);
-	}
-	public function setRef($key, &$value) {
-		$dao = $this->getDAO($key);
-		$dao->setRef($value);
-	}
-	public function setDefault($key, $value) {
-		$dao = $this->getDAO($key);
-		$dao->setDefault($value);
-	}
-	public function setSuper($key, $value) {
-		$dao = $this->getDAO($key);
-		$dao->setSuper($value);
-	}
-
-
-
-	public function setValidHandler($key, $handler) {
-		$dao = $this->getDAO($key);
-		$dao->setValidHandler($handler);
-	}
-
-
-
-	protected static function ValidateKey($key) {
-		if (empty($key)) {
-			fail("Key argument is required!",
-				Defines::EXIT_CODE_INTERNAL_ERROR);
-		}
-		return \mb_strtolower($key);
+	public function isFileChanged() {
+		$mtimeCurrent = \filemtime($this->file);
+		return ($mtimeCurrent != $this->mtime);
 	}
 
 
 
 }
-*/

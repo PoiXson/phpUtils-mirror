@@ -20,7 +20,9 @@ final class Defines {
 	const DEBUG_COOKIE = 'pxn_debug';
 
 
-//	// config keys
+	// config keys
+	const CFG_MAIN_DEBUG = 'debug';
+
 //	const KEY_CONFIG_GROUP_GENERAL = 'general config';
 //	const KEY_CFG_DEBUG                   = 'debug';
 //	const KEY_CFG_ANSI_COLOR_ENABLED      = 'ansi color enabled';
