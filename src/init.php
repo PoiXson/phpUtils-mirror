@@ -6,13 +6,14 @@
  * @author lorenzo at poixson.com
  * @link https://poixson.com/
  */
-# init 1 - startup
-# init 2 - functions
-# init 3 - defines
-# init 4 - configs
-# init 5 - debug
-# init 6 - global functions
 namespace pxn\phpUtils;
+
+use pxn\phpUtils\Defines;
+use pxn\phpUtils\Debug;
+
+
+
+\error_reporting(\E_ALL);
 
 
 
@@ -22,35 +23,40 @@ if (\defined('pxn\\phpUtils\\inited')) {
 }
 define('pxn\\phpUtils\\inited', TRUE);
 
+//TODO
+//if (\defined('pxn\\phpUtils\\PORTAL_LOADED')) {
+//	echo '<h2>Unknown state! Portal already loaded?</h2>';
+//	exit(1);
+//}
 
 
-class init {
+
+final class init {
 	public static function init() {}
 }
 
 
 
-# init 1 - startup
-require('init_1.php');
-
-
-
-# init 2 - functions
-require('init_2.php');
-
-
-
-# init 3 - defines
+// defines
 \pxn\phpUtils\Defines::init();
 {
-	$clss = '\\pxn\\phpPortal\\DefinesPortal';
+	$clss = 'pxn\\phpPortal\\DefinesPortal';
 	if (\class_exists($clss)) {
 		$clss::init();
 	}
 	unset($clss);
 }
+
+
+
 // paths
-\pxn\phpUtils\Paths::init();
+Paths::init();
+
+// debug
+Debug::init();
+
+// global functions
+\pxn\phpUtils\Globals::init();
 
 
 
@@ -60,28 +66,8 @@ if (\PHP_VERSION_ID < \pxn\phpUtils\Defines::PHP_MIN_VERSION) {
 		.' or newer is required!</p>'; exit(1);
 }
 
-
-
-# init 4 - configs
-\pxn\phpUtils\ConfigGeneral::init();
-{
-	$clss = '\\pxn\\phpPortal\\ConfigPortal';
-	if (\class_exists($clss)) {
-		$clss::init();
-	}
-	unset($clss);
+// check mbstring
+if (!\function_exists('mb_substr')) {
+	echo '<h2>mbstring library not installed?</h2>';
+	exit(1);
 }
-// load shell args
-if (System::isShell()) {
-	ShellTools::init();
-}
-
-
-
-# init 5 - debug
-require('init_5.php');
-
-
-
-# init 6 - global functions
-require ('Globals.php');
