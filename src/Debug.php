@@ -34,15 +34,9 @@ final class Debug {
 		}
 		// by file
 		{
-			$searchPaths = [
-				Paths::entry(),
+			$finder = new FileFinder();
+			$finder->searchPath(Paths::entry(), 2);
 //TODO
-			];
-			$debugFiles = [
-				'.debug',
-				'debug',
-				'DEBUG',
-			];
 //$common = Strings::CommonPath(
 //	$entry
 //	$base
@@ -53,14 +47,16 @@ final class Debug {
 //	$common,
 //	$common."/.."
 //];
-			foreach ($searchPaths as $path) {
-				foreach ($debugFiles as $file) {
-					if (\file_exists("$path/$file")) {
-						self::setDebug(TRUE, 'by file');
-						break 2;
-					}
-				}
+			$finder->searchFiles(
+				'.debug',
+				'debug',
+				'DEBUG',
+			);
+			$found = $finder->find();
+			if (!empty($found)) {
+				self::setDebug(TRUE, 'by file');
 			}
+			unset($finder, $found);
 		}
 //TODO: disable in production
 /*
