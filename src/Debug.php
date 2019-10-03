@@ -13,8 +13,9 @@ final class Debug {
 	private function __construct() {}
 
 	private static $inited = FALSE;
+
 	protected static $debug = NULL;
-	protected static $desc = NULL;
+	protected static $desc  = NULL;
 
 
 
@@ -25,7 +26,7 @@ final class Debug {
 		if (self::$inited) return;
 		self::$inited = TRUE;
 		// by define
-		if (\defined('\\DEBUG')) {
+		if (\defined('DEBUG')) {
 			self::setDebug(\DEBUG, 'by define');
 		}
 		if (\defined('pxn\\phpUtils\\DEBUG')) {
@@ -83,6 +84,10 @@ final class Debug {
 			unset($val);
 		}
 */
+		// default off
+		if (self::$debug === NULL) {
+			self::setDebug(FALSE, 'default');
+		}
 	}
 
 
@@ -114,7 +119,7 @@ final class Debug {
 
 
 
-	public static function getDesc() {
+	public static function desc() {
 		return self::$desc;
 	}
 
