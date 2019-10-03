@@ -125,22 +125,6 @@ final class Debug {
 		\ini_set('html_errors',    $isShell ? 'Off' : 'On');
 		\ini_set('log_errors',     'On');
 		\ini_set('error_log',      $isShell ? '/var/log/php_shell_error' : 'error_log');
-		// filp whoops
-		if (\class_exists('Whoops\\Run')) {
-			if ($debug) {
-				// @codeCoverageIgnoreStart
-				$whoops = new \Whoops\Run();
-				if ($isShell) {
-					$whoops->prependHandler(new \Whoops\Handler\PlainTextHandler());
-				} else {
-					$whoops->prependHandler(new \Whoops\Handler\PrettyPageHandler());
-				}
-				$whoops->register();
-				// @codeCoverageIgnoreEnd
-			} else {
-//TODO: clear whoops handlers or unregister
-			}
-		}
 		unset($isShell);
 	}
 
