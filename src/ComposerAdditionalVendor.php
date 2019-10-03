@@ -36,9 +36,10 @@ class ComposerAdditionalVendor {
 		// only add classes that don't already exist
 		$existingClassMap = self::$autoload->getClassMap();
 		foreach ($classMap as $key => $val) {
-			if (isset($existingClassMap[$key])) {
+			if (isset($existingClassMap[$key]))
 				continue;
-			}
+			if (Strings::StartsWith($key, 'pxn\\ComposerLocalDev\\'))
+				continue;
 			self::$autoload->addClassMap([$key => $val]);
 		}
 	}
