@@ -62,7 +62,7 @@ final class Debug {
 /*
 		// by url
 		{
-			$val = General::getVar('debug', 'bool');
+			$val = GeneralUtils::getVar('debug', 'bool');
 			if ($val !== NULL) {
 				// set cookie
 				\setcookie(
@@ -72,7 +72,7 @@ final class Debug {
 				);
 				self::setDebug($val, 'by url');
 			} else {
-				$val = General::getVar(Defines::DEBUG_COOKIE, 'bool', 'cookie');
+				$val = GeneralUtils::getVar(Defines::DEBUG_COOKIE, 'bool', 'cookie');
 				if ($val === TRUE) {
 					self::setDebug($val, 'by cookie');
 				}

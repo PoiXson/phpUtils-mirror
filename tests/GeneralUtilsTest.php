@@ -8,15 +8,15 @@
  */
 namespace pxn\phpUtils\tests;
 
-use pxn\phpUtils\General;
+use pxn\phpUtils\GeneralUtils;
 
 
 /**
- * @coversDefaultClass \pxn\phpUtils\General
+ * @coversDefaultClass \pxn\phpUtils\GeneralUtils
  */
-class GeneralTest extends \PHPUnit\Framework\TestCase {
+class GeneralUtilsTest extends \PHPUnit\Framework\TestCase {
 
-	const THIS_CLASS_STRING = 'pxn\\phpUtils\\tests\\GeneralTest';
+	const THIS_CLASS_STRING = 'pxn\\phpUtils\\tests\\GeneralUtilsTest';
 
 
 
@@ -42,42 +42,42 @@ class GeneralTest extends \PHPUnit\Framework\TestCase {
 		// null
 		$this->assertSame(
 			123,
-			General::castType(123, NULL)
+			GeneralUtils::castType(123, NULL)
 		);
 		// string
 		$this->assertSame(
 			'123',
-			General::castType(123, 's')
+			GeneralUtils::castType(123, 's')
 		);
 		// integer
 		$this->assertSame(
 			123,
-			General::castType('123', 'i')
+			GeneralUtils::castType('123', 'i')
 		);
 		// long
 		$this->assertSame(
 			123,
-			General::castType('123', 'l')
+			GeneralUtils::castType('123', 'l')
 		);
 		// float
 		$this->assertSame(
 			123e0,
-			General::castType('123', 'f')
+			GeneralUtils::castType('123', 'f')
 		);
 		// double
 		$this->assertSame(
 			123.0,
-			General::castType('123', 'd')
+			GeneralUtils::castType('123', 'd')
 		);
 		// boolean
 		$this->assertSame(
 			TRUE,
-			General::castType('t', 'b')
+			GeneralUtils::castType('t', 'b')
 		);
 		// unknown
 		$this->assertSame(
 			'abc',
-			General::castType('abc', 'z')
+			GeneralUtils::castType('abc', 'z')
 		);
 	}
 
@@ -88,28 +88,28 @@ class GeneralTest extends \PHPUnit\Framework\TestCase {
 	 */
 	public function testCastBoolean() {
 		// null
-		$this->assertNull( General::castBoolean(NULL)       );
+		$this->assertNull( GeneralUtils::castBoolean(NULL)       );
 		// boolean
-		$this->assertTrue(  General::castBoolean(TRUE)      );
-		$this->assertFalse( General::castBoolean(FALSE)     );
+		$this->assertTrue(  GeneralUtils::castBoolean(TRUE)      );
+		$this->assertFalse( GeneralUtils::castBoolean(FALSE)     );
 		// true/false
-		$this->assertTrue(  General::castBoolean('true')    );
-		$this->assertFalse( General::castBoolean('false')   );
+		$this->assertTrue(  GeneralUtils::castBoolean('true')    );
+		$this->assertFalse( GeneralUtils::castBoolean('false')   );
 		// yes/no
-		$this->assertTrue(  General::castBoolean('yes')     );
-		$this->assertFalse( General::castBoolean('no')      );
+		$this->assertTrue(  GeneralUtils::castBoolean('yes')     );
+		$this->assertFalse( GeneralUtils::castBoolean('no')      );
 		// allow/deny
-		$this->assertTrue(  General::castBoolean('allow')   );
-		$this->assertFalse( General::castBoolean('deny')    );
+		$this->assertTrue(  GeneralUtils::castBoolean('allow')   );
+		$this->assertFalse( GeneralUtils::castBoolean('deny')    );
 		// enable/disable
-		$this->assertTrue(  General::castBoolean('enable')  );
-		$this->assertFalse( General::castBoolean('disable') );
+		$this->assertTrue(  GeneralUtils::castBoolean('enable')  );
+		$this->assertFalse( GeneralUtils::castBoolean('disable') );
 		// on/off
-		$this->assertTrue(  General::castBoolean('on')      );
-		$this->assertFalse( General::castBoolean('off')     );
+		$this->assertTrue(  GeneralUtils::castBoolean('on')      );
+		$this->assertFalse( GeneralUtils::castBoolean('off')     );
 		// 1/0
-		$this->assertTrue(  General::castBoolean(1)         );
-		$this->assertFalse( General::castBoolean(0)         );
+		$this->assertTrue(  GeneralUtils::castBoolean(1)         );
+		$this->assertFalse( GeneralUtils::castBoolean(0)         );
 	}
 
 
@@ -126,32 +126,32 @@ class GeneralTest extends \PHPUnit\Framework\TestCase {
 		// string/get
 		$this->assertEquals(
 			'1234',
-			General::getVar($key, 's', 'g')
+			GeneralUtils::getVar($key, 's', 'g')
 		);
 		// string/post
 		$this->assertEquals(
 			'5678',
-			General::getVar($key, 's', 'p')
+			GeneralUtils::getVar($key, 's', 'p')
 		);
 		// string/get/post
 		$this->assertEquals(
 			'5678',
-			General::getVar($key, 's')
+			GeneralUtils::getVar($key, 's')
 		);
 		// string/cookie
 		$this->assertEquals(
 			'9123',
-			General::getVar($key, 's', 'c')
+			GeneralUtils::getVar($key, 's', 'c')
 		);
 		// string/session
 		$this->assertEquals(
 			'4567',
-			General::getVar($key, 's', 's')
+			GeneralUtils::getVar($key, 's', 's')
 		);
 		// unknown source
 		$this->expectException(\InvalidArgumentException::class);
 		$this->expectExceptionMessage('Unknown value source: z');
-		General::getVar($key, 's', 'z');
+		GeneralUtils::getVar($key, 's', 'z');
 		unset($_GET[$key]);
 		unset($_POST[$key]);
 		unset($_COOKIE[$key]);
@@ -165,9 +165,9 @@ class GeneralTest extends \PHPUnit\Framework\TestCase {
 	 */
 	public function testGet() {
 		$key = 'test';
-		$this->assertNull( General::get($key) );
+		$this->assertNull( GeneralUtils::get($key) );
 		$_GET[$key] = 'abc';
-		$this->assertEquals( 'abc', General::get($key) );
+		$this->assertEquals( 'abc', GeneralUtils::get($key) );
 		unset($_GET[$key]);
 	}
 	/**
@@ -175,9 +175,9 @@ class GeneralTest extends \PHPUnit\Framework\TestCase {
 	 */
 	public function testPost() {
 		$key = 'test';
-		$this->assertNull( General::post($key) );
+		$this->assertNull( GeneralUtils::post($key) );
 		$_POST[$key] = 'abc';
-		$this->assertEquals( 'abc', General::post($key) );
+		$this->assertEquals( 'abc', GeneralUtils::post($key) );
 		unset($_POST[$key]);
 	}
 	/**
@@ -185,9 +185,9 @@ class GeneralTest extends \PHPUnit\Framework\TestCase {
 	 */
 	public function testCookie() {
 		$key = 'test';
-		$this->assertNull( General::cookie($key) );
+		$this->assertNull( GeneralUtils::cookie($key) );
 		$_COOKIE[$key] = 'abc';
-		$this->assertEquals( 'abc', General::cookie($key) );
+		$this->assertEquals( 'abc', GeneralUtils::cookie($key) );
 		unset($_COOKIE[$key]);
 	}
 	/**
@@ -195,9 +195,9 @@ class GeneralTest extends \PHPUnit\Framework\TestCase {
 	 */
 	public function testSession() {
 		$key = 'test';
-		$this->assertNull( General::session($key) );
+		$this->assertNull( GeneralUtils::session($key) );
 		$_SESSION[$key] = 'abc';
-		$this->assertEquals( 'abc', General::session($key) );
+		$this->assertEquals( 'abc', GeneralUtils::session($key) );
 		unset($_SESSION[$key]);
 	}
 
@@ -210,7 +210,7 @@ class GeneralTest extends \PHPUnit\Framework\TestCase {
 	public function testParseModRewriteVars() {
 		$this->markTestIncomplete('Unfinished ParseModRewriteVars test');
 //		$_SERVER[''] = '';
-//		General::ParseModRewriteVars();
+//		GeneralUtils::ParseModRewriteVars();
 //		$this->assertEquals(
 //			'',
 //			''
@@ -224,10 +224,10 @@ class GeneralTest extends \PHPUnit\Framework\TestCase {
 	 * @covers ::getTimestamp
 	 */
 	public function testGetTimestamp() {
-		$tim = General::getTimestamp();
+		$tim = GeneralUtils::getTimestamp();
 		$this->assertIsNumeric($tim);
 		$this->assertGreaterThan(1500000000.0, $tim);
-		$tim = General::getTimestamp(0);
+		$tim = GeneralUtils::getTimestamp(0);
 		$this->assertIsNumeric($tim);
 		$this->assertGreaterThan(1500000000, $tim);
 	}
@@ -235,9 +235,9 @@ class GeneralTest extends \PHPUnit\Framework\TestCase {
 	 * @covers ::Sleep
 	 */
 	public function testSleep() {
-		$timA = General::getTimestamp();
-		General::Sleep(10);
-		$timB = General::getTimestamp();
+		$timA = GeneralUtils::getTimestamp();
+		GeneralUtils::Sleep(10);
+		$timB = GeneralUtils::getTimestamp();
 		$this->assertGreaterThanOrEqual(0.009, $timB - $timA);
 	}
 
@@ -249,7 +249,7 @@ class GeneralTest extends \PHPUnit\Framework\TestCase {
 	public function testGDSupported() {
 		$this->assertEquals(
 			\function_exists('imagepng'),
-			General::GDSupported()
+			GeneralUtils::GDSupported()
 		);
 	}
 
@@ -261,7 +261,7 @@ class GeneralTest extends \PHPUnit\Framework\TestCase {
 	 * /
 	public function testInstanceOfClass() {
 		$this->assertTrue(
-			General::InstanceOfClass(
+			GeneralUtils::InstanceOfClass(
 				self::EXPECTED_CLASS_STRING,
 				$this
 			)
@@ -275,7 +275,7 @@ class GeneralTest extends \PHPUnit\Framework\TestCase {
 	 * /
 	public function testValidateClass() {
 //TODO: needs assert "This test did not perform any assertions"
-		General::ValidateClass(
+		GeneralUtils::ValidateClass(
 			self::EXPECTED_CLASS_STRING,
 			$this
 		);
@@ -286,7 +286,7 @@ $this->assertTrue(TRUE);
 	 * /
 	public function testValidateClass_NullString() {
 		try {
-			General::ValidateClass(
+			GeneralUtils::ValidateClass(
 				NULL,
 				$this
 			);
@@ -304,7 +304,7 @@ $this->assertTrue(TRUE);
 	 * /
 	public function testValidateClass_BlankString() {
 		try {
-			General::ValidateClass(
+			GeneralUtils::ValidateClass(
 				'',
 				$this
 			);
@@ -322,7 +322,7 @@ $this->assertTrue(TRUE);
 	 * /
 	public function testValidateClass_NullObject() {
 		try {
-			General::ValidateClass(
+			GeneralUtils::ValidateClass(
 				self::EXPECTED_CLASS_STRING,
 				NULL
 			);
@@ -340,7 +340,7 @@ $this->assertTrue(TRUE);
 	 * /
 	public function testValidateClass_ClassType() {
 		try {
-			General::ValidateClass(
+			GeneralUtils::ValidateClass(
 				self::EXPECTED_CLASS_STRING.'_invalid',
 				$this
 			);

@@ -9,7 +9,7 @@
 namespace pxn\phpUtils;
 
 
-final class General {
+final class GeneralUtils {
 	private final function __construct() {}
 
 
