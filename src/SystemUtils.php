@@ -9,7 +9,7 @@
 namespace pxn\phpUtils;
 
 
-final class System {
+final class SystemUtils {
 	private function __construct() {}
 
 	private static $isShell = NULL;
