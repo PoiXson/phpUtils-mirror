@@ -5,7 +5,7 @@
  * @license GPL-3
  * @author lorenzo at poixson.com
  * @link https://poixson.com/
- * /
+ */
 namespace pxn\phpUtils\tests;
 
 use pxn\phpUtils\SystemUtils;
@@ -23,9 +23,10 @@ class SystemUtilsTest extends \PHPUnit\Framework\TestCase {
 
 
 
+/*
 	/ **
-	 * @covers ::mkDir
-	 * @covers ::rmDir
+	 * @ covers ::mkDir
+	 * @ covers ::rmDir
 	 * /
 	public function test_mkDir_rmDir() {
 		$cwd = $this->getCWD();
@@ -73,8 +74,8 @@ class SystemUtilsTest extends \PHPUnit\Framework\TestCase {
 		$this->assertFalse($cwd == '/');
 		return $cwd;
 	}
+*/
 
 
 
 }
-*/
