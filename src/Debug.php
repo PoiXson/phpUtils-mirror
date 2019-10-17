@@ -112,8 +112,18 @@ final class Debug {
 
 
 
-	public static function desc() {
+	public static function desc(string $desc=NULL) {
+		$last = self::getDesc();
+		if ($desc !== NULL) {
+			self::setDesc($desc);
+		}
+		return $last;
+	}
+	public static function getDesc() {
 		return self::$desc;
+	}
+	public static function setDesc(string $desc) {
+		self::$desc = $desc;
 	}
 
 
