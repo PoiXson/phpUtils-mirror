@@ -77,4 +77,25 @@ class DebugTest extends \PHPUnit\Framework\TestCase {
 
 
 
+	/**
+	 * @covers \debug
+	 */
+	public function testGlobalDebug() {
+		$originalDebug = Debug::isDebug();
+		$originalDesc  = Debug::getDesc();
+		// enable debug
+		\debug(TRUE, 'unit test');
+		$this->assertTrue(\debug());
+		$this->assertEquals('unit test', Debug::getDesc());
+		// disable debug
+		\debug(FALSE, 'unit test');
+		$this->assertFalse(\debug());
+		$this->assertEquals('unit test', Debug::getDesc());
+		// restore debug
+		Debug::setDebug($originalDebug, $originalDesc);
+		$this->assertEquals($originalDebug, Debug::isDebug());
+	}
+
+
+
 }
