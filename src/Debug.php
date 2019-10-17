@@ -90,10 +90,11 @@ final class Debug {
 
 
 	public static function debug($debug=NULL, $desc=NULL) {
+		$last = self::isDebug();
 		if ($debug !== NULL) {
 			self::setDebug($debug, $desc);
 		}
-		return self::isDebug();
+		return $last;
 	}
 	public static function isDebug() {
 		return (self::$debug === TRUE);
