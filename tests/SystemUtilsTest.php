@@ -8,14 +8,14 @@
  * /
 namespace pxn\phpUtils\tests;
 
-use pxn\phpUtils\System;
+use pxn\phpUtils\SystemUtils;
 use pxn\phpUtils\Strings;
 
 
-/ **
- * @coversDefaultClass \pxn\phpUtils\System
- * /
-class SystemTest extends \PHPUnit\Framework\TestCase {
+/**
+ * @coversDefaultClass \pxn\phpUtils\SystemUtils
+ */
+class SystemUtilsTest extends \PHPUnit\Framework\TestCase {
 
 	const TEST_DIR1 = '_SystemTest_TEMP_/';
 	const TEST_DIR2 = 'AnotherDir/';
