@@ -42,7 +42,6 @@
 		"pxn/composerlocaldev": "1.*"
 	},
 	"suggest": {
-		"symfony/console": "v4.3.*",
 		"51systems/doctrine-encrypt": "v6.*"
 	},
 	"require-dev": {
