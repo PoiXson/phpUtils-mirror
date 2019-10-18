@@ -61,9 +61,9 @@ final class Defines {
 	const GB =    1073741824;
 	const TB = 1099511627776;
 
-//	const EXIT_CODE_OK               =   0;
-//	const EXIT_CODE_GENERAL          =   1;
-//	const EXIT_CODE_HELP             =   2;
+	const EXIT_CODE_OK               =   0;
+	const EXIT_CODE_GENERAL          =   1;
+	const EXIT_CODE_HELP             =   2;
 //	const EXIT_CODE_USAGE_ERROR      =  64;
 //	const EXIT_CODE_INVALID_FORMAT   =  65;
 //	const EXIT_CODE_UNAVAILABLE      =  69;
