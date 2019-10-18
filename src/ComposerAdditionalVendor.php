@@ -23,10 +23,13 @@ class ComposerAdditionalVendor {
 
 
 	// example: AddVendor('pxn\\LibName', '../../LibName/')
-	public static function AddVendorClassMap(string $namespace, string $path) {
+	public static function AddVendorClassMap(string $namespace, string $path,
+	array $whitelist=[], array $blacklist=[]) {
 		if (self::$autoload == NULL) {
 			throw new \RuntimeException();
 		}
+		// defaults
+		$blacklist[] = 'pxn\\ComposerLocalDev';
 		$namespace = Strings::ForceEndsWith($namespace, '\\');
 		$namespace = Strings::TrimFront($namespace, '\\');
 		$path = Strings::ForceEndsWith($path, '/');
@@ -38,8 +41,27 @@ class ComposerAdditionalVendor {
 		foreach ($classMap as $key => $val) {
 			if (isset($existingClassMap[$key]))
 				continue;
-			if (Strings::StartsWith($key, 'pxn\\ComposerLocalDev\\'))
-				continue;
+			// check blacklists
+			if (\count($blacklist) > 0) {
+				foreach ($blacklist as $entry) {
+					$entry = Strings::ForceEndsWith($entry, '\\');
+					if (Strings::StartsWith($key, $entry))
+						continue 2;
+				}
+			}
+			// check whitelists
+			if (\count($whitelist) > 0) {
+				$found = FALSE;
+				foreach ($whitelist as $entry) {
+					$entry = Strings::ForceEndsWith($entry, '\\');
+					if (Strings::StartsWith($key, $entry)) {
+						$found = TRUE;
+						break;
+					}
+				}
+				if (!$found)
+					continue;
+			}
 			self::$autoload->addClassMap([$key => $val]);
 		}
 	}
