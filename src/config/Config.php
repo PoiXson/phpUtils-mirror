@@ -16,9 +16,9 @@ class Config extends ConfigDAO {
 
 
 
-	protected function __construct(string $file=NULL) {
+	public function __construct(string $file=NULL) {
 		if ($file !== NULL) {
-			$this->file = $file;
+			$this->LoadFile($file);
 		}
 		parent::__construct();
 	}
