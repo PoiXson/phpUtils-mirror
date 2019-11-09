@@ -21,7 +21,7 @@ final class Defines {
 
 
 	// config keys
-	const CFG_MAIN_DEBUG = 'debug';
+	const CFG_MAIN_DEBUG = 'Debug';
 
 //	const KEY_CONFIG_GROUP_GENERAL = 'general config';
 //	const KEY_CFG_DEBUG                   = 'debug';
