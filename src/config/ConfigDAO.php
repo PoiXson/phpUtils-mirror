@@ -23,6 +23,13 @@ class ConfigDAO {
 		if ($data !== NULL) {
 			$this->data = $data;
 		}
+		// defaults
+		$this->initDefaults();
+	}
+
+
+
+	protected function initDefaults() {
 	}
 
 

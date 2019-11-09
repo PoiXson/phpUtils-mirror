@@ -25,6 +25,12 @@ class Config extends ConfigDAO {
 
 
 
+	protected function initDefaults(): void {
+		parent::initDefaults();
+	}
+
+
+
 	#################
 	## Load Config ##
 	#################

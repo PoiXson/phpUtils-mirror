@@ -28,4 +28,10 @@ class ConfigMain extends Config {
 
 
 
+	protected function initDefaults(): void {
+		parent::initDefaults();
+	}
+
+
+
 }
