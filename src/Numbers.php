@@ -21,7 +21,7 @@ final class Numbers {
 	 * @return boolean Returns true if only contains number characters after
 	 *         being trimmed.
 	 */
-	public static function isNumber($value) {
+	public static function isNumber($value): bool {
 		if ($value === NULL)
 			return FALSE;
 		$value = \trim( (string)$value );
@@ -61,7 +61,7 @@ final class Numbers {
 
 
 
-	public static function Round($value, $places=0) {
+	public static function Round(float $value, int $places=0): float {
 		if ($places == 0)
 			return \round($value);
 		$pow = \pow(10, $places);
@@ -70,7 +70,7 @@ final class Numbers {
 			$places
 		);
 	}
-	public static function Floor($value, $places=0) {
+	public static function Floor(float $value, int $places=0): float {
 		if ($places == 0)
 			return \floor($value);
 		$pow = \pow(10, $places);
@@ -79,7 +79,7 @@ final class Numbers {
 			$places
 		);
 	}
-	public static function Ceil($value, $places=0) {
+	public static function Ceil(float $value, int $places=0): float {
 		if ($places == 0)
 			return \ceil($value);
 		$pow = \pow(10, $places);
@@ -91,8 +91,8 @@ final class Numbers {
 
 
 
-	public static function PadZeros($value, $places) {
-		$str = (string) (double) $value;
+	public static function PadZeros(float $value, int $places): string {
+		$str = (string) (float) $value;
 		if ($places <= 0)
 			return $str;
 		$pos = \mb_strrpos($str, '.');
@@ -111,32 +111,32 @@ final class Numbers {
 	 * @param int $size - Integer in bytes to convert.
 	 * @return string - Formatted size.
 	 */
-	public static function FormatBytes($size) {
+	public static function FormatBytes($size): string {
 		if (empty($size))
-			return NULL;
+			throw new \NullPointerException();
 		$size = \trim((string) $size);
 		if ( \mb_strtolower(\mb_substr($size, -1, 1)) == 'b' ) {
 			$size = \trim(\mb_substr($size, 0, -1));
 		}
 		switch ( \mb_strtolower(\mb_substr($size, -1, 1)) ) {
 		case 'k':
-			$size = ((double) $size) * Defines::KB;
+			$size = ((float) $size) * Defines::KB;
 			break;
 		case 'm':
-			$size = ((double) $size) * Defines::MB;
+			$size = ((float) $size) * Defines::MB;
 			break;
 		case 'g':
-			$size = ((double) $size) * Defines::GB;
+			$size = ((float) $size) * Defines::GB;
 			break;
 		case 't':
-			$size = ((double) $size) * Defines::TB;
+			$size = ((float) $size) * Defines::TB;
 			break;
 		default:
-			$size = (double) $size;
+			$size = (float) $size;
 			break;
 		}
 		if ($size < 0)
-			return NULL;
+			return '';
 		if ($size < Defines::KB)
 			return \round($size, 0) . 'B';
 		if ($size < Defines::MB)
@@ -156,9 +156,9 @@ final class Numbers {
 	 * @param int $max -
 	 * @return string - Roman numerals string representing input number.
 	 */
-	public static function FormatRoman($value, $max=FALSE) {
+	public static function FormatRoman(int $value, int $max=NULL): string {
 		$value = (int) $value;
-		if ( ($max !== FALSE && $value > $max) || $value < 0)
+		if ( ($max !== NULL && $value > $max) || $value < 0)
 			return (string) $value;
 		$result = '';
 		$lookup = [
@@ -197,7 +197,7 @@ final class Numbers {
 	 * @param string $text - String to convert.
 	 * @return int seconds
 	 */
-	public static function StringToSeconds($text) {
+	public static function StringToSeconds(string $text) {
 		$str = '';
 		$value = 0;
 		for ($i = 0; $i < \mb_strlen($text); $i++) {
@@ -246,10 +246,11 @@ final class Numbers {
 	 * @param int $seconds - Integer to convert.
 	 * @return string
 	 */
-	public static function SecondsToString($seconds, $shorthand=TRUE, $maxParts=FALSE, $deviance=1.0) {
+	public static function SecondsToString(int $seconds,
+	bool $shorthand=TRUE, int $maxParts=NULL, float $deviance=1.0): string {
 		$maxParts = (
-			$maxParts == FALSE
-			? FALSE
+			$maxParts == NULL
+			? NULL
 			: (int) $maxParts
 		);
 		$result = array();
@@ -265,7 +266,7 @@ final class Numbers {
 		}
 		// months
 		if ($deviance !== 1.0) {
-		if ($maxParts == FALSE || count($result) < $maxParts) {
+		if ($maxParts === NULL || count($result) < $maxParts) {
 		if ($seconds >= (Defines::S_MONTH * $deviance)) {
 			$v = \ceil(\floor($seconds / Defines::S_MONTH / $deviance) * $deviance);
 			$seconds -= $v * Defines::S_MONTH;
@@ -276,7 +277,7 @@ final class Numbers {
 			);
 		}}}
 		// days
-		if ($maxParts == FALSE || count($result) < $maxParts) {
+		if ($maxParts === NULL || count($result) < $maxParts) {
 		if ($seconds >= (Defines::S_DAY * $deviance)) {
 			$v = \ceil(\floor($seconds / Defines::S_DAY / $deviance) * $deviance);
 			$seconds -= $v * Defines::S_DAY;
@@ -287,7 +288,7 @@ final class Numbers {
 			);
 		}}
 		// hours
-		if ($maxParts == FALSE || count($result) < $maxParts) {
+		if ($maxParts === NULL || count($result) < $maxParts) {
 		if ($seconds >= (Defines::S_HOUR * $deviance)) {
 			$v = \ceil(\floor($seconds / Defines::S_HOUR / $deviance) * $deviance);
 			$seconds -= $v * Defines::S_HOUR;
@@ -298,7 +299,7 @@ final class Numbers {
 			);
 		}}
 		// minutes
-		if ($maxParts == FALSE || count($result) < $maxParts) {
+		if ($maxParts === NULL || count($result) < $maxParts) {
 		if ($seconds >= (Defines::S_MINUTE * $deviance)) {
 			$v = \ceil(\floor($seconds / Defines::S_MINUTE / $deviance) * $deviance);
 			$seconds -= $v * Defines::S_MINUTE;
@@ -309,7 +310,7 @@ final class Numbers {
 			);
 		}}
 		// seconds
-		if ($maxParts == FALSE || count($result) < $maxParts) {
+		if ($maxParts === NULL || count($result) < $maxParts) {
 		if ($seconds > 0) {
 			$result[] = $seconds.(
 				$shorthand
@@ -324,7 +325,8 @@ final class Numbers {
 			return \implode(' ', $result);
 		return \implode('  ', $result);
 	}
-	public static function SecondsToText($seconds, $shorthand=FALSE, $maxParts=FALSE, $deviance=1.0) {
+	public static function SecondsToText(int $seconds,
+	bool $shorthand=FALSE, int $maxParts=NULL, float $deviance=1.0): string {
 		// future
 		if ( $seconds < 0 ) {
 			$seconds = 0 - $seconds;

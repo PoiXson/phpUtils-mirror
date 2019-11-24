@@ -22,7 +22,7 @@ class NumbersTest extends \PHPUnit\Framework\TestCase {
 	/**
 	 * @covers ::isNumber
 	 */
-	public function testIsNumber() {
+	public function testIsNumber(): void {
 		$this->assertFalse( Numbers::isNumber(NULL      ), "Value: NULL"       );
 		$this->assertFalse( Numbers::isNumber(''        ), "Value: ''"         );
 		$this->assertTrue ( Numbers::isNumber('1'       ), "Value: '1'"        );
@@ -45,7 +45,7 @@ class NumbersTest extends \PHPUnit\Framework\TestCase {
 	/**
 	 * @covers ::MinMax
 	 */
-	public function testMinMax() {
+	public function testMinMax(): void {
 		$this->assertEquals(  999.9, Numbers::MinMax( 999.9          ) );
 		// min/max
 		$this->assertEquals(      1, Numbers::MinMax( 999.9, -1, 1   ) );
@@ -73,7 +73,7 @@ class NumbersTest extends \PHPUnit\Framework\TestCase {
 	/**
 	 * @covers ::Round
 	 */
-	public function testRound() {
+	public function testRound(): void {
 		$this->assertEquals( '123',    Numbers::Round(123,     0) );
 		$this->assertEquals( '123.00', Numbers::Round(123,     2) );
 		$this->assertEquals( '123.45', Numbers::Round(123.45,  2) );
@@ -85,7 +85,7 @@ class NumbersTest extends \PHPUnit\Framework\TestCase {
 	/**
 	 * @covers ::Floor
 	 */
-	public function testFloor() {
+	public function testFloor(): void {
 		$this->assertEquals( '123',    Numbers::Floor(123,     0) );
 		$this->assertEquals( '123.00', Numbers::Floor(123,     2) );
 		$this->assertEquals( '123.45', Numbers::Floor(123.45,  2) );
@@ -97,7 +97,7 @@ class NumbersTest extends \PHPUnit\Framework\TestCase {
 	/**
 	 * @covers ::Ceil
 	 */
-	public function testCeil() {
+	public function testCeil(): void {
 		$this->assertEquals( '123',    Numbers::Ceil(123,      0) );
 		$this->assertEquals( '123.00', Numbers::Ceil(123,      2) );
 		$this->assertEquals( '123.45', Numbers::Ceil(123.45,   2) );
@@ -112,7 +112,7 @@ class NumbersTest extends \PHPUnit\Framework\TestCase {
 	/**
 	 * @covers ::PadZeros
 	 */
-	public function testPadZeros() {
+	public function testPadZeros(): void {
 		$this->assertEquals(     '1', Numbers::PadZeros(    1, 0) );
 		$this->assertEquals(   '1.2', Numbers::PadZeros(  1.2, 0) );
 		$this->assertEquals( '1.000', Numbers::PadZeros(    1, 3) );
@@ -126,7 +126,7 @@ class NumbersTest extends \PHPUnit\Framework\TestCase {
 	/**
 	 * @covers ::FormatBytes
 	 */
-	public function testFormatBytes() {
+	public function testFormatBytes(): void {
 		$this->assertEquals(     NULL, Numbers::FormatBytes( ''   ) );
 		$this->assertEquals(     NULL, Numbers::FormatBytes( -1   ) );
 		$this->assertEquals(     '1B', Numbers::FormatBytes( 1    ) );
@@ -150,7 +150,7 @@ class NumbersTest extends \PHPUnit\Framework\TestCase {
 	/**
 	 * @covers ::FormatRoman
 	 */
-	public function testFormatRoman() {
+	public function testFormatRoman(): void {
 		$this->assertEquals( 'I',        Numbers::FormatRoman(1     ) );
 		$this->assertEquals( 'II',       Numbers::FormatRoman(2     ) );
 		$this->assertEquals( 'III',      Numbers::FormatRoman(3     ) );
@@ -192,7 +192,7 @@ class NumbersTest extends \PHPUnit\Framework\TestCase {
 	/**
 	 * @covers ::StringToSeconds
 	 */
-	public function testStringToSeconds() {
+	public function testStringToSeconds(): void {
 		$this->assertEquals(    0.001, Numbers::StringToSeconds('1n'                  ) );
 		$this->assertEquals(        1, Numbers::StringToSeconds('1s'                  ) );
 		$this->assertEquals(       42, Numbers::StringToSeconds('42s'                 ) );
@@ -216,7 +216,7 @@ class NumbersTest extends \PHPUnit\Framework\TestCase {
 	/**
 	 * @covers ::SecondsToString
 	 */
-	public function testSecondsToString() {
+	public function testSecondsToString(): void {
 		$this->assertEquals(                      '--', Numbers::SecondsToString(       0) );
 		$this->assertEquals(                    '1sec', Numbers::SecondsToString(       1) );
 		$this->assertEquals(                   '42sec', Numbers::SecondsToString(      42) );
@@ -240,7 +240,7 @@ class NumbersTest extends \PHPUnit\Framework\TestCase {
 	/**
 	 * @covers ::SecondsToText
 	 */
-	public function testSecondsToText() {
+	public function testSecondsToText(): void {
 		// future
 		$this->assertEquals( 'Soon',       Numbers::SecondsToText( -1     ) );
 		$this->assertEquals( 'Soon',       Numbers::SecondsToText( -3599  ) );

@@ -26,7 +26,7 @@ class SystemUtilsTest extends \PHPUnit\Framework\TestCase {
 	/**
 	 * @covers ::getUser
 	 */
-	public function testGetUser() {
+	public function testGetUser(): void {
 		$originalUser = (
 			isset($_SERVER['USER'])
 			? $_SERVER['USER']

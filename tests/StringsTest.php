@@ -31,7 +31,7 @@ class StringsTest extends \PHPUnit\Framework\TestCase {
 	/**
 	 * @covers ::Trim
 	 */
-	public function testTrim() {
+	public function testTrim(): void {
 		$this->assertEquals(
 			'--   == test ==   --',
 			Strings::Trim(self::TRIM_TEST_DATA)
@@ -64,7 +64,7 @@ class StringsTest extends \PHPUnit\Framework\TestCase {
 	/**
 	 * @covers ::TrimFront
 	 */
-	public function testTrimFront() {
+	public function testTrimFront(): void {
 		$this->assertEquals(
 			"--   == test ==   --\t",
 			Strings::TrimFront(self::TRIM_TEST_DATA)
@@ -97,7 +97,7 @@ class StringsTest extends \PHPUnit\Framework\TestCase {
 	/**
 	 * @covers ::TrimEnd
 	 */
-	public function testTrimEnd() {
+	public function testTrimEnd(): void {
 		$this->assertEquals(
 			"\t--   == test ==   --",
 			Strings::TrimEnd(self::TRIM_TEST_DATA)
@@ -133,7 +133,7 @@ class StringsTest extends \PHPUnit\Framework\TestCase {
 	/**
 	 * @covers ::TrimQuotes
 	 */
-	public function testTrimQuotes() {
+	public function testTrimQuotes(): void {
 		// matching quotes
 		$this->assertEquals('test', Strings::TrimQuotes( '"test"' ));
 		$this->assertEquals('test', Strings::TrimQuotes( "'test'" ));
@@ -202,7 +202,7 @@ class StringsTest extends \PHPUnit\Framework\TestCase {
 	 * @covers ::PadLeft
 	 * @covers ::getPadding
 	 */
-	public function testPadLeft() {
+	public function testPadLeft(): void {
 		$this->assertEquals('  abc', Strings::PadLeft(self::PAD_DATA, 5));
 		$this->assertEquals('  abc', Strings::PadLeft(self::PAD_DATA, 5, NULL));
 		$this->assertEquals('abc',   Strings::PadLeft(self::PAD_DATA, 2));
@@ -212,7 +212,7 @@ class StringsTest extends \PHPUnit\Framework\TestCase {
 	 * @covers ::PadRight
 	 * @covers ::getPadding
 	 */
-	public function testPadRight() {
+	public function testPadRight(): void {
 		$this->assertEquals('abc  ', Strings::PadRight(self::PAD_DATA, 5));
 		$this->assertEquals('abc  ', Strings::PadRight(self::PAD_DATA, 5, NULL));
 		$this->assertEquals('abc',   Strings::PadRight(self::PAD_DATA, 2));
@@ -222,7 +222,7 @@ class StringsTest extends \PHPUnit\Framework\TestCase {
 	 * @covers ::PadCenter
 	 * @covers ::getPadding
 	 */
-	public function testPadCenter() {
+	public function testPadCenter(): void {
 		$this->assertEquals(' abc ', Strings::PadCenter(self::PAD_DATA, 5));
 		$this->assertEquals(' abc ', Strings::PadCenter(self::PAD_DATA, 5, NULL));
 		$this->assertEquals('abc',   Strings::PadCenter(self::PAD_DATA, 2));
@@ -254,7 +254,7 @@ class StringsTest extends \PHPUnit\Framework\TestCase {
 	/**
 	 * @covers ::StartsWith
 	 */
-	public function testStartsWith() {
+	public function testStartsWith(): void {
 		$this->assertFalse(Strings::StartsWith(self::STARTS_ENDS_DATA, NULL));
 		$this->assertFalse(Strings::StartsWith(self::STARTS_ENDS_DATA, self::STARTS_ENDS_DATA.'123'));
 		// case-sensitive
@@ -271,7 +271,7 @@ class StringsTest extends \PHPUnit\Framework\TestCase {
 	/**
 	 * @covers ::EndsWith
 	 */
-	public function testEndsWith() {
+	public function testEndsWith(): void {
 		$this->assertFalse(Strings::EndsWith(self::STARTS_ENDS_DATA, NULL));
 		$this->assertFalse(Strings::EndsWith(self::STARTS_ENDS_DATA, self::STARTS_ENDS_DATA.'123'));
 		// case-sensitive
@@ -302,7 +302,7 @@ class StringsTest extends \PHPUnit\Framework\TestCase {
 	/**
 	 * @covers ::ForceStartsWith
 	 */
-	public function testForceStartsWith() {
+	public function testForceStartsWith(): void {
 		$this->assertEquals(
 			self::FORCE_DATA,
 			Strings::ForceStartsWith(self::FORCE_DATA, NULL)
@@ -319,7 +319,7 @@ class StringsTest extends \PHPUnit\Framework\TestCase {
 	/**
 	 * @covers ::ForceEndsWith
 	 */
-	public function testForceEndsWith() {
+	public function testForceEndsWith(): void {
 		$this->assertEquals(
 			self::FORCE_DATA,
 			Strings::ForceEndsWith(self::FORCE_DATA, NULL)
@@ -345,7 +345,7 @@ class StringsTest extends \PHPUnit\Framework\TestCase {
 	/**
 	 * @covers ::Contains
 	 */
-	public function testContains() {
+	public function testContains(): void {
 		$this->assertFalse(Strings::Contains(self::TRIM_TEST_DATA, NULL         ));
 		$this->assertTrue (Strings::Contains(self::TRIM_TEST_DATA, 'test'       ));
 		$this->assertTrue (Strings::Contains(self::TRIM_TEST_DATA, 'Test', TRUE ));
@@ -427,7 +427,7 @@ class StringsTest extends \PHPUnit\Framework\TestCase {
 	/**
 	 * @covers ::BuildPath
 	 */
-	public function testBuildPath() {
+	public function testBuildPath(): void {
 		$this->assertEquals('', Strings::BuildPath());
 		$this->assertEquals('home', Strings::BuildPath(NULL, 'home', NULL));
 		$this->assertEquals( 'home/user/Desktop',  Strings::BuildPath(     'home',   'user',   'Desktop'     ));
@@ -441,7 +441,7 @@ class StringsTest extends \PHPUnit\Framework\TestCase {
 	/**
 	 * @covers ::CommonPath
 	 */
-	public function testCommonPath() {
+	public function testCommonPath(): void {
 		$this->assertEquals('', Strings::CommonPath(NULL, NULL));
 		$this->assertEquals('/home/user', Strings::CommonPath('/home/user/Desktop', '/home/user/Documents' ));
 		$this->assertEquals('/home/user', Strings::CommonPath('/home/user/',        '/home/user/Documents/'));

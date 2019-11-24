@@ -28,7 +28,7 @@ final class Paths {
 	/**
 	 * @codeCoverageIgnore
 	 */
-	public static function init() {
+	public static function init(): void {
 		if (self::$inited) return;
 		self::$inited = TRUE;
 		// pwd path
@@ -69,7 +69,7 @@ final class Paths {
 
 
 
-	public static function all() {
+	public static function all(): array {
 		$all = [];
 		$all['local'] = [
 			'pwd'    => self::$local_pwd,
@@ -88,13 +88,13 @@ final class Paths {
 
 
 	// local paths
-	public static function pwd() {
+	public static function pwd(): string {
 		return self::$local_pwd;
 	}
-	public static function entry() {
+	public static function entry(): string {
 		return self::$local_entry;
 	}
-	public static function utils() {
+	public static function utils(): string {
 		return self::$local_utils;
 	}
 

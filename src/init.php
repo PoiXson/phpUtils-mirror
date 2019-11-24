@@ -32,7 +32,7 @@ define('pxn\\phpUtils\\inited', TRUE);
 
 
 final class init {
-	public static function init() {}
+	public static function init(): void {}
 }
 
 

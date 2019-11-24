@@ -13,7 +13,7 @@ class FileNotFoundException extends \Exception {
 
 
 
-	public function __construct($msg) {
+	public function __construct(string $msg) {
 		parent::__construct("File not found: $msg");
 	}
 

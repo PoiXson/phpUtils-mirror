@@ -21,7 +21,7 @@ class ArraysTest extends \PHPUnit\Framework\TestCase {
 	/**
 	 * @covers ::Flatten
 	 */
-	public function testFlatten() {
+	public function testFlatten(): void {
 		// strings
 		$this->assertEquals(
 			[ 'a', 'b', 'c' ],
@@ -63,7 +63,7 @@ class ArraysTest extends \PHPUnit\Framework\TestCase {
 	/**
 	 * @covers ::TrimFlat
 	 */
-	public function testTrimFlat() {
+	public function testTrimFlat(): void {
 		// strings
 		$this->assertEquals(
 			[ 'a', 'b', 'c' ],
@@ -150,7 +150,7 @@ class ArraysTest extends \PHPUnit\Framework\TestCase {
 	/**
 	 * @covers ::MakeArray
 	 */
-	public function testMakeArray() {
+	public function testMakeArray(): void {
 		// clean
 		$this->assertEquals(
 			[ 'a', 'b', 'c' ],
@@ -178,7 +178,7 @@ class ArraysTest extends \PHPUnit\Framework\TestCase {
 	/**
 	 * @covers ::Explode
 	 */
-	public function testExplode() {
+	public function testExplode(): void {
 		// simple string
 		$this->assertEquals(
 			[ 'a', 'b', 'c' ],

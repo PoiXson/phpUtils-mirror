@@ -16,7 +16,7 @@ final class Arrays {
 
 
 
-	public static function Flatten(...$data) {
+	public static function Flatten(...$data): array {
 		$result = [];
 		\array_walk_recursive(
 			$data,
@@ -29,7 +29,7 @@ final class Arrays {
 
 
 
-	public static function TrimFlat(...$data) {
+	public static function TrimFlat(...$data): array {
 		$result = [];
 		\array_walk_recursive(
 			$data,
@@ -64,9 +64,9 @@ final class Arrays {
 
 
 	// make array if not already
-	public static function MakeArray($data) {
+	public static function MakeArray($data): array {
 		if ($data === NULL)
-			return NULL;
+			return [];
 		if (\is_array($data))
 			return $data;
 		return [ $data ];
@@ -75,7 +75,7 @@ final class Arrays {
 
 
 	// explode() with multiple delimiters
-	public static function Explode($data, ...$delims) {
+	public static function Explode($data, string...$delims): array {
 		$data = self::MakeArray($data);
 		// default delims
 		if (\count($delims) == 0)

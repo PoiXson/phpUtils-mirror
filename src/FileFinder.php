@@ -22,7 +22,7 @@ class FileFinder {
 
 
 
-	public function searchPath(string $path, int $depth=2) {
+	public function searchPath(string $path, int $depth=2): void {
 		$pth = \realpath($path);
 		if (empty($path)) throw new NullPointerException("Path not found: $path");
 		$this->searchPaths[] = $pth;
@@ -36,25 +36,31 @@ class FileFinder {
 			}
 		}
 	}
-	public function searchPaths(string...$paths) {
+	public function searchPaths(string...$paths): void {
 		$this->searchPaths = \array_merge($this->searchPaths, $paths);
 	}
-	public function searchFiles(string...$files) {
+	public function searchFiles(string...$files): void {
 		$this->searchFiles = \array_merge($this->searchFiles, $files);
 	}
-	public function searchExtensions(string...$exts) {
+	public function searchExtensions(string...$exts): void {
 		$this->searchExts = \array_merge($this->searchExts, $exts);
 	}
 
 
 
-	public function find() {
-		return $this->doFind(FALSE);
+	public function find(): ?string {
+		$result = $this->doFind(FALSE);
+		if ($result === NULL)
+			return NULL;
+		return $result[0];
 	}
-	public function findAll() {
-		return $this->doFind(TRUE);
+	public function findAll(): array {
+		$result = $this->doFind(TRUE);
+		if ($result === NULL)
+			return [];
+		return $result;
 	}
-	protected function doFind(bool $all=FALSE) {
+	protected function doFind(bool $all=FALSE): ?array {
 		$found = [];
 		foreach ($this->searchPaths as $path) {
 			if (\count($this->searchFiles) == 0) {
@@ -101,10 +107,10 @@ class FileFinder {
 
 
 
-	public function getSearchPaths() {
+	public function getSearchPaths(): array {
 		return $this->searchPaths;
 	}
-	public function getSearchFiles() {
+	public function getSearchFiles(): array {
 		return $this->searchFiles;
 	}
 

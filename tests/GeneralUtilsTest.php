@@ -20,13 +20,13 @@ class GeneralUtilsTest extends \PHPUnit\Framework\TestCase {
 
 
 
-	public function testArray() {
+	public function testArray(): void {
 		$this->assertEmpty([]);
 	}
 
 
 
-	public function testClassName() {
+	public function testClassName(): void {
 		$this->assertEquals(
 			self::THIS_CLASS_STRING,
 			\get_class($this)
@@ -38,7 +38,7 @@ class GeneralUtilsTest extends \PHPUnit\Framework\TestCase {
 	/**
 	 * @covers ::castType
 	 */
-	public function testCastType() {
+	public function testCastType(): void {
 		// null
 		$this->assertSame(
 			123,
@@ -86,7 +86,7 @@ class GeneralUtilsTest extends \PHPUnit\Framework\TestCase {
 	/**
 	 * @covers ::castBoolean
 	 */
-	public function testCastBoolean() {
+	public function testCastBoolean(): void {
 		// null
 		$this->assertNull( GeneralUtils::castBoolean(NULL)       );
 		// boolean
@@ -117,7 +117,7 @@ class GeneralUtilsTest extends \PHPUnit\Framework\TestCase {
 	/**
 	 * @covers ::getVar
 	 */
-	public function testGetVar() {
+	public function testGetVar(): void {
 		$key = 'abcd';
 		$_GET[$key]     = '1234';
 		$_POST[$key]    = '5678';
@@ -163,7 +163,7 @@ class GeneralUtilsTest extends \PHPUnit\Framework\TestCase {
 	/**
 	 * @covers ::get
 	 */
-	public function testGet() {
+	public function testGet(): void {
 		$key = 'test';
 		$this->assertNull( GeneralUtils::get($key) );
 		$_GET[$key] = 'abc';
@@ -173,7 +173,7 @@ class GeneralUtilsTest extends \PHPUnit\Framework\TestCase {
 	/**
 	 * @covers ::post
 	 */
-	public function testPost() {
+	public function testPost(): void {
 		$key = 'test';
 		$this->assertNull( GeneralUtils::post($key) );
 		$_POST[$key] = 'abc';
@@ -183,7 +183,7 @@ class GeneralUtilsTest extends \PHPUnit\Framework\TestCase {
 	/**
 	 * @covers ::cookie
 	 */
-	public function testCookie() {
+	public function testCookie(): void {
 		$key = 'test';
 		$this->assertNull( GeneralUtils::cookie($key) );
 		$_COOKIE[$key] = 'abc';
@@ -193,7 +193,7 @@ class GeneralUtilsTest extends \PHPUnit\Framework\TestCase {
 	/**
 	 * @covers ::session
 	 */
-	public function testSession() {
+	public function testSession(): void {
 		$key = 'test';
 		$this->assertNull( GeneralUtils::session($key) );
 		$_SESSION[$key] = 'abc';
@@ -223,7 +223,7 @@ class GeneralUtilsTest extends \PHPUnit\Framework\TestCase {
 	/**
 	 * @covers ::getTimestamp
 	 */
-	public function testGetTimestamp() {
+	public function testGetTimestamp(): void {
 		$tim = GeneralUtils::getTimestamp();
 		$this->assertIsNumeric($tim);
 		$this->assertGreaterThan(1500000000.0, $tim);
@@ -234,7 +234,7 @@ class GeneralUtilsTest extends \PHPUnit\Framework\TestCase {
 	/**
 	 * @covers ::Sleep
 	 */
-	public function testSleep() {
+	public function testSleep(): void {
 		$timA = GeneralUtils::getTimestamp();
 		GeneralUtils::Sleep(10);
 		$timB = GeneralUtils::getTimestamp();
@@ -246,7 +246,7 @@ class GeneralUtilsTest extends \PHPUnit\Framework\TestCase {
 	/**
 	 * @covers ::GDSupported
 	 */
-	public function testGDSupported() {
+	public function testGDSupported(): void {
 		$this->assertEquals(
 			\function_exists('imagepng'),
 			GeneralUtils::GDSupported()

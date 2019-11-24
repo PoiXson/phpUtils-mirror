@@ -21,7 +21,7 @@ final class GeneralUtils {
 
 
 	// cast variable type
-	public static function castType($data, $type) {
+	public static function castType($data, string $type) {
 		if ($type === NULL)
 			return $data;
 		switch (\mb_strtolower(\mb_substr( (string) $type, 0, 1))) {
@@ -37,7 +37,7 @@ final class GeneralUtils {
 				return ((float) $data);
 			// double
 			case 'd':
-				return ((double) $data);
+				return ((float) $data);
 			// boolean
 			case 'b':
 				return self::castBoolean($data);
@@ -50,7 +50,7 @@ final class GeneralUtils {
 
 
 	// convert to boolean
-	public static function castBoolean($value) {
+	public static function castBoolean($value): ?bool {
 		if ($value === NULL)
 			return NULL;
 		if (\gettype($value) === 'boolean')
@@ -90,7 +90,7 @@ final class GeneralUtils {
 	 *     Possible values: get, post, cookie, session
 	 * @return object - Returns the requested value, cast to requested type.
 	 */
-	public static function getVar($name, $type='s', $source=['g','p']) {
+	public static function getVar(string $name, string $type='s', $source=['g','p']) {
 		$source = Arrays::MakeArray($source);
 		$value = NULL;
 		foreach ($source as $src) {
@@ -127,25 +127,25 @@ final class GeneralUtils {
 
 
 	// get var
-	public static function get($name, $type=NULL) {
+	public static function get(string $name, string $type=NULL) {
 		if (isset($_GET[$name]))
 			return self::castType($_GET[$name], $type);
 		return NULL;
 	}
 	// post var
-	public static function post($name, $type=NULL) {
+	public static function post(string $name, string $type=NULL) {
 		if (isset($_POST[$name]))
 			return self::castType($_POST[$name], $type);
 		return NULL;
 	}
 	// cookie var
-	public static function cookie($name, $type=NULL) {
+	public static function cookie(string $name, string $type=NULL) {
 		if (isset($_COOKIE[$name]))
 			return self::castType($_COOKIE[$name], $type);
 		return NULL;
 	}
 	// php session var
-	public static function session($name, $type=NULL) {
+	public static function session(string $name, string $type=NULL) {
 		if (isset($_SESSION[$name]))
 			return self::castType($_SESSION[$name], $type);
 		return NULL;
@@ -201,19 +201,19 @@ final class GeneralUtils {
 	/**
 	 * @return double - Returns current timestamp in seconds.
 	 */
-	public static function getTimestamp($places=3) {
+	public static function getTimestamp(int $places=3): float {
 		$places = Numbers::MinMax($places, 0, 4);
 		$time = \explode(' ', \microtime(), 2);
 		if ($places <= 0)
 			return (int) $time[1];
-		$timestamp = ((double) $time[1]) + ((double) $time[0]);
+		$timestamp = ((float) $time[1]) + ((float) $time[0]);
 		return Numbers::Round($timestamp, $places);
 	}
 	/**
 	 * Sleep execution for x milliseconds.
 	 * @param int $ms - Milliseconds to sleep.
 	 */
-	public static function Sleep($ms) {
+	public static function Sleep(int $ms): void {
 		if ($ms > 0.0) {
 			\usleep($ms * 1000.0);
 		}
@@ -303,7 +303,7 @@ final class GeneralUtils {
 	 * Checks for GD support.
 	 * @return boolean - TRUE if GD functions are available.
 	 */
-	public static function GDSupported() {
+	public static function GDSupported(): bool {
 		return \function_exists('gd_info');
 	}
 

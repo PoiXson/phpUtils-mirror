@@ -11,7 +11,7 @@ namespace pxn\phpUtils;
 
 final class Defines {
 	private final function __construct() {}
-	public static function init() {}
+	public static function init(): void {}
 
 
 	const PHP_MIN_VERSION     = 70200;

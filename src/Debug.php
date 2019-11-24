@@ -22,7 +22,7 @@ final class Debug {
 	/**
 	 * @codeCoverageIgnore
 	 */
-	public static function init() {
+	public static function init(): void {
 		if (self::$inited) return;
 		self::$inited = TRUE;
 		// by define
@@ -89,17 +89,17 @@ final class Debug {
 
 
 
-	public static function debug($debug=NULL, $desc=NULL) {
+	public static function debug(bool $debug=NULL, string $desc=NULL): bool {
 		$last = self::isDebug();
 		if ($debug !== NULL) {
 			self::setDebug($debug, $desc);
 		}
 		return $last;
 	}
-	public static function isDebug() {
+	public static function isDebug(): bool {
 		return (self::$debug === TRUE);
 	}
-	public static function setDebug($debug, $desc=NULL) {
+	public static function setDebug(bool $debug, string $desc=NULL): void {
 		if (!self::$inited) self::init();
 		if ($debug === NULL) return;
 		$last = self::$debug;
@@ -113,23 +113,23 @@ final class Debug {
 
 
 
-	public static function desc(string $desc=NULL) {
+	public static function desc(string $desc=NULL): string {
 		$last = self::getDesc();
 		if ($desc !== NULL) {
 			self::setDesc($desc);
 		}
 		return $last;
 	}
-	public static function getDesc() {
+	public static function getDesc(): string {
 		return self::$desc;
 	}
-	public static function setDesc(string $desc) {
+	public static function setDesc(string $desc): void {
 		self::$desc = $desc;
 	}
 
 
 
-	private static function EnableDisable($debug) {
+	private static function EnableDisable(bool $debug): void {
 		$isShell = SystemUtils::isShell();
 		\error_reporting(\E_ALL);
 		\ini_set('display_errors', $debug   ? 'On' : 'Off');

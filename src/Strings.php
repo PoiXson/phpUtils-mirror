@@ -44,7 +44,7 @@ final class Strings {
 
 
 
-	public static function Trim($text, ...$remove) {
+	public static function Trim(string $text, string...$remove): string {
 		if (\count($remove) == 0) {
 			$remove = self::DEFAULT_TRIM_CHARS;
 		}
@@ -86,7 +86,7 @@ final class Strings {
 		}
 		return $text;
 	}
-	public static function TrimFront($text, ...$remove) {
+	public static function TrimFront(string $text, string...$remove): string {
 		if (\count($remove) == 0) {
 			$remove = self::DEFAULT_TRIM_CHARS;
 		}
@@ -121,7 +121,7 @@ final class Strings {
 		}
 		return $text;
 	}
-	public static function TrimEnd($text, ...$remove) {
+	public static function TrimEnd(string $text, string...$remove): string {
 		if (\count($remove) == 0) {
 			$remove = self::DEFAULT_TRIM_CHARS;
 		}
@@ -164,7 +164,7 @@ final class Strings {
 	 * @param string $text - String in which to remove quotes.
 	 * @return string - String with ' and " quotes removed.
 	 */
-	public static function TrimQuotes($text) {
+	public static function TrimQuotes(string $text): string {
 		while (\mb_strlen($text) > 1) {
 			$f = \mb_substr($text,  0, 1);
 			$e = \mb_substr($text, -1, 1);
@@ -282,15 +282,15 @@ final class Strings {
 
 
 
-	public static function PadLeft($str, $size, $char=' ') {
+	public static function PadLeft(string $str, string $size, string $char=' '): string {
 		$padding = self::getPadding($str, $size, $char);
 		return $padding.$str;
 	}
-	public static function PadRight($str, $size, $char=' ') {
+	public static function PadRight(string $str, string $size, string $char=' '): string {
 		$padding = self::getPadding($str, $size, $char);
 		return $str.$padding;
 	}
-	private static function getPadding($str, $size, $char=' ') {
+	private static function getPadding(string $str, string $size, string $char=' '): string {
 		if (empty($char)) {
 			$char = ' ';
 		}
@@ -312,7 +312,7 @@ final class Strings {
 		}
 		return \str_repeat($char, $len);
 	}
-	public static function PadCenter($str, $size, $char=' ') {
+	public static function PadCenter(string $str, string $size, string $char=' '): string {
 		if (empty($char)) {
 			$char = ' ';
 		}
@@ -379,7 +379,7 @@ final class Strings {
 
 
 
-	public static function StartsWith($haystack, $needle, $ignoreCase=FALSE) {
+	public static function StartsWith(string $haystack, string $needle, bool $ignoreCase=FALSE): bool {
 		if (empty($haystack) || empty($needle)) {
 			return FALSE;
 		}
@@ -393,7 +393,7 @@ final class Strings {
 		}
 		return \mb_substr($haystack, 0, $len) == $needle;
 	}
-	public static function EndsWith($haystack, $needle, $ignoreCase=FALSE) {
+	public static function EndsWith(string $haystack, string $needle, bool $ignoreCase=FALSE): bool {
 		if (empty($haystack) || empty($needle)) {
 			return FALSE;
 		}
@@ -416,7 +416,7 @@ final class Strings {
 
 
 
-	public static function ForceStartsWith($haystack, $prepend) {
+	public static function ForceStartsWith(string $haystack, string $prepend): string {
 		if (empty($haystack) || empty($prepend)) {
 			return $haystack;
 		}
@@ -425,7 +425,7 @@ final class Strings {
 		}
 		return $prepend.$haystack;
 	}
-	public static function ForceEndsWith($haystack, $append) {
+	public static function ForceEndsWith(string $haystack, string $append): string {
 		if (empty($haystack) || empty($append)) {
 			return $haystack;
 		}
@@ -443,7 +443,7 @@ final class Strings {
 
 
 
-	public static function Contains($haystack, $needle, $ignoreCase=FALSE) {
+	public static function Contains(string $haystack, string $needle, bool $ignoreCase=FALSE): bool {
 		if (empty($haystack) || empty($needle)) {
 			return FALSE;
 		}
@@ -538,7 +538,7 @@ final class Strings {
 
 
 
-	public static function BuildPath(...$parts) {
+	public static function BuildPath(string...$parts): string {
 		if (empty($parts))
 			return '';
 		$prepend = self::StartsWith(\reset($parts), '/');
@@ -562,7 +562,7 @@ final class Strings {
 
 
 
-	public static function CommonPath($pathA, $pathB) {
+	public static function CommonPath(string $pathA, string $pathB): string {
 		$pathA = (string) $pathA;
 		$pathB = (string) $pathB;
 		$prepend = self::StartsWith($pathA, '/')

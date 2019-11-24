@@ -25,7 +25,7 @@ class DebugTest extends \PHPUnit\Framework\TestCase {
 	 * @covers ::setDesc
 	 * @covers ::EnableDisable
 	 */
-	public function testGetSetDebug() {
+	public function testGetSetDebug(): void {
 		$originalDebug = Debug::isDebug();
 		$originalDesc  = Debug::getDesc();
 		// enable debug
@@ -55,7 +55,7 @@ class DebugTest extends \PHPUnit\Framework\TestCase {
 	 * @covers ::desc
 	 * @covers ::EnableDisable
 	 */
-	public function testDebug() {
+	public function testDebug(): void {
 		$originalDebug = Debug::debug();
 		$originalDesc  = Debug::desc();
 		// enable debug
@@ -80,7 +80,7 @@ class DebugTest extends \PHPUnit\Framework\TestCase {
 	/**
 	 * @covers \debug
 	 */
-	public function testGlobalDebug() {
+	public function testGlobalDebug(): void {
 		$originalDebug = Debug::isDebug();
 		$originalDesc  = Debug::getDesc();
 		// enable debug

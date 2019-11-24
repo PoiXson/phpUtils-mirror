@@ -45,17 +45,17 @@ abstract class App {
 
 
 
-	public abstract function run();
+	public abstract function run(): void;
 
 
 
-	public function getName() {
+	public function getName(): string {
 		return $this->appName;
 	}
-	public function getNamespace() {
+	public function getNamespace(): string {
 		return $this->namespacePath;
 	}
-	public function getVersion() {
+	public function getVersion(): string {
 //TODO
 		return '1.x.x';
 	}

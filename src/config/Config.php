@@ -37,7 +37,7 @@ class Config extends ConfigDAO {
 
 
 
-	public function LoadFile(string $file=NULL) {
+	public function LoadFile(string $file=NULL): void {
 		if (!empty($file)) {
 			$file = (string) $file;
 			if (!empty($file)) {
@@ -77,7 +77,7 @@ class Config extends ConfigDAO {
 		}
 		$this->mtime = \filemtime($this->file);
 	}
-	public function LoadStringJson(string $data) {
+	public function LoadStringJson(string $data): void {
 		if (empty($data)) return;
 		$json = \json_decode($data, TRUE, \JSON_OBJECT_AS_ARRAY | \JSON_THROW_ON_ERROR);
 		if ($json === NULL) {
@@ -85,7 +85,7 @@ class Config extends ConfigDAO {
 		}
 		$this->data = $json;
 	}
-	public function LoadStringYaml(string $data) {
+	public function LoadStringYaml(string $data): void {
 		if (empty($data)) return;
 		$yaml = \yaml_parse($data);
 		if ($yaml === NULL) {
@@ -96,7 +96,7 @@ class Config extends ConfigDAO {
 
 
 
-	public function isFileChanged() {
+	public function isFileChanged(): bool {
 		$mtimeCurrent = \filemtime($this->file);
 		return ($mtimeCurrent != $this->mtime);
 	}

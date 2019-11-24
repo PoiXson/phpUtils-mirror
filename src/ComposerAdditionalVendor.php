@@ -16,7 +16,7 @@ class ComposerAdditionalVendor {
 
 
 	// register the parent autoloader
-	public static function Register(\Composer\Autoload\ClassLoader $autoload) {
+	public static function Register(\Composer\Autoload\ClassLoader $autoload): void {
 		self::$autoload = $autoload;
 	}
 
@@ -24,7 +24,7 @@ class ComposerAdditionalVendor {
 
 	// example: AddVendor('pxn\\LibName', '../../LibName/')
 	public static function AddVendorClassMap(string $namespace, string $path,
-	array $whitelist=[], array $blacklist=[]) {
+	array $whitelist=[], array $blacklist=[]): void {
 		if (self::$autoload == NULL) {
 			throw new \RuntimeException();
 		}
