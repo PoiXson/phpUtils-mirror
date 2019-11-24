@@ -9,12 +9,16 @@
 namespace pxn\phpUtils\exceptions;
 
 
-class FileNotFoundException extends \Exception {
+class FileNotFoundException extends \RuntimeException {
 
 
 
-	public function __construct(string $msg) {
-		parent::__construct("File not found: $msg");
+	public function __construct(string $msg=NULL) {
+		if (empty($msg)) {
+			parent::__construct();
+		} else {
+			parent::__construct("File not found: $msg");
+		}
 	}
 
 
