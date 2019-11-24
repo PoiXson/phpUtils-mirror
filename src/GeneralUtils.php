@@ -128,24 +128,28 @@ final class GeneralUtils {
 
 	// get var
 	public static function get(string $name, string $type=NULL) {
+		if ($type === NULL) $type = 's';
 		if (isset($_GET[$name]))
 			return self::castType($_GET[$name], $type);
 		return NULL;
 	}
 	// post var
 	public static function post(string $name, string $type=NULL) {
+		if ($type === NULL) $type = 's';
 		if (isset($_POST[$name]))
 			return self::castType($_POST[$name], $type);
 		return NULL;
 	}
 	// cookie var
 	public static function cookie(string $name, string $type=NULL) {
+		if ($type === NULL) $type = 's';
 		if (isset($_COOKIE[$name]))
 			return self::castType($_COOKIE[$name], $type);
 		return NULL;
 	}
 	// php session var
 	public static function session(string $name, string $type=NULL) {
+		if ($type === NULL) $type = 's';
 		if (isset($_SESSION[$name]))
 			return self::castType($_SESSION[$name], $type);
 		return NULL;

@@ -39,11 +39,11 @@ class GeneralUtilsTest extends \PHPUnit\Framework\TestCase {
 	 * @covers ::castType
 	 */
 	public function testCastType(): void {
-		// null
-		$this->assertSame(
-			123,
-			GeneralUtils::castType(123, NULL)
-		);
+//		// null
+//		$this->assertSame(
+//			123,
+//			GeneralUtils::castType(123, NULL)
+//		);
 		// string
 		$this->assertSame(
 			'123',

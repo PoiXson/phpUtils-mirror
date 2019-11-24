@@ -158,7 +158,7 @@ class ArraysTest extends \PHPUnit\Framework\TestCase {
 		);
 		// null
 		$this->assertEquals(
-			NULL,
+			[],
 			Arrays::MakeArray(NULL)
 		);
 		// empty string

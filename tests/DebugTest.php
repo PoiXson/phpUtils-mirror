@@ -32,10 +32,10 @@ class DebugTest extends \PHPUnit\Framework\TestCase {
 		Debug::setDebug(TRUE, 'unit test');
 		$this->assertTrue(Debug::isDebug());
 		$this->assertEquals('unit test', Debug::getDesc());
-		// null
-		Debug::setDebug(NULL, 'null');
-		$this->assertTrue(Debug::isDebug());
-		$this->assertEquals('unit test', Debug::getDesc());
+//		// null
+//		Debug::setDebug(NULL, 'null');
+//		$this->assertTrue(Debug::isDebug());
+//		$this->assertEquals('unit test', Debug::getDesc());
 		// disable debug
 		Debug::setDebug(FALSE, 'unit test');
 		$this->assertFalse(Debug::isDebug());

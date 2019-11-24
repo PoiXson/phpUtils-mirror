@@ -204,7 +204,7 @@ class StringsTest extends \PHPUnit\Framework\TestCase {
 	 */
 	public function testPadLeft(): void {
 		$this->assertEquals('  abc', Strings::PadLeft(self::PAD_DATA, 5));
-		$this->assertEquals('  abc', Strings::PadLeft(self::PAD_DATA, 5, NULL));
+		$this->assertEquals('  abc', Strings::PadLeft(self::PAD_DATA, 5, ''));
 		$this->assertEquals('abc',   Strings::PadLeft(self::PAD_DATA, 2));
 		$this->assertEquals('-+abc', Strings::PadLeft(self::PAD_DATA, 5, '-+'));
 	}
@@ -214,7 +214,7 @@ class StringsTest extends \PHPUnit\Framework\TestCase {
 	 */
 	public function testPadRight(): void {
 		$this->assertEquals('abc  ', Strings::PadRight(self::PAD_DATA, 5));
-		$this->assertEquals('abc  ', Strings::PadRight(self::PAD_DATA, 5, NULL));
+		$this->assertEquals('abc  ', Strings::PadRight(self::PAD_DATA, 5, ''));
 		$this->assertEquals('abc',   Strings::PadRight(self::PAD_DATA, 2));
 		$this->assertEquals('abc-+', Strings::PadRight(self::PAD_DATA, 5, '-+'));
 	}
@@ -224,7 +224,7 @@ class StringsTest extends \PHPUnit\Framework\TestCase {
 	 */
 	public function testPadCenter(): void {
 		$this->assertEquals(' abc ', Strings::PadCenter(self::PAD_DATA, 5));
-		$this->assertEquals(' abc ', Strings::PadCenter(self::PAD_DATA, 5, NULL));
+		$this->assertEquals(' abc ', Strings::PadCenter(self::PAD_DATA, 5, ''));
 		$this->assertEquals('abc',   Strings::PadCenter(self::PAD_DATA, 2));
 		$this->assertEquals('-+abc-+', Strings::PadCenter(self::PAD_DATA, 5, '-+'));
 	}
@@ -255,7 +255,7 @@ class StringsTest extends \PHPUnit\Framework\TestCase {
 	 * @covers ::StartsWith
 	 */
 	public function testStartsWith(): void {
-		$this->assertFalse(Strings::StartsWith(self::STARTS_ENDS_DATA, NULL));
+		$this->assertFalse(Strings::StartsWith(self::STARTS_ENDS_DATA, ''));
 		$this->assertFalse(Strings::StartsWith(self::STARTS_ENDS_DATA, self::STARTS_ENDS_DATA.'123'));
 		// case-sensitive
 		$this->assertTrue (Strings::StartsWith(self::STARTS_ENDS_DATA, 'abc', FALSE));
@@ -272,7 +272,7 @@ class StringsTest extends \PHPUnit\Framework\TestCase {
 	 * @covers ::EndsWith
 	 */
 	public function testEndsWith(): void {
-		$this->assertFalse(Strings::EndsWith(self::STARTS_ENDS_DATA, NULL));
+		$this->assertFalse(Strings::EndsWith(self::STARTS_ENDS_DATA, ''));
 		$this->assertFalse(Strings::EndsWith(self::STARTS_ENDS_DATA, self::STARTS_ENDS_DATA.'123'));
 		// case-sensitive
 		$this->assertTrue (Strings::EndsWith(self::STARTS_ENDS_DATA, 'efg', FALSE));
@@ -305,7 +305,7 @@ class StringsTest extends \PHPUnit\Framework\TestCase {
 	public function testForceStartsWith(): void {
 		$this->assertEquals(
 			self::FORCE_DATA,
-			Strings::ForceStartsWith(self::FORCE_DATA, NULL)
+			Strings::ForceStartsWith(self::FORCE_DATA, '')
 		);
 		$this->assertEquals(
 			self::FORCE_APPEND . self::FORCE_DATA,
@@ -322,7 +322,7 @@ class StringsTest extends \PHPUnit\Framework\TestCase {
 	public function testForceEndsWith(): void {
 		$this->assertEquals(
 			self::FORCE_DATA,
-			Strings::ForceEndsWith(self::FORCE_DATA, NULL)
+			Strings::ForceEndsWith(self::FORCE_DATA, '')
 		);
 		$this->assertEquals(
 			self::FORCE_DATA . self::FORCE_APPEND,
@@ -346,7 +346,7 @@ class StringsTest extends \PHPUnit\Framework\TestCase {
 	 * @covers ::Contains
 	 */
 	public function testContains(): void {
-		$this->assertFalse(Strings::Contains(self::TRIM_TEST_DATA, NULL         ));
+		$this->assertFalse(Strings::Contains(self::TRIM_TEST_DATA, ''         ));
 		$this->assertTrue (Strings::Contains(self::TRIM_TEST_DATA, 'test'       ));
 		$this->assertTrue (Strings::Contains(self::TRIM_TEST_DATA, 'Test', TRUE ));
 		$this->assertFalse(Strings::Contains(self::TRIM_TEST_DATA, 'Test', FALSE));
@@ -429,7 +429,7 @@ class StringsTest extends \PHPUnit\Framework\TestCase {
 	 */
 	public function testBuildPath(): void {
 		$this->assertEquals('', Strings::BuildPath());
-		$this->assertEquals('home', Strings::BuildPath(NULL, 'home', NULL));
+		$this->assertEquals('home', Strings::BuildPath('', 'home', ''));
 		$this->assertEquals( 'home/user/Desktop',  Strings::BuildPath(     'home',   'user',   'Desktop'     ));
 		$this->assertEquals('/home/user/Desktop',  Strings::BuildPath('/', 'home',   'user',   'Desktop'     ));
 		$this->assertEquals('/home/user/Desktop/', Strings::BuildPath(    '/home',   'user',   'Desktop', '/'));
@@ -442,7 +442,7 @@ class StringsTest extends \PHPUnit\Framework\TestCase {
 	 * @covers ::CommonPath
 	 */
 	public function testCommonPath(): void {
-		$this->assertEquals('', Strings::CommonPath(NULL, NULL));
+		$this->assertEquals('', Strings::CommonPath('', ''));
 		$this->assertEquals('/home/user', Strings::CommonPath('/home/user/Desktop', '/home/user/Documents' ));
 		$this->assertEquals('/home/user', Strings::CommonPath('/home/user/',        '/home/user/Documents/'));
 		$this->assertEquals('/',          Strings::CommonPath('/usr/bin',           '/etc/profile.d'       ));
