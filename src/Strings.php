@@ -538,6 +538,19 @@ final class Strings {
 
 
 
+	public static function getFileName($filePath) {
+		if (empty($filePath)) {
+			return '';
+		}
+		$pos = \mb_strrpos($filePath, '/');
+		if ($pos === FALSE) {
+			return $filePath;
+		}
+		return \mb_substr($filePath, $pos+1);
+	}
+
+
+
 	public static function BuildPath(string...$parts): string {
 		if (empty($parts))
 			return '';
@@ -558,6 +571,25 @@ final class Strings {
 			($prepend ? '/' : '').
 			\implode('/', $cleaned).
 			($append  ? '/' : '');
+	}
+
+
+
+	public static function getAbsolutePath(string $path): string {
+		if (empty($path)) {
+			return Paths::pwd();
+		}
+		$first = \mb_substr($path, 0, 1);
+		if ($first == '/') {
+			return $path;
+		}
+		if ($first == '.') {
+			$path = \mb_substr($path, 1);
+		}
+		return self::BuildPath(
+			Paths::pwd(),
+			$path
+		);
 	}
 
 
