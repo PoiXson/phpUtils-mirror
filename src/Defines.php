@@ -14,8 +14,8 @@ final class Defines {
 	public static function init(): void {}
 
 
-	const PHP_MIN_VERSION     = 70200;
-	const PHP_MIN_VERSION_STR = '7.2';
+	const PHP_MIN_VERSION     = 70300;
+	const PHP_MIN_VERSION_STR = '7.3';
 
 	const DEBUG_COOKIE = 'pxn_debug';
 
