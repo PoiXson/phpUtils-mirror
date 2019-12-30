@@ -118,35 +118,35 @@ class ConfigDAO {
 		}
 		return (string) $value;
 	}
-	public function getInt(string $key): int {
+	public function getInt(string $key): ?int {
 		$value = $this->getValue($key);
 		if ($value === NULL) {
 			return NULL;
 		}
 		return (integer) $value;
 	}
-	public function getLong(string $key): long {
+	public function getLong(string $key): ?int {
 		$value = $this->getValue($key);
 		if ($value === NULL) {
 			return NULL;
 		}
 		return (integer) $value;
 	}
-	public function getFloat(string $key): float {
+	public function getFloat(string $key): ?float {
 		$value = $this->getValue($key);
 		if ($value === NULL) {
 			return NULL;
 		}
 		return (float) $value;
 	}
-	public function getDouble(string $key): double {
+	public function getDouble(string $key): ?float {
 		$value = $this->getValue($key);
 		if ($value === NULL) {
 			return NULL;
 		}
 		return (double) $value;
 	}
-	public function getBool(string $key): bool {
+	public function getBool(string $key): ?bool {
 		$value = $this->getValue($key);
 		if ($value === NULL) {
 			return NULL;
