@@ -50,13 +50,13 @@ class FileFinder {
 
 	public function find(): ?string {
 		$result = $this->doFind(FALSE);
-		if ($result === NULL)
+		if ($result === NULL || \count($result) < 1)
 			return NULL;
 		return $result[0];
 	}
 	public function findAll(): array {
 		$result = $this->doFind(TRUE);
-		if ($result === NULL)
+		if ($result === NULL || \count($result) < 1)
 			return [];
 		return $result;
 	}
@@ -68,7 +68,7 @@ class FileFinder {
 					if ($all) {
 						$found[$path] = TRUE;
 					} else {
-						return $path;
+						return [ $path ];
 					}
 				}
 			} else {
@@ -80,7 +80,7 @@ class FileFinder {
 							if ($all) {
 								$found[$filePath] = TRUE;
 							} else {
-								return $filePath;
+								return [ $filePath ];
 							}
 						}
 					} else {
@@ -91,7 +91,7 @@ class FileFinder {
 								if ($all) {
 									$found[$fileExtPath] = TRUE;
 								} else {
-									return $fileExtPath;
+									return [ $fileExtPath ];
 								}
 							}
 						} // end foreach searchExts
