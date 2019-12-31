@@ -5,7 +5,7 @@
  * @license GPL-3
  * @author lorenzo at poixson.com
  * @link http://poixson.com/
- */
+ * /
 namespace pxn\phpUtils\examples\console\commands;
 
 use Symfony\Component\Console\Input\InputInterface;
@@ -46,3 +46,4 @@ class Sequential extends \pxn\phpUtils\console\Command {
 
 
 }
+*/

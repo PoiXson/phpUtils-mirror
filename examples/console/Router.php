@@ -5,7 +5,7 @@
  * @license GPL-3
  * @author lorenzo at poixson.com
  * @link http://poixson.com/
- */
+ * /
 namespace pxn\phpUtils\examples\console;
 
 use pxn\phpUtils\console\Command;
@@ -67,3 +67,4 @@ class Router implements \pxn\phpUtils\console\Router {
 
 
 }
+*/

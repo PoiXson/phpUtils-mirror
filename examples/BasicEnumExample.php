@@ -5,7 +5,7 @@
  * @license GPL-3
  * @author lorenzo at poixson.com
  * @link http://poixson.com/
- */
+ * /
 namespace pxn\phpUtils\examples;
 
 use pxn\phpUtils\BasicEnum;
@@ -28,3 +28,4 @@ class BasicEnumExample extends BasicEnum {
 
 
 }
+*/
