@@ -39,6 +39,11 @@ class DefinesTest extends \PHPUnit\Framework\TestCase {
 		$this->assertEquals( Defines::S_WEEK,    604800 );
 		$this->assertEquals( Defines::S_MONTH,  2592000 );
 		$this->assertEquals( Defines::S_YEAR,  31536000 );
+		// number of bytes
+		$this->assertEquals( Defines::KB,                1024 );
+		$this->assertEquals( Defines::MB,           1024*1024 );
+		$this->assertEquals( Defines::GB,      1024*1024*1024 );
+		$this->assertEquals( Defines::TB, 1024*1024*1024*1024 );
 	}
 
 

@@ -31,7 +31,7 @@ class ComposerAdditionalVendor {
 		// defaults
 		$blacklist[] = 'pxn\\ComposerLocalDev';
 		$namespace = Strings::ForceEndsWith($namespace, '\\');
-		$namespace = Strings::TrimFront($namespace, '\\');
+		$namespace = Strings::TrimFront(    $namespace, '\\');
 		$path = Strings::ForceEndsWith($path, '/');
 		// load autoload_classmap.php file
 		$filePath = "{$path}vendor/composer/autoload_classmap.php";
