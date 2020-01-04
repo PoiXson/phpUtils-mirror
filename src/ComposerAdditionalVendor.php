@@ -1,7 +1,7 @@
 <?php
 /*
  * PoiXson phpUtils - PHP Utilities Library
- * @copyright 2004-2019
+ * @copyright 2004-2020
  * @license GPL-3
  * @author lorenzo at poixson.com
  * @link https://poixson.com/
@@ -11,22 +11,21 @@ namespace pxn\phpUtils;
 
 class ComposerAdditionalVendor {
 
-	protected static $autoload = NULL;
+	protected $autoload;
 
 
 
-	// register the parent autoloader
-	public static function Register(\Composer\Autoload\ClassLoader $autoload): void {
-		self::$autoload = $autoload;
+	public function __construct(\Composer\Autoload\ClassLoader $autoload) {
+		$this->autoload = $autoload;
 	}
 
 
 
 	// example: AddVendor('pxn\\LibName', '../../LibName/')
-	public static function AddVendorClassMap(string $namespace, string $path,
+	public function addVendorClassMap(string $namespace, string $path,
 	array $whitelist=[], array $blacklist=[]): void {
-		if (self::$autoload == NULL) {
-			throw new \RuntimeException();
+		if ($this->autoload == NULL) {
+			throw new \RuntimeException('Composer autoload not registered');
 		}
 		// defaults
 		$blacklist[] = 'pxn\\ComposerLocalDev';
@@ -37,7 +36,7 @@ class ComposerAdditionalVendor {
 		$filePath = "{$path}vendor/composer/autoload_classmap.php";
 		$classMap = require($filePath);
 		// only add classes that don't already exist
-		$existingClassMap = self::$autoload->getClassMap();
+		$existingClassMap = $this->autoload->getClassMap();
 		foreach ($classMap as $key => $val) {
 			if (isset($existingClassMap[$key]))
 				continue;
@@ -62,7 +61,7 @@ class ComposerAdditionalVendor {
 				if (!$found)
 					continue;
 			}
-			self::$autoload->addClassMap([$key => $val]);
+			$this->autoload->addClassMap([$key => $val]);
 		}
 	}
 
