@@ -1,6 +1,12 @@
 phpUtils - PHP Utilities Library
 
 
+2020-01-09 phpUtils 0.2.1
+=========================
+* changed ComposerAdditionalVendor class from static to instance
+* updated composer dependencies
+
+
 2019-12-31 phpUtils 0.2.0
 =========================
 * to make available to composer as dependency
