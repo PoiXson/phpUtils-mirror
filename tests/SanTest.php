@@ -56,6 +56,16 @@ class SanTest extends \PHPUnit\Framework\TestCase {
 			San::AlphaNumFile(self::TEST_DATA)
 		);
 	}
+	/**
+	 * @covers ::Base64
+	 */
+	public function testBase64() {
+		$data = 'abcxyz-123890_ABCXYZ==';
+		$this->assertEquals(
+			'abcxyz123890ABCXYZ==',
+			San::Base64($data)
+		);
+	}
 
 
 
@@ -86,6 +96,13 @@ class SanTest extends \PHPUnit\Framework\TestCase {
 	public function testIsAlphaNumFile() {
 		$this->assertTrue(  San::isAlphaNumFile('abc123')        );
 		$this->assertFalse( San::isAlphaNumFile(self::TEST_DATA) );
+	}
+	/**
+	 * @covers ::isBase64
+	 */
+	public function testIsBase64() {
+		$this->assertTrue(  San::isBase64('YWJjLTEyMw==')  );
+		$this->assertFalse( San::isBase64(self::TEST_DATA) );
 	}
 
 

@@ -27,6 +27,9 @@ final class San {
 		$filter = '[:alnum:]\(\)\_\.\,\'\&\?\+\-\=\!';
 		return \preg_replace('/[^'.$filter.']/', '', $str);
 	}
+	public static function Base64(string $str): string {
+		return \preg_replace("/[^a-z0-9=]+/i", '', $str);
+	}
 
 
 
@@ -48,6 +51,11 @@ final class San {
 	public static function isAlphaNumFile(string $str): bool {
 		$str = (string) $str;
 		$compare = self::AlphaNumFile($str);
+		return ($compare === $str);
+	}
+	public static function isBase64(string $str): bool {
+		$str = (string) $str;
+		$compare = self::Base64($str);
 		return ($compare === $str);
 	}
 
