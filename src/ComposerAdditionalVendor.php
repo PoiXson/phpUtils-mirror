@@ -34,6 +34,9 @@ class ComposerAdditionalVendor {
 		$path = Strings::ForceEndsWith($path, '/');
 		// load autoload_classmap.php file
 		$filePath = "{$path}vendor/composer/autoload_classmap.php";
+		if (!\file_exists($filePath)) {
+			throw new \RuntimeException("Module class loader not found: $filePath");
+		}
 		$classMap = require($filePath);
 		// only add classes that don't already exist
 		$existingClassMap = $this->autoload->getClassMap();
