@@ -5,7 +5,7 @@
  * @license GPL-3
  * @author lorenzo at poixson.com
  * @link https://poixson.com/
- * /
+ */
 namespace pxn\phpUtils;
 
 
@@ -14,63 +14,47 @@ final class San {
 
 
 
-	public static function AlphaNum($str) {
+	public static function AlphaNum(string $str): string {
 		return \preg_replace("/[^a-z0-9]+/i", '', $str);
 	}
-	public static function AlphaNumSafe($str) {
-		return \preg_replace("/[^a-z0-9-._]+/i", '', $str);
+	public static function AlphaNumDash(string $str): string {
+		return \preg_replace("/[^a-z0-9_-]+/i", '', $str);
 	}
-	public static function AlphaNumSafeMore($str) {
-		return \preg_replace("/[^a-z0-9-._:]+/i", '', $str);
-	}
-	public static function AlphaNumSpaces($str) {
+	public static function AlphaNumSpaces(string $str): string {
 		return \preg_replace("/[^\sa-z0-9-_]+/i", '', $str);
 	}
-	public static function AlphaNumUnderscore($str) {
-		return \preg_replace("/[^a-z0-9_]+/i", '', $str);
-	}
-	public static function AlphaNumFile($str) {
+	public static function AlphaNumFile(string $str): string {
 		$filter = '[:alnum:]\(\)\_\.\,\'\&\?\+\-\=\!';
 		return \preg_replace('/[^'.$filter.']/', '', $str);
 	}
 
 
 
-	public static function isAlphaNum($str) {
+	public static function isAlphaNum(string $str): bool {
 		$str = (string) $str;
 		$compare = self::AlphaNum($str);
-		return $compare === $str;
+		return ($compare === $str);
 	}
-	public static function isAlphaNumSafe($str) {
+	public static function isAlphaNumDash(string $str): bool {
 		$str = (string) $str;
-		$compare = self::AlphaNumSafe($str);
-		return $compare === $str;
+		$compare = self::AlphaNumDash($str);
+		return ($compare === $str);
 	}
-	public static function isAlphaNumSafeMore($str) {
-		$str = (string) $str;
-		$compare = self::AlphaNumSafeMore($str);
-		return $compare === $str;
-	}
-	public static function isAlphaNumSpaces($str) {
+	public static function isAlphaNumSpaces(string $str): bool {
 		$str = (string) $str;
 		$compare = self::AlphaNumSpaces($str);
-		return $compare === $str;
+		return ($compare === $str);
 	}
-	public static function isAlphaNumUnderscore($str) {
-		$str = (string) $str;
-		$compare = self::AlphaNumUnderscore($str);
-		return $compare === $str;
-	}
-	public static function isAlphaNumFile($str) {
+	public static function isAlphaNumFile(string $str): bool {
 		$str = (string) $str;
 		$compare = self::AlphaNumFile($str);
-		return $compare === $str;
+		return ($compare === $str);
 	}
 
 
 
 //TODO: is this needed?
-/ *
+/*
 	public static function SafePath($path) {
 		$path = Strings::Trim($path, ' ');
 		if (empty($path))
@@ -101,9 +85,8 @@ final class San {
 			throw new \Exception('Invalid dir argument, cannot contain ..');
 		return $dir.'/';
 	}
-* /
+*/
 
 
 
 }
-*/
