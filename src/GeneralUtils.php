@@ -109,6 +109,14 @@ final class GeneralUtils {
 			case 'c':
 				$v = self::cookie($name, $type);
 				break;
+			// env
+			case 'e':
+				$v = self::env($name, $type);
+				break;
+			// server
+			case 'v':
+				$v = self::server($name, $type);
+				break;
 			// session
 			case 's':
 				$v = self::session($name, $type);
@@ -128,30 +136,44 @@ final class GeneralUtils {
 
 	// get var
 	public static function get(string $name, string $type=NULL) {
-		if ($type === NULL) $type = 's';
+		if (empty($type)) $type = 's';
 		if (isset($_GET[$name]))
 			return self::castType($_GET[$name], $type);
 		return NULL;
 	}
 	// post var
 	public static function post(string $name, string $type=NULL) {
-		if ($type === NULL) $type = 's';
+		if (empty($type)) $type = 's';
 		if (isset($_POST[$name]))
 			return self::castType($_POST[$name], $type);
 		return NULL;
 	}
 	// cookie var
 	public static function cookie(string $name, string $type=NULL) {
-		if ($type === NULL) $type = 's';
+		if (empty($type)) $type = 's';
 		if (isset($_COOKIE[$name]))
 			return self::castType($_COOKIE[$name], $type);
 		return NULL;
 	}
 	// php session var
 	public static function session(string $name, string $type=NULL) {
-		if ($type === NULL) $type = 's';
+		if (empty($type)) $type = 's';
 		if (isset($_SESSION[$name]))
 			return self::castType($_SESSION[$name], $type);
+		return NULL;
+	}
+	// environment variables
+	public static function env(string $name, string $type=NULL) {
+		if (empty($type)) $type = 's';
+		if (isset($_ENV[$name]))
+			return self::castType($_ENV[$name], $type);
+		return NULL;
+	}
+	// server variables
+	public static function server(string $name, string $type=NULL) {
+		if (empty($type)) $type = 's';
+		if (isset($_SERVER[$name]))
+			return self::castType($_SERVER[$name], $type);
 		return NULL;
 	}
 
