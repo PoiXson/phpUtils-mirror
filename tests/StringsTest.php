@@ -18,6 +18,27 @@ class StringsTest extends \PHPUnit\Framework\TestCase {
 
 
 
+	/**
+	 * @covers ::mb_ucfirst
+	 */
+	public function testMbUcFirst() {
+		$data = 'Abc Def Ghi jkl mnp qrs tuv wxyz';
+		$this->assertEquals(
+			'Abc def ghi jkl mnp qrs tuv wxyz',
+			Strings::mb_ucfirst($data)
+		);
+		$this->assertEquals(
+			'Abc def ghi jkl mnp qrs tuv wxyz',
+			Strings::mb_ucfirst($data, TRUE)
+		);
+		$this->assertEquals(
+			'Abc Def Ghi jkl mnp qrs tuv wxyz',
+			Strings::mb_ucfirst($data, FALSE)
+		);
+	}
+
+
+
 	#################
 	## Trim String ##
 	#################

@@ -16,16 +16,14 @@ final class Strings {
 
 
 
-//TODO: is this useful?
-/*
-	public static function mb_ucfirst($str, $full=TRUE) {
+	public static function mb_ucfirst(string $str, $full=TRUE): string {
 		return \mb_strtoupper(\mb_substr($str, 0, 1)).
-			($full
+			(
+				$full
 				? \strtolower(\mb_substr($str, 1))
 				: \mb_substr($str, 1)
 			);
 	}
-*/
 
 
 
