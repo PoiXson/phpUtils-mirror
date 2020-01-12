@@ -17,6 +17,7 @@ final class Paths {
 	// local paths
 	protected static $local_pwd    = NULL;
 	protected static $local_entry  = NULL;
+	protected static $local_project= NULL;
 	protected static $local_utils  = NULL;
 
 	// web paths
@@ -50,6 +51,14 @@ final class Paths {
 			}
 			self::$local_entry = \realpath($local_entry);
 		}
+		// project path
+		{
+			self::$local_project =
+				Strings::Trim(
+					self::$local_entry,
+					'/public', '/scripts'
+				);
+		}
 		// utils path
 		self::$local_utils = __DIR__;
 		// ensure all is good
@@ -74,6 +83,7 @@ final class Paths {
 		$all['local'] = [
 			'pwd'    => self::$local_pwd,
 			'entry'  => self::$local_entry,
+			'project'=> self::$local_project,
 			'utils'  => self::$local_utils,
 		];
 //		if (System::isWeb()) {
@@ -94,12 +104,18 @@ final class Paths {
 	public static function entry(): string {
 		return self::$local_entry;
 	}
+	public static function project(): string {
+		return self::$local_project;
+	}
 	public static function utils(): string {
 		return self::$local_utils;
 	}
 
 
 
+	public static function setProjectPath(string $path) {
+		self::$local_project = $path;
+	}
 //	// web paths
 //	public static function web_base() {
 //		return self::$web_base;
