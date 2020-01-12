@@ -13,13 +13,16 @@ use pxn\phpUtils\Defines;
 
 class ConfigMain extends Config {
 
+	// config keys
+	const KEY_DEBUG = 'Debug';
+
 
 
 	public function __construct(string $file=NULL) {
 		parent::__construct($file);
 		// debug value
 		{
-			$debugValue = $this->getBool(Defines::CFG_MAIN_DEBUG);
+			$debugValue = $this->getBool(self::KEY_DEBUG);
 			if ($debugValue !== NULL) {
 				\pxn\phpUtils\Debug::setDebug($debugValue);
 			}
