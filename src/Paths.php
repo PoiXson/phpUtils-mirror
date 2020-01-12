@@ -20,10 +20,6 @@ final class Paths {
 	protected static $local_project= NULL;
 	protected static $local_utils  = NULL;
 
-	// web paths
-//	protected static $web_base   = NULL;
-//	protected static $web_images = NULL;
-
 
 
 	/**
@@ -72,8 +68,6 @@ final class Paths {
 			}
 			unset($paths);
 		}
-//		// ensure in proper dir
-//		\chdir(self::entry());
 	}
 
 
@@ -86,12 +80,6 @@ final class Paths {
 			'project'=> self::$local_project,
 			'utils'  => self::$local_utils,
 		];
-//		if (System::isWeb()) {
-//			$all['web'] = [
-//				'base'   => self::$web_base,
-//				'images' => self::$web_images,
-//			];
-//		}
 		return $all;
 	}
 
@@ -116,13 +104,6 @@ final class Paths {
 	public static function setProjectPath(string $path) {
 		self::$local_project = $path;
 	}
-//	// web paths
-//	public static function web_base() {
-//		return self::$web_base;
-//	}
-//	public static function web_images() {
-//		return self::$web_images;
-//	}
 
 
 
