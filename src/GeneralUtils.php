@@ -86,14 +86,16 @@ final class GeneralUtils {
 	 * @param string $name - Name or key requested.
 	 * @param string $type - Casts value to this type.
 	 *     Possible values: str, int, float, double, bool
-	 * @param array/string $source - String or array of strings. (from least to greatest importance)
+	 * @param string $source - Strings representing the data source. (from least to greatest importance)
 	 *     Possible values: get, post, cookie, session
 	 * @return object - Returns the requested value, cast to requested type.
 	 */
-	public static function getVar(string $name, string $type='s', $source=['g','p']) {
-		$source = Arrays::MakeArray($source);
+	public static function getVar(string $name, string $type='s', string...$sources) {
+		if (\count($sources) == 0) {
+			$sources = ['g', 'p'];
+		}
 		$value = NULL;
-		foreach ($source as $src) {
+		foreach ($sources as $src) {
 			$v = NULL;
 			$char = \mb_substr($src, 0, 1);
 			switch (\mb_strtolower($char)) {
