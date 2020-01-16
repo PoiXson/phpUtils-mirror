@@ -55,9 +55,9 @@ final class SystemUtils {
 //TODO
 //			fail('This script can only run in shell!',
 //				Defines::EXIT_CODE_GENERAL);
-//		}
-		echo 'This script can only run in shell';
-		exit(Defines::EXIT_CODE_GENERAL);
+			echo 'This script can only run in shell';
+			exit(Defines::EXIT_CODE_GENERAL);
+		}
 	}
 	public static function RequireWeb(): void {
 		$isShell = self::isShell();
@@ -65,9 +65,9 @@ final class SystemUtils {
 //TODO
 //			fail('Cannot run this script in shell!',
 //				Defines::EXIT_CODE_GENERAL);
-//		}
-		echo 'Cannot run this script in shell';
-		exit(Defines::EXIT_CODE_GENERAL);
+			echo 'Cannot run this script in shell';
+			exit(Defines::EXIT_CODE_GENERAL);
+		}
 	}
 
 
