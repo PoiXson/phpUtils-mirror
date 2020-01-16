@@ -278,16 +278,15 @@ final class GeneralUtils {
 		return TRUE;
 	}
 	private static $INITED_NoPageCache = FALSE;
-*/
 
 
 
-	/**
+	/ **
 	 * Forward to provided url.
 	 * @param string $url - The url/address in which to forward to.
 	 * @param number $delay - Optional delay in seconds before forwarding.
 	 * @codeCoverageIgnore
-	 */
+	 * /
 	public static function ForwardTo(string $url='/', int $delay=0):void {
 		if (empty($url)) {
 			$url = '/';
@@ -307,6 +306,7 @@ EOF;
 		}
 		exit(0);
 	}
+*/
 
 
 
