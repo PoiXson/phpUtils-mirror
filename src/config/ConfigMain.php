@@ -18,7 +18,7 @@ class ConfigMain extends Config {
 
 
 
-	public function __construct(string $file=NULL) {
+	public function __construct(?string $file=NULL) {
 		parent::__construct($file);
 		// debug value
 		{

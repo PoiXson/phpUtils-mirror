@@ -13,7 +13,7 @@ class FileNotFoundException extends \RuntimeException {
 
 
 
-	public function __construct(string $msg=NULL) {
+	public function __construct(?string $msg=NULL) {
 		if (empty($msg)) {
 			parent::__construct();
 		} else {

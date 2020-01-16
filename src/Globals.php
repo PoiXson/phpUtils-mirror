@@ -19,7 +19,7 @@ use pxn\phpUtils\Defines;
 
 # debug()
 if (!\function_exists('debug')) {
-	function debug(bool $debug=NULL, string $desc=NULL): bool {
+	function debug(?bool $debug=NULL, ?string $desc=NULL): bool {
 		return \pxn\phpUtils\Debug::debug($debug, $desc);
 	}
 }

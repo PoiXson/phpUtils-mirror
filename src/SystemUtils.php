@@ -16,14 +16,17 @@ final class SystemUtils {
 
 
 
-	public static function RequireLinux() {
+	public static function RequireLinux(): void {
 		$os = \PHP_OS;
 		if ($os != 'Linux') {
-			fail(
-				'Sorry, only Linux is currently supported. Contact '.
-				'the developer if you\'d like to help add support for '.\PHP_OS,
-				Defines::EXIT_CODE_GENERAL
-			);
+//TODO
+//			fail(
+//				'Sorry, only Linux is currently supported. Contact '.
+//				'the developer if you\'d like to help add support for '.\PHP_OS,
+//				Defines::EXIT_CODE_GENERAL
+//			);
+			echo 'Sorry, only Linux is currently supported. Contact the developer if you\'d like to help add support for '.\PHP_OS;
+			exit(DEFINES::EXIT_CODE_GENERAL);
 		}
 	}
 
@@ -35,8 +38,8 @@ final class SystemUtils {
 
 
 
-	public static function isShell() {
-		if (self::$isShell == NULL) {
+	public static function isShell(): bool {
+		if (self::$isShell === NULL) {
 			self::$isShell =
 				isset($_SERVER['SHELL']) &&
 				! empty($_SERVER['SHELL']);
@@ -46,30 +49,36 @@ final class SystemUtils {
 	public static function isWeb() {
 		return ! self::isShell();
 	}
-	public static function RequireShell() {
+	public static function RequireShell(): void {
 		$isShell = self::isShell();
 		if (!$isShell) {
-			fail('This script can only run in shell!',
-				Defines::EXIT_CODE_GENERAL);
-		}
+//TODO
+//			fail('This script can only run in shell!',
+//				Defines::EXIT_CODE_GENERAL);
+//		}
+		echo 'This script can only run in shell';
+		exit(Defines::EXIT_CODE_GENERAL);
 	}
-	public static function RequireWeb() {
+	public static function RequireWeb(): void {
 		$isShell = self::isShell();
 		if ($isShell) {
-			fail('Cannot run this script in shell!',
-				Defines::EXIT_CODE_GENERAL);
-		}
+//TODO
+//			fail('Cannot run this script in shell!',
+//				Defines::EXIT_CODE_GENERAL);
+//		}
+		echo 'Cannot run this script in shell';
+		exit(Defines::EXIT_CODE_GENERAL);
 	}
 
 
 
-	public static function isUsrInstalled() {
+	public static function isUsrInstalled(): bool {
 		return Strings::StartsWith(Paths::entry(), '/usr/');
 	}
 
 
 
-	public static function getUser() {
+	public static function getUser(): ?string {
 		if (isset($_SERVER['USER']))
 			return $_SERVER['USER'];
 		$who = \exec('whoami');
@@ -77,14 +86,16 @@ final class SystemUtils {
 			return NULL;
 		return $who;
 	}
-	public static function denySuperUser() {
+	public static function denySuperUser(): void {
 		$who = self::isSuperUser();
 		if (!empty($who)) {
-			fail("Cannot run this script as super user: $who",
-				Defines::EXIT_CODE_NOPERM);
+//TODO
+//			fail("Cannot run this script as super user: $who",
+//				Defines::EXIT_CODE_NOPERM);
+			exit(Defines::EXIT_CODE_NOPERM);
 		}
 	}
-	public static function isSuperUser($who=NULL) {
+	public static function isSuperUser(?string $who=NULL): bool {
 		if (empty($who)) {
 			$who = self::getUser();
 		}
@@ -104,7 +115,7 @@ final class SystemUtils {
 
 
 /*
-	public static function exec($command) {
+	public static function exec($command): bool {
 		$command = \trim($command);
 		if (empty($command))
 			return FALSE;
@@ -133,7 +144,7 @@ final class SystemUtils {
 
 
 
-	public static function mkdir($dir, $mode=644) {
+	public static function mkdir($dir, $mode=644): void {
 		if (empty($dir))     throw new \Exception('dir argument is required');
 		if (!\is_int($mode)) throw new \Exception('mode argument must be an integer!');
 		$oct = \octdec($mode);
@@ -177,7 +188,7 @@ final class SystemUtils {
 		// ensure created directories exist
 		if (!\is_dir($dir)) throw new \Exception("Failed to create directory: $dir");
 	}
-	public static function rmdir($dir) {
+	public static function rmdir($dir): void {
 		if (empty($dir)) throw new \Exception('dir argument is required');
 		$log = self::log();
 		// ensure exists
@@ -212,7 +223,7 @@ final class SystemUtils {
 
 
 
-	public static function log() {
+	public static function log(): Logger {
 		return Logger::get('SHELL');
 	}
 */

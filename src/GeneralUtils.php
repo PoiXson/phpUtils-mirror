@@ -22,7 +22,7 @@ final class GeneralUtils {
 
 	// cast variable type
 	public static function castType($data, string $type) {
-		if ($type === NULL)
+		if (empty($type))
 			return $data;
 		switch (\mb_strtolower(\mb_substr( (string) $type, 0, 1))) {
 			// string
@@ -135,42 +135,42 @@ final class GeneralUtils {
 
 
 	// get var
-	public static function get(string $name, string $type=NULL) {
+	public static function get(string $name, ?string $type=NULL) {
 		if (empty($type)) $type = 's';
 		if (isset($_GET[$name]))
 			return self::castType($_GET[$name], $type);
 		return NULL;
 	}
 	// post var
-	public static function post(string $name, string $type=NULL) {
+	public static function post(string $name, ?string $type=NULL) {
 		if (empty($type)) $type = 's';
 		if (isset($_POST[$name]))
 			return self::castType($_POST[$name], $type);
 		return NULL;
 	}
 	// cookie var
-	public static function cookie(string $name, string $type=NULL) {
+	public static function cookie(string $name, ?string $type=NULL) {
 		if (empty($type)) $type = 's';
 		if (isset($_COOKIE[$name]))
 			return self::castType($_COOKIE[$name], $type);
 		return NULL;
 	}
 	// php session var
-	public static function session(string $name, string $type=NULL) {
+	public static function session(string $name, ?string $type=NULL) {
 		if (empty($type)) $type = 's';
 		if (isset($_SESSION[$name]))
 			return self::castType($_SESSION[$name], $type);
 		return NULL;
 	}
 	// environment variables
-	public static function env(string $name, string $type=NULL) {
+	public static function env(string $name, ?string $type=NULL) {
 		if (empty($type)) $type = 's';
 		if (isset($_ENV[$name]))
 			return self::castType($_ENV[$name], $type);
 		return NULL;
 	}
 	// server variables
-	public static function server(string $name, string $type=NULL) {
+	public static function server(string $name, ?string $type=NULL) {
 		if (empty($type)) $type = 's';
 		if (isset($_SERVER[$name]))
 			return self::castType($_SERVER[$name], $type);
@@ -260,7 +260,7 @@ final class GeneralUtils {
 	 * @codeCoverageIgnore
 	 * /
 	public static function NoPageCache() {
-		if (System::isShell()) {
+		if (SystemUtils::isShell()) {
 			return;
 		}
 		if (self::$INITED_NoPageCache)

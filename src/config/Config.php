@@ -16,7 +16,7 @@ class Config extends ConfigDAO {
 
 
 
-	public function __construct(string $file=NULL) {
+	public function __construct(?string $file=NULL) {
 		if ($file !== NULL) {
 			$this->loadFile($file);
 		}
@@ -37,7 +37,7 @@ class Config extends ConfigDAO {
 
 
 
-	public function loadFile(string $file=NULL): void {
+	public function loadFile(?string $file=NULL): void {
 		if (!empty($file)) {
 			$file = (string) $file;
 			if (!empty($file)) {

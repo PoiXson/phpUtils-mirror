@@ -43,9 +43,10 @@ final class Numbers {
 	 * @param int $max
 	 * @return int value
 	 */
-	public static function MinMax($value, $min=FALSE, $max=FALSE) {
-		if ($min !== FALSE && $max !== FALSE && $min > $max)
+	public static function MinMax(int $value, bool $min=FALSE, bool $max=FALSE): int {
+		if ($min !== FALSE && $max !== FALSE && $min > $max) {
 			throw new \Exception('Min must be less than Max!');
+		}
 		if ($min !== FALSE && $value < $min)
 			return $min;
 		if ($max !== FALSE && $value > $max)
@@ -111,9 +112,10 @@ final class Numbers {
 	 * @param int $size - Integer in bytes to convert.
 	 * @return string - Formatted size.
 	 */
-	public static function FormatBytes($size): string {
-		if (empty($size))
+	public static function FormatBytes(int $size): string {
+		if (empty($size)) {
 			throw new \NullPointerException();
+		}
 		$size = \trim((string) $size);
 		if ( \mb_strtolower(\mb_substr($size, -1, 1)) == 'b' ) {
 			$size = \trim(\mb_substr($size, 0, -1));
@@ -156,8 +158,7 @@ final class Numbers {
 	 * @param int $max -
 	 * @return string - Roman numerals string representing input number.
 	 */
-	public static function FormatRoman(int $value, int $max=NULL): string {
-		$value = (int) $value;
+	public static function FormatRoman(int $value, ?int $max=NULL): string {
 		if ( ($max !== NULL && $value > $max) || $value < 0)
 			return (string) $value;
 		$result = '';
@@ -197,7 +198,7 @@ final class Numbers {
 	 * @param string $text - String to convert.
 	 * @return int seconds
 	 */
-	public static function StringToSeconds(string $text) {
+	public static function StringToSeconds(string $text): int {
 		$str = '';
 		$value = 0;
 		for ($i = 0; $i < \mb_strlen($text); $i++) {
@@ -247,7 +248,7 @@ final class Numbers {
 	 * @return string
 	 */
 	public static function SecondsToString(int $seconds,
-	bool $shorthand=TRUE, int $maxParts=NULL, float $deviance=1.0): string {
+	bool $shorthand=TRUE, ?int $maxParts=NULL, float $deviance=1.0): string {
 		$maxParts = (
 			$maxParts == NULL
 			? NULL
@@ -326,7 +327,7 @@ final class Numbers {
 		return \implode('  ', $result);
 	}
 	public static function SecondsToText(int $seconds,
-	bool $shorthand=FALSE, int $maxParts=NULL, float $deviance=1.0): string {
+	bool $shorthand=FALSE, ?int $maxParts=NULL, float $deviance=1.0): string {
 		// future
 		if ( $seconds < 0 ) {
 			$seconds = 0 - $seconds;

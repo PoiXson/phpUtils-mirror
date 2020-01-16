@@ -19,7 +19,7 @@ class ConfigDAO {
 
 
 
-	protected function __construct(array $data=NULL) {
+	protected function __construct(?array $data=NULL) {
 		if ($data !== NULL) {
 			$this->data = $data;
 		}
@@ -34,7 +34,7 @@ class ConfigDAO {
 
 
 
-	public function data(array $data=NULL): ?array {
+	public function data(?array $data=NULL): ?array {
 		$previous = $this->data;
 		if ($data !== NULL) {
 			$this->data = $data;

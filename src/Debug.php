@@ -89,7 +89,7 @@ final class Debug {
 
 
 
-	public static function debug(bool $debug=NULL, string $desc=NULL): bool {
+	public static function debug(?bool $debug=NULL, ?string $desc=NULL): bool {
 		$last = self::isDebug();
 		if ($debug !== NULL) {
 			self::setDebug($debug, $desc);
@@ -99,7 +99,7 @@ final class Debug {
 	public static function isDebug(): bool {
 		return (self::$debug === TRUE);
 	}
-	public static function setDebug(bool $debug, string $desc=NULL): void {
+	public static function setDebug(bool $debug, ?string $desc=NULL): void {
 		if (!self::$inited) self::init();
 		if ($debug === NULL) return;
 		$last = self::$debug;
@@ -113,7 +113,7 @@ final class Debug {
 
 
 
-	public static function desc(string $desc=NULL): string {
+	public static function desc(?string $desc=NULL): string {
 		$last = self::getDesc();
 		if ($desc !== NULL) {
 			self::setDesc($desc);
