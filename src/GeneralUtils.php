@@ -278,52 +278,59 @@ final class GeneralUtils {
 		return TRUE;
 	}
 	private static $INITED_NoPageCache = FALSE;
+*/
 
 
 
-	/ **
+	/**
 	 * Forward to provided url.
 	 * @param string $url - The url/address in which to forward to.
 	 * @param number $delay - Optional delay in seconds before forwarding.
 	 * @codeCoverageIgnore
-	 * /
-	public static function ForwardTo($url, $delay=0) {
-		if (System::isShell()) {
+	 */
+	public static function ForwardTo(string $url='/', int $delay=0):void {
+		if (empty($url)) {
+			$url = '/';
+		}
+		if (SystemUtils::isShell()) {
 			echo "--FORWARD: $url\n";
 		} else {
 			if (\headers_sent() || $delay > 0) {
-				echo '<header><meta http-equiv="refresh" content="'.((int) $delay).';url='.$url.'"></header>';
-				echo '<p><a href="'.$url.'"><font size="+1">Continue..</font></a></p>';
+				echo <<<EOF
+<header><meta http-equiv="refresh" content="{$delay};url={$url}"></header>
+<p><a href="{$url}"><font size="+1">Continue..</font></a></p>
+EOF;
 			} else {
 				\header('HTTP/1.0 302 Found');
-				\header('Location: '.$url);
+				\header("Location: $url");
 			}
 		}
-		ExitNow(Defines::EXIT_CODE_OK);
+		exit(0);
 	}
 
 
 
-	/ **
+	/**
 	 * Scroll to the bottom of the page.
 	 * @param string $id - Optional id of element in which to scroll.
 	 * @codeCoverageIgnore
-	 * /
-	public static function ScrollToBottom($id=NULL) {
-		if (System::isShell()) {
+	 */
+	public static function ScrollToBottom(?string $id=NULL): void {
+		if (SystemUtils::isShell()) {
 			echo "--SCROLL--\n";
 		} else {
 			if (empty($id)) {
 				$id = 'document';
 			}
-			echo Defines::EOL.'<!-- ScrollToBottom() -->'.Defines::EOL.
-				'<script type="text/javascript"><!--//'.Defines::EOL.
-				$id.'.scrollTop='.$id.'.scrollHeight; '.
-				'window.scroll(0,document.body.offsetHeight); '.
-				'//--></script>'.Defines::EOL.Defines::EOL;
+			echo <<<EOF
+<!-- ScrollToBottom() -->
+<script type="text/javascript"><!--//
+{$id}.scrollTop={$id}.scrollHeight;
+window.scroll(0, document.body.offsetHeight);
+//--></script>
+EOF;
 		}
 	}
-*/
 
 
 
