@@ -1,14 +1,14 @@
 phpUtils - PHP Utilities Library
 
 
-2020-01-09 phpUtils 0.2.1
-=========================
+2020-01-09 - 0.2.1
+==================
 * changed ComposerAdditionalVendor class from static to instance
 * updated composer dependencies
 
 
-2019-12-31 phpUtils 0.2.0
-=========================
+2019-12-31 - 0.2.0
+==================
 * to make available to composer as dependency
 * changed many classes
 * temporarily commented many unfinished classes until needed
@@ -23,8 +23,8 @@ phpUtils - PHP Utilities Library
 * renamed GeneralUtils and SystemUtils classes
 
 
-2017-03-22 phpUtils 0.1.29
-==========================
+2017-03-22 - 0.1.29
+===================
 * sort db config files by name, just in case
 * added Strings::MergeDuplicates() and PadColumns() functions
 * added Arrays::MakeContain() function
@@ -33,15 +33,15 @@ phpUtils - PHP Utilities Library
 * some other cleanup and small fixes
 
 
-2017-02-24 phpUtils 0.1.28
-==========================
+2017-02-24 - 0.1.28
+===================
 * fixes to dump() function
 * fixes to San::isAlphaNum..() functions
 * fixed formatting in Numbers class
 
 
-2017-01-31 phpUtils 0.1.27
-==========================
+2017-01-31 - 0.1.27
+===================
 * removed pxdb classes (moved to its own library)
 * added optional $msg argument to dump() function
 * changed how backtrace() is displayed
@@ -52,8 +52,8 @@ phpUtils - PHP Utilities Library
 * other small fixes
 
 
-2016-12-14 phpUtils 0.1.26
-==========================
+2016-12-14 - 0.1.26
+===================
 * removed dependency on php56 - the reason for this incomplete release
 * partly finished new ShellApp and related classes
 * added ShellTools and ShellHelp classes to replace symfony console dependency
@@ -72,8 +72,8 @@ phpUtils - PHP Utilities Library
 * further cleanup and improvements of the utility classes
 
 
-2016-06-30 phpUtils 0.1.25
-==========================
+2016-06-30 - 0.1.25
+===================
 * added Paths::portal() function
 * added console\Dialog class
 * renamed Validate_..() functions to is..() in San class
@@ -86,16 +86,16 @@ phpUtils - PHP Utilities Library
 * much work on pxdb classes (dbBackup is unfinished)
 
 
-2016-06-09 phpUtils 0.1.24
-==========================
+2016-06-09 - 0.1.24
+===================
 * added cacher classes for storing simple variables in the filesystem
 * added update.sh script
 * fixed display bugs when in shell mode
 * added TrimFlatMerge() function to Arrays class
 
 
-2016-06-08 phpUtils 0.1.23
-==========================
+2016-06-08 - 0.1.23
+===================
 * added UpdateTables() function to dbPool class to auto create/update table schemas
 * also added getTables() hasTable() getTableFields() and tableHasField() functions
 * also added UsingTables() functions to track which tables are in use
@@ -106,8 +106,8 @@ phpUtils - PHP Utilities Library
 * changed default twig cache path from .cache/ to .twig_cache/
 
 
-2016-06-02 phpUtils 0.1.22
-==========================
+2016-06-02 - 0.1.22
+===================
 * added $maxParts and $deviance arguments to SecondsToString() function
 * added SecondsToText() function to override SecondsToString() with Today, Yesterday, Tomorrow, Soon Today, Soon or Now
 * removed getDebugCookieName() function and replaced with a const in Defines class
@@ -116,13 +116,13 @@ phpUtils - PHP Utilities Library
 * a few bug fixes to pxdb classes
 
 
-2016-05-30 phpUtils 0.1.21
-==========================
+2016-05-30 - 0.1.21
+===================
 * moved portal classes to new pxn/phpPortal package
 
 
-2016-05-26 phpUtils 0.1.20
-==========================
+2016-05-26 - 0.1.20
+===================
 * added pxdb classes for mysql pdo
 * added auto-loading .htdb config files
 * added support for multiple twig template paths
@@ -131,13 +131,13 @@ phpUtils - PHP Utilities Library
 * changed Page interface to abstract class
 
 
-2016-05-25 phpUtils 0.1.19
-==========================
+2016-05-25 - 0.1.19
+===================
 * added pxnloader.php to auto-find composer autoload.php
 
 
-2016-05-05 phpUtils 0.1.18
-==========================
+2016-05-05 - 0.1.18
+===================
 * added processing of url arguments
 * mostly finished Website and Render classes
 * added a plain default 404 page
@@ -150,25 +150,25 @@ phpUtils - PHP Utilities Library
 * much other cleanup and fixes
 
 
-2016-04-14 phpUtils 0.1.17
-==========================
+2016-04-14 - 0.1.17
+===================
 * many fixes to xLog classes
 * properly handle parent logger
 
 
-2016-04-01 phpUtils 0.1.16
-==========================
+2016-04-01 - 0.1.16
+===================
 * added new xLog classes to replace Monolog
 * added Strings::PadCenter() function (more to come)
 
 
-2016-03-29 phpUtils 0.1.15
-==========================
+2016-03-29 - 0.1.15
+===================
 * updated dependencies
 
 
-2016-03-24 phpUtils 0.1.14
-==========================
+2016-03-24 - 0.1.14
+===================
 * added Validate_() functions to San class
 * added System::isShell() function
 * added optional $e argument to fail() function
@@ -179,24 +179,24 @@ phpUtils - PHP Utilities Library
 * few minor composer fixes
 
 
-2016-03-10 phpUtils 0.1.12
-==========================
+2016-03-10 - 0.1.12
+===================
 * added Globals.php file to alias common functions to \ namespace
 * ExitNow() function accepts NULL argument for no exit
 
 
-2016-03-04 phpUtils 0.1.11
-==========================
+2016-03-04 - 0.1.11
+===================
 * fixed bug in Numbers::isNumber() function
 
 
-2016-02-28 phpUtils 0.1.9
-=========================
+2016-02-28 - 0.1.9
+==================
 * added CoolDown class
 
 
-2016-02-27 phpUtils 0.1.8
-=========================
+2016-02-27 - 0.1.8
+==================
 * added isShell() function to Config class
 * moved getTwigTempDir() function from Config class to Paths class
 * added RequireLinux() function to System class
@@ -204,8 +204,8 @@ phpUtils - PHP Utilities Library
 * merged init files into one
 
 
-2016-02-27 phpUtils 0.1.7
-=========================
+2016-02-27 - 0.1.7
+==================
 * added init.php startup file (auto loaded by composer)
 * added Paths, Website, Config, and System classes
 * added General::castType() General::toBoolean() and General::getVar() functions
@@ -216,14 +216,14 @@ phpUtils - PHP Utilities Library
 * updated dependencies
 
 
-2015-07-17 phpUtils 0.1.6
-=========================
+2015-07-17 - 0.1.6
+==================
 * improvements to simplify using ConsoleApp
 * bug fixes and improvements to ComposerTools and ConsoleApp classes
 
 
-2015-07-15 phpUtils 0.1.5
-=========================
+2015-07-15 - 0.1.5
+==================
 * added optional ConsoleApp class (must require symfony/console in your project composer.json file)
 * added optional Logger class (must require monolog/monolog in your project composer.json file)
 * added Arrays class
