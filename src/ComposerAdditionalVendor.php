@@ -22,15 +22,13 @@ class ComposerAdditionalVendor {
 
 
 	// example: AddVendor('pxn\\LibName', '../../LibName/')
-	public function addVendorClassMap(string $namespace, string $path,
+	public function addVendorClassMap(string $path,
 	array $whitelist=[], array $blacklist=[]): void {
 		if ($this->autoload == NULL) {
 			throw new \RuntimeException('Composer autoload not registered');
 		}
 		// defaults
 		$blacklist[] = 'pxn\\ComposerLocalDev';
-		$namespace = Strings::ForceEndsWith($namespace, '\\');
-		$namespace = Strings::TrimFront(    $namespace, '\\');
 		$path = Strings::ForceEndsWith($path, '/');
 		// load autoload_classmap.php file
 		$filePath = "{$path}vendor/composer/autoload_classmap.php";
