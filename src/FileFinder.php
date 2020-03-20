@@ -37,6 +37,9 @@ class FileFinder {
 		}
 	}
 	public function searchPaths(string...$paths): void {
+		$this->searchPathsArray($paths);
+	}
+	public function searchPathsArray(array $paths): void {
 		$this->searchPaths = \array_merge($this->searchPaths, $paths);
 	}
 	public function searchFiles(string...$files): void {
