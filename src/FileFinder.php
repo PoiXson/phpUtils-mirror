@@ -24,7 +24,7 @@ class FileFinder {
 
 	public function searchPath(string $path, int $depth=2): void {
 		$pth = \realpath($path);
-		if (empty($path)) throw new NullPointerException("Path not found: $path");
+		if (empty($pth)) throw new NullPointerException("Path not found: $path");
 		$this->searchPaths[] = $pth;
 		if ($depth == -1) $depth = 100;
 		if ($depth > 0) {
@@ -68,10 +68,13 @@ class FileFinder {
 		foreach ($this->searchPaths as $path) {
 			if (\count($this->searchFiles) == 0) {
 				if (\is_dir($path)) {
-					if ($all) {
-						$found[$path] = TRUE;
-					} else {
-						return [ $path ];
+					$path = \realpath($path);
+					if (!empty($path)) {
+						if ($all) {
+							$found[$path] = TRUE;
+						} else {
+							return [ $path ];
+						}
 					}
 				}
 			} else {
@@ -80,10 +83,13 @@ class FileFinder {
 					$filePath = $path.$file;
 					if (\count($this->searchExts) == 0) {
 						if (\file_exists($filePath)) {
-							if ($all) {
-								$found[$filePath] = TRUE;
-							} else {
-								return [ $filePath ];
+							$filePath = \realpath($filePath);
+							if (!empty($filePath)) {
+								if ($all) {
+									$found[$filePath] = TRUE;
+								} else {
+									return [ $filePath ];
+								}
 							}
 						}
 					} else {
@@ -91,10 +97,13 @@ class FileFinder {
 							$ext = Strings::TrimFront($ext, '.');
 							$fileExtPath = "$filePath.$ext";
 							if (\file_exists($fileExtPath)) {
-								if ($all) {
-									$found[$fileExtPath] = TRUE;
-								} else {
-									return [ $fileExtPath ];
+								$fileExtPath = \realpath($fileExtPath);
+								if (!empty($fileExtPath)) {
+									if ($all) {
+										$found[$fileExtPath] = TRUE;
+									} else {
+										return [ $fileExtPath ];
+									}
 								}
 							}
 						} // end foreach searchExts
