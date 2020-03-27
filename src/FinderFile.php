@@ -9,7 +9,7 @@
 namespace pxn\phpUtils;
 
 
-class FileFinder {
+class FinderFile {
 
 	protected $searchPaths = [];
 	protected $searchFiles = [];
