@@ -113,30 +113,31 @@ final class Numbers {
 	 * @return string - Formatted size.
 	 */
 	public static function FormatBytes(int $size): string {
-		if (empty($size)) {
-			throw new \NullPointerException();
-		}
-		$size = \trim((string) $size);
-		if ( \mb_strtolower(\mb_substr($size, -1, 1)) == 'b' ) {
-			$size = \trim(\mb_substr($size, 0, -1));
-		}
-		switch ( \mb_strtolower(\mb_substr($size, -1, 1)) ) {
-		case 'k':
-			$size = ((float) $size) * Defines::KB;
-			break;
-		case 'm':
-			$size = ((float) $size) * Defines::MB;
-			break;
-		case 'g':
-			$size = ((float) $size) * Defines::GB;
-			break;
-		case 't':
-			$size = ((float) $size) * Defines::TB;
-			break;
-		default:
-			$size = (float) $size;
-			break;
-		}
+//TODO: union types supported in php 8
+//		if (empty($size)) {
+//			throw new \NullPointerException();
+//		}
+//		$size = \trim((string) $size);
+//		if ( \mb_strtolower(\mb_substr($size, -1, 1)) == 'b' ) {
+//			$size = \trim(\mb_substr($size, 0, -1));
+//		}
+//		switch ( \mb_strtolower(\mb_substr($size, -1, 1)) ) {
+//		case 'k':
+//			$size = ((float) $size) * Defines::KB;
+//			break;
+//		case 'm':
+//			$size = ((float) $size) * Defines::MB;
+//			break;
+//		case 'g':
+//			$size = ((float) $size) * Defines::GB;
+//			break;
+//		case 't':
+//			$size = ((float) $size) * Defines::TB;
+//			break;
+//		default:
+//			$size = (float) $size;
+//			break;
+//		}
 		if ($size < 0)
 			return '';
 		if ($size < Defines::KB)
