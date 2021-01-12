@@ -1,7 +1,7 @@
 <?php
 /*
  * PoiXson phpUtils - PHP Utilities Library
- * @copyright 2004-2020
+ * @copyright 2004-2021
  * @license GPL-3
  * @author lorenzo at poixson.com
  * @link https://poixson.com/
@@ -19,6 +19,8 @@ final class Paths {
 	protected static $local_entry  = NULL;
 	protected static $local_project= NULL;
 	protected static $local_utils  = NULL;
+
+	protected static $extra_paths = [];
 
 
 
@@ -103,6 +105,30 @@ final class Paths {
 
 	public static function setProjectPath(string $path) {
 		self::$local_project = $path;
+	}
+
+
+
+	public static function getPath(string $key): ?string {
+		if (empty($key)) throw new \NullPointerException();
+		$key = \mb_strtolower($key);
+		switch ($key) {
+		case 'pwd':     return self::pwd();
+		case 'entry':   return self::entry();
+		case 'project': return self::project();
+		case 'utils':   return self::utils();
+		default:
+		}
+		if (isset(self::$extra_paths[$key]))
+			return self::$extra_paths[$key];
+		return null;
+	}
+	public static function setPath(string $key, ?string $path): void {
+		if (empty($path)) {
+			unset(self::$extra_paths[$key]);
+		} else {
+			self::$extra_paths[$key] = $path;
+		}
 	}
 
 
