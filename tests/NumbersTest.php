@@ -46,16 +46,16 @@ class NumbersTest extends \PHPUnit\Framework\TestCase {
 	 * @covers ::MinMax
 	 */
 	public function testMinMax(): void {
-		$this->assertEquals(  999.9, Numbers::MinMax( 999.9          ) );
+		$this->assertEquals(  999, Numbers::MinMax( 999 ) );
 		// min/max
-		$this->assertEquals(      1, Numbers::MinMax( 999.9, -1, 1   ) );
-		$this->assertEquals(     -1, Numbers::MinMax(-999.9, -1, 1   ) );
+		$this->assertEquals(    1, Numbers::MinMax( 999, -1, 1 ) );
+		$this->assertEquals(   -1, Numbers::MinMax(-999, -1, 1 ) );
 		// min only
-		$this->assertEquals(  999.9, Numbers::MinMax( 999.9, 1       ) );
-		$this->assertEquals(      1, Numbers::MinMax(-999.9, 1       ) );
+		$this->assertEquals(  999, Numbers::MinMax( 999, 1, PHP_INT_MAX ) );
+		$this->assertEquals(    1, Numbers::MinMax(-999, 1, PHP_INT_MAX ) );
 		// max only
-		$this->assertEquals(      1, Numbers::MinMax( 999.9, FALSE, 1) );
-		$this->assertEquals( -999.9, Numbers::MinMax(-999.9, FALSE, 1) );
+		$this->assertEquals(    1, Numbers::MinMax( 999, PHP_INT_MIN, 1 ) );
+		$this->assertEquals( -999, Numbers::MinMax(-999, PHP_INT_MIN, 1 ) );
 		// exception
 		$this->expectException(\Exception::class);
 		$this->expectExceptionMessage('Min must be less than Max!');
