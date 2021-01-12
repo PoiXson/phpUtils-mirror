@@ -43,7 +43,7 @@ final class Numbers {
 	 * @param int $max
 	 * @return int value
 	 */
-	public static function MinMax(int $value, bool $min=FALSE, bool $max=FALSE): int {
+	public static function MinMax(int $value, int $min=\PHP_INT_MIN, int $max=\PHP_INT_MAX): int {
 		if ($min !== FALSE && $max !== FALSE && $min > $max) {
 			throw new \Exception('Min must be less than Max!');
 		}
