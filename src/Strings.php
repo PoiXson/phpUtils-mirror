@@ -584,8 +584,6 @@ final class Strings {
 
 
 	public static function CommonPath(string $pathA, string $pathB): string {
-		$pathA = (string) $pathA;
-		$pathB = (string) $pathB;
 		$prepend = self::StartsWith($pathA, '/')
 				|| self::StartsWith($pathB, '/');
 		if ($prepend) {
@@ -608,7 +606,7 @@ final class Strings {
 		if (\count($result) == 0) {
 			return ($prepend ? '/' : '');
 		}
-		$result = \implode($result, '/');
+		$result = \implode('/', $result);
 		return (
 			$prepend
 			? self::ForceStartsWith($result, '/')
