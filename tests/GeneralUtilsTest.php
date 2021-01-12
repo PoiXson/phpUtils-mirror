@@ -20,12 +20,18 @@ class GeneralUtilsTest extends \PHPUnit\Framework\TestCase {
 
 
 
+	/**
+	 * @covers
+	 */
 	public function testArray(): void {
 		$this->assertEmpty([]);
 	}
 
 
 
+	/**
+	 * @covers
+	 */
 	public function testClassName(): void {
 		$this->assertEquals(
 			self::THIS_CLASS_STRING,
