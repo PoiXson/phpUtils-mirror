@@ -1,7 +1,7 @@
-<?php
+<?php declare(strict_types = 1);
 /*
  * PoiXson phpUtils - PHP Utilities Library
- * @copyright 2004-2020
+ * @copyright 2004-2021
  * @license GPL-3
  * @author lorenzo at poixson.com
  * @link https://poixson.com/
@@ -66,28 +66,19 @@ final class Numbers {
 		if ($places == 0)
 			return \round($value);
 		$pow = \pow(10, $places);
-		return self::PadZeros(
-			\round($value * $pow) / $pow,
-			$places
-		);
+		return \round($value * $pow) / $pow;
 	}
 	public static function Floor(float $value, int $places=0): float {
 		if ($places == 0)
 			return \floor($value);
 		$pow = \pow(10, $places);
-		return self::PadZeros(
-			\floor($value * $pow) / $pow,
-			$places
-		);
+		return \floor($value * $pow) / $pow;
 	}
 	public static function Ceil(float $value, int $places=0): float {
 		if ($places == 0)
 			return \ceil($value);
 		$pow = \pow(10, $places);
-		return self::PadZeros(
-			\ceil($value * $pow) / $pow,
-			$places
-		);
+		return \ceil($value * $pow) / $pow;
 	}
 
 

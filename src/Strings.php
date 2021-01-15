@@ -1,7 +1,7 @@
-<?php
+<?php declare(strict_types = 1);
 /*
  * PoiXson phpUtils - PHP Utilities Library
- * @copyright 2004-2020
+ * @copyright 2004-2021
  * @license GPL-3
  * @author lorenzo at poixson.com
  * @link https://poixson.com/
@@ -290,7 +290,7 @@ final class Strings {
 		if ($charLen > 1) {
 			$padding = \str_repeat(
 				$char,
-				\floor($len / $charLen)
+				(int) \floor( ((float)$len) / ((float)$charLen) )
 			);
 			$padding .= \mb_substr(
 				$char,
@@ -308,8 +308,8 @@ final class Strings {
 		$len = $size - \mb_strlen($str);
 		if ($len < 0)
 			return $str;
-		$padLeft  = \floor( ((double) $len) / 2.0);
-		$padRight = \ceil(  ((double) $len) / 2.0);
+		$padLeft  = (int) \floor( ((double) $len) / 2.0);
+		$padRight = (int) \ceil(  ((double) $len) / 2.0);
 		return \str_repeat($char, $padLeft) . $str . \str_repeat($char, $padRight);
 	}
 
