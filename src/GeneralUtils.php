@@ -1,7 +1,7 @@
-<?php
+<?php declare(strict_types = 1);
 /*
  * PoiXson phpUtils - PHP Utilities Library
- * @copyright 2004-2020
+ * @copyright 2004-2021
  * @license GPL-3
  * @author lorenzo at poixson.com
  * @link https://poixson.com/
@@ -243,7 +243,7 @@ final class GeneralUtils {
 	 */
 	public static function Sleep(int $ms): void {
 		if ($ms > 0.0) {
-			\usleep($ms * 1000.0);
+			\usleep($ms * 1000);
 		}
 	}
 
