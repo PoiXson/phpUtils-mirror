@@ -8,13 +8,13 @@
  */
 namespace pxn\phpUtils\tests;
 
-use pxn\phpUtils\San;
+use pxn\phpUtils\utils\SanUtils;
 
 
 /**
- * @coversDefaultClass \pxn\phpUtils\San
+ * @coversDefaultClass \pxn\phpUtils\utils\SanUtils
  */
-class SanTest extends \PHPUnit\Framework\TestCase {
+class test_SanUtils extends \PHPUnit\Framework\TestCase {
 
 	const TEST_DATA = 'abcd ABCD 1234 _-=+ ,.?! @#$%^&*~ ()<>[]{};:`\'" \\|/';
 
@@ -22,87 +22,49 @@ class SanTest extends \PHPUnit\Framework\TestCase {
 
 	/**
 	 * @covers ::AlphaNum
-	 */
-	public function testAlphaNum() {
-		$this->assertEquals(
-			'abcdABCD1234',
-			San::AlphaNum(self::TEST_DATA)
-		);
-	}
-	/**
 	 * @covers ::AlphaNumDash
-	 */
-	public function testAlphaNumDash() {
-		$this->assertEquals(
-			'abcdABCD1234_-',
-			San::AlphaNumDash(self::TEST_DATA)
-		);
-	}
-	/**
 	 * @covers ::AlphaNumSpaces
-	 */
-	public function testAlphaNumSpaces() {
-		$this->assertEquals(
-			'abcd ABCD 1234 _-    ',
-			San::AlphaNumSpaces(self::TEST_DATA)
-		);
-	}
-	/**
 	 * @covers ::AlphaNumFile
-	 */
-	public function testAlphaNumFile() {
-		$this->assertEquals(
-			'abcdABCD1234_-=+,.?!&()\'',
-			San::AlphaNumFile(self::TEST_DATA)
-		);
-	}
-	/**
 	 * @covers ::Base64
 	 */
-	public function testBase64() {
+	public function test_San(): void {
+		$this->assertEquals(expected: 'abcdABCD1234',              actual: SanUtils::AlphaNum(self::TEST_DATA)      );
+		$this->assertEquals(expected: 'abcdABCD1234_-',            actual: SanUtils::AlphaNumDash(self::TEST_DATA)  );
+		$this->assertEquals(expected: 'abcd ABCD 1234 _-    ',     actual: SanUtils::AlphaNumSpaces(self::TEST_DATA));
+		$this->assertEquals(expected: 'abcdABCD1234_-=+,.?!&()\'', actual: SanUtils::AlphaNumFile(self::TEST_DATA)  );
 		$data = 'abcxyz-123890_ABCXYZ==';
-		$this->assertEquals(
-			'abcxyz123890ABCXYZ==',
-			San::Base64($data)
-		);
+		$this->assertEquals(expected: 'abcxyz123890ABCXYZ==',      actual: SanUtils::Base64($data)                  );
 	}
 
 
 
 	/**
 	 * @covers ::isAlphaNum
-	 */
-	public function testIsAlphaNum() {
-		$this->assertTrue(  San::isAlphaNum('abc123')        );
-		$this->assertFalse( San::isAlphaNum(self::TEST_DATA) );
-	}
-	/**
 	 * @covers ::isAlphaNumDash
-	 */
-	public function testIsAlphaNumDash() {
-		$this->assertTrue(  San::isAlphaNumDash('abc123')        );
-		$this->assertFalse( San::isAlphaNumDash(self::TEST_DATA) );
-	}
-	/**
 	 * @covers ::isAlphaNumSpaces
-	 */
-	public function testIsAlphaNumSpaces() {
-		$this->assertTrue(  San::isAlphaNumSpaces('abc123')        );
-		$this->assertFalse( San::isAlphaNumSpaces(self::TEST_DATA) );
-	}
-	/**
 	 * @covers ::isAlphaNumFile
-	 */
-	public function testIsAlphaNumFile() {
-		$this->assertTrue(  San::isAlphaNumFile('abc123')        );
-		$this->assertFalse( San::isAlphaNumFile(self::TEST_DATA) );
-	}
-	/**
 	 * @covers ::isBase64
+	 * @covers ::isVersion
 	 */
-	public function testIsBase64() {
-		$this->assertTrue(  San::isBase64('YWJjLTEyMw==')  );
-		$this->assertFalse( San::isBase64(self::TEST_DATA) );
+	public function test_isSan(): void {
+		// isAlphaNum()
+		$this->assertTrue(  SanUtils::isAlphaNum('abc123')             );
+		$this->assertFalse( SanUtils::isAlphaNum(self::TEST_DATA)      );
+		// isAlphaNumDash()
+		$this->assertTrue(  SanUtils::isAlphaNumDash('abc123')         );
+		$this->assertFalse( SanUtils::isAlphaNumDash(self::TEST_DATA)  );
+		// isAlphaNumSpaces()
+		$this->assertTrue(  SanUtils::isAlphaNumSpaces('abc123')       );
+		$this->assertFalse( SanUtils::isAlphaNumSpaces(self::TEST_DATA));
+		// isAlphaNumFile()
+		$this->assertTrue(  SanUtils::isAlphaNumFile('abc123')         );
+		$this->assertFalse( SanUtils::isAlphaNumFile(self::TEST_DATA)  );
+		// isBase64()
+		$this->assertTrue(  SanUtils::isBase64('YWJjLTEyMw==')         );
+		$this->assertFalse( SanUtils::isBase64(self::TEST_DATA)        );
+		// isVersion()
+		$this->assertTrue(  SanUtils::isVersion('1.2.3')               );
+		$this->assertFalse( SanUtils::isVersion('a.b.c')               );
 	}
 
 
