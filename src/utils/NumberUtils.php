@@ -5,52 +5,49 @@
  * @license GPL-3
  * @author lorenzo at poixson.com
  * @link https://poixson.com/
- * /
-namespace pxn\phpUtils;
+ */
+namespace pxn\phpUtils\utils;
+
+use pxn\phpUtils\pxnDefines as xDef;
 
 
-final class Numbers {
+final class NumberUtils {
+	/** @codeCoverageIgnore */
 	private final function __construct() {}
 
 
 
-	/ **
+	/**
 	 * This function is a more specific test of a value. The native
 	 * \is_numeric() function also returns true for hex values.
 	 * @param string $value
 	 * @return boolean Returns true if only contains number characters after
 	 *         being trimmed.
-	 * /
+	 */
 	public static function isNumber($value): bool {
-		if ($value === NULL)
-			return FALSE;
+		if ($value === NULL) return FALSE;
 		$value = \trim( (string)$value );
-		if ($value === '')
-			return FALSE;
-		$value = Strings::TrimFront($value, '0');
-		if ($value == '')
-			return TRUE;
+		if ($value === '') return FALSE;
+		$value = StringUtils::TrimFront($value, '0');
+		if ($value == '') return TRUE;
 		$i = ((string) ((int)$value) );
 		return ($value === $i);
 	}
 
 
 
-	/ **
+	/**
 	 * Check the min and max of a value and return the result.
 	 * @param int $value
 	 * @param int $min
 	 * @param int $max
 	 * @return int value
-	 * /
+	 */
 	public static function MinMax(int $value, int $min=\PHP_INT_MIN, int $max=\PHP_INT_MAX): int {
-		if ($min !== FALSE && $max !== FALSE && $min > $max) {
+		if ($min !== FALSE && $max !== FALSE && $min > $max)
 			throw new \Exception('Min must be less than Max!');
-		}
-		if ($min !== FALSE && $value < $min)
-			return $min;
-		if ($max !== FALSE && $value > $max)
-			return $max;
+		if ($min !== FALSE && $value < $min) return $min;
+		if ($max !== FALSE && $value > $max) return $max;
 		return $value;
 	}
 
@@ -68,12 +65,14 @@ final class Numbers {
 		$pow = \pow(10, $places);
 		return \round($value * $pow) / $pow;
 	}
+
 	public static function Floor(float $value, int $places=0): float {
 		if ($places == 0)
 			return \floor($value);
 		$pow = \pow(10, $places);
 		return \floor($value * $pow) / $pow;
 	}
+
 	public static function Ceil(float $value, int $places=0): float {
 		if ($places == 0)
 			return \ceil($value);
@@ -98,58 +97,39 @@ final class Numbers {
 
 
 
-	/ **
+	/**
 	 * Convert bytes to human readable format.
 	 * @param int $size - Integer in bytes to convert.
 	 * @return string - Formatted size.
-	 * /
-	public static function FormatBytes(int $size): string {
-//TODO: union types supported in php 8
-//		if (empty($size)) {
-//			throw new \NullPointerException();
-//		}
-//		$size = \trim((string) $size);
-//		if ( \mb_strtolower(\mb_substr($size, -1, 1)) == 'b' ) {
-//			$size = \trim(\mb_substr($size, 0, -1));
-//		}
-//		switch ( \mb_strtolower(\mb_substr($size, -1, 1)) ) {
-//		case 'k':
-//			$size = ((float) $size) * Defines::KB;
-//			break;
-//		case 'm':
-//			$size = ((float) $size) * Defines::MB;
-//			break;
-//		case 'g':
-//			$size = ((float) $size) * Defines::GB;
-//			break;
-//		case 't':
-//			$size = ((float) $size) * Defines::TB;
-//			break;
-//		default:
-//			$size = (float) $size;
-//			break;
-//		}
-		if ($size < 0)
-			return '';
-		if ($size < Defines::KB)
-			return \round($size, 0) . 'B';
-		if ($size < Defines::MB)
-			return \round($size / Defines::KB, 2) . 'KB';
-		if ($size < Defines::GB)
-			return \round($size / Defines::MB, 2) . 'MB';
-		if ($size < Defines::TB)
-			return \round($size / Defines::GB, 2) . 'GB';
-		return \round($size / Defines::TB, 2) . 'TB';
+	 */
+	public static function FormatBytes(int|string $size): string {
+		if (empty($size)) return '';
+		$size = \trim((string) $size);
+		if ( \mb_strtolower(\mb_substr($size, -1, 1)) == 'b' )
+			$size = \trim(\mb_substr($size, 0, -1));
+		switch ( \mb_strtolower(\mb_substr($size, -1, 1)) ) {
+		case 'k': $size = ((float) $size) * xDef::KB; break;
+		case 'm': $size = ((float) $size) * xDef::MB; break;
+		case 'g': $size = ((float) $size) * xDef::GB; break;
+		case 't': $size = ((float) $size) * xDef::TB; break;
+		default: $size = (float) $size;               break;
+		}
+		if ($size < 0)        return '';
+		if ($size < xDef::KB) return \round($size, 0) . 'B';
+		if ($size < xDef::MB) return \round($size / xDef::KB, 2) . 'KB';
+		if ($size < xDef::GB) return \round($size / xDef::MB, 2) . 'MB';
+		if ($size < xDef::TB) return \round($size / xDef::GB, 2) . 'GB';
+		return \round($size / xDef::TB, 2) . 'TB';
 	}
 
 
 
-	/ **
+	/**
 	 * Convert a number to roman numerals.
 	 * @param int $value -
 	 * @param int $max -
 	 * @return string - Roman numerals string representing input number.
-	 * /
+	 */
 	public static function FormatRoman(int $value, ?int $max=NULL): string {
 		if ( ($max !== NULL && $value > $max) || $value < 0)
 			return (string) $value;
@@ -185,15 +165,15 @@ final class Numbers {
 
 
 
-	/ **
+	/**
 	 * String to seconds.
 	 * @param string $text - String to convert.
 	 * @return int seconds
-	 * /
+	 */
 	public static function StringToSeconds(string $text): int {
 		$str = '';
 		$value = 0;
-		for ($i = 0; $i < \mb_strlen($text); $i++) {
+		for ($i=0; $i<\mb_strlen($text); $i++) {
 			$s = \mb_substr($text, $i, 1);
 			if (self::isNumber($s)) {
 				$str .= $s;
@@ -204,41 +184,43 @@ final class Numbers {
 			$str = '';
 			if ($val == 0) continue;
 			switch (\mb_strtolower($s)) {
-			case 'n':
-				$value += ($val * Defines::S_MS);
-				break;
 			case 's';
-				$value += ($val * Defines::S_SECOND);
+				$value += ($val * xDef::S_SECOND);
 				break;
 			case 'm':
-				$value += ($val * Defines::S_MINUTE);
+				$value += ($val * xDef::S_MINUTE);
 				break;
 			case 'h':
-				$value += ($val * Defines::S_HOUR);
+				$value += ($val * xDef::S_HOUR);
 				break;
 			case 'd':
-				$value += ($val * Defines::S_DAY);
+				$value += ($val * xDef::S_DAY);
 				break;
 			case 'w':
-				$value += ($val * Defines::S_WEEK);
+				$value += ($val * xDef::S_WEEK);
 				break;
 			case 'o':
-				$value += ($val * Defines::S_MONTH);
+				$value += ($val * xDef::S_MONTH);
 				break;
 			case 'y':
-				$value += ($val * Defines::S_YEAR);
+				$value += ($val * xDef::S_YEAR);
 				break;
 			default:
-				continue 2;
+				$value += $val;
+				break;
 			}
+		}
+		if (!empty($str)) {
+			$value += (int) $str;
 		}
 		return $value;
 	}
-	/ **
+
+	/**
 	 * Seconds to formatted string.
 	 * @param int $seconds - Integer to convert.
 	 * @return string
-	 * /
+	 */
 	public static function SecondsToString(int $seconds,
 	bool $shorthand=TRUE, ?int $maxParts=NULL, float $deviance=1.0): string {
 		$maxParts = (
@@ -248,9 +230,9 @@ final class Numbers {
 		);
 		$result = array();
 		// years
-		if ($seconds >= (Defines::S_YEAR * $deviance)) {
-			$v = \ceil(\floor($seconds / Defines::S_YEAR / $deviance) * $deviance);
-			$seconds -= $v * Defines::S_YEAR;
+		if ($seconds >= (xDef::S_YEAR * $deviance)) {
+			$v = \ceil(\floor($seconds / xDef::S_YEAR / $deviance) * $deviance);
+			$seconds -= $v * xDef::S_YEAR;
 			$result[] = $v.(
 				$shorthand
 				? 'yr'
@@ -260,9 +242,9 @@ final class Numbers {
 		// months
 		if ($deviance !== 1.0) {
 		if ($maxParts === NULL || count($result) < $maxParts) {
-		if ($seconds >= (Defines::S_MONTH * $deviance)) {
-			$v = \ceil(\floor($seconds / Defines::S_MONTH / $deviance) * $deviance);
-			$seconds -= $v * Defines::S_MONTH;
+		if ($seconds >= (xDef::S_MONTH * $deviance)) {
+			$v = \ceil(\floor($seconds / xDef::S_MONTH / $deviance) * $deviance);
+			$seconds -= $v * xDef::S_MONTH;
 			$result[] = $v.(
 				$shorthand
 				? 'mon'
@@ -271,9 +253,9 @@ final class Numbers {
 		}}}
 		// days
 		if ($maxParts === NULL || count($result) < $maxParts) {
-		if ($seconds >= (Defines::S_DAY * $deviance)) {
-			$v = \ceil(\floor($seconds / Defines::S_DAY / $deviance) * $deviance);
-			$seconds -= $v * Defines::S_DAY;
+		if ($seconds >= (xDef::S_DAY * $deviance)) {
+			$v = \ceil(\floor($seconds / xDef::S_DAY / $deviance) * $deviance);
+			$seconds -= $v * xDef::S_DAY;
 			$result[] = $v.(
 				$shorthand
 				? 'day'
@@ -282,9 +264,9 @@ final class Numbers {
 		}}
 		// hours
 		if ($maxParts === NULL || count($result) < $maxParts) {
-		if ($seconds >= (Defines::S_HOUR * $deviance)) {
-			$v = \ceil(\floor($seconds / Defines::S_HOUR / $deviance) * $deviance);
-			$seconds -= $v * Defines::S_HOUR;
+		if ($seconds >= (xDef::S_HOUR * $deviance)) {
+			$v = \ceil(\floor($seconds / xDef::S_HOUR / $deviance) * $deviance);
+			$seconds -= $v * xDef::S_HOUR;
 			$result[] = $v.(
 				$shorthand
 				? 'hr'
@@ -293,9 +275,9 @@ final class Numbers {
 		}}
 		// minutes
 		if ($maxParts === NULL || count($result) < $maxParts) {
-		if ($seconds >= (Defines::S_MINUTE * $deviance)) {
-			$v = \ceil(\floor($seconds / Defines::S_MINUTE / $deviance) * $deviance);
-			$seconds -= $v * Defines::S_MINUTE;
+		if ($seconds >= (xDef::S_MINUTE * $deviance)) {
+			$v = \ceil(\floor($seconds / xDef::S_MINUTE / $deviance) * $deviance);
+			$seconds -= $v * xDef::S_MINUTE;
 			$result[] = $v.(
 				$shorthand
 				? 'min'
@@ -318,26 +300,27 @@ final class Numbers {
 			return \implode(' ', $result);
 		return \implode('  ', $result);
 	}
+
 	public static function SecondsToText(int $seconds,
 	bool $shorthand=FALSE, ?int $maxParts=NULL, float $deviance=1.0): string {
 		// future
 		if ( $seconds < 0 ) {
 			$seconds = 0 - $seconds;
-			if ( ($seconds * $deviance) < Defines::S_HOUR )
+			if ( ($seconds * $deviance) < xDef::S_HOUR )
 				return 'Soon';
-			if ( ($seconds * $deviance) < Defines::S_DAY )
+			if ( ($seconds * $deviance) < xDef::S_DAY )
 				return 'Soon Today';
-			if ( ($seconds * $deviance) < (Defines::S_DAY * 2) )
+			if ( ($seconds * $deviance) < (xDef::S_DAY * 2) )
 				return 'Tomorrow';
 			return self::SecondsToString($seconds, $shorthand, $maxParts, $deviance).' from now';
 		}
 		// now
-		if ( $seconds * $deviance < Defines::S_HOUR )
+		if ( $seconds * $deviance < xDef::S_HOUR )
 			return 'Now';
 		// past
-		if ( ($seconds * $deviance) < Defines::S_DAY )
+		if ( ($seconds * $deviance) < xDef::S_DAY )
 			return 'Today';
-		if ( ($seconds * $deviance) < (Defines::S_DAY * 2) )
+		if ( ($seconds * $deviance) < (xDef::S_DAY * 2) )
 			return 'Yesterday';
 		return self::SecondsToString($seconds, $shorthand, $maxParts, $deviance).' ago';
 	}
@@ -345,4 +328,3 @@ final class Numbers {
 
 
 }
-*/

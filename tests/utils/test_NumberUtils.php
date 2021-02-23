@@ -5,61 +5,61 @@
  * @license GPL-3
  * @author lorenzo at poixson.com
  * @link https://poixson.com/
- * /
-namespace pxn\phpUtils\tests;
+ */
+namespace pxn\phpUtils\tests\utils;
 
-use pxn\phpUtils\Numbers;
-use pxn\phpUtils\Defines;
-
-
-/ **
- * @coversDefaultClass \pxn\phpUtils\Numbers
- * /
-class NumbersTest extends \PHPUnit\Framework\TestCase {
+use pxn\phpUtils\utils\NumberUtils;
+use pxn\phpUtils\pxnDefines;
 
 
+/**
+ * @coversDefaultClass \pxn\phpUtils\utils\NumberUtils
+ */
+class test_NumberUtils extends \PHPUnit\Framework\TestCase {
 
-	/ **
+
+
+	/**
 	 * @covers ::isNumber
-	 * /
-	public function testIsNumber(): void {
-		$this->assertFalse( Numbers::isNumber(NULL      ), "Value: NULL"       );
-		$this->assertFalse( Numbers::isNumber(''        ), "Value: ''"         );
-		$this->assertTrue ( Numbers::isNumber('1'       ), "Value: '1'"        );
-		$this->assertTrue ( Numbers::isNumber('0'       ), "Value: '0'"        );
-		$this->assertTrue ( Numbers::isNumber('000'     ), "Value: '000'"      );
-		$this->assertTrue ( Numbers::isNumber('-1'      ), "Value: '-1'"       );
-		$this->assertTrue ( Numbers::isNumber(' 1 '     ), "Value: ' 1 '"      );
-		$this->assertTrue ( Numbers::isNumber('99999999'), "Value: '99999999'" );
-		$this->assertTrue ( Numbers::isNumber('007'     ), "Value: '007'"      );
-		$this->assertFalse( Numbers::isNumber(' - 1 '   ), "Value: ' - 1 '"    );
-		$this->assertFalse( Numbers::isNumber('1a'      ), "Value: '1a'"       );
-		$this->assertFalse( Numbers::isNumber('a1'      ), "Value: 'a1'"       );
-		$this->assertFalse( Numbers::isNumber('1 a'     ), "Value: '1 a'"      );
-		$this->assertFalse( Numbers::isNumber('a'       ), "Value: 'a'"        );
-		$this->assertFalse( Numbers::isNumber('0x5F12'  ), "Value: '0x5F12'"   );
+	 */
+	public function test_isNumber(): void {
+		$this->assertFalse(NumberUtils::isNumber(NULL      ), "Value: NULL"      );
+		$this->assertFalse(NumberUtils::isNumber(''        ), "Value: ''"        );
+		$this->assertTrue (NumberUtils::isNumber('1'       ), "Value: '1'"       );
+		$this->assertTrue (NumberUtils::isNumber('0'       ), "Value: '0'"       );
+		$this->assertTrue (NumberUtils::isNumber('000'     ), "Value: '000'"     );
+		$this->assertTrue (NumberUtils::isNumber('-1'      ), "Value: '-1'"      );
+		$this->assertTrue (NumberUtils::isNumber(' 1 '     ), "Value: ' 1 '"     );
+		$this->assertTrue (NumberUtils::isNumber('99999999'), "Value: '99999999'");
+		$this->assertTrue (NumberUtils::isNumber('007'     ), "Value: '007'"     );
+		$this->assertFalse(NumberUtils::isNumber(' - 1 '   ), "Value: ' - 1 '"   );
+		$this->assertFalse(NumberUtils::isNumber('1a'      ), "Value: '1a'"      );
+		$this->assertFalse(NumberUtils::isNumber('a1'      ), "Value: 'a1'"      );
+		$this->assertFalse(NumberUtils::isNumber('1 a'     ), "Value: '1 a'"     );
+		$this->assertFalse(NumberUtils::isNumber('a'       ), "Value: 'a'"       );
+		$this->assertFalse(NumberUtils::isNumber('0x5F12'  ), "Value: '0x5F12'"  );
 	}
 
 
 
-	/ **
+	/**
 	 * @covers ::MinMax
-	 * /
-	public function testMinMax(): void {
-		$this->assertEquals(  999, Numbers::MinMax( 999 ) );
+	 */
+	public function test_MinMax(): void {
+		$this->assertEquals(expected:  999, actual: NumberUtils::MinMax(999)                 );
 		// min/max
-		$this->assertEquals(    1, Numbers::MinMax( 999, -1, 1 ) );
-		$this->assertEquals(   -1, Numbers::MinMax(-999, -1, 1 ) );
+		$this->assertEquals(expected:    1, actual: NumberUtils::MinMax( 999, -1, 1)         );
+		$this->assertEquals(expected:   -1, actual: NumberUtils::MinMax(-999, -1, 1)         );
 		// min only
-		$this->assertEquals(  999, Numbers::MinMax( 999, 1, PHP_INT_MAX ) );
-		$this->assertEquals(    1, Numbers::MinMax(-999, 1, PHP_INT_MAX ) );
+		$this->assertEquals(expected:  999, actual: NumberUtils::MinMax( 999, 1, PHP_INT_MAX));
+		$this->assertEquals(expected:    1, actual: NumberUtils::MinMax(-999, 1, PHP_INT_MAX));
 		// max only
-		$this->assertEquals(    1, Numbers::MinMax( 999, PHP_INT_MIN, 1 ) );
-		$this->assertEquals( -999, Numbers::MinMax(-999, PHP_INT_MIN, 1 ) );
+		$this->assertEquals(expected:    1, actual: NumberUtils::MinMax( 999, PHP_INT_MIN, 1));
+		$this->assertEquals(expected: -999, actual: NumberUtils::MinMax(-999, PHP_INT_MIN, 1));
 		// exception
 		$this->expectException(\Exception::class);
 		$this->expectExceptionMessage('Min must be less than Max!');
-		Numbers::MinMax(1, 2, 0);
+		NumberUtils::MinMax(1, 2, 0);
 	}
 
 
@@ -70,116 +70,118 @@ class NumbersTest extends \PHPUnit\Framework\TestCase {
 
 
 
-	/ **
+	/**
 	 * @covers ::Round
-	 * /
-	public function testRound(): void {
-		$this->assertEquals( '123',    Numbers::Round(123,     0) );
-		$this->assertEquals( '123.00', Numbers::Round(123,     2) );
-		$this->assertEquals( '123.45', Numbers::Round(123.45,  2) );
-		$this->assertEquals( '123.46', Numbers::Round(123.456, 2) );
-		$this->assertEquals(  '123.4', Numbers::Round(123.44,  1) );
-		$this->assertEquals(  '123.5', Numbers::Round(123.45,  1) );
-		$this->assertEquals(    '130', Numbers::Round(125.6,  -1) );
+	 */
+	public function test_Round(): void {
+		$this->assertEquals(expected: '123',    actual: NumberUtils::Round(123,     0));
+		$this->assertEquals(expected: '123.00', actual: NumberUtils::Round(123,     2));
+		$this->assertEquals(expected: '123.45', actual: NumberUtils::Round(123.45,  2));
+		$this->assertEquals(expected: '123.46', actual: NumberUtils::Round(123.456, 2));
+		$this->assertEquals(expected:  '123.4', actual: NumberUtils::Round(123.44,  1));
+		$this->assertEquals(expected:  '123.5', actual: NumberUtils::Round(123.45,  1));
+		$this->assertEquals(expected:    '130', actual: NumberUtils::Round(125.6,  -1));
 	}
-	/ **
+
+	/**
 	 * @covers ::Floor
-	 * /
-	public function testFloor(): void {
-		$this->assertEquals( '123',    Numbers::Floor(123,     0) );
-		$this->assertEquals( '123.00', Numbers::Floor(123,     2) );
-		$this->assertEquals( '123.45', Numbers::Floor(123.45,  2) );
-		$this->assertEquals( '123.45', Numbers::Floor(123.456, 2) );
-		$this->assertEquals(  '123.4', Numbers::Floor(123.44,  1) );
-		$this->assertEquals(  '123.4', Numbers::Floor(123.45,  1) );
-		$this->assertEquals(    '120', Numbers::Floor(125.6,  -1) );
+	 */
+	public function test_Floor(): void {
+		$this->assertEquals(expected: '123',    actual: NumberUtils::Floor(123,     0));
+		$this->assertEquals(expected: '123.00', actual: NumberUtils::Floor(123,     2));
+		$this->assertEquals(expected: '123.45', actual: NumberUtils::Floor(123.45,  2));
+		$this->assertEquals(expected: '123.45', actual: NumberUtils::Floor(123.456, 2));
+		$this->assertEquals(expected:  '123.4', actual: NumberUtils::Floor(123.44,  1));
+		$this->assertEquals(expected:  '123.4', actual: NumberUtils::Floor(123.45,  1));
+		$this->assertEquals(expected:    '120', actual: NumberUtils::Floor(125.6,  -1));
 	}
-	/ **
+
+	/**
 	 * @covers ::Ceil
-	 * /
-	public function testCeil(): void {
-		$this->assertEquals( '123',    Numbers::Ceil(123,      0) );
-		$this->assertEquals( '123.00', Numbers::Ceil(123,      2) );
-		$this->assertEquals( '123.45', Numbers::Ceil(123.45,   2) );
-		$this->assertEquals( '123.46', Numbers::Ceil(123.456,  2) );
-		$this->assertEquals(  '123.5', Numbers::Ceil(123.44,   1) );
-		$this->assertEquals(  '123.5', Numbers::Ceil(123.45,   1) );
-		$this->assertEquals(    '130', Numbers::Ceil(125.6,   -1) );
+	 */
+	public function test_Ceil(): void {
+		$this->assertEquals(expected: '123',    actual: NumberUtils::Ceil(123,      0));
+		$this->assertEquals(expected: '123.00', actual: NumberUtils::Ceil(123,      2));
+		$this->assertEquals(expected: '123.45', actual: NumberUtils::Ceil(123.45,   2));
+		$this->assertEquals(expected: '123.46', actual: NumberUtils::Ceil(123.456,  2));
+		$this->assertEquals(expected:  '123.5', actual: NumberUtils::Ceil(123.44,   1));
+		$this->assertEquals(expected:  '123.5', actual: NumberUtils::Ceil(123.45,   1));
+		$this->assertEquals(expected:    '130', actual: NumberUtils::Ceil(125.6,   -1));
 	}
 
 
 
-	/ **
+	/**
 	 * @covers ::PadZeros
-	 * /
-	public function testPadZeros(): void {
-		$this->assertEquals(     '1', Numbers::PadZeros(    1, 0) );
-		$this->assertEquals(   '1.2', Numbers::PadZeros(  1.2, 0) );
-		$this->assertEquals( '1.000', Numbers::PadZeros(    1, 3) );
-		$this->assertEquals( '1.200', Numbers::PadZeros(  1.2, 3) );
-		$this->assertEquals( '1.234', Numbers::PadZeros(1.234, 3) );
-		$this->assertEquals( '1.234', Numbers::PadZeros(1.234, 2) );
+	 */
+	public function test_PadZeros(): void {
+		$this->assertEquals(expected:     '1', actual: NumberUtils::PadZeros(    1, 0));
+		$this->assertEquals(expected:   '1.2', actual: NumberUtils::PadZeros(  1.2, 0));
+		$this->assertEquals(expected: '1.000', actual: NumberUtils::PadZeros(    1, 3));
+		$this->assertEquals(expected: '1.200', actual: NumberUtils::PadZeros(  1.2, 3));
+		$this->assertEquals(expected: '1.234', actual: NumberUtils::PadZeros(1.234, 3));
+		$this->assertEquals(expected: '1.234', actual: NumberUtils::PadZeros(1.234, 2));
 	}
 
 
 
-	/ **
+	/**
 	 * @covers ::FormatBytes
-	 * /
-	public function testFormatBytes(): void {
-//		$this->assertEquals(     NULL, Numbers::FormatBytes( ''   ) );
-		$this->assertEquals(     NULL, Numbers::FormatBytes( -1   ) );
-		$this->assertEquals(     '1B', Numbers::FormatBytes( 1    ) );
-		$this->assertEquals(    '1KB', Numbers::FormatBytes( 1024 ) );
-		$this->assertEquals( '1.01KB', Numbers::FormatBytes( 1030 ) );
-		$this->assertEquals(    '2MB', Numbers::FormatBytes( 1024 * 1024 * 2               ) );
-		$this->assertEquals(    '3GB', Numbers::FormatBytes( 1024 * 1024 * 1024 * 3        ) );
-		$this->assertEquals(    '4TB', Numbers::FormatBytes( 1024 * 1024 * 1024 * 1024 * 4 ) );
-//TODO: union types supported in php 8
-//		$this->assertEquals(     '1B', Numbers::FormatBytes( ' 1 B ' ) );
-//		$this->assertEquals(    '1KB', Numbers::FormatBytes( '1 K B' ) );
-//		$this->assertEquals(    '1KB', Numbers::FormatBytes( '1024B' ) );
-//		$this->assertEquals( '1.01KB', Numbers::FormatBytes( '1030B' ) );
-//		$this->assertEquals(    '2MB', Numbers::FormatBytes( '2048K' ) );
-//		$this->assertEquals(    '3GB', Numbers::FormatBytes( '3072M' ) );
-//		$this->assertEquals(    '4TB', Numbers::FormatBytes( '4096G' ) );
-//		$this->assertEquals(    '6TB', Numbers::FormatBytes( '6T'    ) );
+	 */
+	public function test_FormatBytes(): void {
+		$this->assertEquals(expected:    NULL, actual: NumberUtils::FormatBytes(-1  ));
+		$this->assertEquals(expected:    '1B', actual: NumberUtils::FormatBytes(1   ));
+		$this->assertEquals(expected:   '1KB', actual: NumberUtils::FormatBytes(1024));
+		$this->assertEquals(expected:'1.01KB', actual: NumberUtils::FormatBytes(1030));
+		$this->assertEquals(expected:   '2MB', actual: NumberUtils::FormatBytes(1024 * 1024 * 2              ));
+		$this->assertEquals(expected:   '3GB', actual: NumberUtils::FormatBytes(1024 * 1024 * 1024 * 3       ));
+		$this->assertEquals(expected:   '4TB', actual: NumberUtils::FormatBytes(1024 * 1024 * 1024 * 1024 * 4));
+		// from string
+		$this->assertEquals(expected:    NULL, actual: NumberUtils::FormatBytes(''     ));
+		$this->assertEquals(expected:    '1B', actual: NumberUtils::FormatBytes(' 1 B '));
+		$this->assertEquals(expected:   '1KB', actual: NumberUtils::FormatBytes('1 K B'));
+		$this->assertEquals(expected:   '1KB', actual: NumberUtils::FormatBytes('1024B'));
+		$this->assertEquals(expected:'1.01KB', actual: NumberUtils::FormatBytes('1030B'));
+		$this->assertEquals(expected:   '2MB', actual: NumberUtils::FormatBytes('2048K'));
+		$this->assertEquals(expected:   '3GB', actual: NumberUtils::FormatBytes('3072M'));
+		$this->assertEquals(expected:   '4TB', actual: NumberUtils::FormatBytes('4096G'));
+		$this->assertEquals(expected:   '6TB', actual: NumberUtils::FormatBytes('6T'   ));
 	}
 
 
 
-	/ **
+	/**
 	 * @covers ::FormatRoman
-	 * /
-	public function testFormatRoman(): void {
-		$this->assertEquals( 'I',        Numbers::FormatRoman(1     ) );
-		$this->assertEquals( 'II',       Numbers::FormatRoman(2     ) );
-		$this->assertEquals( 'III',      Numbers::FormatRoman(3     ) );
-		$this->assertEquals( 'IV',       Numbers::FormatRoman(4     ) );
-		$this->assertEquals( 'V',        Numbers::FormatRoman(5     ) );
-		$this->assertEquals( 'VI',       Numbers::FormatRoman(6     ) );
-		$this->assertEquals( 'VII',      Numbers::FormatRoman(7     ) );
-		$this->assertEquals( 'VIII',     Numbers::FormatRoman(8     ) );
-		$this->assertEquals( 'IX',       Numbers::FormatRoman(9     ) );
-		$this->assertEquals( 'X',        Numbers::FormatRoman(10    ) );
-		$this->assertEquals( 'XI',       Numbers::FormatRoman(11    ) );
-		$this->assertEquals( 'XV',       Numbers::FormatRoman(15    ) );
-		$this->assertEquals( 'XVI',      Numbers::FormatRoman(16    ) );
-		$this->assertEquals( 'XXII',     Numbers::FormatRoman(22    ) );
-		$this->assertEquals( 'XLII',     Numbers::FormatRoman(42    ) );
-		$this->assertEquals( 'LIII',     Numbers::FormatRoman(53    ) );
-		$this->assertEquals( 'XCI',      Numbers::FormatRoman(91    ) );
-		$this->assertEquals( 'CIV',      Numbers::FormatRoman(104   ) );
-		$this->assertEquals( 'CLV',      Numbers::FormatRoman(155   ) );
-		$this->assertEquals( 'CD',       Numbers::FormatRoman(400   ) );
-		$this->assertEquals( 'D',        Numbers::FormatRoman(500   ) );
-		$this->assertEquals( 'DC',       Numbers::FormatRoman(600   ) );
-		$this->assertEquals( 'CM',       Numbers::FormatRoman(900   ) );
-		$this->assertEquals( 'M',        Numbers::FormatRoman(1000  ) );
-		$this->assertEquals( 'MCCXXXIV', Numbers::FormatRoman(1234  ) );
-		$this->assertEquals( '-20',      Numbers::FormatRoman(-20   ) );
-		$this->assertEquals( '11',       Numbers::FormatRoman(11, 10) );
-		$this->assertEquals( 'IX',       Numbers::FormatRoman(9,  10) );
+	 */
+	public function test_FormatRoman(): void {
+		$this->assertEquals(expected: 'I',       actual: NumberUtils::FormatRoman(1     ));
+		$this->assertEquals(expected: 'II',      actual: NumberUtils::FormatRoman(2     ));
+		$this->assertEquals(expected: 'III',     actual: NumberUtils::FormatRoman(3     ));
+		$this->assertEquals(expected: 'IV',      actual: NumberUtils::FormatRoman(4     ));
+		$this->assertEquals(expected: 'V',       actual: NumberUtils::FormatRoman(5     ));
+		$this->assertEquals(expected: 'VI',      actual: NumberUtils::FormatRoman(6     ));
+		$this->assertEquals(expected: 'VII',     actual: NumberUtils::FormatRoman(7     ));
+		$this->assertEquals(expected: 'VIII',    actual: NumberUtils::FormatRoman(8     ));
+		$this->assertEquals(expected: 'IX',      actual: NumberUtils::FormatRoman(9     ));
+		$this->assertEquals(expected: 'X',       actual: NumberUtils::FormatRoman(10    ));
+		$this->assertEquals(expected: 'XI',      actual: NumberUtils::FormatRoman(11    ));
+		$this->assertEquals(expected: 'XV',      actual: NumberUtils::FormatRoman(15    ));
+		$this->assertEquals(expected: 'XVI',     actual: NumberUtils::FormatRoman(16    ));
+		$this->assertEquals(expected: 'XXII',    actual: NumberUtils::FormatRoman(22    ));
+		$this->assertEquals(expected: 'XLII',    actual: NumberUtils::FormatRoman(42    ));
+		$this->assertEquals(expected: 'LIII',    actual: NumberUtils::FormatRoman(53    ));
+		$this->assertEquals(expected: 'XCI',     actual: NumberUtils::FormatRoman(91    ));
+		$this->assertEquals(expected: 'CIV',     actual: NumberUtils::FormatRoman(104   ));
+		$this->assertEquals(expected: 'CLV',     actual: NumberUtils::FormatRoman(155   ));
+		$this->assertEquals(expected: 'CD',      actual: NumberUtils::FormatRoman(400   ));
+		$this->assertEquals(expected: 'D',       actual: NumberUtils::FormatRoman(500   ));
+		$this->assertEquals(expected: 'DC',      actual: NumberUtils::FormatRoman(600   ));
+		$this->assertEquals(expected: 'CM',      actual: NumberUtils::FormatRoman(900   ));
+		$this->assertEquals(expected: 'M',       actual: NumberUtils::FormatRoman(1000  ));
+		$this->assertEquals(expected: 'MCCXXXIV',actual: NumberUtils::FormatRoman(1234  ));
+		$this->assertEquals(expected: '-20',     actual: NumberUtils::FormatRoman(-20   ));
+		$this->assertEquals(expected: '11',      actual: NumberUtils::FormatRoman(11, 10));
+		$this->assertEquals(expected: 'IX',      actual: NumberUtils::FormatRoman(9,  10));
 	}
 
 
@@ -190,77 +192,76 @@ class NumbersTest extends \PHPUnit\Framework\TestCase {
 
 
 
-	/ **
+	/**
 	 * @covers ::StringToSeconds
-	 * /
-	public function testStringToSeconds(): void {
-//TODO: support ms unit
-//		$this->assertEquals(    0.001, Numbers::StringToSeconds('1n'                  ) );
-		$this->assertEquals(        1, Numbers::StringToSeconds('1s'                  ) );
-		$this->assertEquals(       42, Numbers::StringToSeconds('42s'                 ) );
-		$this->assertEquals(       60, Numbers::StringToSeconds('1m'                  ) );
-		$this->assertEquals(       62, Numbers::StringToSeconds('1m 2s'               ) );
-		$this->assertEquals(     4010, Numbers::StringToSeconds('1h 5m 110s'          ) );
-		$this->assertEquals(    18121, Numbers::StringToSeconds('5h 2m 1s'            ) );
-		$this->assertEquals(   432000, Numbers::StringToSeconds('5d'                  ) );
-		$this->assertEquals(  1296000, Numbers::StringToSeconds('2w 1d'               ) );
-		$this->assertEquals(  2592000, Numbers::StringToSeconds('1o'                  ) );
-		$this->assertEquals( 31536000, Numbers::StringToSeconds('1y'                  ) );
-		$this->assertEquals( 31536000, Numbers::StringToSeconds('1 Year'              ) );
-		$this->assertEquals( 34822861, Numbers::StringToSeconds('1y 1o 1w 1d 1h 1m 1s') );
-		$this->assertEquals(        0, Numbers::StringToSeconds('1b'                  ) );
-		$this->assertEquals(        1, Numbers::StringToSeconds('1b 1s'               ) );
-		$this->assertEquals(        1, Numbers::StringToSeconds('1s 1b'               ) );
-	}
+	 */
+	public function test_StringToSeconds(): void {
+		$this->assertEquals(expected:       1, actual: NumberUtils::StringToSeconds('1'                   ));
+		$this->assertEquals(expected:       1, actual: NumberUtils::StringToSeconds('1s'                  ));
+		$this->assertEquals(expected:      42, actual: NumberUtils::StringToSeconds('42s'                 ));
+		$this->assertEquals(expected:      60, actual: NumberUtils::StringToSeconds('1m'                  ));
+		$this->assertEquals(expected:      62, actual: NumberUtils::StringToSeconds('1m 2s  '             ));
+		$this->assertEquals(expected:    4010, actual: NumberUtils::StringToSeconds('1h 5m   110s'        ));
+		$this->assertEquals(expected:   18121, actual: NumberUtils::StringToSeconds('5h 2m   1s'          ));
+		$this->assertEquals(expected:  432000, actual: NumberUtils::StringToSeconds('5d'                  ));
+		$this->assertEquals(expected: 1296000, actual: NumberUtils::StringToSeconds('2w 1d'               ));
+		$this->assertEquals(expected: 2592000, actual: NumberUtils::StringToSeconds('1o'                  ));
+		$this->assertEquals(expected:31536000, actual: NumberUtils::StringToSeconds('1y'                  ));
+		$this->assertEquals(expected:31536000, actual: NumberUtils::StringToSeconds('1 Year'              ));
+		$this->assertEquals(expected:34822861, actual: NumberUtils::StringToSeconds('1y 1o 1w 1d 1h 1m 1s'));
+		$this->assertEquals(expected:       1, actual: NumberUtils::StringToSeconds('1b'                  ));
+		$this->assertEquals(expected:       2, actual: NumberUtils::StringToSeconds('1b 1s'               ));
+		$this->assertEquals(expected:       2, actual: NumberUtils::StringToSeconds('1s 1b'               ));
+	 }
 
 
 
-	/ **
+	/**
 	 * @covers ::SecondsToString
-	 * /
-	public function testSecondsToString(): void {
-		$this->assertEquals(                      '--', Numbers::SecondsToString(       0) );
-		$this->assertEquals(                    '1sec', Numbers::SecondsToString(       1) );
-		$this->assertEquals(                   '42sec', Numbers::SecondsToString(      42) );
-		$this->assertEquals(                    '1min', Numbers::SecondsToString(      60) );
-		$this->assertEquals(               '1min 2sec', Numbers::SecondsToString(      62) );
-		$this->assertEquals(          '1hr 6min 50sec', Numbers::SecondsToString(    4010) );
-		$this->assertEquals(           '5hr 2min 1sec', Numbers::SecondsToString(   18121) );
-		$this->assertEquals(                    '5day', Numbers::SecondsToString(  432000) );
-		$this->assertEquals(                   '15day', Numbers::SecondsToString( 1296000) );
-		$this->assertEquals(                     '1yr', Numbers::SecondsToString(31536000) );
-		$this->assertEquals( '1yr 38day 1hr 1min 1sec', Numbers::SecondsToString(34822861) );
-		$this->assertEquals(                '1 Second', Numbers::SecondsToString(       1, FALSE) );
-		$this->assertEquals(      '2 Hours  2 Minutes', Numbers::SecondsToString(    7320, FALSE) );
-		$this->assertEquals(                  '1 Year', Numbers::SecondsToString(31536000, FALSE) );
-		$this->assertEquals(         '2 Years  2 Days', Numbers::SecondsToString(63244800, FALSE) );
-		$this->assertEquals(                    '1mon', Numbers::SecondsToString( 2592000, TRUE, FALSE, 0.9) );
+	 */
+	public function test_SecondsToString(): void {
+		$this->assertEquals(expected:                     '--', actual: NumberUtils::SecondsToString(       0));
+		$this->assertEquals(expected:                   '1sec', actual: NumberUtils::SecondsToString(       1));
+		$this->assertEquals(expected:                  '42sec', actual: NumberUtils::SecondsToString(      42));
+		$this->assertEquals(expected:                   '1min', actual: NumberUtils::SecondsToString(      60));
+		$this->assertEquals(expected:              '1min 2sec', actual: NumberUtils::SecondsToString(      62));
+		$this->assertEquals(expected:         '1hr 6min 50sec', actual: NumberUtils::SecondsToString(    4010));
+		$this->assertEquals(expected:          '5hr 2min 1sec', actual: NumberUtils::SecondsToString(   18121));
+		$this->assertEquals(expected:               '5hr 2min', actual: NumberUtils::SecondsToString(   18121, TRUE, 2));
+		$this->assertEquals(expected:                   '5day', actual: NumberUtils::SecondsToString(  432000));
+		$this->assertEquals(expected:                  '15day', actual: NumberUtils::SecondsToString( 1296000));
+		$this->assertEquals(expected:                    '1yr', actual: NumberUtils::SecondsToString(31536000));
+		$this->assertEquals(expected:'1yr 38day 1hr 1min 1sec', actual: NumberUtils::SecondsToString(34822861));
+		$this->assertEquals(expected:               '1 Second', actual: NumberUtils::SecondsToString(       1, FALSE));
+		$this->assertEquals(expected:     '2 Hours  2 Minutes', actual: NumberUtils::SecondsToString(    7320, FALSE));
+		$this->assertEquals(expected:                 '1 Year', actual: NumberUtils::SecondsToString(31536000, FALSE));
+		$this->assertEquals(expected:        '2 Years  2 Days', actual: NumberUtils::SecondsToString(63244800, FALSE));
+		$this->assertEquals(expected:                   '1mon', actual: NumberUtils::SecondsToString( 2592000, TRUE, 0, 0.9));
 	}
 
 
 
-	/ **
+	/**
 	 * @covers ::SecondsToText
-	 * /
-	public function testSecondsToText(): void {
+	 */
+	public function test_SecondsToText(): void {
 		// future
-		$this->assertEquals( 'Soon',       Numbers::SecondsToText( -1     ) );
-		$this->assertEquals( 'Soon',       Numbers::SecondsToText( -3599  ) );
-		$this->assertEquals( 'Soon Today', Numbers::SecondsToText( -3600  ) );
-		$this->assertEquals( 'Soon Today', Numbers::SecondsToText( -86399 ) );
-		$this->assertEquals( 'Tomorrow',   Numbers::SecondsToText( -86400 ) );
-		$this->assertEquals( '5 Days from now', Numbers::SecondsToText(-432000) );
+		$this->assertEquals(expected: 'Soon',            actual: NumberUtils::SecondsToText( -1    ));
+		$this->assertEquals(expected: 'Soon',            actual: NumberUtils::SecondsToText( -3599 ));
+		$this->assertEquals(expected: 'Soon Today',      actual: NumberUtils::SecondsToText( -3600 ));
+		$this->assertEquals(expected: 'Soon Today',      actual: NumberUtils::SecondsToText( -86399));
+		$this->assertEquals(expected: 'Tomorrow',        actual: NumberUtils::SecondsToText( -86400));
+		$this->assertEquals(expected: '5 Days from now', actual: NumberUtils::SecondsToText(-432000));
 		// now
-		$this->assertEquals( 'Now', Numbers::SecondsToText(0) );
-		$this->assertEquals( 'Now', Numbers::SecondsToText(3599) );
-		$this->assertEquals( 'Today', Numbers::SecondsToText(3600) );
-		$this->assertEquals( 'Today', Numbers::SecondsToText(86399) );
+		$this->assertEquals(expected: 'Now',             actual: NumberUtils::SecondsToText(0)      );
+		$this->assertEquals(expected: 'Now',             actual: NumberUtils::SecondsToText(3599)   );
+		$this->assertEquals(expected: 'Today',           actual: NumberUtils::SecondsToText(3600)   );
+		$this->assertEquals(expected: 'Today',           actual: NumberUtils::SecondsToText(86399)  );
 		// past
-		$this->assertEquals( 'Yesterday', Numbers::SecondsToText(86400) );
-		$this->assertEquals( '5 Days ago', Numbers::SecondsToText(432000) );
+		$this->assertEquals(expected: 'Yesterday',       actual: NumberUtils::SecondsToText(86400)  );
+		$this->assertEquals(expected: '5 Days ago',      actual: NumberUtils::SecondsToText(432000) );
 	}
 
 
 
 }
-*/
