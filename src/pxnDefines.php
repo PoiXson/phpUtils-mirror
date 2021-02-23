@@ -9,7 +9,7 @@
 namespace pxn\phpUtils;
 
 
-final class Defines {
+final class pxnDefines {
 	private final function __construct() {}
 	public static function init(): void {}
 
