@@ -8,20 +8,25 @@
  */
 namespace pxn\phpUtils\utils;
 
+use pxn\phpUtils\Paths;
+use pxn\phpUtils\pxnDefines as xDef;
+
 
 final class StringUtils {
+	/** @codeCoverageIgnore */
 	private final function __construct() {}
 
 	const DEFAULT_TRIM_CHARS = [ ' ', "\t", "\r", "\n" ];
 
 
 
-	public static function mb_ucfirst(string $str, $full=TRUE): string {
-		return \mb_strtoupper(\mb_substr($str, 0, 1)).
+	public static function mb_ucfirst(string $str, bool $weak=FALSE): string {
+		return \mb_strtoupper(
+			\mb_substr($str, 0, 1)).
 			(
-				$full
-				? \strtolower(\mb_substr($str, 1))
-				: \mb_substr($str, 1)
+				$weak
+				? \mb_substr($str, 1)
+				: \strtolower(\mb_substr($str, 1))
 			);
 	}
 
@@ -75,6 +80,7 @@ final class StringUtils {
 		}
 		return $text;
 	}
+
 	public static function TrimFront(string $text, string...$remove): string {
 		if (\count($remove) == 0) {
 			$remove = self::DEFAULT_TRIM_CHARS;
@@ -110,6 +116,7 @@ final class StringUtils {
 		}
 		return $text;
 	}
+
 	public static function TrimEnd(string $text, string...$remove): string {
 		if (\count($remove) == 0) {
 			$remove = self::DEFAULT_TRIM_CHARS;
@@ -158,14 +165,14 @@ final class StringUtils {
 			$f = \mb_substr($text,  0, 1);
 			$e = \mb_substr($text, -1, 1);
 			// trim ' quotes
-			if ($f == Defines::QUOTE_S && $e == Defines::QUOTE_S) {
+			if ($f == xDef::QUOTE_S && $e == xDef::QUOTE_S) {
 				$text = \mb_substr($text, 1, -1);
 			} else
 			// trim " quotes
-			if ($f == Defines::QUOTE_D && $e == Defines::QUOTE_D) {
+			if ($f == xDef::QUOTE_D && $e == xDef::QUOTE_D) {
 				$text = \mb_substr($text, 1, -1);
 			} else
-			if ($f == Defines::ACCENT && $e == Defines::ACCENT) {
+			if ($f == xDef::ACCENT  && $e == xDef::ACCENT) {
 				$text = \mb_substr($text, 1, -1);
 			} else {
 				break;
@@ -265,24 +272,23 @@ final class StringUtils {
 
 
 
-	##################
-	## Pad to Width ##
-	##################
+	################
+	## Pad String ##
+	################
 
 
 
-	public static function PadLeft(string $str, string $size, string $char=' '): string {
-		$padding = self::getPadding($str, $size, $char);
-		return $padding.$str;
+	public static function PadLeft(string $str, int $size, string $char=' '): string {
+		return self::getPadding($str, $size, $char) . $str;
 	}
-	public static function PadRight(string $str, string $size, string $char=' '): string {
-		$padding = self::getPadding($str, $size, $char);
-		return $str.$padding;
+
+	public static function PadRight(string $str, int $size, string $char=' '): string {
+		return $str . self::getPadding($str, $size, $char);
 	}
-	private static function getPadding(string $str, string $size, string $char=' '): string {
-		if (empty($char)) {
+
+	private static function getPadding(string $str, int $size, string $char=' '): string {
+		if (empty($char))
 			$char = ' ';
-		}
 		$len = $size - \mb_strlen($str);
 		if ($len < 0)
 			return '';
@@ -301,10 +307,10 @@ final class StringUtils {
 		}
 		return \str_repeat($char, $len);
 	}
-	public static function PadCenter(string $str, string $size, string $char=' '): string {
-		if (empty($char)) {
+
+	public static function PadCenter(string $str, int $size, string $char=' '): string {
+		if (empty($char))
 			$char = ' ';
-		}
 		$len = $size - \mb_strlen($str);
 		if ($len < 0)
 			return $str;
@@ -368,6 +374,7 @@ final class StringUtils {
 
 
 
+/*
 	public static function StartsWith(string $haystack, string $needle, bool $ignoreCase=FALSE): bool {
 		if (empty($haystack) || empty($needle)) {
 			return FALSE;
@@ -396,6 +403,7 @@ final class StringUtils {
 		}
 		return \mb_substr($haystack, 0 - $len) == $needle;
 	}
+*/
 
 
 
@@ -405,42 +413,38 @@ final class StringUtils {
 
 
 
-	public static function ForceStartsWith(string $haystack, string $prepend): string {
-		if (empty($haystack) || empty($prepend)) {
+	public static function force_starts_with(string $haystack, string $prepend): string {
+		if (empty($haystack) || empty($prepend))
 			return $haystack;
-		}
-		if (self::StartsWith($haystack, $prepend)) {
+		if (\str_starts_with(haystack: $haystack, needle: $prepend))
 			return $haystack;
-		}
-		return $prepend.$haystack;
+		return $prepend . $haystack;
 	}
-	public static function ForceEndsWith(string $haystack, string $append): string {
-		if (empty($haystack) || empty($append)) {
+
+	public static function force_ends_with(string $haystack, string $append): string {
+		if (empty($haystack) || empty($append))
 			return $haystack;
-		}
-		if (self::EndsWith($haystack, $append)) {
+		if (\str_ends_with(haystack: $haystack, needle: $append))
 			return $haystack;
-		}
-		return $haystack.$append;
+		return $haystack . $append;
 	}
 
 
 
-	##############
-	## Contains ##
-	##############
+	#####################
+	## String Contains ##
+	#####################
 
 
 
 	public static function Contains(string $haystack, string $needle, bool $ignoreCase=FALSE): bool {
-		if (empty($haystack) || empty($needle)) {
+		if (empty($haystack) || empty($needle))
 			return FALSE;
-		}
 		if ($ignoreCase) {
 			$haystack = \mb_strtolower($haystack);
 			$needle   = \mb_strtolower($needle);
 		}
-		return (\mb_strpos($haystack, $needle) !== FALSE);
+		return (\mb_strpos(haystack: $haystack, needle: $needle) !== FALSE);
 	}
 
 
@@ -527,14 +531,12 @@ final class StringUtils {
 
 
 
-	public static function getFileName($filePath) {
-		if (empty($filePath)) {
+	public static function getFileName($filePath): string {
+		if (empty($filePath))
 			return '';
-		}
 		$pos = \mb_strrpos($filePath, '/');
-		if ($pos === FALSE) {
+		if ($pos === FALSE)
 			return $filePath;
-		}
 		return \mb_substr($filePath, $pos+1);
 	}
 
@@ -543,17 +545,15 @@ final class StringUtils {
 	public static function BuildPath(string...$parts): string {
 		if (empty($parts))
 			return '';
-		$prepend = self::StartsWith(\reset($parts), '/');
-		$append  = self::EndsWith  (\end($parts),   '/');
+		$prepend = \str_starts_with(haystack: \reset($parts), needle: '/');
+		$append  = \str_ends_with  (haystack: \end($parts),   needle: '/');
 		$cleaned = [];
 		foreach ($parts as $str) {
-			if (empty($str)) {
+			if (empty($str))
 				continue;
-			}
 			$trimmed = self::Trim($str, '/', '\\', ' ');
-			if (empty($trimmed)) {
+			if (empty($trimmed))
 				continue;
-			}
 			$cleaned[] = $trimmed;
 		}
 		return
@@ -565,16 +565,13 @@ final class StringUtils {
 
 
 	public static function getAbsolutePath(string $path): string {
-		if (empty($path)) {
-			return Paths::pwd();
-		}
-		$first = \mb_substr($path, 0, 1);
-		if ($first == '/') {
+		if (empty($path))
 			return $path;
-		}
-		if ($first == '.') {
+		$first = \mb_substr($path, 0, 1);
+		if ($first == '/')
+			return $path;
+		if ($first == '.')
 			$path = \mb_substr($path, 1);
-		}
 		return self::BuildPath(
 			Paths::pwd(),
 			$path
@@ -584,8 +581,8 @@ final class StringUtils {
 
 
 	public static function CommonPath(string $pathA, string $pathB): string {
-		$prepend = self::StartsWith($pathA, '/')
-				|| self::StartsWith($pathB, '/');
+		$prepend = \str_starts_with(haystack: $pathA, needle: '/')
+				|| \str_starts_with(haystack: $pathB, needle: '/');
 		if ($prepend) {
 			$pathA = self::TrimFront($pathA, '/');
 			$pathB = self::TrimFront($pathB, '/');
@@ -603,13 +600,12 @@ final class StringUtils {
 				break;
 			$result[] = $partsA[$i];
 		}
-		if (\count($result) == 0) {
+		if (\count($result) == 0)
 			return ($prepend ? '/' : '');
-		}
 		$result = \implode('/', $result);
 		return (
 			$prepend
-			? self::ForceStartsWith($result, '/')
+			? self::force_starts_with(haystack: $result, prepend: '/')
 			: $result
 		);
 	}
