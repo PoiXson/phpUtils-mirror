@@ -5,16 +5,16 @@
  * @license GPL-3
  * @author lorenzo at poixson.com
  * @link https://poixson.com/
- */
+ * /
 namespace pxn\phpUtils\tests;
 
 use pxn\phpUtils\SystemUtils;
 use pxn\phpUtils\Strings;
 
 
-/**
+/ **
  * @coversDefaultClass \pxn\phpUtils\SystemUtils
- */
+ * /
 class SystemUtilsTest extends \PHPUnit\Framework\TestCase {
 
 	const TEST_DIR1 = '_SystemTest_TEMP_/';
@@ -23,9 +23,9 @@ class SystemUtilsTest extends \PHPUnit\Framework\TestCase {
 
 
 
-	/**
+	/ **
 	 * @covers ::getUser
-	 */
+	 * /
 	public function testGetUser(): void {
 		$originalUser = (
 			isset($_SERVER['USER'])
@@ -51,7 +51,7 @@ class SystemUtilsTest extends \PHPUnit\Framework\TestCase {
 
 
 
-/*
+/ *
 	/ **
 	 * @ covers ::mkDir
 	 * @ covers ::rmDir
@@ -102,8 +102,9 @@ class SystemUtilsTest extends \PHPUnit\Framework\TestCase {
 		$this->assertFalse($cwd == '/');
 		return $cwd;
 	}
-*/
+* /
 
 
 
 }
+*/

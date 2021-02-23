@@ -5,22 +5,22 @@
  * @license GPL-3
  * @author lorenzo at poixson.com
  * @link https://poixson.com/
- */
+ * /
 namespace pxn\phpUtils\tests;
 
 use pxn\phpUtils\Paths;
 
 
-/**
+/ **
  * @coversDefaultClass \pxn\phpUtils\Paths
- */
+ * /
 class PathsTest extends \PHPUnit\Framework\TestCase {
 
 
 
-	/**
+	/ **
 	 * @covers ::all()
-	 */
+	 * /
 	public function testAll(): void {
 		$all = Paths::all();
 		$this->assertIsArray($all);
@@ -33,12 +33,12 @@ class PathsTest extends \PHPUnit\Framework\TestCase {
 
 
 
-	/**
+	/ **
 	 * @covers ::pwd()
 	 * @covers ::entry()
 	 * @covers ::project()
 	 * @covers ::utils()
-	 */
+	 * /
 	public function testPaths(): void {
 		// pwd()
 		$path = Paths::pwd();
@@ -64,10 +64,10 @@ class PathsTest extends \PHPUnit\Framework\TestCase {
 
 
 
-	/**
+	/ **
 	 * @covers ::setPath()
 	 * @covers ::getPath()
-	 */
+	 * /
 	public function testAdd(): void {
 		$key = 'abc';
 		$testPath = '/var/log';
@@ -88,3 +88,4 @@ class PathsTest extends \PHPUnit\Framework\TestCase {
 
 
 }
+*/

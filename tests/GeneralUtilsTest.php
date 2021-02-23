@@ -5,33 +5,33 @@
  * @license GPL-3
  * @author lorenzo at poixson.com
  * @link https://poixson.com/
- */
+ * /
 namespace pxn\phpUtils\tests;
 
 use pxn\phpUtils\GeneralUtils;
 
 
-/**
+/ **
  * @coversDefaultClass \pxn\phpUtils\GeneralUtils
- */
+ * /
 class GeneralUtilsTest extends \PHPUnit\Framework\TestCase {
 
 	const THIS_CLASS_STRING = 'pxn\\phpUtils\\tests\\GeneralUtilsTest';
 
 
 
-	/**
+	/ **
 	 * @covers
-	 */
+	 * /
 	public function testArray(): void {
 		$this->assertEmpty([]);
 	}
 
 
 
-	/**
+	/ **
 	 * @covers
-	 */
+	 * /
 	public function testClassName(): void {
 		$this->assertEquals(
 			self::THIS_CLASS_STRING,
@@ -41,9 +41,9 @@ class GeneralUtilsTest extends \PHPUnit\Framework\TestCase {
 
 
 
-	/**
+	/ **
 	 * @covers ::castType
-	 */
+	 * /
 	public function testCastType(): void {
 //		// null
 //		$this->assertSame(
@@ -89,9 +89,9 @@ class GeneralUtilsTest extends \PHPUnit\Framework\TestCase {
 
 
 
-	/**
+	/ **
 	 * @covers ::castBoolean
-	 */
+	 * /
 	public function testCastBoolean(): void {
 		// null
 		$this->assertNull( GeneralUtils::castBoolean(NULL)       );
@@ -120,9 +120,9 @@ class GeneralUtilsTest extends \PHPUnit\Framework\TestCase {
 
 
 
-	/**
+	/ **
 	 * @covers ::getVar
-	 */
+	 * /
 	public function testGetVar(): void {
 		$key = 'abcd';
 		$_GET[$key]     = '1234';
@@ -166,9 +166,9 @@ class GeneralUtilsTest extends \PHPUnit\Framework\TestCase {
 
 
 
-	/**
+	/ **
 	 * @covers ::get
-	 */
+	 * /
 	public function testGet(): void {
 		$key = 'test';
 		$this->assertNull( GeneralUtils::get($key) );
@@ -176,9 +176,9 @@ class GeneralUtilsTest extends \PHPUnit\Framework\TestCase {
 		$this->assertEquals( 'abc', GeneralUtils::get($key) );
 		unset($_GET[$key]);
 	}
-	/**
+	/ **
 	 * @covers ::post
-	 */
+	 * /
 	public function testPost(): void {
 		$key = 'test';
 		$this->assertNull( GeneralUtils::post($key) );
@@ -186,9 +186,9 @@ class GeneralUtilsTest extends \PHPUnit\Framework\TestCase {
 		$this->assertEquals( 'abc', GeneralUtils::post($key) );
 		unset($_POST[$key]);
 	}
-	/**
+	/ **
 	 * @covers ::cookie
-	 */
+	 * /
 	public function testCookie(): void {
 		$key = 'test';
 		$this->assertNull( GeneralUtils::cookie($key) );
@@ -196,9 +196,9 @@ class GeneralUtilsTest extends \PHPUnit\Framework\TestCase {
 		$this->assertEquals( 'abc', GeneralUtils::cookie($key) );
 		unset($_COOKIE[$key]);
 	}
-	/**
+	/ **
 	 * @covers ::session
-	 */
+	 * /
 	public function testSession(): void {
 		$key = 'test';
 		$this->assertNull( GeneralUtils::session($key) );
@@ -209,7 +209,7 @@ class GeneralUtilsTest extends \PHPUnit\Framework\TestCase {
 
 
 
-/*
+/ *
 	/ **
 	 * @covers ::ParseModRewriteVars
 	 * /
@@ -222,13 +222,13 @@ class GeneralUtilsTest extends \PHPUnit\Framework\TestCase {
 //			''
 //		);
 	}
-*/
+* /
 
 
 
-	/**
+	/ **
 	 * @covers ::getTimestamp
-	 */
+	 * /
 	public function testGetTimestamp(): void {
 		$tim = GeneralUtils::getTimestamp();
 		$this->assertIsNumeric($tim);
@@ -237,9 +237,9 @@ class GeneralUtilsTest extends \PHPUnit\Framework\TestCase {
 		$this->assertIsNumeric($tim);
 		$this->assertGreaterThan(1500000000, $tim);
 	}
-	/**
+	/ **
 	 * @covers ::Sleep
-	 */
+	 * /
 	public function testSleep(): void {
 		$timA = GeneralUtils::getTimestamp();
 		GeneralUtils::Sleep(10);
@@ -249,9 +249,9 @@ class GeneralUtilsTest extends \PHPUnit\Framework\TestCase {
 
 
 
-	/**
+	/ **
 	 * @covers ::GDSupported
-	 */
+	 * /
 	public function testGDSupported(): void {
 		$this->assertEquals(
 			\function_exists('imagepng'),
@@ -261,7 +261,7 @@ class GeneralUtilsTest extends \PHPUnit\Framework\TestCase {
 
 
 
-/*
+/ *
 	/ **
 	 * @covers ::InstanceOfClass
 	 * /
@@ -360,8 +360,9 @@ $this->assertTrue(TRUE);
 		}
 		$this->assertTrue(FALSE, 'Failed to throw expected exception');
 	}
-*/
+* /
 
 
 
 }
+*/

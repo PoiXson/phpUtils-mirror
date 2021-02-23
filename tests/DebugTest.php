@@ -5,26 +5,26 @@
  * @license GPL-3
  * @author lorenzo at poixson.com
  * @link https://poixson.com/
- */
+ * /
 namespace pxn\phpUtils\tests;
 
 use pxn\phpUtils\Debug;
 
 
-/**
+/ **
  * @coversDefaultClass \pxn\phpUtils\Debug
- */
+ * /
 class DebugTest extends \PHPUnit\Framework\TestCase {
 
 
 
-	/**
+	/ **
 	 * @covers ::isDebug
 	 * @covers ::setDebug
 	 * @covers ::getDesc
 	 * @covers ::setDesc
 	 * @covers ::EnableDisable
-	 */
+	 * /
 	public function testGetSetDebug(): void {
 		$originalDebug = Debug::isDebug();
 		$originalDesc  = Debug::getDesc();
@@ -50,11 +50,11 @@ class DebugTest extends \PHPUnit\Framework\TestCase {
 
 
 
-	/**
+	/ **
 	 * @covers ::debug
 	 * @covers ::desc
 	 * @covers ::EnableDisable
-	 */
+	 * /
 	public function testDebug(): void {
 		$originalDebug = Debug::debug();
 		$originalDesc  = Debug::desc();
@@ -77,9 +77,9 @@ class DebugTest extends \PHPUnit\Framework\TestCase {
 
 
 
-	/**
+	/ **
 	 * @covers \debug
-	 */
+	 * /
 	public function testGlobalDebug(): void {
 		$originalDebug = Debug::isDebug();
 		$originalDesc  = Debug::getDesc();
@@ -99,3 +99,4 @@ class DebugTest extends \PHPUnit\Framework\TestCase {
 
 
 }
+*/

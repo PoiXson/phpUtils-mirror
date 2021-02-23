@@ -5,7 +5,7 @@
  * @license GPL-3
  * @author lorenzo at poixson.com
  * @link https://poixson.com/
- */
+ * /
 namespace pxn\phpUtils;
 
 use pxn\phpUtils\Defines;
@@ -71,3 +71,4 @@ if (!\function_exists('mb_substr')) {
 	echo '<h2>mbstring library not installed?</h2>';
 	exit(1);
 }
+*/

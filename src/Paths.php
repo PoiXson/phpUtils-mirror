@@ -24,9 +24,9 @@ final class Paths {
 
 
 
-	/**
+	/ **
 	 * @codeCoverageIgnore
-	 */
+	 * /
 	public static function init(): void {
 		if (self::$inited) return;
 		self::$inited = TRUE;
@@ -130,6 +130,7 @@ final class Paths {
 			self::$extra_paths[$key] = $path;
 		}
 	}
+*/
 
 
 

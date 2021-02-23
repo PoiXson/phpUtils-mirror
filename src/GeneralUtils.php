@@ -5,7 +5,7 @@
  * @license GPL-3
  * @author lorenzo at poixson.com
  * @link https://poixson.com/
- */
+ * /
 namespace pxn\phpUtils;
 
 
@@ -81,7 +81,7 @@ final class GeneralUtils {
 
 
 	// get,post,cookie (highest priority last)
-	/**
+	/ **
 	 * Gets a value from a specific list of sources.
 	 * @param string $name - Name or key requested.
 	 * @param string $type - Casts value to this type.
@@ -89,7 +89,7 @@ final class GeneralUtils {
 	 * @param string $source - Strings representing the data source. (from least to greatest importance)
 	 *     Possible values: get, post, cookie, session
 	 * @return object - Returns the requested value, cast to requested type.
-	 */
+	 * /
 	public static function getVar(string $name, string $type='s', string...$sources) {
 		if (\count($sources) == 0) {
 			$sources = ['g', 'p'];
@@ -182,7 +182,7 @@ final class GeneralUtils {
 
 
 //TODO
-/*
+/ *
 	/ **
 	 * Parses REQUEST_URI from http request header and inserts into $_GET array.
 	 * @example:
@@ -216,7 +216,7 @@ final class GeneralUtils {
 			}
 		}
 	}
-*/
+* /
 
 
 
@@ -226,9 +226,9 @@ final class GeneralUtils {
 
 
 
-	/**
+	/ **
 	 * @return double - Returns current timestamp in seconds.
-	 */
+	 * /
 	public static function getTimestamp(int $places=3): float {
 		$places = Numbers::MinMax($places, 0, 4);
 		$time = \explode(' ', \microtime(), 2);
@@ -237,10 +237,10 @@ final class GeneralUtils {
 		$timestamp = ((float) $time[1]) + ((float) $time[0]);
 		return Numbers::Round($timestamp, $places);
 	}
-	/**
+	/ **
 	 * Sleep execution for x milliseconds.
 	 * @param int $ms - Milliseconds to sleep.
-	 */
+	 * /
 	public static function Sleep(int $ms): void {
 		if ($ms > 0.0) {
 			\usleep($ms * 1000);
@@ -255,7 +255,7 @@ final class GeneralUtils {
 
 
 
-/*
+/ *
 	/ **
 	 * Sends http headers to disable page caching.
 	 * @return boolean - TRUE if successful; FALSE if headers already sent.
@@ -306,15 +306,15 @@ EOF;
 		}
 		exit(0);
 	}
-*/
+* /
 
 
 
-	/**
+	/ **
 	 * Scroll to the bottom of the page.
 	 * @param string $id - Optional id of element in which to scroll.
 	 * @codeCoverageIgnore
-	 */
+	 * /
 	public static function ScrollToBottom(?string $id=NULL): void {
 		if (SystemUtils::isShell()) {
 			echo "--SCROLL--\n";
@@ -334,10 +334,10 @@ EOF;
 
 
 
-	/**
+	/ **
 	 * Checks for GD support.
 	 * @return boolean - TRUE if GD functions are available.
-	 */
+	 * /
 	public static function GDSupported(): bool {
 		return \function_exists('gd_info');
 	}
@@ -345,7 +345,7 @@ EOF;
 
 
 //TODO: is this useful?
-/*
+/ *
 	/ **
 	 * Validates an object by class name.
 	 * @param string $className - Name of class to look for.
@@ -376,8 +376,9 @@ EOF;
 		if (!self::InstanceOfClass($className, $object))
 			throw new \InvalidArgumentException('Class object isn\'t of type '.$className);
 	}
-*/
+* /
 
 
 
 }
+*/

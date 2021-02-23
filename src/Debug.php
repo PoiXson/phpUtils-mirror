@@ -5,7 +5,7 @@
  * @license GPL-3
  * @author lorenzo at poixson.com
  * @link https://poixson.com/
- */
+ * /
 namespace pxn\phpUtils;
 
 
@@ -19,9 +19,9 @@ final class Debug {
 
 
 
-	/**
+	/ **
 	 * @codeCoverageIgnore
-	 */
+	 * /
 	public static function init(): void {
 		if (self::$inited) return;
 		self::$inited = TRUE;
@@ -59,7 +59,7 @@ final class Debug {
 			unset($finder, $found);
 		}
 //TODO: disable in production
-/*
+/ *
 		// by url
 		{
 			$val = GeneralUtils::getVar('debug', 'bool');
@@ -79,7 +79,7 @@ final class Debug {
 			}
 			unset($val);
 		}
-*/
+* /
 		// default off
 		if (self::$debug === NULL) {
 			self::$desc = 'default';
@@ -142,3 +142,4 @@ final class Debug {
 
 
 }
+*/

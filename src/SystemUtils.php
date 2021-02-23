@@ -5,7 +5,7 @@
  * @license GPL-3
  * @author lorenzo at poixson.com
  * @link https://poixson.com/
- */
+ * /
 namespace pxn\phpUtils;
 
 
@@ -114,7 +114,7 @@ final class SystemUtils {
 
 
 
-/*
+/ *
 	public static function exec($command): bool {
 		$command = \trim($command);
 		if (empty($command))
@@ -226,8 +226,9 @@ final class SystemUtils {
 	public static function log(): Logger {
 		return Logger::get('SHELL');
 	}
-*/
+* /
 
 
 
 }
+*/

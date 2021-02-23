@@ -5,7 +5,7 @@
  * @license GPL-3
  * @author lorenzo at poixson.com
  * @link https://poixson.com/
- */
+ * /
 namespace pxn\phpUtils {
 	final class Globals {
 		public static function init(): void {}
@@ -27,3 +27,4 @@ if (!\function_exists('debug')) {
 
 
 } // end namespace
+*/
