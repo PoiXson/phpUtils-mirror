@@ -5,7 +5,7 @@
  * @license GPL-3
  * @author lorenzo at poixson.com
  * @link https://poixson.com/
- * /
+ */
 namespace pxn\phpUtils;
 
 
@@ -24,17 +24,15 @@ class ComposerAdditionalVendor {
 	// example: AddVendor('pxn\\LibName', '../../LibName/')
 	public function addVendorClassMap(string $path,
 	array $whitelist=[], array $blacklist=[]): void {
-		if ($this->autoload == NULL) {
+		if ($this->autoload == NULL)
 			throw new \RuntimeException('Composer autoload not registered');
-		}
 		// defaults
 		$blacklist[] = 'pxn\\ComposerLocalDev';
-		$path = Strings::ForceEndsWith($path, '/');
+		$path = StringUtils::force_ends_with(haystack: $path, append: '/');
 		// load autoload_classmap.php file
 		$filePath = "{$path}vendor/composer/autoload_classmap.php";
-		if (!\file_exists($filePath)) {
+		if (!\file_exists($filePath))
 			throw new \RuntimeException("Module class loader not found: $filePath");
-		}
 		$classMap = require($filePath);
 		// only add classes that don't already exist
 		$existingClassMap = $this->autoload->getClassMap();
@@ -44,8 +42,8 @@ class ComposerAdditionalVendor {
 			// check blacklists
 			if (\count($blacklist) > 0) {
 				foreach ($blacklist as $entry) {
-					$entry = Strings::ForceEndsWith($entry, '\\');
-					if (Strings::StartsWith($key, $entry))
+					$entry = StringUtils::force_ends_with(haystack: $entry, append: '\\');
+					if (\str_starts_with(haystack: $key, needle: $entry))
 						continue 2;
 				}
 			}
@@ -53,8 +51,8 @@ class ComposerAdditionalVendor {
 			if (\count($whitelist) > 0) {
 				$found = FALSE;
 				foreach ($whitelist as $entry) {
-					$entry = Strings::ForceEndsWith($entry, '\\');
-					if (Strings::StartsWith($key, $entry)) {
+					$entry = StringUtils::force_ends_with(haystack: $entry, append: '\\');
+					if (\str_starts_with(haystack: $key, needle: $entry)) {
 						$found = TRUE;
 						break;
 					}
@@ -69,4 +67,3 @@ class ComposerAdditionalVendor {
 
 
 }
-*/
