@@ -6,10 +6,10 @@
  * @author lorenzo at poixson.com
  * @link https://poixson.com/
  */
-namespace pxn\phpUtils;
+namespace pxn\phpUtils\utils;
 
 
-final class Strings {
+final class StringUtils {
 	private final function __construct() {}
 
 	const DEFAULT_TRIM_CHARS = [ ' ', "\t", "\r", "\n" ];
