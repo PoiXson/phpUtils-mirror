@@ -5,7 +5,7 @@
  * @license GPL-3
  * @author lorenzo at poixson.com
  * @link https://poixson.com/
- * /
+ */
 namespace pxn\phpUtils\exceptions;
 
 
@@ -17,11 +17,10 @@ class NullPointerException extends \RuntimeException {
 		if (empty($msg)) {
 			parent::__construct();
 		} else {
-			parent::__construct("File not found: $msg");
+			parent::__construct("Null Pointer Exception: $msg");
 		}
 	}
 
 
 
 }
-*/
