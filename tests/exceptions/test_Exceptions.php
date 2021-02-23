@@ -37,6 +37,25 @@ class test_NumberUtils extends \PHPUnit\Framework\TestCase {
 
 
 	/**
+	 * @covers \pxn\phpUtils\exceptions\RequiredArgumentException
+	 */
+	public function test_RequiredArgumentException_without_arg(): void {
+		$this->expectException(RequiredArgumentException::class);
+		$this->expectExceptionMessage('');
+		throw new RequiredArgumentException();
+	}
+	/**
+	 * @covers \pxn\phpUtils\exceptions\RequiredArgumentException
+	 */
+	public function test_RequiredArgumentException_with_arg(): void {
+		$this->expectException(RequiredArgumentException::class);
+		$this->expectExceptionMessage('Required Argument: test');
+		throw new RequiredArgumentException('test');
+	}
+
+
+
+	/**
 	 * @covers \pxn\phpUtils\exceptions\FileNotFoundException
 	 */
 	public function test_FileNotFoundException_without_arg(): void {
