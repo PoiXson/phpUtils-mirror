@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "0fe7a58f148c42729f2d65d4c4fd2ee8",
+    "content-hash": "48cb878a92a642155146e20a6b5e3cb9",
     "packages": [
         {
             "name": "pxn/composerlocaldev",
@@ -2149,7 +2149,7 @@
     "prefer-lowest": false,
     "platform": {
         "ext-mbstring": "*",
-        "php": ">=7.4"
+        "php": ">=8.0"
     },
     "platform-dev": [],
     "plugin-api-version": "2.0.0"
