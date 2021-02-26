@@ -5,17 +5,49 @@
  * @license GPL-3
  * @author lorenzo at poixson.com
  * @link https://poixson.com/
- * /
-namespace pxn\phpUtils;
+ */
+namespace pxn\phpUtils\utils;
 
 
 final class SystemUtils {
+	/** @codeCoverageIgnore */
 	private function __construct() {}
 
 	private static $isShell = NULL;
 
 
 
+	public static function isShell(): bool {
+		if (self::$isShell === NULL) {
+			self::$isShell = isset($_SERVER['SHELL']) && !empty($_SERVER['SHELL']);
+		}
+		return (self::$isShell === TRUE);
+	}
+	public static function isWeb(): bool {
+		return ! self::isShell();
+	}
+
+
+
+	public static function AssertShell(): void {
+		if (!self::isShell()) {
+			echo 'This script is a website';
+			exit(1);
+		}
+	}
+	public static function AssertWeb(): void {
+		if (!self::isWeb()) {
+			echo 'This script is not a website';
+			exit(1);
+		}
+	}
+
+
+
+
+
+
+/*
 	public static function RequireLinux(): void {
 		$os = \PHP_OS;
 		if ($os != 'Linux') {
@@ -35,40 +67,6 @@ final class SystemUtils {
 	###########
 	## Shell ##
 	###########
-
-
-
-	public static function isShell(): bool {
-		if (self::$isShell === NULL) {
-			self::$isShell =
-				isset($_SERVER['SHELL']) &&
-				! empty($_SERVER['SHELL']);
-		}
-		return self::$isShell;
-	}
-	public static function isWeb() {
-		return ! self::isShell();
-	}
-	public static function RequireShell(): void {
-		$isShell = self::isShell();
-		if (!$isShell) {
-//TODO
-//			fail('This script can only run in shell!',
-//				Defines::EXIT_CODE_GENERAL);
-			echo 'This script can only run in shell';
-			exit(Defines::EXIT_CODE_GENERAL);
-		}
-	}
-	public static function RequireWeb(): void {
-		$isShell = self::isShell();
-		if ($isShell) {
-//TODO
-//			fail('Cannot run this script in shell!',
-//				Defines::EXIT_CODE_GENERAL);
-			echo 'Cannot run this script in shell';
-			exit(Defines::EXIT_CODE_GENERAL);
-		}
-	}
 
 
 
@@ -226,9 +224,8 @@ final class SystemUtils {
 	public static function log(): Logger {
 		return Logger::get('SHELL');
 	}
-* /
+*/
 
 
 
 }
-*/
