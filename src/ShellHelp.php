@@ -238,7 +238,7 @@ class ShellHelp {
 				if (\mb_strlen($str) == 1) {
 					$singles[] = Strings::ForceStartsWith($entry, '-');
 				} else {
-					while(!Strings::StartsWith($entry, '--')) {
+					while(!\str_starts_with(haystack: $entry, needle: '--')) {
 						$entry = "-{$entry}";
 					}
 					$doubles[] = $entry;

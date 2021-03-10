@@ -69,13 +69,13 @@ class ComposerInfo {
 
 	public static function SanPath($filePath) {
 		// trim filename from end
-		if (Strings::EndsWith($filePath, 'composer.json', FALSE)) {
+		if (\str_ends_with(haystack: $filePath, needle: 'composer.json')) {
 			$filePath = \dirname($filePath);
 		}
 		// normalize path
 		$filePath = \realpath($filePath);
 		// trim /src from end of path
-		if (Strings::EndsWith($filePath, '/src', FALSE)) {
+		if (\str_ends_with(haystack: $filePath, needle: '/src')) {
 			$filePath = \realpath($filePath.'/../');
 		}
 		// validate path

@@ -78,7 +78,7 @@ final class ShellTools {
 				continue;
 			}
 			// --flag
-			if (Strings::StartsWith($arg, '--')) {
+			if (\str_starts_with(haystack: $arg, needle: '--')) {
 				// --flag=value
 				$pos = \mb_strpos($arg, '=');
 				if ($pos !== FALSE) {
@@ -90,7 +90,7 @@ final class ShellTools {
 				// --flag value
 				if (isset($argv[$index+1])) {
 					$val = $argv[$index+1];
-					if (!Strings::StartsWith($val, '-')) {
+					if (!\str_starts_with(haystack: $val, needle: '-')) {
 						$index++;
 						self::$flags[$arg] = $val;
 						continue;
@@ -103,7 +103,7 @@ final class ShellTools {
 				continue;
 			}
 			// -flag
-			if (Strings::StartsWith($arg, '-')) {
+			if (\str_starts_with(haystack: $arg, needle: '-')) {
 				// attached value
 				$len = \mb_strlen($arg);
 				if ($len > 2) {
@@ -119,7 +119,7 @@ final class ShellTools {
 				if ($AllowShortFlagValues) {
 					if (isset($argv[$index+1])) {
 						$val = $argv[$index+1];
-						if (!Strings::StartsWith($val, '-')) {
+						if (!\str_starts_with(haystack: $val, needle: '-')) {
 							$index++;
 							self::$flags[$arg] = $val;
 							continue;
@@ -222,7 +222,7 @@ final class ShellTools {
 			// don't allow "-x value"
 			$AllowShortFlagValues = ConfigGeneral::getAllowShortFlagValues();
 			if (!$AllowShortFlagValues) {
-				if (!Strings::StartsWith($key, '--')) {
+				if (!\str_starts_with(haystack: $key, needle: '--')) {
 					return TRUE;
 				}
 			}
@@ -305,7 +305,8 @@ final class ShellTools {
 		if (!ConfigGeneral::isAnsiColorEnabled()) {
 			return '';
 		}
-		if (!Strings::StartsWith($match, '{') || !Strings::EndsWith($match, '}')) {
+		if (!\str_starts_with(haystack: $match, needle: '{')
+		||  !\str_ends_with(  haystack: $match, needle: '}')) {
 			return $match;
 		}
 		$match = \mb_substr($match, 1, -1);

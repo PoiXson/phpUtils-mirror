@@ -78,7 +78,7 @@ class ComposerInfoTest extends \PHPUnit\Framework\TestCase {
 		// homepage
 		$homepage = $composer->getHomepage();
 		$this->assertNotEmpty($homepage);
-		$this->assertTrue(Strings::StartsWith($homepage, 'http'));
+		$this->assertTrue(\str_starts_with(haystack: $homepage, needle: 'http'));
 		$this->assertTrue(\mb_strpos($homepage, '.') !== FALSE);
 	}
 
