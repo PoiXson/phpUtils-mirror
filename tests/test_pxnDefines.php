@@ -54,6 +54,12 @@ class test_pxnDefines extends \PHPUnit\Framework\TestCase {
 		$this->assertEquals(expected: xDef::MB,       actual:           1024*1024);
 		$this->assertEquals(expected: xDef::GB,       actual:      1024*1024*1024);
 		$this->assertEquals(expected: xDef::TB,       actual: 1024*1024*1024*1024);
+		// exit codes
+		$this->assertEquals(expected: 0, actual: xDef::EXIT_CODE_OK);
+		$this->assertEquals(expected: 1, actual: xDef::EXIT_CODE_GENERAL);
+		$this->assertEquals(expected: 2, actual: xDef::EXIT_CODE_HELP);
+		$this->assertEquals(expected: 4, actual: xDef::EXIT_CODE_INTERNAL_ERROR);
+		$this->assertEquals(expected: 8, actual: xDef::EXIT_CODE_NOPERM);
 	}
 
 

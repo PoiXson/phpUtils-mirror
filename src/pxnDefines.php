@@ -60,4 +60,11 @@ final class pxnDefines {
 	const TB = 1099511627776;
 
 
+	const EXIT_CODE_OK               = 0x0;
+	const EXIT_CODE_GENERAL          = 0x1;
+	const EXIT_CODE_HELP             = 0x2;
+	const EXIT_CODE_INTERNAL_ERROR   = 0x4;
+	const EXIT_CODE_NOPERM           = 0x8;
+
+
 }
