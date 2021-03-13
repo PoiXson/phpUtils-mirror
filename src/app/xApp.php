@@ -8,34 +8,37 @@
  */
 namespace pxn\phpUtils\app;
 
-use pxn\phpUtils\Strings;
+use pxn\phpUtils\utils\StringUtils;
 
 
-abstract class App {
+abstract class xApp {
 
-	protected $appName;
-	protected $namespacePath;
+	protected string $appName;
+	protected string $namespacePath;
 
 
 
 	public function __construct() {
-		// find app name and namespace path
+		$this->check_run_mode();
+		// find app name and namespace
 		{
 			$tmp = \get_called_class();
-			$tmp = Strings::trim($tmp, '\\');
+			$tmp = StringUtils::Trim($tmp, '\\');
 			$pos = \mb_strrpos($tmp, '\\');
 			if ($pos === FALSE || $pos <= 3) {
 				$this->appName = $tmp;
 				$this->namespacePath = '';
 			} else {
-				$this->appName       = Strings::trim( \mb_substr($tmp, $pos),    '\\' );
-				$this->namespacePath = Strings::trim( \mb_substr($tmp, 0, $pos), '\\' );
+				$this->appName       = StringUtils::Trim(\mb_substr($tmp, $pos),    '\\');
+				$this->namespacePath = StringUtils::Trim(\mb_substr($tmp, 0, $pos), '\\');
 			}
 			unset($tmp, $pos);
 		}
 	}
 
 
+
+	protected abstract function check_run_mode(): void;
 
 	public abstract function run(): void;
 
@@ -48,8 +51,7 @@ abstract class App {
 		return $this->namespacePath;
 	}
 	public function getVersion(): string {
-//TODO
-		return '1.x.x';
+		return \pxn\phpUtils\Version::phpUtilsVersion;
 	}
 
 
