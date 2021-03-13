@@ -71,56 +71,56 @@ class test_NumberUtils extends \PHPUnit\Framework\TestCase {
 
 
 	/**
-	 * @covers ::Round
+	 * @covers ::round
 	 */
-	public function test_Round(): void {
-		$this->assertEquals(expected: '123',    actual: NumberUtils::Round(123,     0));
-		$this->assertEquals(expected: '123.00', actual: NumberUtils::Round(123,     2));
-		$this->assertEquals(expected: '123.45', actual: NumberUtils::Round(123.45,  2));
-		$this->assertEquals(expected: '123.46', actual: NumberUtils::Round(123.456, 2));
-		$this->assertEquals(expected:  '123.4', actual: NumberUtils::Round(123.44,  1));
-		$this->assertEquals(expected:  '123.5', actual: NumberUtils::Round(123.45,  1));
-		$this->assertEquals(expected:    '130', actual: NumberUtils::Round(125.6,  -1));
+	public function test_round(): void {
+		$this->assertEquals(expected: '123',    actual: NumberUtils::round(123,     0));
+		$this->assertEquals(expected: '123.00', actual: NumberUtils::round(123,     2));
+		$this->assertEquals(expected: '123.45', actual: NumberUtils::round(123.45,  2));
+		$this->assertEquals(expected: '123.46', actual: NumberUtils::round(123.456, 2));
+		$this->assertEquals(expected:  '123.4', actual: NumberUtils::round(123.44,  1));
+		$this->assertEquals(expected:  '123.5', actual: NumberUtils::round(123.45,  1));
+		$this->assertEquals(expected:    '130', actual: NumberUtils::round(125.6,  -1));
 	}
 
 	/**
-	 * @covers ::Floor
+	 * @covers ::floor
 	 */
-	public function test_Floor(): void {
-		$this->assertEquals(expected: '123',    actual: NumberUtils::Floor(123,     0));
-		$this->assertEquals(expected: '123.00', actual: NumberUtils::Floor(123,     2));
-		$this->assertEquals(expected: '123.45', actual: NumberUtils::Floor(123.45,  2));
-		$this->assertEquals(expected: '123.45', actual: NumberUtils::Floor(123.456, 2));
-		$this->assertEquals(expected:  '123.4', actual: NumberUtils::Floor(123.44,  1));
-		$this->assertEquals(expected:  '123.4', actual: NumberUtils::Floor(123.45,  1));
-		$this->assertEquals(expected:    '120', actual: NumberUtils::Floor(125.6,  -1));
+	public function test_floor(): void {
+		$this->assertEquals(expected: '123',    actual: NumberUtils::floor(123,     0));
+		$this->assertEquals(expected: '123.00', actual: NumberUtils::floor(123,     2));
+		$this->assertEquals(expected: '123.45', actual: NumberUtils::floor(123.45,  2));
+		$this->assertEquals(expected: '123.45', actual: NumberUtils::floor(123.456, 2));
+		$this->assertEquals(expected:  '123.4', actual: NumberUtils::floor(123.44,  1));
+		$this->assertEquals(expected:  '123.4', actual: NumberUtils::floor(123.45,  1));
+		$this->assertEquals(expected:    '120', actual: NumberUtils::floor(125.6,  -1));
 	}
 
 	/**
-	 * @covers ::Ceil
+	 * @covers ::ceil
 	 */
-	public function test_Ceil(): void {
-		$this->assertEquals(expected: '123',    actual: NumberUtils::Ceil(123,      0));
-		$this->assertEquals(expected: '123.00', actual: NumberUtils::Ceil(123,      2));
-		$this->assertEquals(expected: '123.45', actual: NumberUtils::Ceil(123.45,   2));
-		$this->assertEquals(expected: '123.46', actual: NumberUtils::Ceil(123.456,  2));
-		$this->assertEquals(expected:  '123.5', actual: NumberUtils::Ceil(123.44,   1));
-		$this->assertEquals(expected:  '123.5', actual: NumberUtils::Ceil(123.45,   1));
-		$this->assertEquals(expected:    '130', actual: NumberUtils::Ceil(125.6,   -1));
+	public function test_ceil(): void {
+		$this->assertEquals(expected: '123',    actual: NumberUtils::ceil(123,      0));
+		$this->assertEquals(expected: '123.00', actual: NumberUtils::ceil(123,      2));
+		$this->assertEquals(expected: '123.45', actual: NumberUtils::ceil(123.45,   2));
+		$this->assertEquals(expected: '123.46', actual: NumberUtils::ceil(123.456,  2));
+		$this->assertEquals(expected:  '123.5', actual: NumberUtils::ceil(123.44,   1));
+		$this->assertEquals(expected:  '123.5', actual: NumberUtils::ceil(123.45,   1));
+		$this->assertEquals(expected:    '130', actual: NumberUtils::ceil(125.6,   -1));
 	}
 
 
 
 	/**
-	 * @covers ::PadZeros
+	 * @covers ::pad_zeros
 	 */
-	public function test_PadZeros(): void {
-		$this->assertEquals(expected:     '1', actual: NumberUtils::PadZeros(    1, 0));
-		$this->assertEquals(expected:   '1.2', actual: NumberUtils::PadZeros(  1.2, 0));
-		$this->assertEquals(expected: '1.000', actual: NumberUtils::PadZeros(    1, 3));
-		$this->assertEquals(expected: '1.200', actual: NumberUtils::PadZeros(  1.2, 3));
-		$this->assertEquals(expected: '1.234', actual: NumberUtils::PadZeros(1.234, 3));
-		$this->assertEquals(expected: '1.234', actual: NumberUtils::PadZeros(1.234, 2));
+	public function test_pad_zeros(): void {
+		$this->assertEquals(expected:     '1', actual: NumberUtils::pad_zeros(    1, 0));
+		$this->assertEquals(expected:   '1.2', actual: NumberUtils::pad_zeros(  1.2, 0));
+		$this->assertEquals(expected: '1.000', actual: NumberUtils::pad_zeros(    1, 3));
+		$this->assertEquals(expected: '1.200', actual: NumberUtils::pad_zeros(  1.2, 3));
+		$this->assertEquals(expected: '1.234', actual: NumberUtils::pad_zeros(1.234, 3));
+		$this->assertEquals(expected: '1.234', actual: NumberUtils::pad_zeros(1.234, 2));
 	}
 
 
