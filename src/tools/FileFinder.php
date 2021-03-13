@@ -5,15 +5,17 @@
  * @license GPL-3
  * @author lorenzo at poixson.com
  * @link https://poixson.com/
- * /
+ */
 namespace pxn\phpUtils\tools;
+
+use pxn\phpUtils\utils\StringUtils;
 
 
 class FileFinder {
 
-	protected $searchPaths = [];
-	protected $searchFiles = [];
-	protected $searchExts  = [];
+	protected array $search_paths = [];
+	protected array $search_files = [];
+	protected array $search_exts  = [];
 
 
 
@@ -27,58 +29,51 @@ class FileFinder {
 
 
 
-	public function searchPath(string $path, int $depth=2): void {
+	public function search_path_parents(string $path, int $depth): void {
+		if (empty($path)) throw new RequiredArgumentException('path');
 		$pth = \realpath($path);
 		if (empty($pth)) throw new NullPointerException("Path not found: $path");
-		$this->searchPaths[] = $pth;
+		$this->search_paths[] = $pth;
 		if ($depth == -1) $depth = 100;
 		if ($depth > 0) {
 			for ($i=0; $i<$depth; $i++) {
 				$p = \realpath($pth.\str_repeat('/..', $i+1));
 				if (empty($p)) break;
-				$this->searchPaths[] = $p;
+				$this->search_paths[] = $p;
 				if ($p == '/') break;
 			}
 		}
 	}
-	public function searchPaths(string...$paths): void {
-		$this->searchPathsArray($paths);
+
+	public function search_paths(string...$paths): void {
+		$this->search_paths_array($paths);
 	}
-	public function searchPathsArray(array $paths): void {
-		$this->searchPaths = \array_merge($this->searchPaths, $paths);
+	public function search_paths_array(array $paths): void {
+		$this->search_paths = \array_merge($this->search_paths, $paths);
 	}
-	public function getSearchPaths(): array {
-		return $this->searchPaths;
-	}
-	public function clearSearchPaths(): void {
-		$this->searchPaths = [];
+	public function get_search_paths(): array {
+		return $this->search_paths;
 	}
 
 
 
-	public function searchFiles(string...$files): void {
-		$this->searchFilesArray($files);
+	public function search_files(string...$files): void {
+		$this->search_files_array($files);
 	}
-	public function searchFilesArray(array $files): void {
-		$this->searchFiles = \array_merge($this->searchFiles, $files);
+	public function search_files_array(array $files): void {
+		$this->search_files = \array_merge($this->search_files, $files);
 	}
-	public function getSearchFiles(): array {
-		return $this->searchFiles;
-	}
-	public function clearSearchFiles(): void {
-		$this->searchFiles = [];
+	public function get_search_files(): array {
+		return $this->search_files;
 	}
 
 
 
-	public function searchExtensions(string...$exts): void {
-		$this->searchExts = \array_merge($this->searchExts, $exts);
+	public function search_extensions(string...$exts): void {
+		$this->search_exts = \array_merge($this->search_exts, $exts);
 	}
-	public function getSearchExtensions(): array {
-		return $this->searchExts;
-	}
-	public function clearSearchExtensions(): void {
-		$this->searchExts = [];
+	public function get_search_extensions(): array {
+		return $this->search_exts;
 	}
 
 
@@ -89,72 +84,66 @@ class FileFinder {
 
 
 	public function find(): ?string {
-		$result = $this->doFind(FALSE);
-		if ($result === NULL || \count($result) < 1)
+		$result = $this->doFind(all: FALSE);
+		if ($result === NULL || \count($result) == 0)
 			return NULL;
-		return $result[0];
+		return \reset($result);
 	}
+
 	public function findAll(): array {
-		$result = $this->doFind(TRUE);
-		if ($result === NULL || \count($result) < 1)
+		$result = $this->doFind(all: TRUE);
+		if ($result === NULL || \count($result) == 0)
 			return [];
 		return $result;
 	}
+
 	protected function doFind(bool $all=FALSE): ?array {
 		$found = [];
-		foreach ($this->searchPaths as $path) {
-			if (\count($this->searchFiles) == 0) {
+		foreach ($this->search_paths as $path) {
+			if (\count($this->search_files) == 0) {
 				if (\is_dir($path)) {
 					$path = \realpath($path);
 					if (!empty($path)) {
-						if ($all) {
-							$found[$path] = TRUE;
-						} else {
+						if (!$all)
 							return [ $path ];
-						}
+						$found[$path] = TRUE;
 					}
 				}
 			} else {
-				foreach ($this->searchFiles as $file) {
-					$path = Strings::ForceEndsWith($path, '/');
+				foreach ($this->search_files as $file) {
+					$path = StringUtils::force_ends_with($path, '/');
 					$filePath = $path.$file;
-					if (\count($this->searchExts) == 0) {
+					if (\count($this->search_exts) == 0) {
 						if (\file_exists($filePath)) {
 							$filePath = \realpath($filePath);
 							if (!empty($filePath)) {
-								if ($all) {
-									$found[$filePath] = TRUE;
-								} else {
+								if (!$all)
 									return [ $filePath ];
-								}
+								$found[$filePath] = TRUE;
 							}
 						}
 					} else {
-						foreach ($this->searchExts as $ext) {
-							$ext = Strings::trim_front($ext, '.');
+						foreach ($this->search_exts as $ext) {
+							$ext = StringUtils::trim_front($ext, '.');
 							$fileExtPath = "$filePath.$ext";
 							if (\file_exists($fileExtPath)) {
 								$fileExtPath = \realpath($fileExtPath);
 								if (!empty($fileExtPath)) {
-									if ($all) {
-										$found[$fileExtPath] = TRUE;
-									} else {
+									if (!$all)
 										return [ $fileExtPath ];
-									}
+									$found[$fileExtPath] = TRUE;
 								}
 							}
-						} // end foreach searchExts
+						} // end foreach search_exts
 					}
-				} // end foreach searchFiles
+				} // end foreach search_files
 			}
-		} // end foreach searchPaths
-		if ($all) {
+		} // end foreach search_paths
+		if ($all)
 			return \array_keys($found);
-		}
 		return NULL;
 	}
 
 
 
 }
-*/
