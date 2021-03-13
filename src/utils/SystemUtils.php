@@ -149,7 +149,7 @@ final class SystemUtils {
 		$log = self::log();
 		// prepend cwd
 		if (!Strings::StartsWith($dir, '/')) {
-			$dir = Strings::BuildPath(\getcwd(), $dir);
+			$dir = Strings::build_path(\getcwd(), $dir);
 		}
 		// dir already exists
 		if (\is_dir($dir)) {
@@ -203,7 +203,7 @@ final class SystemUtils {
 		foreach ($array as $entry) {
 			if ($entry == '.' || $entry == '..')
 				continue;
-			$full = Strings::BuildPath($dir, $entry);
+			$full = Strings::build_path($dir, $entry);
 			if (\is_dir($full)) {
 				self::rmDir($full);
 			} else {

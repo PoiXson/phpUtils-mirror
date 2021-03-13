@@ -28,7 +28,7 @@ final class NumberUtils {
 		if ($value === NULL) return FALSE;
 		$value = \trim( (string)$value );
 		if ($value === '') return FALSE;
-		$value = StringUtils::TrimFront($value, '0');
+		$value = StringUtils::trim_front($value, '0');
 		if ($value == '') return TRUE;
 		$i = ((string) ((int)$value) );
 		return ($value === $i);

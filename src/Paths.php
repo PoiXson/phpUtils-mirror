@@ -50,13 +50,7 @@ final class Paths {
 			self::$local_entry = \realpath($local_entry);
 		}
 		// project path
-		{
-			self::$local_project =
-				Strings::Trim(
-					self::$local_entry,
-					'/public', '/scripts'
-				);
-		}
+		self::$local_project = Strings::trim(self::$local_entry, '/public', '/scripts');
 		// utils path
 		self::$local_utils = __DIR__;
 		// ensure all is good

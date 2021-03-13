@@ -131,7 +131,7 @@ class FileFinder {
 						}
 					} else {
 						foreach ($this->searchExts as $ext) {
-							$ext = Strings::TrimFront($ext, '.');
+							$ext = Strings::trim_front($ext, '.');
 							$fileExtPath = "$filePath.$ext";
 							if (\file_exists($fileExtPath)) {
 								$fileExtPath = \realpath($fileExtPath);

@@ -22,22 +22,14 @@ abstract class App {
 		// find app name and namespace path
 		{
 			$tmp = \get_called_class();
-			$tmp = Strings::Trim($tmp, '\\');
+			$tmp = Strings::trim($tmp, '\\');
 			$pos = \mb_strrpos($tmp, '\\');
 			if ($pos === FALSE || $pos <= 3) {
 				$this->appName = $tmp;
 				$this->namespacePath = '';
 			} else {
-				$this->appName =
-					Strings::Trim(
-						\mb_substr($tmp, $pos),
-						'\\'
-					);
-				$this->namespacePath =
-					Strings::Trim(
-						\mb_substr($tmp, 0, $pos),
-						'\\'
-					);
+				$this->appName       = Strings::trim( \mb_substr($tmp, $pos),    '\\' );
+				$this->namespacePath = Strings::trim( \mb_substr($tmp, 0, $pos), '\\' );
 			}
 			unset($tmp, $pos);
 		}
