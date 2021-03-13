@@ -70,6 +70,9 @@ class FileFinder {
 
 
 	public function search_extensions(string...$exts): void {
+		$this->search_extensions_array($exts);
+	}
+	public function search_extensions_array(array $exts): void {
 		$this->search_exts = \array_merge($this->search_exts, $exts);
 	}
 	public function get_search_extensions(): array {
