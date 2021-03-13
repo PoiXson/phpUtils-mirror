@@ -41,65 +41,65 @@ class test_StringUtils extends \PHPUnit\Framework\TestCase {
 
 
 	/**
-	 * @covers ::Trim
+	 * @covers ::trim
 	 */
-	public function test_Trim(): void {
-		$this->assertEquals(expected: '--   == test ==   --', actual: StringUtils::Trim(self::TRIM_TEST_DATA)                       );
-		$this->assertEquals(expected: 'test',                 actual: StringUtils::Trim(self::TRIM_TEST_DATA, ' ', '-', '=', "\t")  );
-		$this->assertEquals(expected: 'test',                 actual: StringUtils::Trim(self::TRIM_TEST_DATA, ' ', '--', '==', "\t"));
-		$this->assertEquals(expected: '--   == test ==   --', actual: StringUtils::Trim(self::TRIM_TEST_DATA, ' ', '=', "\t")       );
-		$this->assertEquals(expected: '123',                  actual: StringUtils::Trim('01230', '0')                               );
-		$this->assertEquals(expected: '',                     actual: StringUtils::Trim('01230', '0', '1', '2', '3')                );
-		$this->assertEquals(expected: '123',                  actual: StringUtils::Trim('123', '  ', '')                            );
+	public function test_trim(): void {
+		$this->assertEquals(expected: '--   == test ==   --', actual: StringUtils::trim(self::TRIM_TEST_DATA)                       );
+		$this->assertEquals(expected: 'test',                 actual: StringUtils::trim(self::TRIM_TEST_DATA, ' ', '-', '=', "\t")  );
+		$this->assertEquals(expected: 'test',                 actual: StringUtils::trim(self::TRIM_TEST_DATA, ' ', '--', '==', "\t"));
+		$this->assertEquals(expected: '--   == test ==   --', actual: StringUtils::trim(self::TRIM_TEST_DATA, ' ', '=', "\t")       );
+		$this->assertEquals(expected: '123',                  actual: StringUtils::trim('01230', '0')                               );
+		$this->assertEquals(expected: '',                     actual: StringUtils::trim('01230', '0', '1', '2', '3')                );
+		$this->assertEquals(expected: '123',                  actual: StringUtils::trim('123', '  ', '')                            );
 	}
 
 	/**
-	 * @covers ::TrimFront
+	 * @covers ::trim_front
 	 */
-	public function test_TrimFront(): void {
-		$this->assertEquals(expected: "--   == test ==   --\t", actual: StringUtils::TrimFront(self::TRIM_TEST_DATA)                       );
-		$this->assertEquals(expected: "test ==   --\t",         actual: StringUtils::TrimFront(self::TRIM_TEST_DATA, ' ', '-', '=', "\t")  );
-		$this->assertEquals(expected: "test ==   --\t",         actual: StringUtils::TrimFront(self::TRIM_TEST_DATA, ' ', '--', '==', "\t"));
-		$this->assertEquals(expected: "--   == test ==   --\t", actual: StringUtils::TrimFront(self::TRIM_TEST_DATA, ' ', '=', "\t")       );
-		$this->assertEquals(expected: '1230',                   actual: StringUtils::TrimFront('01230', '0')                               );
-		$this->assertEquals(expected: '',                       actual: StringUtils::TrimFront('01230', '0', '1', '2', '3')                );
-		$this->assertEquals(expected: '123',                    actual: StringUtils::TrimFront('123', '  ', '')                            );
+	public function test_trim_front(): void {
+		$this->assertEquals(expected: "--   == test ==   --\t", actual: StringUtils::trim_front(self::TRIM_TEST_DATA)                       );
+		$this->assertEquals(expected: "test ==   --\t",         actual: StringUtils::trim_front(self::TRIM_TEST_DATA, ' ', '-', '=', "\t")  );
+		$this->assertEquals(expected: "test ==   --\t",         actual: StringUtils::trim_front(self::TRIM_TEST_DATA, ' ', '--', '==', "\t"));
+		$this->assertEquals(expected: "--   == test ==   --\t", actual: StringUtils::trim_front(self::TRIM_TEST_DATA, ' ', '=', "\t")       );
+		$this->assertEquals(expected: '1230',                   actual: StringUtils::trim_front('01230', '0')                               );
+		$this->assertEquals(expected: '',                       actual: StringUtils::trim_front('01230', '0', '1', '2', '3')                );
+		$this->assertEquals(expected: '123',                    actual: StringUtils::trim_front('123', '  ', '')                            );
 	}
 
 	/**
-	 * @covers ::TrimEnd
+	 * @covers ::trim_end
 	 */
-	public function test_TrimEnd(): void {
-		$this->assertEquals(expected: "\t--   == test ==   --", actual: StringUtils::TrimEnd(self::TRIM_TEST_DATA)                       );
-		$this->assertEquals(expected: "\t--   == test",         actual: StringUtils::TrimEnd(self::TRIM_TEST_DATA, ' ', '-', '=', "\t")  );
-		$this->assertEquals(expected: "\t--   == test",         actual: StringUtils::TrimEnd(self::TRIM_TEST_DATA, ' ', '--', '==', "\t"));
-		$this->assertEquals(expected: "\t--   == test ==   --", actual: StringUtils::TrimEnd(self::TRIM_TEST_DATA, ' ', '=', "\t")       );
-		$this->assertEquals(expected: '0123',                   actual: StringUtils::TrimEnd('01230', '0')                               );
-		$this->assertEquals(expected: '',                       actual: StringUtils::TrimEnd('01230', '0', '1', '2', '3')                );
-		$this->assertEquals(expected: '123',                    actual: StringUtils::TrimEnd('123', '  ', '')                            );
+	public function test_trim_end(): void {
+		$this->assertEquals(expected: "\t--   == test ==   --", actual: StringUtils::trim_end(self::TRIM_TEST_DATA)                       );
+		$this->assertEquals(expected: "\t--   == test",         actual: StringUtils::trim_end(self::TRIM_TEST_DATA, ' ', '-', '=', "\t")  );
+		$this->assertEquals(expected: "\t--   == test",         actual: StringUtils::trim_end(self::TRIM_TEST_DATA, ' ', '--', '==', "\t"));
+		$this->assertEquals(expected: "\t--   == test ==   --", actual: StringUtils::trim_end(self::TRIM_TEST_DATA, ' ', '=', "\t")       );
+		$this->assertEquals(expected: '0123',                   actual: StringUtils::trim_end('01230', '0')                               );
+		$this->assertEquals(expected: '',                       actual: StringUtils::trim_end('01230', '0', '1', '2', '3')                );
+		$this->assertEquals(expected: '123',                    actual: StringUtils::trim_end('123', '  ', '')                            );
 	}
 
 
 
 	/**
-	 * @covers ::TrimQuotes
+	 * @covers ::trim_quotes
 	 */
-	public function test_TrimQuotes(): void {
+	public function test_trim_quotes(): void {
 		// matching quotes
-		$this->assertEquals(expected: 'test',    actual: StringUtils::TrimQuotes( '"test"' ) );
-		$this->assertEquals(expected: 'test',    actual: StringUtils::TrimQuotes( "'test'" ) );
-		$this->assertEquals(expected: 'test',    actual: StringUtils::TrimQuotes('``test``') );
+		$this->assertEquals(expected: 'test',    actual: StringUtils::trim_quotes( '"test"' ) );
+		$this->assertEquals(expected: 'test',    actual: StringUtils::trim_quotes( "'test'" ) );
+		$this->assertEquals(expected: 'test',    actual: StringUtils::trim_quotes('``test``') );
 		// mis-matched quotes
-		$this->assertEquals(expected:  'test"',  actual: StringUtils::TrimQuotes(  '"test""'));
-		$this->assertEquals(expected: '"test',   actual: StringUtils::TrimQuotes( '""test"' ));
-		$this->assertEquals(expected:  "test'",  actual: StringUtils::TrimQuotes(   "test'" ));
-		$this->assertEquals(expected: "'test",   actual: StringUtils::TrimQuotes(  "'test"  ));
-		$this->assertEquals(expected:  'test``', actual: StringUtils::TrimQuotes(   'test``'));
-		$this->assertEquals(expected:'``test',   actual: StringUtils::TrimQuotes('"``test"' ));
+		$this->assertEquals(expected:  'test"',  actual: StringUtils::trim_quotes(  '"test""'));
+		$this->assertEquals(expected: '"test',   actual: StringUtils::trim_quotes( '""test"' ));
+		$this->assertEquals(expected:  "test'",  actual: StringUtils::trim_quotes(   "test'" ));
+		$this->assertEquals(expected: "'test",   actual: StringUtils::trim_quotes(  "'test"  ));
+		$this->assertEquals(expected:  'test``', actual: StringUtils::trim_quotes(   'test``'));
+		$this->assertEquals(expected:'``test',   actual: StringUtils::trim_quotes('"``test"' ));
 		// blank strings
-		$this->assertEquals(expected: '',        actual: StringUtils::TrimQuotes('""')       );
-		$this->assertEquals(expected: '',        actual: StringUtils::TrimQuotes("''")       );
-		$this->assertEquals(expected: '',        actual: StringUtils::TrimQuotes('``')       );
+		$this->assertEquals(expected: '',        actual: StringUtils::trim_quotes('""')       );
+		$this->assertEquals(expected: '',        actual: StringUtils::trim_quotes("''")       );
+		$this->assertEquals(expected: '',        actual: StringUtils::trim_quotes('``')       );
 	}
 
 
@@ -111,36 +111,36 @@ class test_StringUtils extends \PHPUnit\Framework\TestCase {
 
 
 	/**
-	 * @covers ::PadLeft
-	 * @covers ::getPadding
+	 * @covers ::pad_left
+	 * @covers ::get_padding
 	 */
-	public function test_PadLeft(): void {
-		$this->assertEquals(expected: '  abc', actual: StringUtils::PadLeft('abc', 5)      );
-		$this->assertEquals(expected: '  abc', actual: StringUtils::PadLeft('abc', 5, '')  );
-		$this->assertEquals(expected:   'abc', actual: StringUtils::PadLeft('abc', 2)      );
-		$this->assertEquals(expected: '-+abc', actual: StringUtils::PadLeft('abc', 5, '-+'));
+	public function test_pad_left(): void {
+		$this->assertEquals(expected: '  abc', actual: StringUtils::pad_left('abc', 5)      );
+		$this->assertEquals(expected: '  abc', actual: StringUtils::pad_left('abc', 5, '')  );
+		$this->assertEquals(expected:   'abc', actual: StringUtils::pad_left('abc', 2)      );
+		$this->assertEquals(expected: '-+abc', actual: StringUtils::pad_left('abc', 5, '-+'));
 	}
 
 	/**
-	 * @covers ::PadRight
-	 * @covers ::getPadding
+	 * @covers ::pad_right
+	 * @covers ::get_padding
 	 */
-	public function test_PadRight(): void {
-		$this->assertEquals(expected: 'abc  ', actual: StringUtils::PadRight('abc', 5)      );
-		$this->assertEquals(expected: 'abc  ', actual: StringUtils::PadRight('abc', 5, '')  );
-		$this->assertEquals(expected: 'abc',   actual: StringUtils::PadRight('abc', 2)      );
-		$this->assertEquals(expected: 'abc-+', actual: StringUtils::PadRight('abc', 5, '-+'));
+	public function test_pad_right(): void {
+		$this->assertEquals(expected: 'abc  ', actual: StringUtils::pad_right('abc', 5)      );
+		$this->assertEquals(expected: 'abc  ', actual: StringUtils::pad_right('abc', 5, '')  );
+		$this->assertEquals(expected: 'abc',   actual: StringUtils::pad_right('abc', 2)      );
+		$this->assertEquals(expected: 'abc-+', actual: StringUtils::pad_right('abc', 5, '-+'));
 	}
 
 	/**
-	 * @covers ::PadCenter
-	 * @covers ::getPadding
+	 * @covers ::pad_center
+	 * @covers ::get_padding
 	 */
-	public function test_PadCenter(): void {
-		$this->assertEquals(expected: ' abc ',  actual: StringUtils::PadCenter('abc', 5)      );
-		$this->assertEquals(expected: ' abc ',  actual: StringUtils::PadCenter('abc', 5, '')  );
-		$this->assertEquals(expected:  'abc',   actual: StringUtils::PadCenter('abc', 2)      );
-		$this->assertEquals(expected:'-+abc-+', actual: StringUtils::PadCenter('abc', 5, '-+'));
+	public function test_pad_center(): void {
+		$this->assertEquals(expected: ' abc ',  actual: StringUtils::pad_center('abc', 5)      );
+		$this->assertEquals(expected: ' abc ',  actual: StringUtils::pad_center('abc', 5, '')  );
+		$this->assertEquals(expected:  'abc',   actual: StringUtils::pad_center('abc', 2)      );
+		$this->assertEquals(expected:'-+abc-+', actual: StringUtils::pad_center('abc', 5, '-+'));
 	}
 
 
@@ -171,20 +171,20 @@ class test_StringUtils extends \PHPUnit\Framework\TestCase {
 
 
 
-	##############
-	## Contains ##
-	##############
+	#####################
+	## String Contains ##
+	#####################
 
 
 
 	/**
-	 * @covers ::Contains
+	 * @covers ::str_contains
 	 */
-	public function test_Contains(): void {
-		$this->assertFalse(StringUtils::Contains(self::TRIM_TEST_DATA, '')           );
-		$this->assertTrue (StringUtils::Contains(self::TRIM_TEST_DATA, 'test')       );
-		$this->assertTrue (StringUtils::Contains(self::TRIM_TEST_DATA, 'Test', TRUE) );
-		$this->assertFalse(StringUtils::Contains(self::TRIM_TEST_DATA, 'Test', FALSE));
+	public function test_str_contains(): void {
+		$this->assertFalse(StringUtils::str_contains(self::TRIM_TEST_DATA, '')           );
+		$this->assertTrue (StringUtils::str_contains(self::TRIM_TEST_DATA, 'test')       );
+		$this->assertTrue (StringUtils::str_contains(self::TRIM_TEST_DATA, 'Test', TRUE) );
+		$this->assertFalse(StringUtils::str_contains(self::TRIM_TEST_DATA, 'Test', FALSE));
 	}
 
 
@@ -196,49 +196,49 @@ class test_StringUtils extends \PHPUnit\Framework\TestCase {
 
 
 	/**
-	 * @covers ::getFileName
+	 * @covers ::get_filename
 	 */
-	public function test_getFileName(): void {
-		$this->assertEquals(expected: '',         actual: StringUtils::getFileName('')             );
-		$this->assertEquals(expected: 'hostname', actual: StringUtils::getFileName('/etc/hostname'));
-		$this->assertEquals(expected: 'hostname', actual: StringUtils::getFileName('hostname')     );
+	public function test_get_filename(): void {
+		$this->assertEquals(expected: '',         actual: StringUtils::get_filename('')             );
+		$this->assertEquals(expected: 'hostname', actual: StringUtils::get_filename('/etc/hostname'));
+		$this->assertEquals(expected: 'hostname', actual: StringUtils::get_filename('hostname')     );
 	}
 
 
 
 	/**
-	 * @covers ::BuildPath
+	 * @covers ::build_path
 	 */
-	public function test_BuildPath(): void {
-		$this->assertEquals(expected: '',                    actual: StringUtils::BuildPath()                                );
-		$this->assertEquals(expected: 'home',                actual: StringUtils::BuildPath('', 'home', '')                  );
-		$this->assertEquals(expected: 'home/user/Desktop',   actual: StringUtils::BuildPath('home', 'user', 'Desktop')       );
-		$this->assertEquals(expected: '/home/user/Desktop',  actual: StringUtils::BuildPath('/', 'home', 'user', 'Desktop')  );
-		$this->assertEquals(expected: '/home/user/Desktop/', actual: StringUtils::BuildPath('/home', 'user', 'Desktop', '/') );
-		$this->assertEquals(expected: '/home/user/Desktop/', actual: StringUtils::BuildPath('/home/', '/user/', '/Desktop/') );
+	public function test_build_path(): void {
+		$this->assertEquals(expected: '',                    actual: StringUtils::build_path()                                );
+		$this->assertEquals(expected: 'home',                actual: StringUtils::build_path('', 'home', '')                  );
+		$this->assertEquals(expected: 'home/user/Desktop',   actual: StringUtils::build_path('home', 'user', 'Desktop')       );
+		$this->assertEquals(expected: '/home/user/Desktop',  actual: StringUtils::build_path('/', 'home', 'user', 'Desktop')  );
+		$this->assertEquals(expected: '/home/user/Desktop/', actual: StringUtils::build_path('/home', 'user', 'Desktop', '/') );
+		$this->assertEquals(expected: '/home/user/Desktop/', actual: StringUtils::build_path('/home/', '/user/', '/Desktop/') );
 	}
 
 
 
 	/**
-	 * @covers ::getAbsolutePath
+	 * @covers ::get_absolute_path
 	 */
-	public function test_getAbsolutePath(): void {
-		$this->assertEquals(expected: '/etc/hostname', actual: StringUtils::getAbsolutePath('/etc/hostname'));
-		$this->assertEquals(expected: '',              actual: StringUtils::getAbsolutePath('')             );
-		$this->assertEquals(expected: \getcwd(),       actual: StringUtils::getAbsolutePath('.')            );
+	public function test_get_absolute_path(): void {
+		$this->assertEquals(expected: '/etc/hostname', actual: StringUtils::get_absolute_path('/etc/hostname'));
+		$this->assertEquals(expected: '',              actual: StringUtils::get_absolute_path('')             );
+		$this->assertEquals(expected: \getcwd(),       actual: StringUtils::get_absolute_path('.')            );
 	}
 
 
 
 	/**
-	 * @covers ::CommonPath
+	 * @covers ::common_path
 	 */
-	public function test_CommonPath(): void {
-		$this->assertEquals(expected: '',           actual: StringUtils::CommonPath('', '')                                       );
-		$this->assertEquals(expected: '/home/user', actual: StringUtils::CommonPath('/home/user/Desktop', '/home/user/Documents') );
-		$this->assertEquals(expected: '/home/user', actual: StringUtils::CommonPath('/home/user/',        '/home/user/Documents/'));
-		$this->assertEquals(expected: '/',          actual: StringUtils::CommonPath('/usr/bin',           '/etc/profile.d')       );
+	public function test_common_path(): void {
+		$this->assertEquals(expected: '',           actual: StringUtils::common_path('', '')                                       );
+		$this->assertEquals(expected: '/home/user', actual: StringUtils::common_path('/home/user/Desktop', '/home/user/Documents') );
+		$this->assertEquals(expected: '/home/user', actual: StringUtils::common_path('/home/user/',        '/home/user/Documents/'));
+		$this->assertEquals(expected: '/',          actual: StringUtils::common_path('/usr/bin',           '/etc/profile.d')       );
 	}
 
 

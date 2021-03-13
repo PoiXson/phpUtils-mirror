@@ -38,7 +38,7 @@ final class StringUtils {
 
 
 
-	public static function Trim(string $text, string...$remove): string {
+	public static function trim(string $text, string...$remove): string {
 		if (\count($remove) == 0) {
 			$remove = self::DEFAULT_TRIM_CHARS;
 		}
@@ -81,7 +81,7 @@ final class StringUtils {
 		return $text;
 	}
 
-	public static function TrimFront(string $text, string...$remove): string {
+	public static function trim_front(string $text, string...$remove): string {
 		if (\count($remove) == 0) {
 			$remove = self::DEFAULT_TRIM_CHARS;
 		}
@@ -117,7 +117,7 @@ final class StringUtils {
 		return $text;
 	}
 
-	public static function TrimEnd(string $text, string...$remove): string {
+	public static function trim_end(string $text, string...$remove): string {
 		if (\count($remove) == 0) {
 			$remove = self::DEFAULT_TRIM_CHARS;
 		}
@@ -160,7 +160,7 @@ final class StringUtils {
 	 * @param string $text - String in which to remove quotes.
 	 * @return string - String with ' and " quotes removed.
 	 */
-	public static function TrimQuotes(string $text): string {
+	public static function trim_quotes(string $text): string {
 		while (\mb_strlen($text) > 1) {
 			$f = \mb_substr($text,  0, 1);
 			$e = \mb_substr($text, -1, 1);
@@ -189,45 +189,45 @@ final class StringUtils {
 
 
 
-	public static function PadLeft(string $str, int $size, string $char=' '): string {
-		return self::getPadding($str, $size, $char) . $str;
+	public static function pad_left(string $str, int $size, string $char=' '): string {
+		return self::get_padding($str, $size, $char) . $str;
 	}
 
-	public static function PadRight(string $str, int $size, string $char=' '): string {
-		return $str . self::getPadding($str, $size, $char);
+	public static function pad_right(string $str, int $size, string $char=' '): string {
+		return $str . self::get_padding($str, $size, $char);
 	}
 
-	private static function getPadding(string $str, int $size, string $char=' '): string {
+	private static function get_padding(string $str, int $size, string $char=' '): string {
 		if (empty($char))
 			$char = ' ';
 		$len = $size - \mb_strlen($str);
 		if ($len < 0)
 			return '';
-		$charLen = \mb_strlen($char);
-		if ($charLen > 1) {
+		$char_len = \mb_strlen($char);
+		if ($char_len > 1) {
 			$padding = \str_repeat(
 				$char,
-				(int) \floor( ((float)$len) / ((float)$charLen) )
+				(int) \floor( ((float)$len) / ((float)$char_len) )
 			);
 			$padding .= \mb_substr(
 				$char,
 				0,
-				$len % $charLen
+				$len % $char_len
 			);
 			return $padding;
 		}
 		return \str_repeat($char, $len);
 	}
 
-	public static function PadCenter(string $str, int $size, string $char=' '): string {
+	public static function pad_center(string $str, int $size, string $char=' '): string {
 		if (empty($char))
 			$char = ' ';
 		$len = $size - \mb_strlen($str);
 		if ($len < 0)
 			return $str;
-		$padLeft  = (int) \floor( ((double) $len) / 2.0);
-		$padRight = (int) \ceil(  ((double) $len) / 2.0);
-		return \str_repeat($char, $padLeft) . $str . \str_repeat($char, $padRight);
+		$pad_left  = (int) \floor( ((double) $len) / 2.0);
+		$pad_right = (int) \ceil(  ((double) $len) / 2.0);
+		return \str_repeat($char, $pad_left) . $str . \str_repeat($char, $pad_right);
 	}
 
 
@@ -262,7 +262,7 @@ final class StringUtils {
 
 
 
-	public static function Contains(string $haystack, string $needle, bool $ignoreCase=FALSE): bool {
+	public static function str_contains(string $haystack, string $needle, bool $ignoreCase=FALSE): bool {
 		if (empty($haystack) || empty($needle))
 			return FALSE;
 		if ($ignoreCase) {
@@ -280,7 +280,7 @@ final class StringUtils {
 
 
 
-	public static function getFileName($filePath): string {
+	public static function get_filename($filePath): string {
 		if (empty($filePath))
 			return '';
 		$pos = \mb_strrpos($filePath, '/');
@@ -291,7 +291,7 @@ final class StringUtils {
 
 
 
-	public static function BuildPath(string...$parts): string {
+	public static function build_path(string...$parts): string {
 		if (empty($parts))
 			return '';
 		$prepend = \str_starts_with(haystack: \reset($parts), needle: '/');
@@ -300,7 +300,7 @@ final class StringUtils {
 		foreach ($parts as $str) {
 			if (empty($str))
 				continue;
-			$trimmed = self::Trim($str, '/', '\\', ' ');
+			$trimmed = self::trim($str, '/', '\\', ' ');
 			if (empty($trimmed))
 				continue;
 			$cleaned[] = $trimmed;
@@ -313,7 +313,7 @@ final class StringUtils {
 
 
 
-	public static function getAbsolutePath(string $path): string {
+	public static function get_absolute_path(string $path): string {
 		if (empty($path))
 			return $path;
 		$first = \mb_substr($path, 0, 1);
@@ -321,7 +321,7 @@ final class StringUtils {
 			return $path;
 		if ($first == '.')
 			$path = \mb_substr($path, 1);
-		return self::BuildPath(
+		return self::build_path(
 			Paths::pwd(),
 			$path
 		);
@@ -329,12 +329,12 @@ final class StringUtils {
 
 
 
-	public static function CommonPath(string $pathA, string $pathB): string {
+	public static function common_path(string $pathA, string $pathB): string {
 		$prepend = \str_starts_with(haystack: $pathA, needle: '/')
 				|| \str_starts_with(haystack: $pathB, needle: '/');
 		if ($prepend) {
-			$pathA = self::TrimFront($pathA, '/');
-			$pathB = self::TrimFront($pathB, '/');
+			$pathA = self::trim_front($pathA, '/');
+			$pathB = self::trim_front($pathB, '/');
 		}
 		$partsA = \explode('/', $pathA);
 		$partsB = \explode('/', $pathB);
