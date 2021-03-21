@@ -5,11 +5,11 @@
  * @license GPL-3
  * @author lorenzo at poixson.com
  * @link https://poixson.com/
- * /
+ */
 namespace pxn\phpUtils;
 
-use pxn\phpUtils\Defines;
-use pxn\phpUtils\Debug;
+use pxn\phpUtils\pxnDefines as xDef;
+//use pxn\phpUtils\Debug;
 
 
 
@@ -18,16 +18,9 @@ use pxn\phpUtils\Debug;
 
 
 // atomic state
-if (\defined('pxn\\phpUtils\\inited')) {
+if (\defined('pxn\\phpUtils\\inited'))
 	throw new \RuntimeException();
-}
 define('pxn\\phpUtils\\inited', TRUE);
-
-//TODO
-//if (\defined('pxn\\phpUtils\\PORTAL_LOADED')) {
-//	echo '<h2>Unknown state! Portal already loaded?</h2>';
-//	exit(1);
-//}
 
 
 
@@ -38,7 +31,7 @@ final class init {
 
 
 // defines
-\pxn\phpUtils\Defines::init();
+xDef::init();
 {
 	$clss = 'pxn\\phpPortal\\DefinesPortal';
 	if (\class_exists($clss)) {
@@ -61,14 +54,17 @@ Debug::init();
 
 
 // check php version
-if (\PHP_VERSION_ID < \pxn\phpUtils\Defines::PHP_MIN_VERSION) {
-	echo '<p>PHP '.\pxn\phpUtils\Defines::PHP_MIN_VERSION_STR
-		.' or newer is required!</p>'; exit(1);
+{
+	$version = xDef::PHP_MIN_VERSION;
+	if (\PHP_VERSION_ID < $version) {
+		$version_str = xDef::PHP_MIN_VERSION;
+		echo "PHP $version_str or newer is required\n";
+		exit(1);
+	}
 }
 
 // check mbstring
 if (!\function_exists('mb_substr')) {
-	echo '<h2>mbstring library not installed?</h2>';
+	echo "mbstring library not installed\n";
 	exit(1);
 }
-*/
