@@ -8,6 +8,8 @@
  */
 namespace pxn\phpUtils;
 
+use pxn\phpUtils\tools\FileFinder;
+
 
 final class Debug {
 	private function __construct() {}
@@ -32,20 +34,13 @@ final class Debug {
 			self::debug(true, 'by phpUtils define');
 		}
 		// .debug file
-		$paths = [
-			Paths::pwd().'/',
-			Paths::pwd().'/../',
-		];
-		$files = [
-			'debug',
-			'.debug',
-		];
-		foreach ($paths as $path) {
-			foreach ($files as $file) {
-				if (\is_file($path.$file)) {
-					self::debug(true, "by $file file");
-					break 2;
-				}
+		{
+			$finder = new FileFinder();
+			$finder->search_path_parents(path: Paths::pwd(), depth: 2);
+			$finder->search_files('debug', '.debug');
+			$found = $finder->find();
+			if (!empty($found)) {
+				self::debug(true, "by $found file");
 			}
 		}
 	}
@@ -53,9 +48,7 @@ final class Debug {
 
 
 	private static function EnableDisable(bool $debug): void {
-//TODO
-//		$isShell = SystemUtils::isShell();
-$isShell = false;
+		$isShell = SystemUtils::isShell();
 		\error_reporting(\E_ALL);
 		\ini_set('display_errors', $debug   ? 'On' : 'Off');
 		\ini_set('html_errors',    $isShell ? 'Off' : 'On');
