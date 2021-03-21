@@ -5,28 +5,28 @@
  * @license GPL-3
  * @author lorenzo at poixson.com
  * @link https://poixson.com/
- */
+ * /
 namespace pxn\phpUtils\tests;
 
 use pxn\phpUtils\utils\SanUtils;
 
 
-/**
+/ **
  * @coversDefaultClass \pxn\phpUtils\utils\SanUtils
- */
+ * /
 class test_SanUtils extends \PHPUnit\Framework\TestCase {
 
 	const TEST_DATA = 'abcd ABCD 1234 _-=+ ,.?! @#$%^&*~ ()<>[]{};:`\'" \\|/';
 
 
 
-	/**
+	/ **
 	 * @covers ::AlphaNum
 	 * @covers ::AlphaNumDash
 	 * @covers ::AlphaNumSpaces
 	 * @covers ::AlphaNumFile
 	 * @covers ::Base64
-	 */
+	 * /
 	public function test_San(): void {
 		$this->assertEquals(expected: 'abcdABCD1234',              actual: SanUtils::AlphaNum(self::TEST_DATA)      );
 		$this->assertEquals(expected: 'abcdABCD1234_-',            actual: SanUtils::AlphaNumDash(self::TEST_DATA)  );
@@ -38,14 +38,14 @@ class test_SanUtils extends \PHPUnit\Framework\TestCase {
 
 
 
-	/**
+	/ **
 	 * @covers ::isAlphaNum
 	 * @covers ::isAlphaNumDash
 	 * @covers ::isAlphaNumSpaces
 	 * @covers ::isAlphaNumFile
 	 * @covers ::isBase64
 	 * @covers ::isVersion
-	 */
+	 * /
 	public function test_isSan(): void {
 		// isAlphaNum()
 		$this->assertTrue(  SanUtils::isAlphaNum('abc123')             );
@@ -70,3 +70,4 @@ class test_SanUtils extends \PHPUnit\Framework\TestCase {
 
 
 }
+*/
