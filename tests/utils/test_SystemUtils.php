@@ -5,18 +5,58 @@
  * @license GPL-3
  * @author lorenzo at poixson.com
  * @link https://poixson.com/
- * /
-namespace pxn\phpUtils\tests;
+ */
+namespace pxn\phpUtils\tests\utils;
 
-use pxn\phpUtils\SystemUtils;
-use pxn\phpUtils\Strings;
+use pxn\phpUtils\utils\SystemUtils;
 
 
-/ **
- * @coversDefaultClass \pxn\phpUtils\SystemUtils
- * /
+/**
+ * @coversDefaultClass \pxn\phpUtils\utils\SystemUtils
+ */
 class SystemUtilsTest extends \PHPUnit\Framework\TestCase {
 
+
+
+	/**
+	 * @covers ::isShell
+	 * @covers ::isWeb
+	 */
+	public function test_isShell(): void {
+		$this->assertTrue( SystemUtils::isShell());
+		$this->assertFalse(SystemUtils::isWeb());
+	}
+
+
+
+	/**
+	 * @covers ::isUsrInstalled
+	 */
+	public function test_isUsrInstalled(): void {
+		$this->assertFalse(SystemUtils::isUsrInstalled());
+	}
+
+
+
+	/**
+	 * @covers ::GetUser
+	 * @covers ::DenySuperUser
+	 * @covers ::isSuperUser
+	 */
+	public function test_GetUser(): void {
+		SystemUtils::DenySuperUser();
+		$this->assertNotEmpty(SystemUtils::GetUser());
+		$this->assertTrue( SystemUtils::isSuperUser('root'));
+		$this->assertTrue( SystemUtils::isSuperUser('system'));
+		$this->assertTrue( SystemUtils::isSuperUser('admin'));
+		$this->assertTrue( SystemUtils::isSuperUser('administrator'));
+		$this->assertFalse(SystemUtils::isSuperUser('user'));
+	}
+
+
+
+}
+/*
 	const TEST_DIR1 = '_SystemTest_TEMP_/';
 	const TEST_DIR2 = 'AnotherDir/';
 	const TEST_FILE = 'testfilename.txt';
