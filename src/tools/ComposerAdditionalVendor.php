@@ -8,6 +8,8 @@
  */
 namespace pxn\phpUtils\tools;
 
+use pxn\phpUtils\utils\StringUtils;
+
 
 class ComposerAdditionalVendor {
 
