@@ -8,20 +8,34 @@
  */
 namespace pxn\phpUtils\utils;
 
+use pxn\phpUtils\Paths;
+use pxn\phpUtils\pxnDefines as xDef;
+
 
 final class SystemUtils {
 	/** @codeCoverageIgnore */
 	private function __construct() {}
 
-	private static $isShell = NULL;
+	private static ?bool $isShell = null;
 
 
 
+//TODO: logging
 	public static function isShell(): bool {
-		if (self::$isShell === NULL) {
-			self::$isShell = isset($_SERVER['SHELL']) && !empty($_SERVER['SHELL']);
+		if (self::$isShell === null) {
+			$isShell = (isset($_SERVER['SHELL'])           && !empty($_SERVER['SHELL']));
+			$isWeb   = (isset($_SERVER['REDIRECT_STATUS']) && !empty($_SERVER['REDIRECT_STATUS']));
+			if ($isShell && !$isWeb) {
+				self::$isShell = true;
+			} else
+			if (!$isShell && $isWeb) {
+				self::$isShell = false;
+			} else {
+				echo "Unknown web/shell mode\n";
+				exit(xDef::EXIT_CODE_GENERAL);
+			}
 		}
-		return (self::$isShell === TRUE);
+		return self::$isShell;
 	}
 	public static function isWeb(): bool {
 		return ! self::isShell();
@@ -29,36 +43,29 @@ final class SystemUtils {
 
 
 
+	/** @codeCoverageIgnore */
 	public static function AssertShell(): void {
 		if (!self::isShell()) {
-			echo 'This script is a website';
-			exit(1);
+			echo "This is a CLI script\n";
+			exit(xDef::EXIT_CODE_GENERAL);
 		}
 	}
+	/** @codeCoverageIgnore */
 	public static function AssertWeb(): void {
 		if (!self::isWeb()) {
-			echo 'This script is not a website';
-			exit(1);
+			echo "This script is a website\n";
+			exit(xDef::EXIT_CODE_GENERAL);
 		}
 	}
 
 
 
-
-
-
-/*
-	public static function RequireLinux(): void {
+	/** @codeCoverageIgnore */
+	public static function AssertLinux(): void {
 		$os = \PHP_OS;
 		if ($os != 'Linux') {
-//TODO
-//			fail(
-//				'Sorry, only Linux is currently supported. Contact '.
-//				'the developer if you\'d like to help add support for '.\PHP_OS,
-//				Defines::EXIT_CODE_GENERAL
-//			);
-			echo 'Sorry, only Linux is currently supported. Contact the developer if you\'d like to help add support for '.\PHP_OS;
-			exit(DEFINES::EXIT_CODE_GENERAL);
+			echo "Sorry, only Linux is currently supported. Contact the developer if you'd like to help add support for $os\n";
+			exit(xDef::EXIT_CODE_GENERAL);
 		}
 	}
 
@@ -71,48 +78,44 @@ final class SystemUtils {
 
 
 	public static function isUsrInstalled(): bool {
-		return Strings::StartsWith(Paths::entry(), '/usr/');
+		return \str_starts_with(haystack: Paths::entry(), needle: '/usr/');
 	}
 
 
 
-	public static function getUser(): ?string {
+	public static function GetUser(): ?string {
 		if (isset($_SERVER['USER']))
-			return $_SERVER['USER'];
+			if (!empty($_SERVER['USER']))
+				return $_SERVER['USER'];
 		$who = \exec('whoami');
 		if (empty($who))
-			return NULL;
+			return null;
 		return $who;
 	}
-	public static function denySuperUser(): void {
-		$who = self::isSuperUser();
-		if (!empty($who)) {
-//TODO
-//			fail("Cannot run this script as super user: $who",
-//				Defines::EXIT_CODE_NOPERM);
-			exit(Defines::EXIT_CODE_NOPERM);
+	public static function DenySuperUser(): void {
+		if (self::isSuperUser()) {
+			echo "Cannot run this script as super user\n";
+			exit(xDef::EXIT_CODE_NOPERM);
 		}
 	}
-	public static function isSuperUser(?string $who=NULL): bool {
-		if (empty($who)) {
+	public static function isSuperUser(?string $who=null): bool {
+		if (empty($who))
 			$who = self::getUser();
-		}
 		$who = \strtolower($who);
-		if ($who == 'root') {
-			return $who;
+		switch ($who) {
+		case 'root':
+		case 'system':
+		case 'admin':
+		case 'administrator':
+			return true;
+		default: break;
 		}
-		if ($who == 'system') {
-			return $who;
-		}
-		if ($who == 'administrator') {
-			return $who;
-		}
-		return FALSE;
+		return false;
 	}
 
 
 
-/ *
+/*
 	public static function exec($command): bool {
 		$command = \trim($command);
 		if (empty($command))
