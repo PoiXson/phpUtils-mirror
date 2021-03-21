@@ -9,6 +9,7 @@
 namespace pxn\phpUtils;
 
 use pxn\phpUtils\tools\FileFinder;
+use pxn\phpUtils\utils\SystemUtils;
 
 
 final class Debug {
@@ -16,8 +17,8 @@ final class Debug {
 
 	private static bool $inited = false;
 
-	private static ?bool $debug = null;
-	private static ?string $desc = null;
+	private static ?bool   $value = null;
+	private static ?string $desc  = null;
 
 
 
@@ -47,10 +48,10 @@ final class Debug {
 
 
 
-	private static function EnableDisable(bool $debug): void {
+	private static function EnableDisable(bool $enable): void {
 		$isShell = SystemUtils::isShell();
 		\error_reporting(\E_ALL);
-		\ini_set('display_errors', $debug   ? 'On' : 'Off');
+		\ini_set('display_errors', $enable  ? 'On' : 'Off');
 		\ini_set('html_errors',    $isShell ? 'Off' : 'On');
 		\ini_set('log_errors',     'On');
 		\ini_set('error_log',      $isShell ? '/var/log/php_shell_error' : 'error_log');
@@ -60,17 +61,18 @@ final class Debug {
 
 
 	public static function debug(?bool $enable=null, ?string $desc=null): bool {
+		self::init();
 		if ($enable !== null) {
-			if ($enable !== self::$debug) {
-				self::$debug = $enable;
-				self::EnableDisable(self::$enable);
-				self::addDesc($desc);
+			if (self::$value !== $enable) {
+				self::$value = $enable;
+				self::EnableDisable(self::$value);
+				self::desc($desc);
 			}
 		}
 		// default
-		if (self::$debug === null)
+		if (self::$value === null)
 			return false;
-		return self::$debug;
+		return self::$value;
 	}
 
 
