@@ -9,6 +9,7 @@
 namespace pxn\phpUtils\utils;
 
 use pxn\phpUtils\pxnDefines as xDef;
+use pxn\phpUtils\exceptions\RequiredArgumentException;
 
 
 final class NumberUtils {
@@ -155,6 +156,72 @@ final class NumberUtils {
 			$value = $value % $num;
 		}
 		return $result;
+	}
+
+
+
+	############
+	## Colors ##
+	############
+
+
+
+	public static function ColorPercent(float $percent, string...$colors): string {
+		$count = \count($colors);
+		if ($count == 0) throw new RequiredArgumentException('colors');
+		if ($count == 1)     return self::ShorthandHexColor( \reset($colors) );
+		if ($percent <= 0.0) return self::ShorthandHexColor( \reset($colors) );
+		if ($percent >= 1.0) return self::ShorthandHexColor( $colors[$count - 1] );
+		$addhash = '';
+		$r = $g = $b = [];
+		$i = 0;
+		foreach ($colors as &$c) {
+			if (\mb_substr($c, 0, 1) == '#') {
+				$c = \mb_substr($c, 1);
+				$addhash = '#';
+			}
+			if (\mb_strlen($c) == 3) {
+				$c =
+					\mb_substr($c, 0, 1).\mb_substr($c, 0, 1).
+					\mb_substr($c, 1, 1).\mb_substr($c, 1, 1).
+					\mb_substr($c, 2, 1).\mb_substr($c, 2, 1);
+			}
+			if (\mb_strlen($c) != 6) throw new RequiredArgumentException("color$i");
+			$r[$i] = \hexdec(\mb_substr($c, 0, 2));
+			$g[$i] = \hexdec(\mb_substr($c, 2, 2));
+			$b[$i] = \hexdec(\mb_substr($c, 4, 2));
+			$i++;
+		}
+		$mod = 1.0 / ($count-1);
+		$index = \floor($percent / $mod);
+		if ($index < 0) $index = 0;
+		elseif ($index > $count - 1)
+			$index = $count - 1;
+		$percent = ($percent - ($mod * $index)) / $mod;
+		$Hr = \dechex((int)\floor( ((1.0-$percent) * $r[$index]) + ($percent * $r[$index+1]) ));
+		$Hg = \dechex((int)\floor( ((1.0-$percent) * $g[$index]) + ($percent * $g[$index+1]) ));
+		$Hb = \dechex((int)\floor( ((1.0-$percent) * $b[$index]) + ($percent * $b[$index+1]) ));
+		if (\mb_strlen($Hr) < 2) $Hr = "0$Hr";
+		if (\mb_strlen($Hg) < 2) $Hg = "0$Hg";
+		if (\mb_strlen($Hb) < 2) $Hb = "0$Hb";
+		return self::ShorthandHexColor( "$addhash$Hr$Hg$Hb" );
+	}
+
+	public static function ShorthandHexColor(string $color): string {
+		$addhash = '';
+		if (\mb_substr($color, 0, 1) == '#') {
+			$color = \mb_substr($color, 1);
+			$addhash = '#';
+		}
+		if (\mb_strlen($color) == 6) {
+			if (\mb_substr($color, 0, 1) == \mb_substr($color, 1, 1)) {
+			if (\mb_substr($color, 2, 1) == \mb_substr($color, 3, 1)) {
+			if (\mb_substr($color, 4, 1) == \mb_substr($color, 5, 1)) {
+				return $addhash.\mb_substr($color, 0, 1).
+					\mb_substr($color, 2, 1).\mb_substr($color, 4, 1);
+			}}}
+		}
+		return $addhash.$color;
 	}
 
 

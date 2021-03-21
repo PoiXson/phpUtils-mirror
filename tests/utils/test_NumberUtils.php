@@ -186,6 +186,48 @@ class test_NumberUtils extends \PHPUnit\Framework\TestCase {
 
 
 
+	############
+	## Colors ##
+	############
+
+
+
+	/**
+	 * @covers ::ColorPercent
+	 */
+	public function test_ColorPercent(): void {
+		$this->assertEquals(expected: '#7f7f7f', actual: NumberUtils::ColorPercent(0.5, '#000000', '#ffffff'));
+		$this->assertEquals(expected: '000',     actual: NumberUtils::ColorPercent(0.0, '000', 'fff'));
+		$this->assertEquals(expected: 'fff',     actual: NumberUtils::ColorPercent(1.0, '000', 'fff'));
+		$this->assertEquals(expected: '7f7f7f',  actual: NumberUtils::ColorPercent(0.5, '000', 'fff'));
+		$this->assertEquals(expected: '191919',  actual: NumberUtils::ColorPercent(0.1, '000', 'fff'));
+		$this->assertEquals(expected: '020202',  actual: NumberUtils::ColorPercent(0.01,'000', 'fff'));
+		$this->assertEquals(expected: '00557f',  actual: NumberUtils::ColorPercent(0.5, '000', '0af'));
+		$this->assertEquals(expected: '640',     actual: NumberUtils::ColorPercent(0.4, '000', 'fa0'));
+		$this->assertEquals(expected: '012',     actual: NumberUtils::ColorPercent(0.0, '012', '555', 'fff'));
+		$this->assertEquals(expected: '011223',  actual: NumberUtils::ColorPercent(0.01,'012', '555', 'fed'));
+		$this->assertEquals(expected: '111e2c',  actual: NumberUtils::ColorPercent(0.1, '012', '555', 'fed'));
+		$this->assertEquals(expected: '535353',  actual: NumberUtils::ColorPercent(0.49,'012', '555', 'fed'));
+		$this->assertEquals(expected: '555',     actual: NumberUtils::ColorPercent(0.5, '012', '555', 'fed'));
+		$this->assertEquals(expected: '585857',  actual: NumberUtils::ColorPercent(0.51,'012', '555', 'fed'));
+		$this->assertEquals(expected: 'ddcfc1',  actual: NumberUtils::ColorPercent(0.9, '012', '555', 'fed'));
+		$this->assertEquals(expected: 'fed',     actual: NumberUtils::ColorPercent(1.0, '012', '555', 'fed'));
+	}
+
+
+
+	/**
+	 * @covers ::ShorthandHexColor
+	 */
+	public function test_ShorthandHexColor(): void {
+		$this->assertEquals(expected:'#abcdef', actual: NumberUtils::ShorthandHexColor('#abcdef'));
+		$this->assertEquals(expected: 'abcdef', actual: NumberUtils::ShorthandHexColor( 'abcdef'));
+		$this->assertEquals(expected:'#abc',    actual: NumberUtils::ShorthandHexColor('#aabbcc'));
+		$this->assertEquals(expected: 'abc',    actual: NumberUtils::ShorthandHexColor( 'aabbcc'));
+	}
+
+
+
 	##########
 	## Time ##
 	##########
