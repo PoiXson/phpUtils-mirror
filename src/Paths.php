@@ -8,93 +8,89 @@
  */
 namespace pxn\phpUtils;
 
+use pxn\phpUtils\exceptions\RequiredArgumentException;
+
 
 final class Paths {
+	/** @codeCoverageIgnore */
 	private function __construct() {}
 
-	private static $inited = FALSE;
+	private static bool $inited = false;
 
-	// local paths
-	protected static $local_pwd    = NULL;
-	protected static $local_entry  = NULL;
-	protected static $local_project= NULL;
-	protected static $local_utils  = NULL;
-
-	protected static $extra_paths = [];
+	private static array $paths = [];
 
 
 
-	/ **
-	 * @codeCoverageIgnore
-	 * /
 	public static function init(): void {
 		if (self::$inited) return;
-		self::$inited = TRUE;
+		self::$inited = true;
 		// pwd path
-		self::$local_pwd =
-			\realpath(
-				\getcwd()
-			);
+		self::$paths['pwd'] = \realpath( \getcwd() );
 		// entry path
 		{
-			$local_entry = NULL;
+			$path = null;
 			if (isset($_SERVER['DOCUMENT_ROOT'])) {
-				$local_entry = $_SERVER['DOCUMENT_ROOT'];
+				$path = $_SERVER['DOCUMENT_ROOT'];
 			}
-			// find entry path from backtrace (shell mode)
-			if (empty($local_entry)) {
+			// find entry path from backtrace
+			// (slow but needed for shell)
+			if (empty($path)) {
 				$trace = \debug_backtrace();
 				$last  = \end($trace);
-				$local_entry = \dirname($last['file']);
+				$path = \dirname($last['file']);
 			}
-			self::$local_entry = \realpath($local_entry);
+			self::$paths['entry'] = \realpath($path);
 		}
-		// project path
-		self::$local_project = Strings::trim(self::$local_entry, '/public', '/scripts');
-		// utils path
-		self::$local_utils = __DIR__;
+//TODO: is this needed?
+//		// project path
+//		self::$local_project = Strings::trim(self::$local_entry, '/public', '/scripts');
+//TODO: is this needed?
+//		// utils path
+//		self::$local_utils = __DIR__;
 		// ensure all is good
-		{
-			$paths = self::all();
-			foreach ($paths as $name => $path) {
-				if (empty($path)) {
-					fail("Failed to detect path: $name !",
-						Defines::EXIT_CODE_INTERNAL_ERROR);
-				}
-			}
-			unset($paths);
+		self::assertPathSet('pwd');
+		self::assertPathSet('entry');
+	}
+
+
+
+	protected static function assertPathSet(string $key): void {
+		if (empty($key)) throw new RequiredArgumentException('key');
+		if (!isset(self::$paths[$key]) || empty(self::$paths[$key])) {
+			echo "Failed to detect path: $key\n";
+			exit(xDef::EXIT_CODE_INTERNAL_ERROR);
 		}
 	}
 
 
 
+	public static function get(string $key): string {
+		if (empty($key)) throw new RequiredArgumentException('key');
+		if (!isset(self::$paths[$key])) throw new \RuntimeException("Path not set: $key");
+		if (empty(self::$paths[$key]))  throw new \RuntimeException("Path not set: $key");
+		return self::$paths[$key];
+	}
 	public static function all(): array {
-		$all = [];
-		$all['local'] = [
-			'pwd'    => self::$local_pwd,
-			'entry'  => self::$local_entry,
-			'project'=> self::$local_project,
-			'utils'  => self::$local_utils,
-		];
-		return $all;
+		return self::$paths;
 	}
 
 
 
-	// local paths
 	public static function pwd(): string {
-		return self::$local_pwd;
+		self::init();
+		return self::$paths['pwd'];
 	}
 	public static function entry(): string {
-		return self::$local_entry;
-	}
-	public static function project(): string {
-		return self::$local_project;
-	}
-	public static function utils(): string {
-		return self::$local_utils;
+		self::init();
+		return self::$paths['entry'];
 	}
 
+
+
+}
+/*
+	protected static $local_project= NULL;
+	protected static $local_utils  = NULL;
 
 
 	public static function setProjectPath(string $path) {
@@ -125,7 +121,3 @@ final class Paths {
 		}
 	}
 */
-
-
-
-}
