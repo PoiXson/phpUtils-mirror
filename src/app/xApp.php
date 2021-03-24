@@ -21,19 +21,19 @@ abstract class xApp {
 
 	public function __construct() {
 		$this->check_run_mode();
-		// find app name and namespace
+		// find class name and namespace
 		{
-			$tmp = \get_called_class();
-			$tmp = StringUtils::Trim($tmp, '\\');
-			$pos = \mb_strrpos($tmp, '\\');
+			$clss = StringUtils::Trim(\get_called_class(), '\\');
+			$pos = \mb_strrpos($clss, '\\');
 			if ($pos === FALSE || $pos <= 3) {
-				$this->appName = $tmp;
-				$this->namespacePath = '';
+				$this->appName = $clss;
+				$this->appNS   = '';
 			} else {
-				$this->appName       = StringUtils::Trim(\mb_substr($tmp, $pos),    '\\');
-				$this->namespacePath = StringUtils::Trim(\mb_substr($tmp, 0, $pos), '\\');
+				$this->appName = StringUtils::Trim(\mb_substr($clss, $pos),    '\\');
+				$this->appNS   = StringUtils::Trim(\mb_substr($clss, 0, $pos), '\\');
 			}
-			unset($tmp, $pos);
+			if (empty($this->appName))
+				throw new \RuntimeException('Failed to find app name');
 		}
 		// app version
 		{
@@ -61,6 +61,9 @@ abstract class xApp {
 	public function getNamespace(): string {
 		return $this->appNS;
 	}
+
+
+
 	public function getVersion(): string {
 		return $this->version;
 	}
