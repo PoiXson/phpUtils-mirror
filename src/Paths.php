@@ -70,7 +70,31 @@ final class Paths {
 		if (empty(self::$paths[$key]))  throw new \RuntimeException("Path not set: $key");
 		return self::$paths[$key];
 	}
-	public static function all(): array {
+	public static function set(string $key, string $path): void {
+		if (empty($key)) throw new RequiredArgumentException('key');
+		// path starts with {tag}
+		if (\mb_strpos(haystack: $path, needle: '{') === 0) {
+			$pos = \mb_strpos(haystack: $path, needle: '}');
+			if ($pos !== false) {
+				$var = \mb_substr($path, 1, $pos-1);
+				$path = \mb_substr($path, $pos+1);
+				if ($var == 'pwd') {
+					$path = Paths::pwd().$path;
+				} else
+				if ($var == 'entry') {
+					$path = Paths::entry().$path;
+				} else {
+					$p = self::get($var);
+					if (empty($p))
+						throw new \RuntimeException("Unknown path tag: $var");
+					$path = $p.$path;
+				}
+			}
+		}
+		self::$paths[$key] = $path;
+	}
+
+	public static function getAll(): array {
 		return self::$paths;
 	}
 
