@@ -7,6 +7,7 @@
  * @link https://poixson.com/
  */
 namespace pxn\phpUtils\tests\app;
+include_once('Version.php');
 
 use pxn\phpUtils\app\xApp;
 
@@ -30,7 +31,7 @@ class test_StringUtils extends \PHPUnit\Framework\TestCase {
 		$this->assertNotNull($app);
 		$this->assertEquals(expected: "xAppTest", actual: $app->getName());
 		$this->assertEquals(expected: "pxn\\phpUtils\\tests\app", actual: $app->getNamespace());
-		$this->assertEquals(expected: '3.2.1', actual: $app->getVersion());
+		$this->assertEquals(expected: 'x.y.z', actual: $app->getVersion());
 		$this->assertTrue($app->has_checked_run_state);
 	}
 
@@ -51,10 +52,6 @@ class xAppTest extends xApp {
 	}
 
 	public function run(): void {
-	}
-
-	public function getVersion(): string {
-		return '3.2.1';
 	}
 
 }
