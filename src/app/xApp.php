@@ -15,6 +15,7 @@ abstract class xApp {
 
 	protected string $appName;
 	protected string $appNS;
+	protected string $version;
 
 
 
@@ -34,6 +35,16 @@ abstract class xApp {
 			}
 			unset($tmp, $pos);
 		}
+		// app version
+		{
+			$clss = "\\{$this->appNS}\\Version";
+			$cnst = "{$clss}::version";
+			if (!\class_exists($clss) || !\defined($cnst))
+				throw new \RuntimeException("Class not found: $clss");
+			$this->version = \constant($cnst);
+			if (empty($this->version))
+				throw new \RuntimeException('App version not found');
+		}
 	}
 
 
@@ -51,7 +62,7 @@ abstract class xApp {
 		return $this->appNS;
 	}
 	public function getVersion(): string {
-		return \pxn\phpUtils\Version::phpUtilsVersion;
+		return $this->version;
 	}
 
 
