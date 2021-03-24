@@ -3,7 +3,7 @@ namespace pxn\phpUtils;
 final class Version {
 
 
-const phpUtilsVersion = "0.3.x";
+const version = '0.3.x';
 
 
 }
