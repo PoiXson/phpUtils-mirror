@@ -11,16 +11,17 @@ namespace pxn\phpUtils;
 use pxn\phpUtils\exceptions\RequiredArgumentException;
 
 
-final class Paths {
+class Paths {
 	/** @codeCoverageIgnore */
-	private function __construct() {}
+	private final function __construct() {}
 
 	private static bool $inited = false;
 
-	private static array $paths = [];
+	protected static array $paths = [];
 
 
 
+	/** @codeCoverageIgnore */
 	public static function init(): void {
 		if (self::$inited) return;
 		self::$inited = true;
@@ -54,12 +55,10 @@ final class Paths {
 
 
 
-	protected static function assertPathSet(string $key): void {
+	public static function assertPathSet(string $key): void {
 		if (empty($key)) throw new RequiredArgumentException('key');
-		if (!isset(self::$paths[$key]) || empty(self::$paths[$key])) {
-			echo "Failed to detect path: $key\n";
-			exit(xDef::EXIT_CODE_INTERNAL_ERROR);
-		}
+		if (!isset(self::$paths[$key]) || empty(self::$paths[$key]))
+			throw new \RuntimeException("Path not set: $key");
 	}
 
 
@@ -84,6 +83,8 @@ final class Paths {
 				if ($var == 'entry') {
 					$path = Paths::entry().$path;
 				} else {
+					if (!isset(self::$paths[$var]))
+						throw new \RuntimeException("Unknown path tag: $var");
 					$p = self::get($var);
 					if (empty($p))
 						throw new \RuntimeException("Unknown path tag: $var");
@@ -112,36 +113,3 @@ final class Paths {
 
 
 }
-/*
-	protected static $local_project= NULL;
-	protected static $local_utils  = NULL;
-
-
-	public static function setProjectPath(string $path) {
-		self::$local_project = $path;
-	}
-
-
-
-	public static function getPath(string $key): ?string {
-		if (empty($key)) throw new \NullPointerException();
-		$key = \mb_strtolower($key);
-		switch ($key) {
-		case 'pwd':     return self::pwd();
-		case 'entry':   return self::entry();
-		case 'project': return self::project();
-		case 'utils':   return self::utils();
-		default:
-		}
-		if (isset(self::$extra_paths[$key]))
-			return self::$extra_paths[$key];
-		return null;
-	}
-	public static function setPath(string $key, ?string $path): void {
-		if (empty($path)) {
-			unset(self::$extra_paths[$key]);
-		} else {
-			self::$extra_paths[$key] = $path;
-		}
-	}
-*/
