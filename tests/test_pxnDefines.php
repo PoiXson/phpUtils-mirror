@@ -23,9 +23,6 @@ class test_pxnDefines extends \PHPUnit\Framework\TestCase {
 	 */
 	public function test_Values(): void {
 		xDef::init();
-		// phpUtils version
-		$this->assertNotEmpty(xDef::phpUtilsVersion);
-		$this->assertTrue(\str_starts_with(haystack: xDef::phpUtilsVersion, needle: "0."));
 		// php version
 		$this->assertGreaterThanOrEqual(expected: 80000, actual: xDef::PHP_MIN_VERSION);
 		$this->assertLessThan(          expected: 90000, actual: xDef::PHP_MIN_VERSION);
