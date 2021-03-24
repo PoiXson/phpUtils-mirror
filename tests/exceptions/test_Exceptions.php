@@ -17,6 +17,12 @@ class test_NumberUtils extends \PHPUnit\Framework\TestCase {
 
 
 
+	##################
+	## Null Pointer ##
+	##################
+
+
+
 	/**
 	 * @covers \pxn\phpUtils\exceptions\NullPointerException
 	 */
@@ -25,6 +31,7 @@ class test_NumberUtils extends \PHPUnit\Framework\TestCase {
 		$this->expectExceptionMessage('');
 		throw new NullPointerException();
 	}
+
 	/**
 	 * @covers \pxn\phpUtils\exceptions\NullPointerException
 	 */
@@ -36,6 +43,12 @@ class test_NumberUtils extends \PHPUnit\Framework\TestCase {
 
 
 
+	#######################
+	## Required Argument ##
+	#######################
+
+
+
 	/**
 	 * @covers \pxn\phpUtils\exceptions\RequiredArgumentException
 	 */
@@ -44,6 +57,7 @@ class test_NumberUtils extends \PHPUnit\Framework\TestCase {
 		$this->expectExceptionMessage('');
 		throw new RequiredArgumentException();
 	}
+
 	/**
 	 * @covers \pxn\phpUtils\exceptions\RequiredArgumentException
 	 */
@@ -55,6 +69,12 @@ class test_NumberUtils extends \PHPUnit\Framework\TestCase {
 
 
 
+	####################
+	## File Not Found ##
+	####################
+
+
+
 	/**
 	 * @covers \pxn\phpUtils\exceptions\FileNotFoundException
 	 */
@@ -63,6 +83,7 @@ class test_NumberUtils extends \PHPUnit\Framework\TestCase {
 		$this->expectExceptionMessage('');
 		throw new FileNotFoundException();
 	}
+
 	/**
 	 * @covers \pxn\phpUtils\exceptions\FileNotFoundException
 	 */
