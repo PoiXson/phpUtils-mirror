@@ -14,7 +14,7 @@ use pxn\phpUtils\utils\StringUtils;
 abstract class xApp {
 
 	protected string $appName;
-	protected string $namespacePath;
+	protected string $appNS;
 
 
 
@@ -48,7 +48,7 @@ abstract class xApp {
 		return $this->appName;
 	}
 	public function getNamespace(): string {
-		return $this->namespacePath;
+		return $this->appNS;
 	}
 	public function getVersion(): string {
 		return \pxn\phpUtils\Version::phpUtilsVersion;
