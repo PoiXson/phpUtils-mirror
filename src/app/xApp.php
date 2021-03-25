@@ -9,6 +9,7 @@
 namespace pxn\phpUtils\app;
 
 use pxn\phpUtils\utils\StringUtils;
+use pxn\phpUtils\Paths;
 
 
 abstract class xApp {
@@ -48,6 +49,10 @@ abstract class xApp {
 	}
 
 
+
+	protected function load_paths(): void {
+		Paths::init();
+	}
 
 	protected abstract function check_run_mode(): void;
 
