@@ -23,7 +23,7 @@ class test_NumberUtils extends \PHPUnit\Framework\TestCase {
 	 * @covers ::isNumber
 	 */
 	public function test_isNumber(): void {
-		$this->assertFalse(NumberUtils::isNumber(NULL      ), "Value: NULL"      );
+		$this->assertFalse(NumberUtils::isNumber(null      ), "Value: NULL"      );
 		$this->assertFalse(NumberUtils::isNumber(''        ), "Value: ''"        );
 		$this->assertTrue (NumberUtils::isNumber('1'       ), "Value: '1'"       );
 		$this->assertTrue (NumberUtils::isNumber('0'       ), "Value: '0'"       );
@@ -129,7 +129,7 @@ class test_NumberUtils extends \PHPUnit\Framework\TestCase {
 	 * @covers ::FormatBytes
 	 */
 	public function test_FormatBytes(): void {
-		$this->assertEquals(expected:    NULL, actual: NumberUtils::FormatBytes(-1  ));
+		$this->assertEquals(expected:    null, actual: NumberUtils::FormatBytes(-1  ));
 		$this->assertEquals(expected:    '1B', actual: NumberUtils::FormatBytes(1   ));
 		$this->assertEquals(expected:   '1KB', actual: NumberUtils::FormatBytes(1024));
 		$this->assertEquals(expected:'1.01KB', actual: NumberUtils::FormatBytes(1030));
@@ -137,7 +137,7 @@ class test_NumberUtils extends \PHPUnit\Framework\TestCase {
 		$this->assertEquals(expected:   '3GB', actual: NumberUtils::FormatBytes(1024 * 1024 * 1024 * 3       ));
 		$this->assertEquals(expected:   '4TB', actual: NumberUtils::FormatBytes(1024 * 1024 * 1024 * 1024 * 4));
 		// from string
-		$this->assertEquals(expected:    NULL, actual: NumberUtils::FormatBytes(''     ));
+		$this->assertEquals(expected:    null, actual: NumberUtils::FormatBytes(''     ));
 		$this->assertEquals(expected:    '1B', actual: NumberUtils::FormatBytes(' 1 B '));
 		$this->assertEquals(expected:   '1KB', actual: NumberUtils::FormatBytes('1 K B'));
 		$this->assertEquals(expected:   '1KB', actual: NumberUtils::FormatBytes('1024B'));
@@ -269,16 +269,16 @@ class test_NumberUtils extends \PHPUnit\Framework\TestCase {
 		$this->assertEquals(expected:              '1min 2sec', actual: NumberUtils::SecondsToString(      62));
 		$this->assertEquals(expected:         '1hr 6min 50sec', actual: NumberUtils::SecondsToString(    4010));
 		$this->assertEquals(expected:          '5hr 2min 1sec', actual: NumberUtils::SecondsToString(   18121));
-		$this->assertEquals(expected:               '5hr 2min', actual: NumberUtils::SecondsToString(   18121, TRUE, 2));
+		$this->assertEquals(expected:               '5hr 2min', actual: NumberUtils::SecondsToString(   18121, true, 2));
 		$this->assertEquals(expected:                   '5day', actual: NumberUtils::SecondsToString(  432000));
 		$this->assertEquals(expected:                  '15day', actual: NumberUtils::SecondsToString( 1296000));
 		$this->assertEquals(expected:                    '1yr', actual: NumberUtils::SecondsToString(31536000));
 		$this->assertEquals(expected:'1yr 38day 1hr 1min 1sec', actual: NumberUtils::SecondsToString(34822861));
-		$this->assertEquals(expected:               '1 Second', actual: NumberUtils::SecondsToString(       1, FALSE));
-		$this->assertEquals(expected:     '2 Hours  2 Minutes', actual: NumberUtils::SecondsToString(    7320, FALSE));
-		$this->assertEquals(expected:                 '1 Year', actual: NumberUtils::SecondsToString(31536000, FALSE));
-		$this->assertEquals(expected:        '2 Years  2 Days', actual: NumberUtils::SecondsToString(63244800, FALSE));
-		$this->assertEquals(expected:                   '1mon', actual: NumberUtils::SecondsToString( 2592000, TRUE, 0, 0.9));
+		$this->assertEquals(expected:               '1 Second', actual: NumberUtils::SecondsToString(       1, false));
+		$this->assertEquals(expected:     '2 Hours  2 Minutes', actual: NumberUtils::SecondsToString(    7320, false));
+		$this->assertEquals(expected:                 '1 Year', actual: NumberUtils::SecondsToString(31536000, false));
+		$this->assertEquals(expected:        '2 Years  2 Days', actual: NumberUtils::SecondsToString(63244800, false));
+		$this->assertEquals(expected:                   '1mon', actual: NumberUtils::SecondsToString( 2592000, true, 0, 0.9));
 	}
 
 

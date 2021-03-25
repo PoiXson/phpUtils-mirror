@@ -26,7 +26,7 @@ class ComposerAdditionalVendor {
 	// example: AddVendor('pxn\\LibName', '../../LibName/')
 	public function addVendorClassMap(string $path,
 	array $whitelist=[], array $blacklist=[]): void {
-		if ($this->autoload == NULL)
+		if ($this->autoload == null)
 			throw new \RuntimeException('Composer autoload not registered');
 		// defaults
 		$blacklist[] = 'pxn\\ComposerLocalDev';
@@ -51,11 +51,11 @@ class ComposerAdditionalVendor {
 			}
 			// check whitelists
 			if (\count($whitelist) > 0) {
-				$found = FALSE;
+				$found = false;
 				foreach ($whitelist as $entry) {
 					$entry = StringUtils::force_ends_with(haystack: $entry, append: '\\');
 					if (\str_starts_with(haystack: $key, needle: $entry)) {
-						$found = TRUE;
+						$found = true;
 						break;
 					}
 				}

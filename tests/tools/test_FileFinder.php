@@ -28,10 +28,10 @@ class test_FileFinder extends \PHPUnit\Framework\TestCase {
 		// depth 0
 		{
 			$finder = new FileFinder();
-			$this->assertEquals(expected: NULL, actual: $finder->find());
+			$this->assertEquals(expected: null, actual: $finder->find());
 			$finder->search_path_parents(path: __DIR__.'/testfiles/abcd/efgh', depth: 0);
 			$finder->search_files('file_at_root.txt');
-			$this->assertEquals(expected: NULL, actual: $finder->find());
+			$this->assertEquals(expected: null, actual: $finder->find());
 			unset($finder);
 		}
 		// depth 1
@@ -39,7 +39,7 @@ class test_FileFinder extends \PHPUnit\Framework\TestCase {
 			$finder = new FileFinder();
 			$finder->search_path_parents(path: __DIR__.'/testfiles/abcd/efgh', depth: 1);
 			$finder->search_files('file_at_root.txt');
-			$this->assertEquals(expected: NULL, actual: $finder->find());
+			$this->assertEquals(expected: null, actual: $finder->find());
 			unset($finder);
 		}
 		// depth 2

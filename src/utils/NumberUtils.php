@@ -26,11 +26,11 @@ final class NumberUtils {
 	 *         being trimmed.
 	 */
 	public static function isNumber($value): bool {
-		if ($value === NULL) return FALSE;
+		if ($value === null) return false;
 		$value = \trim( (string)$value );
-		if ($value === '') return FALSE;
+		if ($value === '') return false;
 		$value = StringUtils::trim_front($value, '0');
-		if ($value == '') return TRUE;
+		if ($value == '') return true;
 		$i = ((string) ((int)$value) );
 		return ($value === $i);
 	}
@@ -45,10 +45,10 @@ final class NumberUtils {
 	 * @return int value
 	 */
 	public static function MinMax(int $value, int $min=\PHP_INT_MIN, int $max=\PHP_INT_MAX): int {
-		if ($min !== FALSE && $max !== FALSE && $min > $max)
+		if ($min !== false && $max !== false && $min > $max)
 			throw new \Exception('Min must be less than Max!');
-		if ($min !== FALSE && $value < $min) return $min;
-		if ($max !== FALSE && $value > $max) return $max;
+		if ($min !== false && $value < $min) return $min;
+		if ($max !== false && $value > $max) return $max;
 		return $value;
 	}
 
@@ -88,7 +88,7 @@ final class NumberUtils {
 		if ($places <= 0)
 			return $str;
 		$pos = \mb_strrpos($str, '.');
-		if ($pos === FALSE)
+		if ($pos === false)
 			return $str . '.' . \str_repeat('0', $places);
 		$pos = \mb_strlen($str) - ($pos + 1);
 		if ($pos < $places)
@@ -131,8 +131,8 @@ final class NumberUtils {
 	 * @param int $max -
 	 * @return string - Roman numerals string representing input number.
 	 */
-	public static function FormatRoman(int $value, ?int $max=NULL): string {
-		if ( ($max !== NULL && $value > $max) || $value < 0)
+	public static function FormatRoman(int $value, ?int $max=null): string {
+		if ( ($max !== null && $value > $max) || $value < 0)
 			return (string) $value;
 		$result = '';
 		$lookup = [
@@ -289,10 +289,10 @@ final class NumberUtils {
 	 * @return string
 	 */
 	public static function SecondsToString(int $seconds,
-	bool $shorthand=TRUE, ?int $maxParts=NULL, float $deviance=1.0): string {
+	bool $shorthand=true, ?int $maxParts=null, float $deviance=1.0): string {
 		$maxParts = (
-			$maxParts == NULL
-			? NULL
+			$maxParts == null
+			? null
 			: (int) $maxParts
 		);
 		$result = array();
@@ -308,7 +308,7 @@ final class NumberUtils {
 		}
 		// months
 		if ($deviance !== 1.0) {
-		if ($maxParts === NULL || count($result) < $maxParts) {
+		if ($maxParts === null || count($result) < $maxParts) {
 		if ($seconds >= (xDef::S_MONTH * $deviance)) {
 			$v = \ceil(\floor($seconds / xDef::S_MONTH / $deviance) * $deviance);
 			$seconds -= $v * xDef::S_MONTH;
@@ -319,7 +319,7 @@ final class NumberUtils {
 			);
 		}}}
 		// days
-		if ($maxParts === NULL || count($result) < $maxParts) {
+		if ($maxParts === null || count($result) < $maxParts) {
 		if ($seconds >= (xDef::S_DAY * $deviance)) {
 			$v = \ceil(\floor($seconds / xDef::S_DAY / $deviance) * $deviance);
 			$seconds -= $v * xDef::S_DAY;
@@ -330,7 +330,7 @@ final class NumberUtils {
 			);
 		}}
 		// hours
-		if ($maxParts === NULL || count($result) < $maxParts) {
+		if ($maxParts === null || count($result) < $maxParts) {
 		if ($seconds >= (xDef::S_HOUR * $deviance)) {
 			$v = \ceil(\floor($seconds / xDef::S_HOUR / $deviance) * $deviance);
 			$seconds -= $v * xDef::S_HOUR;
@@ -341,7 +341,7 @@ final class NumberUtils {
 			);
 		}}
 		// minutes
-		if ($maxParts === NULL || count($result) < $maxParts) {
+		if ($maxParts === null || count($result) < $maxParts) {
 		if ($seconds >= (xDef::S_MINUTE * $deviance)) {
 			$v = \ceil(\floor($seconds / xDef::S_MINUTE / $deviance) * $deviance);
 			$seconds -= $v * xDef::S_MINUTE;
@@ -352,7 +352,7 @@ final class NumberUtils {
 			);
 		}}
 		// seconds
-		if ($maxParts === NULL || count($result) < $maxParts) {
+		if ($maxParts === null || count($result) < $maxParts) {
 		if ($seconds > 0) {
 			$result[] = $seconds.(
 				$shorthand
@@ -369,7 +369,7 @@ final class NumberUtils {
 	}
 
 	public static function SecondsToText(int $seconds,
-	bool $shorthand=FALSE, ?int $maxParts=NULL, float $deviance=1.0): string {
+	bool $shorthand=false, ?int $maxParts=null, float $deviance=1.0): string {
 		// future
 		if ( $seconds < 0 ) {
 			$seconds = 0 - $seconds;

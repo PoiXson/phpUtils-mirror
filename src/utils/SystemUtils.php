@@ -119,7 +119,7 @@ final class SystemUtils {
 	public static function exec($command): bool {
 		$command = \trim($command);
 		if (empty($command))
-			return FALSE;
+			return false;
 		$log = self::log();
 		// run the command
 		\exec($command, $output, $return);
@@ -185,7 +185,7 @@ final class SystemUtils {
 			$log->debug("Creating: $path");
 			\mkdir($path, $oct);
 		}
-//		\clearstatcache(TRUE, $dir);
+//		\clearstatcache(true, $dir);
 		// ensure created directories exist
 		if (!\is_dir($dir)) throw new \Exception("Failed to create directory: $dir");
 	}
@@ -197,12 +197,12 @@ final class SystemUtils {
 		if (empty($temp)) throw new \Exception("dir not found, cannot delete! $dir");
 		$dir = $temp;
 		unset($temp);
-		\clearstatcache(TRUE, $dir);
+		\clearstatcache(true, $dir);
 		if (!\is_dir($dir)) throw new \Exception("dir argument is not a directory! $dir");
 		if ($dir == '/')    throw new \Exception('cannot delete / directory!');
 		// list contents
 		$array = \scandir($dir);
-		if ($array == FALSE) throw new \Exception("Failed to list contents of directory: $dir");
+		if ($array == false) throw new \Exception("Failed to list contents of directory: $dir");
 		foreach ($array as $entry) {
 			if ($entry == '.' || $entry == '..')
 				continue;
@@ -217,7 +217,7 @@ final class SystemUtils {
 //			$log->debug("Removing directory: $entry");
 		}
 		\rmdir($dir);
-//		\clearstatcache(TRUE, $dir);
+//		\clearstatcache(true, $dir);
 		if (\is_dir($dir)) throw new \Exception("Failed to remove directory: $dir");
 		$log->debug("Removing directory: $dir");
 	}

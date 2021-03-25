@@ -87,20 +87,20 @@ class FileFinder {
 
 
 	public function find(): ?string {
-		$result = $this->doFind(all: FALSE);
-		if ($result === NULL || \count($result) == 0)
-			return NULL;
+		$result = $this->doFind(all: false);
+		if ($result === null || \count($result) == 0)
+			return null;
 		return \reset($result);
 	}
 
 	public function findAll(): array {
-		$result = $this->doFind(all: TRUE);
-		if ($result === NULL || \count($result) == 0)
+		$result = $this->doFind(all: true);
+		if ($result === null || \count($result) == 0)
 			return [];
 		return $result;
 	}
 
-	protected function doFind(bool $all=FALSE): ?array {
+	protected function doFind(bool $all=false): ?array {
 		$found = [];
 		foreach ($this->search_paths as $path) {
 			if (\count($this->search_files) == 0) {
@@ -109,7 +109,7 @@ class FileFinder {
 					if (!empty($path)) {
 						if (!$all)
 							return [ $path ];
-						$found[$path] = TRUE;
+						$found[$path] = true;
 					}
 				}
 			} else {
@@ -122,7 +122,7 @@ class FileFinder {
 							if (!empty($filePath)) {
 								if (!$all)
 									return [ $filePath ];
-								$found[$filePath] = TRUE;
+								$found[$filePath] = true;
 							}
 						}
 					} else {
@@ -134,7 +134,7 @@ class FileFinder {
 								if (!empty($fileExtPath)) {
 									if (!$all)
 										return [ $fileExtPath ];
-									$found[$fileExtPath] = TRUE;
+									$found[$fileExtPath] = true;
 								}
 							}
 						} // end foreach search_exts
@@ -144,7 +144,7 @@ class FileFinder {
 		} // end foreach search_paths
 		if ($all)
 			return \array_keys($found);
-		return NULL;
+		return null;
 	}
 
 

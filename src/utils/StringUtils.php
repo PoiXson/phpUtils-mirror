@@ -20,7 +20,7 @@ final class StringUtils {
 
 
 
-	public static function mb_ucfirst(string $str, bool $weak=FALSE): string {
+	public static function mb_ucfirst(string $str, bool $weak=false): string {
 		return \mb_strtoupper(
 			\mb_substr($str, 0, 1)).
 			(
@@ -42,10 +42,10 @@ final class StringUtils {
 		if (\count($remove) == 0) {
 			$remove = self::DEFAULT_TRIM_CHARS;
 		}
-		$allshort = TRUE;
+		$allshort = true;
 		foreach ($remove as $str) {
 			if (\mb_strlen($str) > 1) {
-				$allshort = FALSE;
+				$allshort = false;
 				break;
 			}
 		}
@@ -60,18 +60,18 @@ final class StringUtils {
 		// trim variable length strings
 		} else {
 			do {
-				$more = FALSE;
+				$more = false;
 				foreach ($remove as $str) {
 					$len = \mb_strlen($str);
 					if ($len == 0)
 						continue;
 					while (\mb_substr($text, 0, $len) == $str) {
 						$text = \mb_substr($text, $len);
-						$more = TRUE;
+						$more = true;
 					}
 					while (\mb_substr($text, 0 - $len, $len) == $str) {
 						$text = \mb_substr($text, 0, 0 - $len);
-						$more = TRUE;
+						$more = true;
 					}
 					if ($more)
 						break;
@@ -85,10 +85,10 @@ final class StringUtils {
 		if (\count($remove) == 0) {
 			$remove = self::DEFAULT_TRIM_CHARS;
 		}
-		$allshort = TRUE;
+		$allshort = true;
 		foreach ($remove as $str) {
 			if (\mb_strlen($str) > 1) {
-				$allshort = FALSE;
+				$allshort = false;
 				break;
 			}
 		}
@@ -100,14 +100,14 @@ final class StringUtils {
 		// trim variable length strings
 		} else {
 			do {
-				$more = FALSE;
+				$more = false;
 				foreach ($remove as $str) {
 					$len = \mb_strlen($str);
 					if ($len == 0)
 						continue;
 					while (\mb_substr($text, 0, $len) == $str) {
 						$text = \mb_substr($text, $len);
-						$more = TRUE;
+						$more = true;
 					}
 					if ($more)
 						break;
@@ -121,10 +121,10 @@ final class StringUtils {
 		if (\count($remove) == 0) {
 			$remove = self::DEFAULT_TRIM_CHARS;
 		}
-		$allshort = TRUE;
+		$allshort = true;
 		foreach ($remove as $str) {
 			if (\mb_strlen($str) > 1) {
-				$allshort = FALSE;
+				$allshort = false;
 				break;
 			}
 		}
@@ -136,14 +136,14 @@ final class StringUtils {
 		// trim variable length strings
 		} else {
 			do {
-				$more = FALSE;
+				$more = false;
 				foreach ($remove as $str) {
 					$len = \mb_strlen($str);
 					if ($len == 0)
 						continue;
 					while (\mb_substr($text, 0 - $len, $len) == $str) {
 						$text = \mb_substr($text, 0, 0 - $len);
-						$more = TRUE;
+						$more = true;
 					}
 					if ($more)
 						break;
@@ -262,14 +262,14 @@ final class StringUtils {
 
 
 
-	public static function str_contains(string $haystack, string $needle, bool $ignoreCase=FALSE): bool {
+	public static function str_contains(string $haystack, string $needle, bool $ignoreCase=false): bool {
 		if (empty($haystack) || empty($needle))
-			return FALSE;
+			return false;
 		if ($ignoreCase) {
 			$haystack = \mb_strtolower($haystack);
 			$needle   = \mb_strtolower($needle);
 		}
-		return (\mb_strpos(haystack: $haystack, needle: $needle) !== FALSE);
+		return (\mb_strpos(haystack: $haystack, needle: $needle) !== false);
 	}
 
 
@@ -284,7 +284,7 @@ final class StringUtils {
 		if (empty($filePath))
 			return '';
 		$pos = \mb_strrpos($filePath, '/');
-		if ($pos === FALSE)
+		if ($pos === false)
 			return $filePath;
 		return \mb_substr($filePath, $pos+1);
 	}

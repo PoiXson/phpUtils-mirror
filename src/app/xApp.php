@@ -26,7 +26,7 @@ abstract class xApp {
 		{
 			$clss = StringUtils::Trim(\get_called_class(), '\\');
 			$pos = \mb_strrpos($clss, '\\');
-			if ($pos === FALSE || $pos <= 3) {
+			if ($pos === false || $pos <= 3) {
 				$this->appName = $clss;
 				$this->appNS   = '';
 			} else {

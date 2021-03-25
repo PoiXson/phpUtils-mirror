@@ -20,7 +20,7 @@ use pxn\phpUtils\pxnDefines as xDef;
 // atomic state
 if (\defined('pxn\\phpUtils\\inited'))
 	throw new \RuntimeException();
-define('pxn\\phpUtils\\inited', TRUE);
+define('pxn\\phpUtils\\inited', true);
 
 
 

@@ -24,8 +24,8 @@ class test_StringUtils extends \PHPUnit\Framework\TestCase {
 	public function test_mb_ucfirst(): void {
 		$data = 'Abc Def Ghi jkl mnp qrs tuv wxyz';
 		$this->assertEquals(expected: 'Abc def ghi jkl mnp qrs tuv wxyz', actual:   StringUtils::mb_ucfirst($data)       );
-		$this->assertEquals(expected: 'Abc def ghi jkl mnp qrs tuv wxyz', actual:   StringUtils::mb_ucfirst($data, FALSE));
-		$this->assertEquals(expected: 'Abc Def Ghi jkl mnp qrs tuv wxyz', actual:   StringUtils::mb_ucfirst($data, TRUE) );
+		$this->assertEquals(expected: 'Abc def ghi jkl mnp qrs tuv wxyz', actual:   StringUtils::mb_ucfirst($data, false));
+		$this->assertEquals(expected: 'Abc Def Ghi jkl mnp qrs tuv wxyz', actual:   StringUtils::mb_ucfirst($data, true) );
 	}
 
 
@@ -183,8 +183,8 @@ class test_StringUtils extends \PHPUnit\Framework\TestCase {
 	public function test_str_contains(): void {
 		$this->assertFalse(StringUtils::str_contains(self::TRIM_TEST_DATA, '')           );
 		$this->assertTrue (StringUtils::str_contains(self::TRIM_TEST_DATA, 'test')       );
-		$this->assertTrue (StringUtils::str_contains(self::TRIM_TEST_DATA, 'Test', TRUE) );
-		$this->assertFalse(StringUtils::str_contains(self::TRIM_TEST_DATA, 'Test', FALSE));
+		$this->assertTrue (StringUtils::str_contains(self::TRIM_TEST_DATA, 'Test', true) );
+		$this->assertFalse(StringUtils::str_contains(self::TRIM_TEST_DATA, 'Test', false));
 	}
 
 

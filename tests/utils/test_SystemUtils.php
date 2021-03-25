@@ -70,7 +70,7 @@ class SystemUtilsTest extends \PHPUnit\Framework\TestCase {
 		$originalUser = (
 			isset($_SERVER['USER'])
 			? $_SERVER['USER']
-			: NULL
+			: null
 		);
 		// test SERVER[USER]
 		$_SERVER['USER'] = 'testuser';
@@ -80,7 +80,7 @@ class SystemUtilsTest extends \PHPUnit\Framework\TestCase {
 		$this->assertIsString(SystemUtils::getUser());
 		$this->assertEquals($originalUser, SystemUtils::getUser());
 		// restore _SERVER[USER]
-		if ($originalUser === NULL) {
+		if ($originalUser === null) {
 			if (isset($_SERVER['USER'])) {
 				unset($_SERVER['USER']);
 			}
