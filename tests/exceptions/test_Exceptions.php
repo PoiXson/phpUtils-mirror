@@ -8,12 +8,22 @@
  */
 namespace pxn\phpUtils\tests\exceptions;
 
-use pxn\phpUtils\exceptions\NullPointerException;
+use pxn\phpUtils\exceptions\NullPointerException as NullPointEx;
 use pxn\phpUtils\exceptions\RequiredArgumentException;
-use pxn\phpUtils\exceptions\FileNotFoundException;
+use pxn\phpUtils\exceptions\FileNotFoundException as FileNotFoundEx;
 
 
 class test_NumberUtils extends \PHPUnit\Framework\TestCase {
+
+
+
+	/**
+	 * @coversNothing
+	 */
+	public function test_native_exceptions(): void {
+		$this->assertFalse(\class_exists('\\NullPointerException'));
+		$this->assertFalse(\class_exists('\\FileNotFoundException'));
+	}
 
 
 
@@ -27,18 +37,18 @@ class test_NumberUtils extends \PHPUnit\Framework\TestCase {
 	 * @covers \pxn\phpUtils\exceptions\NullPointerException
 	 */
 	public function test_NullPointerException_without_arg(): void {
-		$this->expectException(NullPointerException::class);
+		$this->expectException(NullPointEx::class);
 		$this->expectExceptionMessage('');
-		throw new NullPointerException();
+		throw new NullPointEx();
 	}
 
 	/**
 	 * @covers \pxn\phpUtils\exceptions\NullPointerException
 	 */
 	public function test_NullPointerException_with_arg(): void {
-		$this->expectException(NullPointerException::class);
+		$this->expectException(NullPointEx::class);
 		$this->expectExceptionMessage('Null Pointer Exception: test');
-		throw new NullPointerException('test');
+		throw new NullPointEx('test');
 	}
 
 
@@ -79,18 +89,18 @@ class test_NumberUtils extends \PHPUnit\Framework\TestCase {
 	 * @covers \pxn\phpUtils\exceptions\FileNotFoundException
 	 */
 	public function test_FileNotFoundException_without_arg(): void {
-		$this->expectException(FileNotFoundException::class);
+		$this->expectException(FileNotFoundEx::class);
 		$this->expectExceptionMessage('');
-		throw new FileNotFoundException();
+		throw new FileNotFoundEx();
 	}
 
 	/**
 	 * @covers \pxn\phpUtils\exceptions\FileNotFoundException
 	 */
 	public function test_FileNotFoundException_with_arg(): void {
-		$this->expectException(FileNotFoundException::class);
+		$this->expectException(FileNotFoundEx::class);
 		$this->expectExceptionMessage('File not found: test');
-		throw new FileNotFoundException('test');
+		throw new FileNotFoundEx('test');
 	}
 
 
