@@ -35,7 +35,7 @@ class GeneralUtilsTest extends \PHPUnit\Framework\TestCase {
 	public function testClassName(): void {
 		$this->assertEquals(
 			self::THIS_CLASS_STRING,
-			\get_class($this)
+			\get_called_class($this)
 		);
 	}
 
