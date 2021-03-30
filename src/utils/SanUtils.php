@@ -5,54 +5,61 @@
  * @license GPL-3
  * @author lorenzo at poixson.com
  * @link https://poixson.com/
- * /
+ */
 namespace pxn\phpUtils\utils;
 
 
 final class SanUtils {
-	/ ** @codeCoverageIgnore * /
+	/** @codeCoverageIgnore */
 	private final function __construct() {}
 
 
 
-	public static function AlphaNum(string $str): string {
-		return \preg_replace(pattern: '/[^a-z0-9]+/i',     replacement: '', subject: $str);
+	public static function alpha_num(string $value, string $extra=null): string {
+		return \preg_replace(
+			pattern: '/[^a-zA-Z0-9'.($extra??'').']+/',
+			replacement: '',
+			subject: $value
+		);
 	}
-	public static function AlphaNumDash(string $str): string {
-		return \preg_replace(pattern: '/[^a-z0-9_-]+/i',   replacement: '', subject: $str);
+
+	public static function alpha_num_simple(string $value): string {
+		return self::alpha_num(value: $value, extra: '\_\-');
 	}
-	public static function AlphaNumSpaces(string $str): string {
-		return \preg_replace(pattern: '/[^\sa-z0-9-_]+/i', replacement: '', subject: $str);
+
+	public static function rep_space(string $value): string {
+		$result = self::alpha_num(value: $value, extra: '\_\-\s');
+		return \str_replace(search: ' ', replace: '_', subject: $result);
 	}
-	public static function AlphaNumFile(string $str): string {
-		return \preg_replace(pattern: '/[^[:alnum:]\(\)\_\.\,\'\&\?\+\-\=\!]/', replacement: '', subject: $str);
+
+	public static function path_safe(string $path): string {
+		$result = self::alpha_num(value: $path, extra: '\.\/\_\-\s');
+		return \str_replace(search: ' ', replace: '_', subject: $result);
 	}
-	public static function Base64(string $str): string {
-		return \preg_replace(pattern: '/[^a-z0-9=]+/i',    replacement: '', subject: $str);
+
+	public static function base64(string $value): string {
+		return self::alpha_num(value: $value, extra: '\=');
 	}
 
 
 
-	public static function isAlphaNum(string $str): bool {
-		return ($str === self::AlphaNum($str));
+	public static function is_alpha_num(string $value, string $extra=null): bool {
+		return ($value === self::alpha_num(value: $value, extra: $extra));
 	}
-	public static function isAlphaNumDash(string $str): bool {
-		return ($str === self::AlphaNumDash($str));
+	public static function is_alpha_num_simple(string $value): bool {
+		return ($value === self::alpha_num_simple(value: $value));
 	}
-	public static function isAlphaNumSpaces(string $str): bool {
-		return ($str === self::AlphaNumSpaces($str));
+	public static function is_path_safe(string $path): bool {
+		return ($path === self::path_safe(path: $path));
 	}
-	public static function isAlphaNumFile(string $str): bool {
-		return ($str === self::AlphaNumFile($str));
+	public static function is_base64(string $value): bool {
+		return ($value === self::base64(value: $value));
 	}
-	public static function isBase64(string $str): bool {
-		return ($str === self::Base64($str));
-	}
-	public static function isVersion(string $str): bool {
-		return (\preg_match(pattern: '/[^0-9.]+/', subject: $str) === 0);
+
+	public static function is_version(string $version): bool {
+		return (\preg_match(pattern: '/[^0-9.]+/', subject: $version) === 0);
 	}
 
 
 
 }
-*/
