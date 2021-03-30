@@ -31,7 +31,7 @@ namespace {
 	# dd()
 	if (!\function_exists('dd')) {
 		function dd($data=null): void {
-			\pxn\phpUtils\Debug\dd($data);
+			\pxn\phpUtils\Debug::dd($data);
 		}
 	}
 
