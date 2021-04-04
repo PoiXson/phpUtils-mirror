@@ -7,9 +7,6 @@
  * @link https://poixson.com/
  */
 namespace pxn\phpUtils\tests\app;
-include_once('Version.php');
-
-use pxn\phpUtils\app\xApp;
 
 
 /**
@@ -36,22 +33,5 @@ class test_StringUtils extends \PHPUnit\Framework\TestCase {
 	}
 
 
-
-}
-
-class xAppTest extends xApp {
-
-	public bool $has_checked_run_state = false;
-
-	public function __construct() {
-		parent::__construct();
-	}
-
-	protected function check_run_mode(): void {
-		$this->has_checked_run_state = true;
-	}
-
-	public function run(): void {
-	}
 
 }
