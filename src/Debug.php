@@ -98,10 +98,26 @@ final class Debug {
 
 
 
-	public static function dd($data=null): void {
-		if ($data !== null)
-			\print_r($data);
+	public static function dd($var=null): void {
+		if ($var !== null)
+			self::dump($var);
 		exit(1);
+	}
+
+	public static function dump($var): void {
+		if (\class_exists('Kint\\Kint')) {
+			\Kint\Kint::dump($var);
+		} else {
+			\var_dump($var);
+		}
+	}
+
+	public static function trace(): void {
+		if (\class_exists('Kint\\Kint')) {
+			\Kint\Kint::trace();
+		} else {
+			\debug_print_backtrace();
+		}
 	}
 
 

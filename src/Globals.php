@@ -21,17 +21,31 @@ namespace {
 
 
 
-	# debug()
+	// debug()
 	if (!\function_exists('debug')) {
 		function debug(?bool $debug=null, ?string $desc=null): bool {
 			return \pxn\phpUtils\Debug::debug($debug, $desc);
 		}
 	}
 
-	# dd()
+	// dd()
 	if (!\function_exists('dd')) {
 		function dd($data=null): void {
 			\pxn\phpUtils\Debug::dd($data);
+		}
+	}
+
+	// dump()
+	if (!\function_exists('dump')) {
+		function dump($var): void {
+			\pxn\phpUtils\Debug::dump($var);
+		}
+	}
+
+	// trace()
+	if (!\function_exists('trace')) {
+		function trace(): void {
+			\pxn\phpUtils\Debug::trace();
 		}
 	}
 
