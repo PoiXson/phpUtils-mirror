@@ -44,6 +44,14 @@ final class Debug {
 				self::debug(true, "by $found file");
 			}
 		}
+		if (self::debug()) {
+			// filp whoops
+			if (\class_exists('Whoops\\Run')) {
+				$whoops = new \Whoops\Run();
+				$whoops->pushHandler(new \Whoops\Handler\PrettyPageHandler());
+				$whoops->register();
+			}
+		}
 	}
 
 
