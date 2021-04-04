@@ -1,7 +1,7 @@
 phpUtils - PHP Utilities Library
 
 
-2021-04-03 - 0.3.2
+2021-04-03 - 0.3.3
 ==================
 * support for filp whoops and kint
 
