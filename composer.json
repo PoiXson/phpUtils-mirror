@@ -24,6 +24,11 @@
 			"src/init.php"
 		]
 	},
+	"autoload-dev": {
+		"psr-4": {
+			"pxn\\phpUtils\\tests\\": "tests/"
+		}
+	},
 	"archive": {
 		"exclude": [
 			"tests/",
