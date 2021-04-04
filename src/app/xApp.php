@@ -46,13 +46,21 @@ abstract class xApp {
 			if (empty($this->version))
 				throw new \RuntimeException('App version not found');
 		}
+		// init app
+		$this->init();
 	}
 
 
 
+	protected function init(): void {
+		// paths
+		$this->load_paths();
+	}
 	protected function load_paths(): void {
 		Paths::init();
 	}
+
+
 
 	protected abstract function check_run_mode(): void;
 
