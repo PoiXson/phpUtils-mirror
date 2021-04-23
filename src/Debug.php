@@ -27,6 +27,7 @@ final class Debug {
 	public static function init(): void {
 		if (self::$inited) return;
 		self::$inited = true;
+		$sapi = \php_sapi_name();
 		// by define
 		if (\defined('DEBUG')) {
 			self::debug(true, 'by define');
@@ -44,8 +45,14 @@ final class Debug {
 				self::debug(true, "by $found file");
 			}
 		}
+		// php -S
+		if ($sapi == 'cli-server')
+			self::debug(true, 'by php internal server');
+		// dbg
+		if ($sapi == 'phpdbg')
+			self::debug(true, 'by phpdbg');
+		// filp whoops
 		if (self::debug()) {
-			// filp whoops
 			if (\class_exists('Whoops\\Run')) {
 				$whoops = new \Whoops\Run();
 				$whoops->pushHandler(new \Whoops\Handler\PrettyPageHandler());
