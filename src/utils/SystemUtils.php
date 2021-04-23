@@ -16,28 +16,42 @@ final class SystemUtils {
 	/** @codeCoverageIgnore */
 	private function __construct() {}
 
-	private static ?bool $isShell = null;
+	private static ?bool $isCLI = null;
 
 
 
 //TODO: logging
+	protected static function DetectCLI(): bool {
+		if (self::$isCLI !== null)
+			return self::$isCLI;
+		$sapi = \php_sapi_name();
+		if (\str_starts_with(haystack: $sapi, needle: 'apache'))
+			return false;
+		if ($sapi == 'cli')
+			return true;
+		if ($sapi == 'cli-server')
+			return false;
+//TODO: does this work?
+//		if ($sapi == 'fpm-fcgi')
+//			return false;
+		if ( isset($_SERVER['SHELL'])           && !empty($_SERVER['SHELL'])           )
+			return true;
+		if ( isset($_SERVER['REDIRECT_STATUS']) && !empty($_SERVER['REDIRECT_STATUS']) )
+			return false;
+		if ( isset($_SERVER['HTTP_HOST'])       && !empty($_SERVER['HTTP_HOST'])       )
+			return false;
+		echo "Unknown web/shell mode\n";
+		exit(xDef::EXIT_CODE_GENERAL);
+	}
+
 	public static function isShell(): bool {
-		if (self::$isShell === null) {
-			$isShell = (isset($_SERVER['SHELL'])           && !empty($_SERVER['SHELL']));
-			$isWeb   = (isset($_SERVER['REDIRECT_STATUS']) && !empty($_SERVER['REDIRECT_STATUS']));
-			if ($isShell && !$isWeb) {
-				self::$isShell = true;
-			} else
-			if (!$isShell && $isWeb) {
-				self::$isShell = false;
-			} else {
-				echo "Unknown web/shell mode\n";
-				exit(xDef::EXIT_CODE_GENERAL);
-			}
-		}
-		return self::$isShell;
+		if (self::$isCLI === null)
+			self::$isCLI = self::DetectCLI();
+		return self::$isCLI;
 	}
 	public static function isWeb(): bool {
+		if (self::$isCLI === null)
+			self::$isCLI = self::DetectCLI();
 		return ! self::isShell();
 	}
 
