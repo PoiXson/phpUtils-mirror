@@ -1,6 +1,11 @@
 phpUtils - PHP Utilities Library
 
 
+2021-04-25 - 0.3.4
+==================
+* using php_sapi_name() to improve detection of web/cli and debug
+
+
 2021-04-03 - 0.3.3
 ==================
 * support for filp whoops and kint
