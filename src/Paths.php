@@ -101,6 +101,30 @@ class Paths {
 
 
 
+	public static function create(string $key, int $perms=0700): bool {
+		$path = self::get($key);
+		// path already exists
+		if (\is_dir($path))
+			return false;
+		// create path
+		\mkdir(
+			directory:   $path,
+			permissions: $perms,
+			recursive:   true
+		);
+	}
+
+
+
+	public static function assert(string $key): void {
+		$path = self::get($key);
+		if (\is_dir($path))
+			return;
+		throw new \RuntimeException("Path not found: $path");
+	}
+
+
+
 	public static function pwd(): string {
 		self::init();
 		return self::$paths['pwd'];
