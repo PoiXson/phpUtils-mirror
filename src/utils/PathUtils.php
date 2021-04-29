@@ -8,6 +8,8 @@
  */
 namespace pxn\phpUtils\utils;
 
+use pxn\phpUtils\exceptions\RequiredArgumentException;
+
 
 final class PathUtils {
 	/** @codeCoverageIgnore */
@@ -76,6 +78,22 @@ final class PathUtils {
 			? StringUtils::force_starts_with(haystack: $result, prepend: '/')
 			: $result
 		);
+	}
+
+
+
+	public static function resolve_symlinks(string $path): string {
+		$path = StringUtils::trim_end($path, '/');
+		if (empty($path)) throw new RequiredArgumentException('path');
+		for ($i=0; $i<10; $i++) {
+			if (!\is_link($path))
+				break;
+			$link = \readlink($path);
+			if (empty($link))
+				break;
+			$path = $link;
+		}
+		return $path;
 	}
 
 

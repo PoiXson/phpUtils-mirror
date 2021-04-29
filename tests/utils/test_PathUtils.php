@@ -55,4 +55,13 @@ class test_PathUtils extends \PHPUnit\Framework\TestCase {
 
 
 
+	/**
+	 * @covers ::resolve_symlinks
+	 */
+	public function test_resolve_symlinks(): void {
+		$this->assertEquals(expected: 'usr/bin', actual: PathUtils::resolve_symlinks('/bin'));
+	}
+
+
+
 }
