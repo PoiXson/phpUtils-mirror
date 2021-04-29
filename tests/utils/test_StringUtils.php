@@ -189,47 +189,4 @@ class test_StringUtils extends \PHPUnit\Framework\TestCase {
 
 
 
-	################
-	## File Paths ##
-	################
-
-
-
-	/**
-	 * @covers ::get_filename
-	 */
-	public function test_get_filename(): void {
-		$this->assertEquals(expected: '',         actual: StringUtils::get_filename('')             );
-		$this->assertEquals(expected: 'hostname', actual: StringUtils::get_filename('/etc/hostname'));
-		$this->assertEquals(expected: 'hostname', actual: StringUtils::get_filename('hostname')     );
-	}
-
-
-
-	/**
-	 * @covers ::build_path
-	 */
-	public function test_build_path(): void {
-		$this->assertEquals(expected: '',                    actual: StringUtils::build_path()                                );
-		$this->assertEquals(expected: 'home',                actual: StringUtils::build_path('', 'home', '')                  );
-		$this->assertEquals(expected: 'home/user/Desktop',   actual: StringUtils::build_path('home', 'user', 'Desktop')       );
-		$this->assertEquals(expected: '/home/user/Desktop',  actual: StringUtils::build_path('/', 'home', 'user', 'Desktop')  );
-		$this->assertEquals(expected: '/home/user/Desktop/', actual: StringUtils::build_path('/home', 'user', 'Desktop', '/') );
-		$this->assertEquals(expected: '/home/user/Desktop/', actual: StringUtils::build_path('/home/', '/user/', '/Desktop/') );
-	}
-
-
-
-	/**
-	 * @covers ::common_path
-	 */
-	public function test_common_path(): void {
-		$this->assertEquals(expected: '',           actual: StringUtils::common_path('', '')                                       );
-		$this->assertEquals(expected: '/home/user', actual: StringUtils::common_path('/home/user/Desktop', '/home/user/Documents') );
-		$this->assertEquals(expected: '/home/user', actual: StringUtils::common_path('/home/user/',        '/home/user/Documents/'));
-		$this->assertEquals(expected: '/',          actual: StringUtils::common_path('/usr/bin',           '/etc/profile.d')       );
-	}
-
-
-
 }
