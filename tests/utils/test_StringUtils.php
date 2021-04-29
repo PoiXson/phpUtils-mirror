@@ -221,17 +221,6 @@ class test_StringUtils extends \PHPUnit\Framework\TestCase {
 
 
 	/**
-	 * @covers ::get_absolute_path
-	 */
-	public function test_get_absolute_path(): void {
-		$this->assertEquals(expected: '/etc/hostname', actual: StringUtils::get_absolute_path('/etc/hostname'));
-		$this->assertEquals(expected: '',              actual: StringUtils::get_absolute_path('')             );
-		$this->assertEquals(expected: \getcwd(),       actual: StringUtils::get_absolute_path('.')            );
-	}
-
-
-
-	/**
 	 * @covers ::common_path
 	 */
 	public function test_common_path(): void {

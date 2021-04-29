@@ -313,22 +313,6 @@ final class StringUtils {
 
 
 
-	public static function get_absolute_path(string $path): string {
-		if (empty($path))
-			return $path;
-		$first = \mb_substr($path, 0, 1);
-		if ($first == '/')
-			return $path;
-		if ($first == '.')
-			$path = \mb_substr($path, 1);
-		return self::build_path(
-			Paths::pwd(),
-			$path
-		);
-	}
-
-
-
 	public static function common_path(string $pathA, string $pathB): string {
 		$prepend = \str_starts_with(haystack: $pathA, needle: '/')
 				|| \str_starts_with(haystack: $pathB, needle: '/');
