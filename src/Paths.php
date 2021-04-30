@@ -112,6 +112,7 @@ class Paths {
 			permissions: $perms,
 			recursive:   true
 		);
+		return true;
 	}
 
 
