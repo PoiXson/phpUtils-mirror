@@ -274,4 +274,43 @@ final class StringUtils {
 
 
 
+	##############
+	## Versions ##
+	##############
+
+
+
+	public static function compare_versions(string $versionA, string $versionB): string {
+		if ($versionA === $versionB)
+			return '=';
+		$partsA = \explode('.', $versionA);
+		$partsB = \explode('.', $versionB);
+		$count = \max( \count($partsA), \count($partsB) );
+		for ($i=0; $i<$count; $i++) {
+			if (isset($partsA[$i])) {
+				if ($partsA[$i] == 'x') {
+					$a = xDef::INT_MAX;
+				} else {
+					$a = (int) $partsA[$i];
+				}
+			} else {
+				$a = 0;
+			}
+			if (isset($partsB[$i])) {
+				if ($partsB[$i] == 'x') {
+					$b = xDef::INT_MAX;
+				} else {
+					$b = (int) $partsB[$i];
+				}
+			} else {
+				$b = 0;
+			}
+			if ($a > $b) return '>';
+			if ($a < $b) return '<';
+		}
+		return '=';
+	}
+
+
+
 }

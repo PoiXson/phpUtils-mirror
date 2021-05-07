@@ -189,4 +189,30 @@ class test_StringUtils extends \PHPUnit\Framework\TestCase {
 
 
 
+	##############
+	## Versions ##
+	##############
+
+
+
+	/**
+	 * @covers ::compare_versions
+	 */
+	public function test_compare_versions(): void {
+		$this->assertEquals(expected: '=', actual: StringUtils::compare_versions('',      ''     ));
+		$this->assertEquals(expected: '>', actual: StringUtils::compare_versions('1',     ''     ));
+		$this->assertEquals(expected: '<', actual: StringUtils::compare_versions('',      '1'    ));
+		$this->assertEquals(expected: '=', actual: StringUtils::compare_versions('1',     '1'    ));
+		$this->assertEquals(expected: '=', actual: StringUtils::compare_versions('1.0',   '1'    ));
+		$this->assertEquals(expected: '>', actual: StringUtils::compare_versions('1.1',   '1.0'  ));
+		$this->assertEquals(expected: '<', actual: StringUtils::compare_versions('1.0',   '1.1'  ));
+		$this->assertEquals(expected: '<', actual: StringUtils::compare_versions('1.2.3', '1.2.4'));
+		$this->assertEquals(expected: '=', actual: StringUtils::compare_versions('1.x',   '1.x'  ));
+		$this->assertEquals(expected: '<', actual: StringUtils::compare_versions('1.9',   '1.x'  ));
+		$this->assertEquals(expected: '<', actual: StringUtils::compare_versions('1.9',   '1.10' ));
+		$this->assertEquals(expected: '>', actual: StringUtils::compare_versions('1.11',  '1.10' ));
+	}
+
+
+
 }
