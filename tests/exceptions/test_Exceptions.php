@@ -11,6 +11,7 @@ namespace pxn\phpUtils\tests\exceptions;
 use pxn\phpUtils\exceptions\NullPointerException as NullPointEx;
 use pxn\phpUtils\exceptions\RequiredArgumentException;
 use pxn\phpUtils\exceptions\FileNotFoundException as FileNotFoundEx;
+use pxn\phpUtils\exceptions\ConcurrentLockException as ConcurrentLockEx;
 
 
 class test_NumberUtils extends \PHPUnit\Framework\TestCase {
@@ -22,7 +23,9 @@ class test_NumberUtils extends \PHPUnit\Framework\TestCase {
 	 */
 	public function test_native_exceptions(): void {
 		$this->assertFalse(\class_exists('\\NullPointerException'));
+		$this->assertFalse(\class_exists('\\RequiredArgumentException'));
 		$this->assertFalse(\class_exists('\\FileNotFoundException'));
+		$this->assertFalse(\class_exists('\\ConcurrentLockException'));
 	}
 
 
@@ -101,6 +104,32 @@ class test_NumberUtils extends \PHPUnit\Framework\TestCase {
 		$this->expectException(FileNotFoundEx::class);
 		$this->expectExceptionMessage('File not found: test');
 		throw new FileNotFoundEx('test');
+	}
+
+
+
+	#####################
+	## Concurrent Lock ##
+	#####################
+
+
+
+	/**
+	 * @covers \pxn\phpUtils\exceptions\ConcurrentLockException
+	 */
+	public function test_ConcurrentLockException_without_arg(): void {
+		$this->expectException(ConcurrentLockEx::class);
+		$this->expectExceptionMessage('');
+		throw new ConcurrentLockEx();
+	}
+
+	/**
+	 * @covers \pxn\phpUtils\exceptions\ConcurrentLockException
+	 */
+	public function test_ConcurrentLockException_with_arg(): void {
+		$this->expectException(ConcurrentLockEx::class);
+		$this->expectExceptionMessage('Concurrent lock on file: test');
+		throw new ConcurrentLockEx('test');
 	}
 
 
