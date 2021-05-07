@@ -69,4 +69,10 @@ class LockFile {
 
 
 
+	public function getHandle() {
+		return $this->handle;
+	}
+
+
+
 }
