@@ -59,6 +59,9 @@ final class Debug {
 				$whoops->register();
 			}
 		}
+		// default
+		if (self::$value === null)
+			self::debug(false, 'default');
 	}
 
 
