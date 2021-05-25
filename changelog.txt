@@ -1,6 +1,14 @@
 phpUtils - PHP Utilities Library
 
 
+2021-05-25 - 0.3.6
+==================
+* added StringUtils::compare_versions() function
+* added Lockfile class
+* added ConcurrentLockException
+* fixes and improvements to Debug.php
+
+
 2021-04-29 - 0.3.5
 ==================
 * added create() and assert() functions to Paths class
