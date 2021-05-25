@@ -109,8 +109,10 @@ final class Debug {
 
 
 	public static function dd($var=null): void {
-		if ($var !== null)
+		if ($var !== null) {
+			\Kint\Renderer\RichRenderer::$folder = false;
 			self::dump($var);
+		}
 		exit(1);
 	}
 
