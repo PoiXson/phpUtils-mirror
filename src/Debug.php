@@ -11,14 +11,17 @@ namespace pxn\phpUtils;
 use pxn\phpUtils\tools\FileFinder;
 use pxn\phpUtils\utils\SystemUtils;
 
+use Kint\Kint;
+
 
 final class Debug {
+	/** @codeCoverageIgnore */
 	private function __construct() {}
 
 	private static bool $inited = false;
 
-	private static ?bool   $value = null;
-	private static ?string $desc  = null;
+	private static ?bool  $value = null;
+	private static ?string $desc = null;
 
 
 
@@ -73,7 +76,11 @@ final class Debug {
 		\ini_set('html_errors',    $isShell ? 'Off' : 'On');
 		\ini_set('log_errors',     'On');
 		\ini_set('error_log',      $isShell ? '/var/log/php_shell_error' : 'error_log');
-		unset($isShell);
+		if ($enable) {
+			Kint::$expanded = true;
+			Kint::$aliases[] = 'dd';
+			Kint::$aliases[] = 'dump';
+		}
 	}
 
 
@@ -118,7 +125,7 @@ final class Debug {
 
 	public static function dump($var): void {
 		if (\class_exists('Kint\\Kint')) {
-			\Kint\Kint::dump($var);
+			Kint::dump($var);
 		} else {
 			\var_dump($var);
 		}
@@ -126,7 +133,7 @@ final class Debug {
 
 	public static function trace(): void {
 		if (\class_exists('Kint\\Kint')) {
-			\Kint\Kint::trace();
+			Kint::trace();
 		} else {
 			\debug_print_backtrace();
 		}
