@@ -34,8 +34,10 @@ class test_LockFile extends \PHPUnit\Framework\TestCase {
 			$this->lockB = null;
 		}
 		// remove test file
-		if (\is_file($this->file)) {
-			\unlink($this->file);
+		if (!$this->hasFailed()) {
+			if (\is_file($this->file)) {
+				\unlink($this->file);
+			}
 		}
 	}
 
@@ -46,18 +48,19 @@ class test_LockFile extends \PHPUnit\Framework\TestCase {
 	 * @covers ::getLock
 	 */
 	public function test_getLock(): void {
-		if (\file_exists($this->file))
-			throw new \RuntimeException('File already exists: '.$this->file);
-		$lockA = new LockFile($this->file);
-		$lockB = new LockFile($this->file);
-		$lockA->getLock(1);
-		$this->assertTrue($lockA->hasLock());
+		if ($this->hasFailed()) return;
+		$this->assertNull($this->lockA);
+		$this->assertNull($this->lockB);
+		$this->lockA = new LockFile($this->file);
+		$this->lockB = new LockFile($this->file);
+		$this->lockA->getLock(0);
+		$this->assertTrue($this->lockA->hasLock());
 		$this->expectException(ConcurrentLockException::class);
 		$this->expectExceptionMessage('Concurrent lock on file: '.$this->file);
 		try {
-			$lockB->getLock(0);
+			$this->lockB->getLock(0);
 		} finally {
-			$this->assertFalse($lockB->hasLock());
+			$this->assertFalse($this->lockB->hasLock());
 		}
 	}
 
