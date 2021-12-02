@@ -36,16 +36,16 @@
 		]
 	},
 	"suggest": {
-		"51systems/doctrine-encrypt": "v6.0.*"
+		"51systems/doctrine-encrypt": "*"
 	},
 	"require": {
 		"ext-mbstring": "*",
 		"php": ">=8.0",
-		"pxn/composerlocaldev": "1.*"
+		"pxn/composerlocaldev": "*"
 	},
 	"require-dev": {
-		"filp/whoops": "2.*",
-		"kint-php/kint": "3.*",
+		"filp/whoops": "*",
+		"kint-php/kint": "*",
 		"phpunit/phpunit": "*"
 	}
 }
