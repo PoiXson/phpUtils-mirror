@@ -69,6 +69,12 @@ final class Debug {
 
 
 
+	public static function hasKint(): bool {
+		return \class_exists('Kint\\Kint');
+	}
+
+
+
 	private static function EnableDisable(bool $enable): void {
 		$isShell = SystemUtils::isShell();
 		\error_reporting(\E_ALL);
@@ -76,7 +82,7 @@ final class Debug {
 		\ini_set('html_errors',    $isShell ? 'Off' : 'On');
 		\ini_set('log_errors',     'On');
 		\ini_set('error_log',      $isShell ? '/var/log/php_shell_error' : 'error_log');
-		if ($enable) {
+		if ($enable && self::hasKint()) {
 			Kint::$expanded = true;
 			Kint::$aliases[] = 'dd';
 			Kint::$aliases[] = 'dump';
@@ -117,14 +123,15 @@ final class Debug {
 
 	public static function dd($var=null): void {
 		if ($var !== null) {
-			\Kint\Renderer\RichRenderer::$folder = false;
+			if (self::hasKint())
+				\Kint\Renderer\RichRenderer::$folder = false;
 			self::dump($var);
 		}
 		exit(1);
 	}
 
 	public static function dump($var): void {
-		if (\class_exists('Kint\\Kint')) {
+		if (self::hasKint()) {
 			Kint::dump($var);
 		} else {
 			\var_dump($var);
@@ -132,7 +139,7 @@ final class Debug {
 	}
 
 	public static function trace(): void {
-		if (\class_exists('Kint\\Kint')) {
+		if (self::hasKint()) {
 			Kint::trace();
 		} else {
 			\debug_print_backtrace();
