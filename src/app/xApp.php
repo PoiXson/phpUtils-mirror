@@ -8,19 +8,20 @@
  */
 namespace pxn\phpUtils\app;
 
-use pxn\phpUtils\utils\StringUtils;
-use pxn\phpUtils\Paths;
+//use pxn\phpUtils\utils\StringUtils;
+//use pxn\phpUtils\Paths;
 
 
 abstract class xApp {
 
-	protected string $appName;
-	protected string $appNS;
-	protected string $version;
+//	protected string $appName;
+//	protected string $appNS;
+//	protected string $version;
 
 
 
 	public function __construct() {
+/*
 		$this->check_run_mode();
 		// find class name and namespace
 		{
@@ -50,10 +51,12 @@ abstract class xApp {
 		$this->load_paths();
 		// init app
 		$this->init();
+*/
 	}
 
 
 
+/*
 	protected function init(): void {
 	}
 	protected function load_paths(): void {
@@ -80,6 +83,7 @@ abstract class xApp {
 	public function getVersion(): string {
 		return $this->version;
 	}
+*/
 
 
 
