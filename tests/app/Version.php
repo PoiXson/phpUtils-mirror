@@ -1,4 +1,4 @@
-<?php declare(strict_types = 1);
+<?php declare(strict_types=1);
 namespace pxn\phpUtils\tests\app;
 final class Version {
 
