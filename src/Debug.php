@@ -5,7 +5,7 @@
  * @license GPL-3
  * @author lorenzo at poixson.com
  * @link https://poixson.com/
- */
+ * /
 namespace pxn\phpUtils;
 
 use pxn\phpUtils\tools\FileFinder;
@@ -15,7 +15,7 @@ use Kint\Kint;
 
 
 final class Debug {
-	/** @codeCoverageIgnore */
+	/ ** @codeCoverageIgnore * /
 	private function __construct() {}
 
 	private static bool $inited = false;
@@ -149,3 +149,4 @@ final class Debug {
 
 
 }
+*/

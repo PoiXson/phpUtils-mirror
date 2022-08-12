@@ -5,14 +5,14 @@
  * @license GPL-3
  * @author lorenzo at poixson.com
  * @link https://poixson.com/
- */
+ * /
 namespace pxn\phpUtils;
 
 use pxn\phpUtils\exceptions\RequiredArgumentException;
 
 
 class Paths {
-	/** @codeCoverageIgnore */
+	/ ** @codeCoverageIgnore * /
 	private final function __construct() {}
 
 	private static bool $inited = false;
@@ -21,7 +21,7 @@ class Paths {
 
 
 
-	/** @codeCoverageIgnore */
+	/ ** @codeCoverageIgnore * /
 	public static function init(): void {
 		if (self::$inited) return;
 		self::$inited = true;
@@ -138,3 +138,4 @@ class Paths {
 
 
 }
+*/

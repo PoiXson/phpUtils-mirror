@@ -5,7 +5,7 @@
  * @license GPL-3
  * @author lorenzo at poixson.com
  * @link https://poixson.com/
- */
+ * /
 namespace pxn\phpUtils\utils;
 
 use pxn\phpUtils\Paths;
@@ -13,7 +13,7 @@ use pxn\phpUtils\pxnDefines as xDef;
 
 
 final class SystemUtils {
-	/** @codeCoverageIgnore */
+	/ ** @codeCoverageIgnore * /
 	private function __construct() {}
 
 	private static ?bool $isCLI = null;
@@ -57,14 +57,14 @@ final class SystemUtils {
 
 
 
-	/** @codeCoverageIgnore */
+	/ ** @codeCoverageIgnore * /
 	public static function AssertShell(): void {
 		if (!self::isShell()) {
 			echo "This is a CLI script\n";
 			exit(xDef::EXIT_CODE_GENERAL);
 		}
 	}
-	/** @codeCoverageIgnore */
+	/ ** @codeCoverageIgnore * /
 	public static function AssertWeb(): void {
 		if (!self::isWeb()) {
 			echo "This script is a website\n";
@@ -74,7 +74,7 @@ final class SystemUtils {
 
 
 
-	/** @codeCoverageIgnore */
+	/ ** @codeCoverageIgnore * /
 	public static function AssertLinux(): void {
 		$os = \PHP_OS;
 		if ($os != 'Linux') {
@@ -129,7 +129,7 @@ final class SystemUtils {
 
 
 
-/*
+/ *
 	public static function exec($command): bool {
 		$command = \trim($command);
 		if (empty($command))
@@ -241,8 +241,9 @@ final class SystemUtils {
 	public static function log(): Logger {
 		return Logger::get('SHELL');
 	}
-*/
+* /
 
 
 
 }
+*/

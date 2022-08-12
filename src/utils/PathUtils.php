@@ -5,14 +5,14 @@
  * @license GPL-3
  * @author lorenzo at poixson.com
  * @link https://poixson.com/
- */
+ * /
 namespace pxn\phpUtils\utils;
 
 use pxn\phpUtils\exceptions\RequiredArgumentException;
 
 
 final class PathUtils {
-	/** @codeCoverageIgnore */
+	/ ** @codeCoverageIgnore * /
 	private final function __construct() {}
 
 
@@ -99,3 +99,4 @@ final class PathUtils {
 
 
 }
+*/
