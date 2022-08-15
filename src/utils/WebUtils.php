@@ -29,4 +29,20 @@ EOF;
 
 
 
+	public static function Paginate($pageNum, $pageLast, $pageWidth=2) {
+		$pageLast  = NumberUtils::MinMax( (int) $pageLast,  1);
+		$pageNum   = NumberUtils::MinMax( (int) $pageNum,   1, $pageLast);
+		$pageWidth = NumberUtils::MinMax( (int) $pageWidth, 1, 5);
+		$pageFrom  = NumberUtils::MinMax($pageNum - $pageWidth, 2);
+		$pageTo    = NumberUtils::MinMax($pageNum + $pageWidth, FALSE, $pageLast - 1);
+		return [
+			'current' => $pageNum,
+			'last'    => $pageLast,
+			'from'    => $pageFrom,
+			'to'      => $pageTo,
+		];
+	}
+
+
+
 }
