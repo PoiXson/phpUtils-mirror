@@ -5,7 +5,7 @@
  * @license GPL-3
  * @author lorenzo at poixson.com
  * @link https://poixson.com/
- * /
+ */
 namespace pxn\phpUtils\utils;
 
 use pxn\phpUtils\Paths;
@@ -13,7 +13,7 @@ use pxn\phpUtils\pxnDefines as xDef;
 
 
 final class StringUtils {
-	/ ** @codeCoverageIgnore * /
+	/** @codeCoverageIgnore */
 	private final function __construct() {}
 
 	const DEFAULT_TRIM_CHARS = [ ' ', "\t", "\r", "\n" ];
@@ -155,11 +155,11 @@ final class StringUtils {
 
 
 
-	/ **
+	/**
 	 * Removes paired quotes from a string.
 	 * @param string $text - String in which to remove quotes.
 	 * @return string - String with ' and " quotes removed.
-	 * /
+	 */
 	public static function trim_quotes(string $text): string {
 		while (\mb_strlen($text) > 1) {
 			$f = \mb_substr($text,  0, 1);
@@ -314,4 +314,3 @@ final class StringUtils {
 
 
 }
-*/
