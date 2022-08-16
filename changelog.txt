@@ -1,7 +1,7 @@
 phpUtils - PHP Utilities Library
 
 
-2022-08-12 - 0.4.1
+2022-08-15 - 0.4.1
 ==================
 * added Paginate() function
 * StringUtils and WebUtils
