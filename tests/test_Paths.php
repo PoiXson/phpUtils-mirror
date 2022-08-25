@@ -5,27 +5,27 @@
  * @license GPL-3
  * @author lorenzo at poixson.com
  * @link https://poixson.com/
- */
+ * /
 namespace pxn\phpUtils\tests;
 
 use \pxn\phpUtils\Paths;
 
 
-/**
+/ **
  * @coversDefaultClass \pxn\phpUtils\Paths
- */
+ * /
 class test_Paths extends \PHPUnit\Framework\TestCase {
 
 
 
-	/**
+	/ **
 	 * @covers ::init
 	 * @covers ::pwd
 	 * @covers ::entry
 	 * @covers ::get
 	 * @covers ::set
 	 * @covers ::getAll
-	 */
+	 * /
 	public function test_paths(): void {
 		$all = [];
 		// pwd path
@@ -61,9 +61,9 @@ class test_Paths extends \PHPUnit\Framework\TestCase {
 		$this->assertEquals(expected: $all, actual: Paths::getAll());
 	}
 
-	/**
+	/ **
 	 * @covers ::assertPathSet
-	 */
+	 * /
 	public function test_assertPathSet(): void {
 		Paths::assertPathSet('pwd');
 		Paths::assertPathSet('entry');
@@ -72,18 +72,18 @@ class test_Paths extends \PHPUnit\Framework\TestCase {
 		Paths::assertPathSet('test');
 	}
 
-	/**
+	/ **
 	 * @covers ::get
-	 */
+	 * /
 	public function test_path_unknown(): void {
 		$this->expectException(\RuntimeException::class);
 		$this->expectExceptionMessage('Path not set: unknown');
 		Paths::get('unknown');
 	}
 
-	/**
+	/ **
 	 * @covers ::set
-	 */
+	 * /
 	public function test_path_tag_unknown(): void {
 		$this->expectException(\RuntimeException::class);
 		$this->expectExceptionMessage('Unknown path tag: unknown');
@@ -93,3 +93,4 @@ class test_Paths extends \PHPUnit\Framework\TestCase {
 
 
 }
+*/

@@ -5,24 +5,24 @@
  * @license GPL-3
  * @author lorenzo at poixson.com
  * @link https://poixson.com/
- */
+ * /
 namespace pxn\phpUtils\tests\app;
 
 
-/**
+/ **
  * @coversDefaultClass \pxn\phpUtils\app\xApp
- */
+ * /
 class test_StringUtils extends \PHPUnit\Framework\TestCase {
 
 
 
-	/**
+	/ **
 	 * @covers ::__construct
 	 * @covers ::getName
 	 * @covers ::getNamespace
 	 * @covers ::getVersion
 	 * @covers ::check_run_mode
-	 */
+	 * /
 	public function test_xApp() {
 		$app = new xAppTest();
 		$this->assertNotNull($app);
@@ -35,3 +35,4 @@ class test_StringUtils extends \PHPUnit\Framework\TestCase {
 
 
 }
+*/

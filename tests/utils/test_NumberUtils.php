@@ -5,23 +5,23 @@
  * @license GPL-3
  * @author lorenzo at poixson.com
  * @link https://poixson.com/
- */
+ * /
 namespace pxn\phpUtils\tests\utils;
 
 use \pxn\phpUtils\utils\NumberUtils;
 use \pxn\phpUtils\pxnDefines;
 
 
-/**
+/ **
  * @coversDefaultClass \pxn\phpUtils\utils\NumberUtils
- */
+ * /
 class test_NumberUtils extends \PHPUnit\Framework\TestCase {
 
 
 
-	/**
+	/ **
 	 * @covers ::isNumber
-	 */
+	 * /
 	public function test_isNumber(): void {
 		$this->assertFalse(NumberUtils::isNumber(null      ), "Value: NULL"      );
 		$this->assertFalse(NumberUtils::isNumber(''        ), "Value: ''"        );
@@ -42,9 +42,9 @@ class test_NumberUtils extends \PHPUnit\Framework\TestCase {
 
 
 
-	/**
+	/ **
 	 * @covers ::MinMax
-	 */
+	 * /
 	public function test_MinMax(): void {
 		$this->assertEquals(expected:  999, actual: NumberUtils::MinMax(999)                 );
 		// min/max
@@ -70,9 +70,9 @@ class test_NumberUtils extends \PHPUnit\Framework\TestCase {
 
 
 
-	/**
+	/ **
 	 * @covers ::round
-	 */
+	 * /
 	public function test_round(): void {
 		$this->assertEquals(expected: '123',    actual: NumberUtils::round(123,     0));
 		$this->assertEquals(expected: '123.00', actual: NumberUtils::round(123,     2));
@@ -83,9 +83,9 @@ class test_NumberUtils extends \PHPUnit\Framework\TestCase {
 		$this->assertEquals(expected:    '130', actual: NumberUtils::round(125.6,  -1));
 	}
 
-	/**
+	/ **
 	 * @covers ::floor
-	 */
+	 * /
 	public function test_floor(): void {
 		$this->assertEquals(expected: '123',    actual: NumberUtils::floor(123,     0));
 		$this->assertEquals(expected: '123.00', actual: NumberUtils::floor(123,     2));
@@ -96,9 +96,9 @@ class test_NumberUtils extends \PHPUnit\Framework\TestCase {
 		$this->assertEquals(expected:    '120', actual: NumberUtils::floor(125.6,  -1));
 	}
 
-	/**
+	/ **
 	 * @covers ::ceil
-	 */
+	 * /
 	public function test_ceil(): void {
 		$this->assertEquals(expected: '123',    actual: NumberUtils::ceil(123,      0));
 		$this->assertEquals(expected: '123.00', actual: NumberUtils::ceil(123,      2));
@@ -111,9 +111,9 @@ class test_NumberUtils extends \PHPUnit\Framework\TestCase {
 
 
 
-	/**
+	/ **
 	 * @covers ::pad_zeros
-	 */
+	 * /
 	public function test_pad_zeros(): void {
 		$this->assertEquals(expected:     '1', actual: NumberUtils::pad_zeros(    1, 0));
 		$this->assertEquals(expected:   '1.2', actual: NumberUtils::pad_zeros(  1.2, 0));
@@ -125,9 +125,9 @@ class test_NumberUtils extends \PHPUnit\Framework\TestCase {
 
 
 
-	/**
+	/ **
 	 * @covers ::FormatBytes
-	 */
+	 * /
 	public function test_FormatBytes(): void {
 		$this->assertEquals(expected:    null, actual: NumberUtils::FormatBytes(-1  ));
 		$this->assertEquals(expected:    '1B', actual: NumberUtils::FormatBytes(1   ));
@@ -150,9 +150,9 @@ class test_NumberUtils extends \PHPUnit\Framework\TestCase {
 
 
 
-	/**
+	/ **
 	 * @covers ::FormatRoman
-	 */
+	 * /
 	public function test_FormatRoman(): void {
 		$this->assertEquals(expected: 'I',       actual: NumberUtils::FormatRoman(1     ));
 		$this->assertEquals(expected: 'II',      actual: NumberUtils::FormatRoman(2     ));
@@ -192,9 +192,9 @@ class test_NumberUtils extends \PHPUnit\Framework\TestCase {
 
 
 
-	/**
+	/ **
 	 * @covers ::ColorPercent
-	 */
+	 * /
 	public function test_ColorPercent(): void {
 		$this->assertEquals(expected: '#7f7f7f', actual: NumberUtils::ColorPercent(0.5, '#000000', '#ffffff'));
 		$this->assertEquals(expected: '000',     actual: NumberUtils::ColorPercent(0.0, '000', 'fff'));
@@ -216,9 +216,9 @@ class test_NumberUtils extends \PHPUnit\Framework\TestCase {
 
 
 
-	/**
+	/ **
 	 * @covers ::ShorthandHexColor
-	 */
+	 * /
 	public function test_ShorthandHexColor(): void {
 		$this->assertEquals(expected:'#abcdef', actual: NumberUtils::ShorthandHexColor('#abcdef'));
 		$this->assertEquals(expected: 'abcdef', actual: NumberUtils::ShorthandHexColor( 'abcdef'));
@@ -234,9 +234,9 @@ class test_NumberUtils extends \PHPUnit\Framework\TestCase {
 
 
 
-	/**
+	/ **
 	 * @covers ::StringToSeconds
-	 */
+	 * /
 	public function test_StringToSeconds(): void {
 		$this->assertEquals(expected:       1, actual: NumberUtils::StringToSeconds('1'                   ));
 		$this->assertEquals(expected:       1, actual: NumberUtils::StringToSeconds('1s'                  ));
@@ -258,9 +258,9 @@ class test_NumberUtils extends \PHPUnit\Framework\TestCase {
 
 
 
-	/**
+	/ **
 	 * @covers ::SecondsToString
-	 */
+	 * /
 	public function test_SecondsToString(): void {
 		$this->assertEquals(expected:                     '--', actual: NumberUtils::SecondsToString(       0));
 		$this->assertEquals(expected:                   '1sec', actual: NumberUtils::SecondsToString(       1));
@@ -283,9 +283,9 @@ class test_NumberUtils extends \PHPUnit\Framework\TestCase {
 
 
 
-	/**
+	/ **
 	 * @covers ::SecondsToText
-	 */
+	 * /
 	public function test_SecondsToText(): void {
 		// future
 		$this->assertEquals(expected: 'Soon',            actual: NumberUtils::SecondsToText( -1    ));
@@ -307,3 +307,4 @@ class test_NumberUtils extends \PHPUnit\Framework\TestCase {
 
 
 }
+*/
