@@ -8,8 +8,8 @@
  */
 namespace pxn\phpUtils\tests\tools;
 
-use pxn\phpUtils\tools\LockFile;
-use pxn\phpUtils\exceptions\ConcurrentLockException;
+use \pxn\phpUtils\tools\LockFile;
+use \pxn\phpUtils\exceptions\ConcurrentLockException;
 
 
 /**

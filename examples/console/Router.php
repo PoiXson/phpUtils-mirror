@@ -8,10 +8,10 @@
  * /
 namespace pxn\phpUtils\examples\console;
 
-use pxn\phpUtils\console\Command;
+use \pxn\phpUtils\console\Command;
 
-use Symfony\Component\Console\Input\InputInterface;
-use Symfony\Component\Console\Output\OutputInterface;
+use \Symfony\Component\Console\Input\InputInterface;
+use \Symfony\Component\Console\Output\OutputInterface;
 
 
 class Router implements \pxn\phpUtils\console\Router {

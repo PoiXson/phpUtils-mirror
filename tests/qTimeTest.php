@@ -8,8 +8,8 @@
  * /
 namespace pxn\phpUtils\tests;
 
-use pxn\phpUtils\qTime;
-use pxn\phpUtils\General;
+use \pxn\phpUtils\qTime;
+use \pxn\phpUtils\General;
 
 
 / **

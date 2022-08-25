@@ -8,7 +8,7 @@
  * /
 namespace pxn\phpUtils\config;
 
-use pxn\phpUtils\Defines;
+use \pxn\phpUtils\Defines;
 
 
 class ConfigMain extends Config {

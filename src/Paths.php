@@ -8,7 +8,7 @@
  * /
 namespace pxn\phpUtils;
 
-use pxn\phpUtils\exceptions\RequiredArgumentException;
+use \pxn\phpUtils\exceptions\RequiredArgumentException;
 
 
 class Paths {

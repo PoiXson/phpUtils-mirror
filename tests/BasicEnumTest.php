@@ -8,7 +8,7 @@
  * /
 namespace pxn\phpUtils\tests;
 
-use pxn\phpUtils\examples\BasicEnumExample;
+use \pxn\phpUtils\examples\BasicEnumExample;
 
 
 / **

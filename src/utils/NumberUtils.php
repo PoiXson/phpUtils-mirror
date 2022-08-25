@@ -8,8 +8,8 @@
  * /
 namespace pxn\phpUtils\utils;
 
-use pxn\phpUtils\pxnDefines as xDef;
-use pxn\phpUtils\exceptions\RequiredArgumentException;
+use \pxn\phpUtils\pxnDefines as xDef;
+use \pxn\phpUtils\exceptions\RequiredArgumentException;
 
 
 final class NumberUtils {

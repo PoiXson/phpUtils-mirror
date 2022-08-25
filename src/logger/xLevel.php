@@ -8,8 +8,8 @@
  * /
 namespace pxn\phpUtils\xLogger;
 
-use pxn\phpUtils\Defines;
-use pxn\phpUtils\Numbers;
+use \pxn\phpUtils\Defines;
+use \pxn\phpUtils\Numbers;
 
 
 final class xLevel {

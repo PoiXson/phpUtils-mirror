@@ -8,8 +8,8 @@
  */
 namespace pxn\phpUtils\tests\utils;
 
-use pxn\phpUtils\utils\NumberUtils;
-use pxn\phpUtils\pxnDefines;
+use \pxn\phpUtils\utils\NumberUtils;
+use \pxn\phpUtils\pxnDefines;
 
 
 /**

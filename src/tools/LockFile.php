@@ -8,7 +8,7 @@
  * /
 namespace pxn\phpUtils\tools;
 
-use pxn\phpUtils\exceptions\ConcurrentLockException;
+use \pxn\phpUtils\exceptions\ConcurrentLockException;
 
 
 class LockFile {

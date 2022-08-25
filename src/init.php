@@ -8,8 +8,8 @@
  * /
 namespace pxn\phpUtils;
 
-use pxn\phpUtils\pxnDefines as xDef;
-//use pxn\phpUtils\Debug;
+use \pxn\phpUtils\pxnDefines as xDef;
+//use \pxn\phpUtils\Debug;
 
 
 

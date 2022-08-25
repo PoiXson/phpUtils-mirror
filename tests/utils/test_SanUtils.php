@@ -8,7 +8,7 @@
  */
 namespace pxn\phpUtils\tests;
 
-use pxn\phpUtils\utils\SanUtils;
+use \pxn\phpUtils\utils\SanUtils;
 
 
 /**

@@ -8,9 +8,9 @@
  * /
 namespace pxn\phpUtils\tools;
 
-use Composer\Autoload\ClassLoader;
+use \Composer\Autoload\ClassLoader;
 
-use pxn\phpUtils\exceptions\RequiredArgumentException;
+use \pxn\phpUtils\exceptions\RequiredArgumentException;
 
 
 trait ComposerAdditionalVendorTrait {

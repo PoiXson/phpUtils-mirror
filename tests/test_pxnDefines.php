@@ -8,7 +8,7 @@
  */
 namespace pxn\phpUtils\tests;
 
-use pxn\phpUtils\pxnDefines as xDef;
+use \pxn\phpUtils\pxnDefines as xDef;
 
 
 /**

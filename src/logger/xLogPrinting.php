@@ -8,7 +8,7 @@
  * /
 namespace pxn\phpUtils\xLogger;
 
-use pxn\phpUtils\Strings;
+use \pxn\phpUtils\Strings;
 
 
 abstract class xLogPrinting {

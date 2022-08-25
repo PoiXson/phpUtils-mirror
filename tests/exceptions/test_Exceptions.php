@@ -8,10 +8,10 @@
  */
 namespace pxn\phpUtils\tests\exceptions;
 
-use pxn\phpUtils\exceptions\NullPointerException as NullPointEx;
-use pxn\phpUtils\exceptions\RequiredArgumentException;
-use pxn\phpUtils\exceptions\FileNotFoundException as FileNotFoundEx;
-use pxn\phpUtils\exceptions\ConcurrentLockException as ConcurrentLockEx;
+use \pxn\phpUtils\exceptions\NullPointerException as NullPointEx;
+use \pxn\phpUtils\exceptions\RequiredArgumentException;
+use \pxn\phpUtils\exceptions\FileNotFoundException as FileNotFoundEx;
+use \pxn\phpUtils\exceptions\ConcurrentLockException as ConcurrentLockEx;
 
 
 class test_NumberUtils extends \PHPUnit\Framework\TestCase {

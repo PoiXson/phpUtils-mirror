@@ -8,10 +8,10 @@
  * /
 namespace pxn\phpUtils;
 
-use pxn\phpUtils\tools\FileFinder;
-use pxn\phpUtils\utils\SystemUtils;
+use \pxn\phpUtils\tools\FileFinder;
+use \pxn\phpUtils\utils\SystemUtils;
 
-use Kint\Kint;
+use \Kint\Kint;
 
 
 final class Debug {

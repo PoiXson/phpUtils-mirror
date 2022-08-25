@@ -8,9 +8,9 @@
  * /
 namespace pxn\phpUtils\console;
 
-use pxn\phpUtils\San;
-use pxn\phpUtils\Numbers;
-use pxn\phpUtils\Defines;
+use \pxn\phpUtils\San;
+use \pxn\phpUtils\Numbers;
+use \pxn\phpUtils\Defines;
 
 
 class Dialog_Menu extends Dialog {

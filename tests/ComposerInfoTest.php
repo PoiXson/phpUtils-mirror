@@ -8,8 +8,8 @@
  * /
 namespace pxn\phpUtils\tests;
 
-use pxn\phpUtils\ComposerInfo;
-use pxn\phpUtils\Strings;
+use \pxn\phpUtils\ComposerInfo;
+use \pxn\phpUtils\Strings;
 
 
 / **

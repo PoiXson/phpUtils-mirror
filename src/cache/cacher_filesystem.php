@@ -8,10 +8,10 @@
  * /
 namespace pxn\phpUtils\cache;
 
-use pxn\phpUtils\Arrays;
-use pxn\phpUtils\Strings;
-use pxn\phpUtils\General;
-use pxn\phpUtils\Defines;
+use \pxn\phpUtils\Arrays;
+use \pxn\phpUtils\Strings;
+use \pxn\phpUtils\General;
+use \pxn\phpUtils\Defines;
 
 
 class cacher_filesystem extends cacher {

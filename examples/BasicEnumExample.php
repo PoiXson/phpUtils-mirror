@@ -8,7 +8,7 @@
  * /
 namespace pxn\phpUtils\examples;
 
-use pxn\phpUtils\BasicEnum;
+use \pxn\phpUtils\BasicEnum;
 
 
 class BasicEnumExample extends BasicEnum {

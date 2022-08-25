@@ -8,7 +8,7 @@
  * /
 namespace pxn\phpUtils\xLogger;
 
-use pxn\phpUtils\xLogger\formatters\BasicFormat;
+use \pxn\phpUtils\xLogger\formatters\BasicFormat;
 
 
 class xLog extends xLogPrinting {

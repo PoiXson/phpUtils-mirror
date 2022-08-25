@@ -8,7 +8,7 @@
  * /
 namespace pxn\phpUtils\tests;
 
-use pxn\phpUtils\Arrays;
+use \pxn\phpUtils\Arrays;
 
 
 / **

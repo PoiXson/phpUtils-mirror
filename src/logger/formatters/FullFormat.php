@@ -8,11 +8,11 @@
  * /
 namespace pxn\phpUtils\xLogger\formatters;
 
-use pxn\phpUtils\xLogger\xLogFormatter;
-use pxn\phpUtils\xLogger\xLogRecord;
-use pxn\phpUtils\xLogger\xLevel;
+use \pxn\phpUtils\xLogger\xLogFormatter;
+use \pxn\phpUtils\xLogger\xLogRecord;
+use \pxn\phpUtils\xLogger\xLevel;
 
-use pxn\phpUtils\Strings;
+use \pxn\phpUtils\Strings;
 
 
 class FullFormat implements xLogFormatter {

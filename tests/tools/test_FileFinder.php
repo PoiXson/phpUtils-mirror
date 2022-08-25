@@ -8,7 +8,7 @@
  */
 namespace pxn\phpUtils\tests\tools;
 
-use pxn\phpUtils\tools\FileFinder;
+use \pxn\phpUtils\tools\FileFinder;
 
 
 /**

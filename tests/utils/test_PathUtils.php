@@ -8,7 +8,7 @@
  */
 namespace pxn\phpUtils\tests\utils;
 
-use pxn\phpUtils\utils\PathUtils;
+use \pxn\phpUtils\utils\PathUtils;
 
 
 /**

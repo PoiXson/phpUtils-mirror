@@ -8,7 +8,7 @@
  * /
 namespace pxn\phpUtils\tests;
 
-use pxn\phpUtils\Debug;
+use \pxn\phpUtils\Debug;
 
 
 / **

@@ -8,7 +8,7 @@
  * /
 namespace pxn\phpUtils\tools;
 
-use pxn\phpUtils\utils\StringUtils;
+use \pxn\phpUtils\utils\StringUtils;
 
 
 class FileFinder {
