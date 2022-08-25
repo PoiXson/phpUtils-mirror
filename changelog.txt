@@ -1,6 +1,12 @@
 phpUtils - PHP Utilities Library
 
 
+2022-08-25 - 0.4.2
+==================
+* added load_paths() function to xApp class - uses a simple array
+* more cleanup and fixes
+
+
 2022-08-15 - 0.4.1
 ==================
 * added Paginate() function
