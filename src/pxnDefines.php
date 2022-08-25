@@ -15,7 +15,8 @@ final class pxnDefines {
 	public static function init(): void {}
 
 
-	const phpUtilsVersion = \pxn\phpUtils\Version::phpUtilsVersion;
+//TODO
+//	const phpUtilsVersion = \pxn\phpUtils\Version::phpUtilsVersion;
 
 
 	const PHP_MIN_VERSION     = 80000;
