@@ -5,98 +5,59 @@
  * @license GPL-3
  * @author lorenzo at poixson.com
  * @link https://poixson.com/
- * /
+ */
 namespace pxn\phpUtils\utils;
 
-use pxn\phpUtils\exceptions\RequiredArgumentException;
+use \pxn\phpUtils\pxnDefines as xDef;
 
 
 final class PathUtils {
-	/ ** @codeCoverageIgnore * /
+	/** @codeCoverageIgnore */
 	private final function __construct() {}
 
 
 
-	public static function get_filename(string $filePath): string {
-		if (empty($filePath))
-			return '';
-		$pos = \mb_strrpos($filePath, '/');
+	public static function FileName(string $path): string {
+		$pos = \mb_strrpos($path, '/');
 		if ($pos === false)
-			return $filePath;
-		return \mb_substr($filePath, $pos+1);
+			return $path;
+		return \mb_substr($path, $pos+1);
 	}
 
 
 
-	public static function build_path(string...$parts): string {
-		if (empty($parts))
-			return '';
-		$prepend = \str_starts_with(haystack: \reset($parts), needle: '/');
-		$append  = \str_ends_with  (haystack: \end($parts),   needle: '/');
-		$cleaned = [];
-		foreach ($parts as $str) {
-			if (empty($str))
-				continue;
-			$trimmed = StringUtils::trim($str, '/', '\\', ' ');
-			if (empty($trimmed))
-				continue;
-			$cleaned[] = $trimmed;
-		}
-		return
-			($prepend ? '/' : '').
-			\implode('/', $cleaned).
-			($append  ? '/' : '');
-	}
-
-
-
-	public static function common_path(string $pathA, string $pathB): string {
-		$prepend = \str_starts_with(haystack: $pathA, needle: '/')
-				|| \str_starts_with(haystack: $pathB, needle: '/');
-		if ($prepend) {
-			$pathA = StringUtils::trim_front($pathA, '/');
-			$pathB = StringUtils::trim_front($pathB, '/');
-		}
-		$partsA = \explode('/', $pathA);
-		$partsB = \explode('/', $pathB);
-		$endIndex =
-			\min(
-				\count($partsA),
-				\count($partsB)
-			) - 1;
-		$result = [];
-		for ($i=0; $i<$endIndex; $i++) {
-			if ($partsA[$i] != $partsB[$i])
-				break;
-			$result[] = $partsA[$i];
-		}
-		if (\count($result) == 0)
-			return ($prepend ? '/' : '');
-		$result = \implode('/', $result);
-		return (
-			$prepend
-			? StringUtils::force_starts_with(haystack: $result, prepend: '/')
-			: $result
-		);
-	}
-
-
-
-	public static function resolve_symlinks(string $path): string {
-		$path = StringUtils::trim_end($path, '/');
-		if (empty($path)) throw new RequiredArgumentException('path');
-		for ($i=0; $i<10; $i++) {
-			if (!\is_link($path))
-				break;
-			$link = \readlink($path);
-			if (empty($link))
-				break;
-			$path = $link;
-		}
+	public static function TrimPath(string $path, string $trim): string|false {
+		if (empty($trim))
+			throw new \RuntimeException('trim argument is empty');
+		if (!\str_starts_with($path, $trim))
+			return false;
+		$path = \mb_substr($path, \mb_strlen($trim));
+		while (\mb_substr($path, 0, 1) == '/')
+			$path = \mb_substr($path, 1);
 		return $path;
 	}
 
 
 
+	public static function NormPath(string $path): string {
+		$path = \preg_replace('/[^\x20-\x7E]/', '', $path);
+		$path = \str_replace(['\\', '/'], xDef::DIR_SEP, $path);
+		$isAbs = \str_starts_with($path, '/');
+		$parts = \explode('/', $path);
+		$result = [];
+		foreach ($parts as $part) {
+			if (empty($part) || $part === '.') {
+			} else
+			if ($part !== '..') {
+				\array_push($result, $part);
+			} else
+			if (!empty($result)) {
+				\array_pop($result);
+			}
+		}
+		return ($isAbs ? xDef::DIR_SEP : '') . \implode('/', $result);
+	}
+
+
+
 }
-*/
