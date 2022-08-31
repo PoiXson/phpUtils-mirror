@@ -12,7 +12,7 @@ use \pxn\phpUtils\utils\StringUtils;
 use \pxn\phpUtils\exceptions\RequiredArgumentException;
 
 
-class Paths {
+class xPaths {
 	/** @codeCoverageIgnore */
 	private final function __construct() {}
 
@@ -94,10 +94,10 @@ class Paths {
 				$var  = \mb_substr($path, 1, $pos-1);
 				$path = \mb_substr($path, $pos+1);
 				if ($var == 'pwd') {
-					$path = Paths::pwd().$path;
+					$path = self::pwd().$path;
 				} else
 				if ($var == 'entry') {
-					$path = Paths::entry().$path;
+					$path = self::entry().$path;
 				} else {
 					if (!isset(self::$paths[$var]))
 						throw new \RuntimeException("Unknown path tag: $var");

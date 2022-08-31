@@ -43,7 +43,7 @@ xDef::init();
 
 
 // paths
-//Paths::init();
+xPaths::init();
 
 
 

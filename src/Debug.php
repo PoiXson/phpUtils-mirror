@@ -46,7 +46,7 @@ final class Debug {
 		// .debug file
 		{
 			$finder = new FileFinder();
-			$finder->search_path_parents(path: Paths::pwd(), depth: 2);
+			$finder->search_path_parents(path: xPaths::pwd(), depth: 2);
 			$finder->search_files('debug', '.debug');
 			$found = $finder->find();
 			if (!empty($found)) {
