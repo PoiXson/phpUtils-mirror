@@ -5,7 +5,7 @@
  * @license GPL-3
  * @author lorenzo at poixson.com
  * @link https://poixson.com/
- * /
+ */
 namespace pxn\phpUtils;
 
 use \pxn\phpUtils\tools\FileFinder;
@@ -15,28 +15,33 @@ use \Kint\Kint;
 
 
 final class Debug {
-	/ ** @codeCoverageIgnore * /
+	/** @codeCoverageIgnore */
 	private function __construct() {}
 
 	private static bool $inited = false;
 
-	private static ?bool  $value = null;
-	private static ?string $desc = null;
+	private static ?bool $enabled = null;
+	private static ?string $desc  = null;
 
 
 
 //TODO: enable by remote ip
-//TODO: disable in production
 	public static function init(): void {
 		if (self::$inited) return;
 		self::$inited = true;
-		$sapi = \php_sapi_name();
 		// by define
 		if (\defined('DEBUG')) {
 			self::debug(true, 'by define');
 		} else
 		if (\defined('pxn\\phpUtils\\DEBUG')) {
 			self::debug(true, 'by phpUtils define');
+		}
+		// by run mode
+		$sapi = \php_sapi_name();
+		switch ($sapi) {
+			case 'cli-server': self::debug(true, 'php internal server'); break;
+			case 'phpdbg':     self::debug(true, 'by phpdbg');           break;
+			default: break;
 		}
 		// .debug file
 		{
@@ -48,12 +53,6 @@ final class Debug {
 				self::debug(true, "by $found file");
 			}
 		}
-		// php -S
-		if ($sapi == 'cli-server')
-			self::debug(true, 'by php internal server');
-		// dbg
-		if ($sapi == 'phpdbg')
-			self::debug(true, 'by phpdbg');
 		// filp whoops
 		if (self::debug()) {
 			if (\class_exists('Whoops\\Run')) {
@@ -63,30 +62,8 @@ final class Debug {
 			}
 		}
 		// default
-		if (self::$value === null)
+		if (self::$enabled === null)
 			self::debug(false, 'default');
-	}
-
-
-
-	public static function hasKint(): bool {
-		return \class_exists('Kint\\Kint');
-	}
-
-
-
-	private static function EnableDisable(bool $enable): void {
-		$isShell = SystemUtils::isShell();
-		\error_reporting(\E_ALL);
-		\ini_set('display_errors', $enable  ? 'On' : 'Off');
-		\ini_set('html_errors',    $isShell ? 'Off' : 'On');
-		\ini_set('log_errors',     'On');
-		\ini_set('error_log',      $isShell ? '/var/log/php_shell_error' : 'error_log');
-		if ($enable && self::hasKint()) {
-			Kint::$expanded = true;
-			Kint::$aliases[] = 'dd';
-			Kint::$aliases[] = 'dump';
-		}
 	}
 
 
@@ -94,19 +71,17 @@ final class Debug {
 	public static function debug(?bool $enable=null, ?string $desc=null): bool {
 		self::init();
 		if ($enable !== null) {
-			if (self::$value !== $enable) {
-				self::$value = $enable;
-				self::EnableDisable(self::$value);
+			if (self::$enabled !== $enable) {
+				self::$enabled = $enable;
+				self::EnableDisable(self::$enabled);
 				self::desc($desc);
 			}
 		}
 		// default
-		if (self::$value === null)
+		if (self::$enabled === null)
 			return false;
-		return self::$value;
+		return self::$enabled;
 	}
-
-
 
 	public static function desc(?string $desc=null): ?string {
 		if (!empty($desc)) {
@@ -148,5 +123,26 @@ final class Debug {
 
 
 
+	private static function EnableDisable(bool $enable): void {
+		$isShell = SystemUtils::isShell();
+		\error_reporting(\E_ALL);
+		\ini_set('display_errors', $enable  ? 'On' : 'Off');
+		\ini_set('html_errors',    $isShell ? 'Off' : 'On');
+		\ini_set('log_errors',     'On');
+		\ini_set('error_log',      $isShell ? '/var/log/php_shell_error' : 'error_log');
+		if ($enable && self::hasKint()) {
+			Kint::$expanded = true;
+			Kint::$aliases[] = 'dd';
+			Kint::$aliases[] = 'dump';
+		}
+	}
+
+
+
+	public static function hasKint(): bool {
+		return \class_exists('Kint\\Kint');
+	}
+
+
+
 }
-*/

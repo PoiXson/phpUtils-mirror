@@ -5,11 +5,11 @@
  * @license GPL-3
  * @author lorenzo at poixson.com
  * @link https://poixson.com/
- * /
+ */
 namespace pxn\phpUtils;
 
 use \pxn\phpUtils\pxnDefines as xDef;
-//use \pxn\phpUtils\Debug;
+use \pxn\phpUtils\Debug;
 
 
 
@@ -19,7 +19,7 @@ use \pxn\phpUtils\pxnDefines as xDef;
 
 // atomic state
 if (\defined('pxn\\phpUtils\\inited'))
-	throw new \RuntimeException();
+	throw new \RuntimeException('phpUtils already inited');
 define('pxn\\phpUtils\\inited', true);
 
 
@@ -43,10 +43,14 @@ xDef::init();
 
 
 // paths
-Paths::init();
+//Paths::init();
+
+
 
 // debug
 Debug::init();
+
+
 
 // global functions
 \pxn\phpUtils\Globals::init();
@@ -56,16 +60,10 @@ Debug::init();
 // check php version
 {
 	$version = xDef::PHP_MIN_VERSION;
-	if (\PHP_VERSION_ID < $version) {
-		$version_str = xDef::PHP_MIN_VERSION;
-		echo "PHP $version_str or newer is required\n";
-		exit(1);
-	}
+	if (\PHP_VERSION_ID < $version)
+		throw new \RuntimeException('PHP '.xDef::PHP_MIN_VERSION.' or newer is required');
 }
 
 // check mbstring
-if (!\function_exists('mb_substr')) {
-	echo "mbstring library not installed\n";
-	exit(1);
-}
-*/
+if (!\function_exists('mb_substr'))
+	throw new \RuntimeException('mbstring library not installed');

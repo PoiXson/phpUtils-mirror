@@ -5,15 +5,15 @@
  * @license GPL-3
  * @author lorenzo at poixson.com
  * @link https://poixson.com/
- * /
+ */
 namespace pxn\phpUtils\utils;
 
-use \pxn\phpUtils\Paths;
-use \pxn\phpUtils\pxnDefines as xDef;
+//use \pxn\phpUtils\Paths;
+//use \pxn\phpUtils\pxnDefines as xDef;
 
 
 final class SystemUtils {
-	/ ** @codeCoverageIgnore * /
+	/** @codeCoverageIgnore */
 	private function __construct() {}
 
 	private static ?bool $isCLI = null;
@@ -27,19 +27,21 @@ final class SystemUtils {
 		$sapi = \php_sapi_name();
 		if (\str_starts_with(haystack: $sapi, needle: 'apache'))
 			return false;
-		if ($sapi == 'cli')
-			return true;
-		if ($sapi == 'cli-server')
-			return false;
-//TODO: does this work?
-//		if ($sapi == 'fpm-fcgi')
-//			return false;
+		switch ($sapi) {
+			case 'fpm-fcgi':
+			case 'cli-server':
+				return false;
+			case 'cli':
+				return true;
+			default: break;
+		}
 		if ( isset($_SERVER['SHELL'])           && !empty($_SERVER['SHELL'])           )
 			return true;
 		if ( isset($_SERVER['REDIRECT_STATUS']) && !empty($_SERVER['REDIRECT_STATUS']) )
 			return false;
 		if ( isset($_SERVER['HTTP_HOST'])       && !empty($_SERVER['HTTP_HOST'])       )
 			return false;
+//TODO
 		echo "Unknown web/shell mode\n";
 		exit(xDef::EXIT_CODE_GENERAL);
 	}
@@ -57,16 +59,18 @@ final class SystemUtils {
 
 
 
-	/ ** @codeCoverageIgnore * /
+	/** @codeCoverageIgnore */
 	public static function AssertShell(): void {
 		if (!self::isShell()) {
+//TODO
 			echo "This is a CLI script\n";
 			exit(xDef::EXIT_CODE_GENERAL);
 		}
 	}
-	/ ** @codeCoverageIgnore * /
+	/** @codeCoverageIgnore */
 	public static function AssertWeb(): void {
 		if (!self::isWeb()) {
+//TODO
 			echo "This script is a website\n";
 			exit(xDef::EXIT_CODE_GENERAL);
 		}
@@ -74,10 +78,11 @@ final class SystemUtils {
 
 
 
-	/ ** @codeCoverageIgnore * /
+	/** @codeCoverageIgnore */
 	public static function AssertLinux(): void {
 		$os = \PHP_OS;
 		if ($os != 'Linux') {
+//TODO
 			echo "Sorry, only Linux is currently supported. Contact the developer if you'd like to help add support for $os\n";
 			exit(xDef::EXIT_CODE_GENERAL);
 		}
@@ -108,6 +113,7 @@ final class SystemUtils {
 	}
 	public static function DenySuperUser(): void {
 		if (self::isSuperUser()) {
+//TODO
 			echo "Cannot run this script as super user\n";
 			exit(xDef::EXIT_CODE_NOPERM);
 		}
@@ -117,19 +123,19 @@ final class SystemUtils {
 			$who = self::getUser();
 		$who = \strtolower($who);
 		switch ($who) {
-		case 'root':
-		case 'system':
-		case 'admin':
-		case 'administrator':
-			return true;
-		default: break;
+			case 'root':
+			case 'system':
+			case 'admin':
+			case 'administrator':
+				return true;
+			default: break;
 		}
 		return false;
 	}
 
 
 
-/ *
+/*
 	public static function exec($command): bool {
 		$command = \trim($command);
 		if (empty($command))
@@ -241,9 +247,8 @@ final class SystemUtils {
 	public static function log(): Logger {
 		return Logger::get('SHELL');
 	}
-* /
+*/
 
 
 
 }
-*/
