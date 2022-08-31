@@ -5,23 +5,26 @@
  * @license GPL-3
  * @author lorenzo at poixson.com
  * @link https://poixson.com/
- * /
+ */
 namespace pxn\phpUtils;
 
+use \pxn\phpUtils\utils\StringUtils;
 use \pxn\phpUtils\exceptions\RequiredArgumentException;
 
 
 class Paths {
-	/ ** @codeCoverageIgnore * /
+	/** @codeCoverageIgnore */
 	private final function __construct() {}
 
 	private static bool $inited = false;
 
-	protected static array $paths = [];
+	// pwd
+	// entry
+	public static array $paths = [];
 
 
 
-	/ ** @codeCoverageIgnore * /
+	/** @codeCoverageIgnore */
 	public static function init(): void {
 		if (self::$inited) return;
 		self::$inited = true;
@@ -30,41 +33,54 @@ class Paths {
 		// entry path
 		{
 			$path = null;
-			if (isset($_SERVER['DOCUMENT_ROOT'])) {
+			if (isset($_SERVER['DOCUMENT_ROOT']))
 				$path = $_SERVER['DOCUMENT_ROOT'];
-			}
 			// find entry path from backtrace
 			// (slow but needed for shell)
 			if (empty($path)) {
 				$trace = \debug_backtrace();
 				$last  = \end($trace);
-				$path = \dirname($last['file']);
+				$path  = \dirname($last['file']);
 			}
 			self::$paths['entry'] = \realpath($path);
 		}
-//TODO: is this needed?
-//		// project path
-//		self::$local_project = Strings::trim(self::$local_entry, '/public', '/scripts');
-//TODO: is this needed?
-//		// utils path
-//		self::$local_utils = __DIR__;
+		// common root
+		self::$paths['common'] = StringUtils::trim(self::$paths['entry'], '/public', '/scripts');
 		// ensure all is good
-		self::assertPathSet('pwd');
-		self::assertPathSet('entry');
+		self::assert('pwd');
+		self::assert('entry');
+		self::assert('common');
+		self::addIfExists('static', self::$paths['entry'].'/static');
+		self::addIfExists('html',   self::$paths['common'].'/html');
+		self::addIfExists('data',   self::$paths['common'].'/data');
 	}
 
 
 
-	public static function assertPathSet(string $key): void {
+	public static function addIfExists(string $key, string $path): bool {
+		if (empty($key)) throw new RequiredArgumentException('key');
+		if (\is_dir($path)) {
+			self::$paths[$key] = $path;
+			return true;
+		}
+		return false;
+	}
+
+
+
+	public static function assert(string $key): void {
 		if (empty($key)) throw new RequiredArgumentException('key');
 		if (!isset(self::$paths[$key]) || empty(self::$paths[$key]))
 			throw new \RuntimeException("Path not set: $key");
+		$path = self::get($key);
+		if (!\is_dir($path))
+			throw new \RuntimeException("Path not found: $path");
 	}
 
 
 
 	public static function get(string $key): string {
-		if (empty($key)) throw new RequiredArgumentException('key');
+		if (empty($key))                throw new RequiredArgumentException('key');
 		if (!isset(self::$paths[$key])) throw new \RuntimeException("Path not set: $key");
 		if (empty(self::$paths[$key]))  throw new \RuntimeException("Path not set: $key");
 		return self::$paths[$key];
@@ -75,7 +91,7 @@ class Paths {
 		if (\mb_strpos(haystack: $path, needle: '{') === 0) {
 			$pos = \mb_strpos(haystack: $path, needle: '}');
 			if ($pos !== false) {
-				$var = \mb_substr($path, 1, $pos-1);
+				$var  = \mb_substr($path, 1, $pos-1);
 				$path = \mb_substr($path, $pos+1);
 				if ($var == 'pwd') {
 					$path = Paths::pwd().$path;
@@ -93,10 +109,6 @@ class Paths {
 			}
 		}
 		self::$paths[$key] = $path;
-	}
-
-	public static function getAll(): array {
-		return self::$paths;
 	}
 
 
@@ -117,15 +129,6 @@ class Paths {
 
 
 
-	public static function assert(string $key): void {
-		$path = self::get($key);
-		if (\is_dir($path))
-			return;
-		throw new \RuntimeException("Path not found: $path");
-	}
-
-
-
 	public static function pwd(): string {
 		self::init();
 		return self::$paths['pwd'];
@@ -134,8 +137,11 @@ class Paths {
 		self::init();
 		return self::$paths['entry'];
 	}
+	public static function common(): string {
+		self::init();
+		return self::$paths['common'];
+	}
 
 
 
 }
-*/
