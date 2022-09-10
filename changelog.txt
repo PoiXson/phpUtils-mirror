@@ -1,6 +1,11 @@
 phpUtils - PHP Utilities Library
 
 
+2022-08-31 - 0.4.5
+==================
+* updated dependencies
+
+
 2022-08-31 - 0.4.3
 ==================
 * cleaned up init.php and a few general classes
