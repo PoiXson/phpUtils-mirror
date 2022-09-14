@@ -1,6 +1,11 @@
 phpUtils - PHP Utilities Library
 
 
+2022-09-14 - 0.4.9
+==================
+* added twig-cache path to xPaths class
+
+
 2022-09-14 - 0.4.8
 ==================
 * updated dependencies
