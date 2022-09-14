@@ -1,6 +1,11 @@
 phpUtils - PHP Utilities Library
 
 
+2022-09-14 - 0.4.8
+==================
+* updated dependencies
+
+
 2022-09-10 - 0.4.6
 ==================
 * changing license from GPL3 to AGPL3
