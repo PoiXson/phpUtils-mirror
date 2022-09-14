@@ -46,6 +46,10 @@ class xPaths {
 		}
 		// common root
 		self::$paths['common'] = StringUtils::trim(self::$paths['entry'], '/public', '/scripts');
+		// twig cache
+		if (\is_dir(self::$paths['common'].'/cache')) {
+			self::$paths['twig-cache'] = self::$paths['common'].'/cache';
+		}
 		// ensure all is good
 		self::assert('pwd');
 		self::assert('entry');
