@@ -109,6 +109,7 @@ final class Debug {
 		if (self::hasKint()) {
 			Kint::dump($var);
 		} else {
+//TODO: improve this - displays wrong source line
 			\var_dump($var);
 		}
 	}
