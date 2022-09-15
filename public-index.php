@@ -4,24 +4,25 @@
 $loader = require(__DIR__.'/../vendor/autoload.php');
 if ($loader == null) { echo "Failed to detect autoload.php\n"; exit(1); }
 
-// website class
-$website_class = null;
-if (\file_exists(__DIR__.'/.website')) {
-	$website_class = \file_get_contents(__DIR__.'/.website');
+// find app class
+$app_class = null;
+if (\file_exists(__DIR__.'/.xapp')) {
+	$app_class = \file_get_contents(__DIR__.'/.xapp');
 } else
-if (\file_exists(__DIR__.'/../.website')) {
-	$website_class = \file_get_contents(__DIR__.'/../.website');
+if (\file_exists(__DIR__.'/../.xapp')) {
+	$app_class = \file_get_contents(__DIR__.'/../.xapp');
 }
-if (empty($website_class)) { echo "Failed to detect website class\n"; exit(1); }
-$website_class = \explode("\n", $website_class, 2);
-$website_class = \trim(\reset($website_class));
-if (\str_ends_with($website_class, '\\'))
-	$website_class = \mb_substr($website_class, 0, -1);
-if (empty($website_class)) { echo "Invalid website class\n"; exit(1); }
-if (!\str_ends_with($website_class, '\\Website'))
-	$website_class .= '\\Website';
-if (!\class_exists($website_class)) { echo "Website class not found: $website_class\n"; exit(1); }
+if (empty($app_class)) { echo "Failed to detect app class\n"; exit(1); }
+$app_class = \explode("\n", $app_class, 2);
+$app_class = \trim(\reset($app_class));
+if (\str_ends_with($app_class, '\\'))
+	$app_class = \mb_substr($app_class, 0, -1);
+if (empty($app_class)) { echo "Invalid app class\n"; exit(1); }
+if (!\str_ends_with($app_class, '\\Website')
+&&  !\str_ends_with($app_class, '\\ShellApp'))
+	throw new \RuntimeException("Invalid app class: $app_class");
+if (!\class_exists($app_class)) { echo "App class not found: $app_class\n"; exit(1); }
 
-// load website
-$website = new $website_class($loader);
-$website->run();
+// load app
+$app = new $app_class($loader);
+$app->run();
