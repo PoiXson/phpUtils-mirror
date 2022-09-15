@@ -18,6 +18,8 @@ final class Debug {
 	/** @codeCoverageIgnore */
 	private function __construct() {}
 
+	public const SEARCH_DEPTH = 3;
+
 	private static bool $inited = false;
 
 	private static ?bool $enabled = null;
@@ -46,7 +48,7 @@ final class Debug {
 		// .debug file
 		{
 			$finder = new FileFinder();
-			$finder->search_path_parents(path: xPaths::pwd(), depth: 2);
+			$finder->search_path_parents(path: xPaths::pwd(), depth: self::SEARCH_DEPTH);
 			$finder->search_files('debug', '.debug');
 			$found = $finder->find();
 			if (!empty($found)) {
