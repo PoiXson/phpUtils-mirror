@@ -46,6 +46,7 @@
 	"require-dev": {
 		"filp/whoops": "*",
 		"kint-php/kint": "*",
+		"nunomaduro/collision": "*",
 		"phpunit/phpunit": "*"
 	},
 	"config": {

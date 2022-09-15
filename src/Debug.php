@@ -55,12 +55,17 @@ final class Debug {
 				self::debug(true, "by $found file");
 			}
 		}
-		// filp whoops
 		if (self::debug()) {
+			// filp whoops
 			if (\class_exists('Whoops\\Run')) {
 				$whoops = new \Whoops\Run();
 				$whoops->pushHandler(new \Whoops\Handler\PrettyPageHandler());
 				$whoops->register();
+			}
+			// collision
+			if (\class_exists('NunoMaduro\\Collision\\Provider')) {
+				$collision = new \NunoMaduro\Collision\Provider();
+				$collision->register();
 			}
 		}
 		// default
