@@ -1,6 +1,13 @@
 phpUtils - PHP Utilities Library
 
 
+2022-09-15 - 0.4.12
+===================
+* added support for NunoMaduro\Collision console debugger
+* readded SanUtils
+* changed .debug file search depth from 2 to 3
+
+
 2022-09-14 - 0.4.11
 ===================
 * moving public-index.php loader from phpPortal to phpUtils
