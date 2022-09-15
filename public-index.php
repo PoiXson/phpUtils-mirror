@@ -1,7 +1,13 @@
 <?php declare(strict_types=1);
 
 // class loader
-$loader = require(__DIR__.'/../vendor/autoload.php');
+$loader = null;
+if (\is_file(__DIR__.'/vendor/autoload.php')) {
+	$loader = require(__DIR__.'/vendor/autoload.php');
+} else
+if (\is_file(__DIR__.'/../vendor/autoload.php')) {
+	$loader = require(__DIR__.'/../vendor/autoload.php');
+}
 if ($loader == null) { echo "Failed to detect autoload.php\n"; exit(1); }
 
 // find app class
