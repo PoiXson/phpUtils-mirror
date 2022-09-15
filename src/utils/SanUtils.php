@@ -5,12 +5,12 @@
  * @license AGPL-3
  * @author lorenzo at poixson.com
  * @link https://poixson.com/
- * /
+ */
 namespace pxn\phpUtils\utils;
 
 
 final class SanUtils {
-	/ ** @codeCoverageIgnore * /
+	/** @codeCoverageIgnore */
 	private final function __construct() {}
 
 
@@ -63,4 +63,3 @@ final class SanUtils {
 
 
 }
-*/
