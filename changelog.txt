@@ -1,6 +1,12 @@
 phpUtils - PHP Utilities Library
 
 
+2022-09-14 - 0.4.11
+===================
+* moving public-index.php loader from phpPortal to phpUtils
+* public-index.php loader now searches ./ and ../ paths
+
+
 2022-09-14 - 0.4.9
 ==================
 * added twig-cache path to xPaths class
