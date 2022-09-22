@@ -26,8 +26,8 @@ final class pxnDefines {
 	const DEBUG_COOKIE = 'pxn_debug';
 
 
-	const INT_MAX      = PHP_INT_MAX;
-	const INT_MIN      = PHP_INT_MIN;
+	const INT_MAX      = \PHP_INT_MAX;
+	const INT_MIN      = \PHP_INT_MIN;
 	const NET_PORT_MAX = 65535;
 
 
