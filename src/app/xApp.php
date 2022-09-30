@@ -11,6 +11,8 @@ namespace pxn\phpUtils\app;
 
 abstract class xApp {
 
+	public array $config = [];
+
 
 
 	public function __construct() {
@@ -19,6 +21,15 @@ abstract class xApp {
 
 
 	public abstract function run(): void;
+
+
+
+	protected function loadConfig(String $file): void {
+		$cfg = require($file);
+		if (\is_array($cfg)) {
+			$this->config = \array_merge($this->config, $cfg);
+		}
+	}
 
 
 
