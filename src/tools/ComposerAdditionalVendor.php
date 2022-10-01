@@ -41,10 +41,12 @@ class ComposerAdditionalVendor {
 		foreach ($classMap as $key => $val) {
 			if (isset($existingClassMap[$key]))
 				continue;
+			$key = StringUtils::trim_front($key, '\\');
 			// check blacklists
 			if (\count($blacklist) > 0) {
 				foreach ($blacklist as $entry) {
-					$entry = StringUtils::force_ends_with(haystack: $entry, append: '\\');
+					$entry = StringUtils::trim_front($entry, '\\');
+					$entry = StringUtils::force_ends_with(  haystack: $entry, append: '\\');
 					if (\str_starts_with(haystack: $key, needle: $entry))
 						continue 2;
 				}
@@ -53,7 +55,8 @@ class ComposerAdditionalVendor {
 			if (\count($whitelist) > 0) {
 				$found = false;
 				foreach ($whitelist as $entry) {
-					$entry = StringUtils::force_ends_with(haystack: $entry, append: '\\');
+					$entry = StringUtils::trim_front($entry, '\\');
+					$entry = StringUtils::force_ends_with(  haystack: $entry, append: '\\');
 					if (\str_starts_with(haystack: $key, needle: $entry)) {
 						$found = true;
 						break;

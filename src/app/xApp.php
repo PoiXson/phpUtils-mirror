@@ -21,6 +21,11 @@ abstract class xApp {
 
 	public function __construct(?ClassLoader $loader=null) {
 		$this->loader = $loader;
+		if (\method_exists($this, 'init_addvendor')) {
+			if ($loader === null)
+				throw new \RuntimeException('Class loader not provided to construct');
+			$this->init_addvendor($loader);
+		}
 	}
 
 

@@ -10,8 +10,6 @@ namespace pxn\phpUtils\tools;
 
 use \Composer\Autoload\ClassLoader;
 
-use \pxn\phpUtils\exceptions\RequiredArgumentException;
-
 
 trait ComposerAdditionalVendorTrait {
 
@@ -20,7 +18,6 @@ trait ComposerAdditionalVendorTrait {
 
 
 	protected function init_addvendor(ClassLoader $autoload): void {
-		if ($autoload == null) throw new RequiredArgumentException('autoload');
 		$this->addVendor = new ComposerAdditionalVendor($autoload);
 	}
 
