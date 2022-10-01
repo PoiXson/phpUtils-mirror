@@ -1,6 +1,12 @@
 phpUtils - PHP Utilities Library
 
 
+2022-10-01 - 0.4.15
+===================
+* fixed ComposerAdditionalVendor class
+* more cleanup and fixes
+
+
 2022-09-30 - 0.4.14
 ===================
 * added $config array and loadConfig() function to xApp class
