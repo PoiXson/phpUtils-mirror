@@ -8,14 +8,19 @@
  */
 namespace pxn\phpUtils\app;
 
+use \Composer\Autoload\ClassLoader;
+
 
 abstract class xApp {
+
+	protected ?ClassLoader $loader = null;
 
 	public array $config = [];
 
 
 
-	public function __construct() {
+	public function __construct(?ClassLoader $loader=null) {
+		$this->loader = $loader;
 	}
 
 
