@@ -81,17 +81,19 @@ final class GeneralUtils {
 		if (\count($sources) == 0)
 			$sources = ['g', 'p'];
 		$value = null;
+		$val = null;
 		foreach ($sources as $src) {
-			$char = \mb_substr($src, 0, 1);
-			switch (\mb_strtolower($char)) {
-			case 'g': $value = self::Get(       $name, $type); break;
-			case 'p': $value = self::Post(      $name, $type); break;
-			case 'c': $value = self::GetCookie( $name, $type); break;
-			case 'e': $value = self::GetEnv(    $name, $type); break;
-			case 'v': $value = self::GetServer( $name, $type); break;
-			case 's': $value = self::GetSession($name, $type); break;
-			default: throw new \InvalidArgumentException('Unknown value source: '.$src);
+			switch (\mb_strtolower(\mb_substr($src, 0, 1))) {
+				case 'g': $val = self::Get(       $name, $type); break;
+				case 'p': $val = self::Post(      $name, $type); break;
+				case 'c': $val = self::GetCookie( $name, $type); break;
+				case 'e': $val = self::GetEnv(    $name, $type); break;
+				case 'v': $val = self::GetServer( $name, $type); break;
+				case 's': $val = self::GetSession($name, $type); break;
+				default: throw new \InvalidArgumentException('Unknown value source: '.$src);
 			}
+			if ($val !== null)
+				$value = $val;
 		}
 		return $value;
 	}
