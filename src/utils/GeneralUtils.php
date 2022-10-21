@@ -5,8 +5,8 @@
  * @license AGPL-3
  * @author lorenzo at poixson.com
  * @link https://poixson.com/
- * /
-namespace pxn\phpUtils;
+ */
+namespace pxn\phpUtils\utils;
 
 
 final class GeneralUtils {
@@ -21,28 +21,16 @@ final class GeneralUtils {
 
 
 	// cast variable type
-	public static function castType($data, string $type) {
-		if (empty($type))
-			return $data;
-		switch (\mb_strtolower(\mb_substr( (string) $type, 0, 1))) {
-			// string
-			case 's':
-				return ((string) $data);
-			// integer/long
+	public static function CastType($data, string $type) {
+		if (empty($type)) return $data;
+		switch (\mb_strtolower(\mb_substr((string)$type, 0, 1))) {
+			case 's': return (string) $data;  // string
 			case 'i':
-			case 'l':
-				return ((integer) $data);
-			// float
-			case 'f':
-				return ((float) $data);
-			// double
-			case 'd':
-				return ((float) $data);
-			// boolean
-			case 'b':
-				return self::castBoolean($data);
-			default:
-				break;
+			case 'l': return (integer) $data; // integer/long
+			case 'f': return (float) $data;   // float
+			case 'd': return (float) $data;   // double
+			case 'b': return self::CastBoolean($data); // boolean
+			default: break;
 		}
 		return $data;
 	}
@@ -50,24 +38,23 @@ final class GeneralUtils {
 
 
 	// convert to boolean
-	public static function castBoolean($value): ?bool {
-		if ($value === NULL)
-			return NULL;
+	public static function CastBoolean($value): ?bool {
+		if ($value === null) return null;
 		if (\gettype($value) === 'boolean')
 			return $value;
 		$val = \mb_strtolower(trim( (string) $value ));
-		if ($val == 'on')  return TRUE;
-		if ($val == 'off') return FALSE;
+		if ($val == 'on')  return true;
+		if ($val == 'off') return false;
 		switch (mb_substr($val, 0, 1)) {
 			case 't': // true
 			case 'y': // yes
 			case 'a': // allow
 			case 'e': // enable
-				return TRUE;
+				return true;
 			case 'f': // false
 			case 'n': // no
 			case 'd': // deny/disable
-				return FALSE;
+				return false;
 		}
 		return ((boolean) $value);
 	}
@@ -81,7 +68,7 @@ final class GeneralUtils {
 
 
 	// get,post,cookie (highest priority last)
-	/ **
+	/**
 	 * Gets a value from a specific list of sources.
 	 * @param string $name - Name or key requested.
 	 * @param string $type - Casts value to this type.
@@ -89,46 +76,21 @@ final class GeneralUtils {
 	 * @param string $source - Strings representing the data source. (from least to greatest importance)
 	 *     Possible values: get, post, cookie, session
 	 * @return object - Returns the requested value, cast to requested type.
-	 * /
-	public static function getVar(string $name, string $type='s', string...$sources) {
-		if (\count($sources) == 0) {
+	 */
+	public static function GetVar(string $name, string $type='s', string...$sources) {
+		if (\count($sources) == 0)
 			$sources = ['g', 'p'];
-		}
-		$value = NULL;
+		$value = null;
 		foreach ($sources as $src) {
-			$v = NULL;
 			$char = \mb_substr($src, 0, 1);
 			switch (\mb_strtolower($char)) {
-			// get
-			case 'g':
-				$v = self::get($name, $type);
-				break;
-			// post
-			case 'p':
-				$v = self::post($name, $type);
-				break;
-			// cookie
-			case 'c':
-				$v = self::cookie($name, $type);
-				break;
-			// env
-			case 'e':
-				$v = self::env($name, $type);
-				break;
-			// server
-			case 'v':
-				$v = self::server($name, $type);
-				break;
-			// session
-			case 's':
-				$v = self::session($name, $type);
-				break;
-			default:
-				throw new \InvalidArgumentException("Unknown value source: $src");
-			}
-			// value found
-			if ($v !== NULL) {
-				$value = $v;
+			case 'g': $value = self::Get(       $name, $type); break;
+			case 'p': $value = self::Post(      $name, $type); break;
+			case 'c': $value = self::GetCookie( $name, $type); break;
+			case 'e': $value = self::GetEnv(    $name, $type); break;
+			case 'v': $value = self::GetServer( $name, $type); break;
+			case 's': $value = self::GetSession($name, $type); break;
+			default: throw new \InvalidArgumentException('Unknown value source: '.$src);
 			}
 		}
 		return $value;
@@ -137,52 +99,52 @@ final class GeneralUtils {
 
 
 	// get var
-	public static function get(string $name, ?string $type=NULL) {
+	public static function Get(string $name, ?string $type=null) {
 		if (empty($type)) $type = 's';
 		if (isset($_GET[$name]))
-			return self::castType($_GET[$name], $type);
-		return NULL;
+			return self::CastType($_GET[$name], $type);
+		return null;
 	}
 	// post var
-	public static function post(string $name, ?string $type=NULL) {
+	public static function Post(string $name, ?string $type=null) {
 		if (empty($type)) $type = 's';
 		if (isset($_POST[$name]))
-			return self::castType($_POST[$name], $type);
-		return NULL;
+			return self::CastType($_POST[$name], $type);
+		return null;
 	}
 	// cookie var
-	public static function cookie(string $name, ?string $type=NULL) {
+	public static function GetCookie(string $name, ?string $type=null) {
 		if (empty($type)) $type = 's';
 		if (isset($_COOKIE[$name]))
-			return self::castType($_COOKIE[$name], $type);
-		return NULL;
+			return self::CastType($_COOKIE[$name], $type);
+		return null;
 	}
 	// php session var
-	public static function session(string $name, ?string $type=NULL) {
+	public static function GetSession(string $name, ?string $type=null) {
 		if (empty($type)) $type = 's';
 		if (isset($_SESSION[$name]))
-			return self::castType($_SESSION[$name], $type);
-		return NULL;
+			return self::CastType($_SESSION[$name], $type);
+		return null;
 	}
 	// environment variables
-	public static function env(string $name, ?string $type=NULL) {
+	public static function GetEnv(string $name, ?string $type=null) {
 		if (empty($type)) $type = 's';
 		if (isset($_ENV[$name]))
-			return self::castType($_ENV[$name], $type);
-		return NULL;
+			return self::CastType($_ENV[$name], $type);
+		return null;
 	}
 	// server variables
-	public static function server(string $name, ?string $type=NULL) {
+	public static function GetServer(string $name, ?string $type=null) {
 		if (empty($type)) $type = 's';
 		if (isset($_SERVER[$name]))
-			return self::castType($_SERVER[$name], $type);
-		return NULL;
+			return self::CastType($_SERVER[$name], $type);
+		return null;
 	}
 
 
 
 //TODO
-/ *
+/*
 	/ **
 	 * Parses REQUEST_URI from http request header and inserts into $_GET array.
 	 * @example:
@@ -198,7 +160,7 @@ final class GeneralUtils {
 		if (isset($_SERVER['REDIRECT_STATUS'])) {
 			$data = $_SERVER['REQUEST_URI'];
 			// parse ? query string
-			if (\mb_strpos($data, '?') !== FALSE) {
+			if (\mb_strpos($data, '?') !== false) {
 				list($data, $query) = \explode('?', $data, 2);
 				if (!empty($query)) {
 					//$arr = explode('&', $query);
@@ -216,7 +178,7 @@ final class GeneralUtils {
 			}
 		}
 	}
-* /
+*/
 
 
 
@@ -226,9 +188,9 @@ final class GeneralUtils {
 
 
 
-	/ **
+	/**
 	 * @return double - Returns current timestamp in seconds.
-	 * /
+	 */
 	public static function getTimestamp(int $places=3): float {
 		$places = Numbers::MinMax($places, 0, 4);
 		$time = \explode(' ', \microtime(), 2);
@@ -237,14 +199,13 @@ final class GeneralUtils {
 		$timestamp = ((float) $time[1]) + ((float) $time[0]);
 		return Numbers::Round($timestamp, $places);
 	}
-	/ **
+	/**
 	 * Sleep execution for x milliseconds.
 	 * @param int $ms - Milliseconds to sleep.
-	 * /
+	 */
 	public static function Sleep(int $ms): void {
-		if ($ms > 0.0) {
+		if ($ms > 0.0)
 			\usleep($ms * 1000);
-		}
 	}
 
 
@@ -255,29 +216,29 @@ final class GeneralUtils {
 
 
 
-/ *
+//TODO
+/*
 	/ **
 	 * Sends http headers to disable page caching.
-	 * @return boolean - TRUE if successful; FALSE if headers already sent.
+	 * @return boolean - true if successful; false if headers already sent.
 	 * @codeCoverageIgnore
 	 * /
 	public static function NoPageCache() {
-		if (SystemUtils::isShell()) {
+		if (SystemUtils::isShell())
 			return;
-		}
 		if (self::$INITED_NoPageCache)
-			return TRUE;
+			return true;
 		if (\headers_sent())
-			return FALSE;
+			return false;
 		@\header('Expires: Mon, 26 Jul 1990 05:00:00 GMT');
 		@\header('Last-Modified: '.gmdate('D, d M Y H:i:s').' GMT');
 		@\header('Cache-Control: no-store, no-cache, must-revalidate');
-		@\header('Cache-Control: post-check=0, pre-check=0', FALSE);
+		@\header('Cache-Control: post-check=0, pre-check=0', false);
 		@\header('Pragma: no-cache');
-		self::$INITED_NoPageCache = TRUE;
-		return TRUE;
+		self::$INITED_NoPageCache = true;
+		return true;
 	}
-	private static $INITED_NoPageCache = FALSE;
+	private static $INITED_NoPageCache = false;
 
 
 
@@ -315,7 +276,7 @@ EOF;
 	 * @param string $id - Optional id of element in which to scroll.
 	 * @codeCoverageIgnore
 	 * /
-	public static function ScrollToBottom(?string $id=NULL): void {
+	public static function ScrollToBottom(?string $id=null): void {
 		if (SystemUtils::isShell()) {
 			echo "--SCROLL--\n";
 		} else {
@@ -336,7 +297,7 @@ EOF;
 
 	/ **
 	 * Checks for GD support.
-	 * @return boolean - TRUE if GD functions are available.
+	 * @return boolean - true if GD functions are available.
 	 * /
 	public static function GDSupported(): bool {
 		return \function_exists('gd_info');
@@ -350,11 +311,11 @@ EOF;
 	 * Validates an object by class name.
 	 * @param string $className - Name of class to look for.
 	 * @param object $object - Object to validate.
-	 * @return boolean - TRUE if object matches class name.
+	 * @return boolean - true if object matches class name.
 	 * /
 	public static function InstanceOfClass($className, $object) {
-		if (empty($className)) return FALSE;
-		if ($object == NULL)   return FALSE;
+		if (empty($className)) return false;
+		if ($object == null)   return false;
 		//echo '<p>$className - '.$className.'</p>';
 		//echo '<p>get_class($clss) - '.get_class($clss).'</p>';
 		//echo '<p>get_parent_class($clss) - '.get_parent_class($clss).'</p>';
@@ -371,14 +332,13 @@ EOF;
 	public static function ValidateClass($className, $object) {
 		if (empty($className))
 			throw new \InvalidArgumentException('classname not defined');
-		if ($object == NULL)
+		if ($object == null)
 			throw new \InvalidArgumentException('object not defined');
 		if (!self::InstanceOfClass($className, $object))
 			throw new \InvalidArgumentException('Class object isn\'t of type '.$className);
 	}
-* /
+*/
 
 
 
 }
-*/
