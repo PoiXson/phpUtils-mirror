@@ -1,6 +1,11 @@
 phpUtils - PHP Utilities Library
 
 
+2022-10-21 - 0.4.17
+===================
+* cleaned up GeneralUtils class
+
+
 2022-10-01 - 0.4.15
 ===================
 * fixed ComposerAdditionalVendor class
