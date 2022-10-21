@@ -145,42 +145,36 @@ final class GeneralUtils {
 
 
 
-//TODO
-/*
-	/ **
+	/**
 	 * Parses REQUEST_URI from http request header and inserts into $_GET array.
 	 * @example:
-	 * URL: http://example.com/page/home/?action=display
+	 * URL: http://example.com/home/?action=display
 	 * // After processing, $_GET contains:
-	 * array(
-	 *     'page' => 'home',
-	 *     'action' => 'display'
-	 * );
-	 * /
-	public static function ParseModRewriteVars() {
-		// parse mod_rewrite uri
-		if (isset($_SERVER['REDIRECT_STATUS'])) {
-			$data = $_SERVER['REQUEST_URI'];
-			// parse ? query string
-			if (\mb_strpos($data, '?') !== false) {
-				list($data, $query) = \explode('?', $data, 2);
-				if (!empty($query)) {
-					//$arr = explode('&', $query);
-					//echo 'query: ?'.$query.'<br />';
+	 * [ 'action' => 'display' ]
+	 */
+	public static function ParseVarsURI(\pxn\phpPortal\WebApp $app): array {
+		$uri = $_SERVER['REQUEST_URI'];
+		// uri vars
+		$pos = \mb_strpos($uri, '?');
+		if ($pos !== false) {
+			$args = \mb_substr($uri, $pos+1);
+			$uri = \mb_substr($uri, 0, $pos);
+			$args = \explode('&', $args);
+			foreach ($args as $arg) {
+				$pos = \mb_strpos($arg, '=');
+				if ($pos === false) {
+					$_GET[$arg] = '';
+				} else {
+					$key = \mb_substr($arg, 0, $pos);
+					$_GET[$key] = \mb_substr($arg, $pos+1);
 				}
 			}
-			// parse url path
-			$data = \array_values(\psm\utils::array_remove_empty(\explode('/', $data)));
-			// needs to be even
-			if ((\count($data) % 2) != 0)
-				$data[] = '';
-			// merge values into GET
-			for ($i=0; $i<\count($data); $i++) {
-				$_GET[$data[$i]] = $data[++$i];
-			}
 		}
+		// uri path
+		$uri = StringUtils::trim($uri, '/');
+		$args = \explode('/', $uri);
+		return $args;
 	}
-*/
 
 
 
