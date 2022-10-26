@@ -8,7 +8,7 @@ if (\is_file(__DIR__.'/vendor/autoload.php')) {
 if (\is_file(__DIR__.'/../vendor/autoload.php')) {
 	$loader = require(__DIR__.'/../vendor/autoload.php');
 }
-if ($loader == null) { echo "Failed to detect autoload.php\n\n"; exit(1); }
+if ($loader == null) { echo "\nFailed to detect autoload.php\n\n"; exit(1); }
 
 // find app class
 $app_class = null;
