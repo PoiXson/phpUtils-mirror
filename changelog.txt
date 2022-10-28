@@ -1,6 +1,11 @@
 phpUtils - PHP Utilities Library
 
 
+2022-10-27 - 0.4.18
+===================
+* improved public/index.php and removed .xapp
+
+
 2022-10-21 - 0.4.17
 ===================
 * cleaned up GeneralUtils class
