@@ -10,24 +10,39 @@ if (\is_file(__DIR__.'/../vendor/autoload.php')) {
 }
 if ($loader == null) { echo "\nFailed to detect autoload.php\n\n"; exit(1); }
 
-// find app class
-$app_class = null;
-if (\file_exists(__DIR__.'/.xapp')) {
-	$app_class = \file_get_contents(__DIR__.'/.xapp');
+// load composer.json
+$data = null;
+if (\is_file(__DIR__.'/composer.json')) {
+	$data = \file_get_contents(__DIR__.'/composer.json');
 } else
-if (\file_exists(__DIR__.'/../.xapp')) {
-	$app_class = \file_get_contents(__DIR__.'/../.xapp');
+if (\is_file(__DIR__.'/../composer.json')) {
+	$data = \file_get_contents(__DIR__.'/../composer.json');
 }
-if (empty($app_class)) { echo "Failed to detect app class\n\n"; exit(1); }
-$app_class = \explode("\n", $app_class, 2);
-$app_class = \trim(\reset($app_class));
-if (\str_ends_with($app_class, '\\'))
-	$app_class = \mb_substr($app_class, 0, -1);
-if (empty($app_class)) { echo "Invalid app class\n\n"; exit(1); }
-if (!\str_ends_with($app_class, '\\Website')
-&&  !\str_ends_with($app_class, '\\ShellApp'))
-	throw new \RuntimeException("Invalid app class: $app_class");
-if (!\class_exists($app_class)) { echo "App class not found: $app_class\n\n"; exit(1); }
+if ($data === false) throw new \RuntimeException("Failed to detect composer.json");
+$json = \json_decode($data, true);
+unset($data);
+if ($json == null) throw new \RuntimeException("Failed to decode composer.json");
+
+// find namespace
+if (!isset($json['autoload']))
+	throw new \RuntimeException('autoload key not found in composer.json file');
+if (!isset($json['autoload']['psr-4']))
+	throw new \RuntimeException('autoload\\psr-4 key not found in composer.json file');
+$app_ns = \array_search('src/', $json['autoload']['psr-4']);
+if (empty($app_ns)) throw new \RuntimeException('Failed to find namespace in composer.json file');
+if (!\str_starts_with($app_ns, '\\')) $app_ns  = '\\'.$app_ns;
+if (!\str_ends_with(  $app_ns, '\\')) $app_ns .= '\\';
+
+// find class
+$app_class = null;
+if (\class_exists($app_ns.'Website')) {
+	$app_class =  $app_ns.'Website';
+} else
+if (\class_exists($app_ns.'ShellApp')) {
+	$app_class =  $app_ns.'ShellApp';
+} else {
+	throw new \RuntimeException('Failed to detect app class');
+}
 
 // load app
 $app = new $app_class($loader);
