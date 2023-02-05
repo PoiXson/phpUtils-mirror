@@ -5,19 +5,20 @@
  * @license AGPL-3
  * @author lorenzo at poixson.com
  * @link https://poixson.com/
- * /
+ */
 namespace pxn\phpUtils\utils;
 
-use \pxn\phpUtils\pxnDefines as xDef;
-use \pxn\phpUtils\exceptions\RequiredArgumentException;
+//use \pxn\phpUtils\pxnDefines as xDef;
+//use \pxn\phpUtils\exceptions\RequiredArgumentException;
 
 
 final class NumberUtils {
-	/ ** @codeCoverageIgnore * /
+	/** @codeCoverageIgnore */
 	private final function __construct() {}
 
 
 
+/*
 	/ **
 	 * This function is a more specific test of a value. The native
 	 * \is_numeric() function also returns true for hex values.
@@ -34,16 +35,17 @@ final class NumberUtils {
 		$i = ((string) ((int)$value) );
 		return ($value === $i);
 	}
+*/
 
 
 
-	/ **
+	/**
 	 * Check the min and max of a value and return the result.
 	 * @param int $value
 	 * @param int $min
 	 * @param int $max
 	 * @return int value
-	 * /
+	 */
 	public static function MinMax(int $value, int $min=\PHP_INT_MIN, int $max=\PHP_INT_MAX): int {
 		if ($min !== false && $max !== false && $min > $max)
 			throw new \Exception('Min must be less than Max!');
@@ -59,7 +61,7 @@ final class NumberUtils {
 	############
 
 
-
+/*
 	public static function round(float $value, int $places=0): float {
 		if ($places == 0)
 			return \round($value);
@@ -391,8 +393,8 @@ final class NumberUtils {
 			return 'Yesterday';
 		return self::SecondsToString($seconds, $shorthand, $maxParts, $deviance).' ago';
 	}
+*/
 
 
 
 }
-*/

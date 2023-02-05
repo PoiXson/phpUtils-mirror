@@ -8,8 +8,8 @@
  * /
 namespace pxn\phpUtils\console;
 
-use \pxn\phpUtils\San;
-use \pxn\phpUtils\Numbers;
+use \pxn\phpUtils\SanUtils;
+use \pxn\phpUtils\NumberUtils;
 use \pxn\phpUtils\Defines;
 
 
@@ -41,12 +41,12 @@ class Dialog_Menu extends Dialog {
 				Defines::EXIT_CODE_INVALID_ARGUMENT);
 		}
 		$msg = \escapeshellarg($this->msg);
-		$menuHeight = Numbers::MinMax(
+		$menuHeight = NumberUtils::MinMax(
 			\count($this->options),
 			3,
 			100
 		);
-		$height = Numbers::MinMax(
+		$height = NumberUtils::MinMax(
 			$menuHeight + 7,
 			11,
 			107
@@ -88,7 +88,7 @@ class Dialog_Menu extends Dialog {
 		return $this;
 	}
 	public function addOption($key, $val) {
-		$key = San::AlphaNum(   (string) $key );
+		$key = SanUtils::AlphaNum( (string) $key );
 		$val = \escapeshellarg( (string) $val );
 		if (empty($key)) {
 			$this->options[] = $val;

@@ -188,12 +188,12 @@ final class GeneralUtils {
 	 * @return double - Returns current timestamp in seconds.
 	 */
 	public static function getTimestamp(int $places=3): float {
-		$places = Numbers::MinMax($places, 0, 4);
+		$places = NumberUtils::MinMax($places, 0, 4);
 		$time = \explode(' ', \microtime(), 2);
 		if ($places <= 0)
 			return (int) $time[1];
 		$timestamp = ((float) $time[1]) + ((float) $time[0]);
-		return Numbers::Round($timestamp, $places);
+		return NumberUtils::Round($timestamp, $places);
 	}
 	/**
 	 * Sleep execution for x milliseconds.
