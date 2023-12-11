@@ -1,6 +1,11 @@
 phpUtils - PHP Utilities Library
 
 
+2023-12-11 - 0.4.22
+===================
+* updated dependencies
+
+
 2023-03-06 - 0.4.21
 ===================
 * updated dependencies
