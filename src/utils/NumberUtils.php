@@ -61,22 +61,21 @@ final class NumberUtils {
 	############
 
 
-/*
-	public static function round(float $value, int $places=0): float {
+	public static function Round(float $value, int $places=0): float {
 		if ($places == 0)
 			return \round($value);
 		$pow = \pow(10, $places);
 		return \round($value * $pow) / $pow;
 	}
 
-	public static function floor(float $value, int $places=0): float {
+	public static function Floor(float $value, int $places=0): float {
 		if ($places == 0)
 			return \floor($value);
 		$pow = \pow(10, $places);
 		return \floor($value * $pow) / $pow;
 	}
 
-	public static function ceil(float $value, int $places=0): float {
+	public static function Ceil(float $value, int $places=0): float {
 		if ($places == 0)
 			return \ceil($value);
 		$pow = \pow(10, $places);
@@ -85,7 +84,7 @@ final class NumberUtils {
 
 
 
-	public static function pad_zeros(float $value, int $places): string {
+	public static function PadZeros(float $value, int $places): string {
 		$str = (string) (float) $value;
 		if ($places <= 0)
 			return $str;
@@ -100,6 +99,7 @@ final class NumberUtils {
 
 
 
+/*
 	/ **
 	 * Convert bytes to human readable format.
 	 * @param int $size - Integer in bytes to convert.
