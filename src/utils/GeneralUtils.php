@@ -291,16 +291,6 @@ EOF;
 
 
 
-	/ **
-	 * Checks for GD support.
-	 * @return boolean - true if GD functions are available.
-	 * /
-	public static function GDSupported(): bool {
-		return \function_exists('gd_info');
-	}
-
-
-
 //TODO: is this useful?
 / *
 	/ **
