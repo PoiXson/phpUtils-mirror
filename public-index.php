@@ -18,7 +18,7 @@ if (\is_file(__DIR__.'/composer.json')) {
 if (\is_file(__DIR__.'/../composer.json')) {
 	$data = \file_get_contents(__DIR__.'/../composer.json');
 }
-if ($data === false) throw new \RuntimeException("Failed to detect composer.json");
+if (empty($data)) throw new \RuntimeException("Failed to detect composer.json");
 $json = \json_decode($data, true);
 unset($data);
 if ($json == null) throw new \RuntimeException("Failed to decode composer.json");
