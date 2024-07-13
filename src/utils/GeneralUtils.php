@@ -187,7 +187,7 @@ final class GeneralUtils {
 	/**
 	 * @return double - Returns current timestamp in seconds.
 	 */
-	public static function getTimestamp(int $places=3): float {
+	public static function Timestamp(int $places=3): float {
 		$places = NumberUtils::MinMax($places, 0, 4);
 		$time = \explode(' ', \microtime(), 2);
 		if ($places <= 0)

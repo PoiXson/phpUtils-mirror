@@ -23,7 +23,7 @@ class CoolDown {
 
 
 	public function runAgain() {
-		$current = self::getTimestamp();
+		$current = self::Timestamp();
 		// first run
 		if ($this->last < 0.0) {
 			$this->last = $current;
@@ -44,13 +44,13 @@ class CoolDown {
 		if ($this->last < 0.0) {
 			return -1.0;
 		}
-		return self::getTimestamp() - $this->last;
+		return self::Timestamp() - $this->last;
 	}
 	public function getTimeUntil() {
 		if ($this->last < 0.0) {
 			return -1.0;
 		}
-		return ($this->last + $this->duration) - self::getTimestamp();
+		return ($this->last + $this->duration) - self::Timestamp();
 	}
 
 
@@ -59,13 +59,13 @@ class CoolDown {
 		$this->last = Defines::INT_MIN;
 	}
 	public function resetRun() {
-		$this->last = self::getTimestamp();
+		$this->last = self::Timestamp();
 	}
 
 
 
-	public static function getTimestamp() {
-		return General::getTimestamp();
+	public static function Timestamp() {
+		return General::Timestamp();
 	}
 
 

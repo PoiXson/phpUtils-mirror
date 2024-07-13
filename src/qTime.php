@@ -43,16 +43,16 @@ class qTime {
 
 	public function Start() {
 		if ($this->start == Defines::INT_MIN)
-			$this->start = self::getTimestamp();
+			$this->start = self::Timestamp();
 	}
 	public function Reset() {
-		$this->start = self::getTimestamp();
+		$this->start = self::Timestamp();
 	}
 
 
 
 	public function getTimeSinceStart() {
-		$now   = self::getTimestamp();
+		$now   = self::Timestamp();
 		$start = $this->start;
 		if ($start == Defines::INT_MIN)
 			return FALSE;
@@ -61,7 +61,7 @@ class qTime {
 		return $now - $start;
 	}
 	public function getTimeSinceLast() {
-		$now   = self::getTimestamp();
+		$now   = self::Timestamp();
 		$start = $this->start;
 		$last  = $this->last;
 		if ($last == Defines::INT_MIN) {
@@ -78,8 +78,8 @@ class qTime {
 
 
 
-	public static function getTimestamp() {
-		return General::getTimestamp();
+	public static function Timestamp() {
+		return General::Timestamp();
 	}
 
 

@@ -227,13 +227,13 @@ class GeneralUtilsTest extends \PHPUnit\Framework\TestCase {
 
 
 	/ **
-	 * @covers ::getTimestamp
+	 * @covers ::Timestamp
 	 * /
 	public function testGetTimestamp(): void {
-		$tim = GeneralUtils::getTimestamp();
+		$tim = GeneralUtils::Timestamp();
 		$this->assertIsNumeric($tim);
 		$this->assertGreaterThan(1500000000.0, $tim);
-		$tim = GeneralUtils::getTimestamp(0);
+		$tim = GeneralUtils::Timestamp(0);
 		$this->assertIsNumeric($tim);
 		$this->assertGreaterThan(1500000000, $tim);
 	}
@@ -241,9 +241,9 @@ class GeneralUtilsTest extends \PHPUnit\Framework\TestCase {
 	 * @covers ::Sleep
 	 * /
 	public function testSleep(): void {
-		$timA = GeneralUtils::getTimestamp();
+		$timA = GeneralUtils::Timestamp();
 		GeneralUtils::Sleep(10);
-		$timB = GeneralUtils::getTimestamp();
+		$timB = GeneralUtils::Timestamp();
 		$this->assertGreaterThanOrEqual(0.009, $timB - $timA);
 	}
 

@@ -10,7 +10,7 @@ namespace pxn\phpUtils\cache;
 
 use \pxn\phpUtils\Arrays;
 use \pxn\phpUtils\Strings;
-use \pxn\phpUtils\General;
+use \pxn\phpUtils\GeneralUtils;
 use \pxn\phpUtils\Defines;
 
 
@@ -79,7 +79,7 @@ class cacher_filesystem extends cacher {
 		return $value;
 	}
 	protected function _setEntry($value, $context) {
-		$timestamp = General::getTimestamp(0);
+		$timestamp = GeneralUtils::Timestamp(0);
 		$filePath = $this->_getFilePath($context);
 		if (empty($filePath)) {
 			return FALSE;
@@ -126,7 +126,7 @@ class cacher_filesystem extends cacher {
 			return NULL;
 		}
 		// timestamp expired
-		$timeNow = General::getTimestamp(0);
+		$timeNow = GeneralUtils::Timestamp(0);
 		$timeSince = $timeNow - $timestamp;
 		if ($timeSince > $this->expireSeconds) {
 			return [
