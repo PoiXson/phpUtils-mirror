@@ -5,7 +5,7 @@
  * @license AGPL-3
  * @author lorenzo at poixson.com
  * @link https://poixson.com/
- * /
+ */
 namespace pxn\phpUtils\xLogger;
 
 use \pxn\phpUtils\Strings;
@@ -156,4 +156,3 @@ fail ('trace() function not finished!!! '.__LINE__.' '.__FILE__);
 
 
 }
-*/

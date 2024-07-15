@@ -5,7 +5,7 @@
  * @license AGPL-3
  * @author lorenzo at poixson.com
  * @link https://poixson.com/
- * /
+ */
 namespace pxn\phpUtils\tools;
 
 
@@ -113,4 +113,3 @@ class ComposerInfo {
 
 
 }
-*/

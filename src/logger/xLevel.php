@@ -5,7 +5,7 @@
  * @license AGPL-3
  * @author lorenzo at poixson.com
  * @link https://poixson.com/
- * /
+ */
 namespace pxn\phpUtils\xLogger;
 
 use \pxn\phpUtils\Defines;
@@ -142,4 +142,3 @@ final class xLevel {
 
 
 }
-*/

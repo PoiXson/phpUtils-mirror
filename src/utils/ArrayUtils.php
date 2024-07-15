@@ -5,7 +5,7 @@
  * @license AGPL-3
  * @author lorenzo at poixson.com
  * @link https://poixson.com/
- * /
+ */
 namespace pxn\phpUtils;
 
 
@@ -45,7 +45,7 @@ final class Arrays {
 
 
 //TODO: is this useful?
-/ *
+/*
 	public static function Trim(&$data) {
 		if ($data === NULL)
 			return;
@@ -59,7 +59,7 @@ final class Arrays {
 			}
 		}
 	}
-* /
+*/
 
 
 
@@ -104,4 +104,3 @@ final class Arrays {
 
 
 }
-*/
