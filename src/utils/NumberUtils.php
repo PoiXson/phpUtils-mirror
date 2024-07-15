@@ -8,8 +8,8 @@
  */
 namespace pxn\phpUtils\utils;
 
-//use \pxn\phpUtils\pxnDefines as xDef;
-//use \pxn\phpUtils\exceptions\RequiredArgumentException;
+use \pxn\phpUtils\pxnDefines as xDef;
+use \pxn\phpUtils\exceptions\RequiredArgumentException;
 
 
 final class NumberUtils {
@@ -18,13 +18,12 @@ final class NumberUtils {
 
 
 
-/*
-	/ **
+	/**
 	 * This function is a more specific test of a value. The native
 	 * \is_numeric() function also returns true for hex values.
 	 * @param string $value
 	 * @return boolean Returns true if only contains number characters after being trimmed.
-	 * /
+	 */
 	public static function isNumber($value): bool {
 		if ($value === null) return false;
 		$value = \trim( (string)$value );
@@ -34,7 +33,6 @@ final class NumberUtils {
 		$i = ((string) ((int)$value) );
 		return ($value === $i);
 	}
-*/
 
 
 
@@ -58,6 +56,7 @@ final class NumberUtils {
 	############
 	## Format ##
 	############
+
 
 
 	public static function Round(float $value, int $places=0): float {
@@ -98,12 +97,11 @@ final class NumberUtils {
 
 
 
-/*
-	/ **
+	/**
 	 * Convert bytes to human readable format.
 	 * @param int $size - Integer in bytes to convert.
 	 * @return string - Formatted size.
-	 * /
+	 */
 	public static function FormatBytes(int|string $size): string {
 		if (empty($size)) return '';
 		$size = \trim((string) $size);
@@ -126,12 +124,12 @@ final class NumberUtils {
 
 
 
-	/ **
+	/**
 	 * Convert a number to roman numerals.
 	 * @param int $value -
 	 * @param int $max -
 	 * @return string - Roman numerals string representing input number.
-	 * /
+	 */
 	public static function FormatRoman(int $value, ?int $max=null): string {
 		if ( ($max !== null && $value > $max) || $value < 0)
 			return (string) $value;
@@ -233,11 +231,11 @@ final class NumberUtils {
 
 
 
-	/ **
+	/**
 	 * String to seconds.
 	 * @param string $text - String to convert.
 	 * @return int seconds
-	 * /
+	 */
 	public static function StringToSeconds(string $text): int {
 		$str = '';
 		$value = 0;
@@ -284,11 +282,11 @@ final class NumberUtils {
 		return $value;
 	}
 
-	/ **
+	/**
 	 * Seconds to formatted string.
 	 * @param int $seconds - Integer to convert.
 	 * @return string
-	 * /
+	 */
 	public static function SecondsToString(int $seconds,
 	bool $shorthand=true, ?int $maxParts=null, float $deviance=1.0): string {
 		$maxParts = (
@@ -392,7 +390,6 @@ final class NumberUtils {
 			return 'Yesterday';
 		return self::SecondsToString($seconds, $shorthand, $maxParts, $deviance).' ago';
 	}
-*/
 
 
 
