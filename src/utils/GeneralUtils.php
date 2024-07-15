@@ -152,13 +152,14 @@ final class GeneralUtils {
 	 * // After processing, $_GET contains:
 	 * [ 'action' => 'display' ]
 	 */
-	public static function ParseVarsURI(\pxn\phpPortal\WebApp $app): array {
-		$uri = $_SERVER['REQUEST_URI'];
+	public static function ParseVarsURI(?string $uri=null): array {
+		if (empty($uri)) $uri = @$_SERVER['REQUEST_URI'];
+		if (empty($uri)) $uri = '';
 		// uri vars
 		$pos = \mb_strpos($uri, '?');
 		if ($pos !== false) {
 			$args = \mb_substr($uri, $pos+1);
-			$uri = \mb_substr($uri, 0, $pos);
+			$uri  = \mb_substr($uri, 0, $pos);
 			$args = \explode('&', $args);
 			foreach ($args as $arg) {
 				$pos = \mb_strpos($arg, '=');
