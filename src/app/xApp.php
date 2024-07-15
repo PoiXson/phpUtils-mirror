@@ -26,11 +26,15 @@ abstract class xApp {
 				throw new \RuntimeException('Class loader not provided to construct');
 			$this->init_addvendor($loader);
 		}
+		$this->check_run_mode();
 	}
 
 
 
 	public abstract function run(): void;
+
+	protected function check_run_mode(): void {
+	}
 
 
 
@@ -39,6 +43,30 @@ abstract class xApp {
 		if (\is_array($cfg)) {
 			$this->config = \array_merge($this->config, $cfg);
 		}
+	}
+
+
+
+	public function getName(): string {
+		$clss = \get_class($this);
+		$pos = \mb_strrpos(haystack: $clss, needle: '\\');
+		if ($pos === false)
+			return $clss;
+		return \mb_substr($clss, $pos+1);
+	}
+	public function getNamespace(): string {
+		$clss = \get_class($this);
+		$pos = \mb_strrpos(haystack: $clss, needle: '\\');
+		if ($pos === false)
+			return $clss;
+		return \mb_substr($clss, 0, $pos);
+	}
+
+
+
+	public function getVersion(): string {
+		$key = $this->getNamespace().'\\Version::version';
+		return \constant($key);
 	}
 
 
