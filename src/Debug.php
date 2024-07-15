@@ -72,6 +72,11 @@ final class Debug {
 		if (self::$enabled === null)
 			self::debug(false);
 	}
+	public static function Reset(): void {
+		self::$inited  = false;
+		self::$enabled = null;
+		self::$desc    = [];
+	}
 
 
 
