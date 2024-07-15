@@ -79,14 +79,23 @@ class xLog extends xLogPrinting {
 
 
 
-	public static function ValidateName($name) {
-		$name = \trim($name);
-
-//TODO:
-
+	public static function ValidateName(?string $name): string {
+		// default to class name
+		if (empty($name)) {
+			$trace = \debug_backtrace(limit: 3);
+			$str = $trace[2]['class'];
+			if ($str == 'ReflectionMethod')
+				$str = $trace[1]['class'];
+			$pos = \mb_strrpos($str, '\\');
+			$name = (
+				$pos===false
+				? $str
+				: \mb_substr($str, $pos+1)
+			);
+		}
 		if (empty($name))
 			return self::DEFAULT_LOGGER;
-		return $name;
+		return \trim($name);
 	}
 
 
@@ -213,27 +222,6 @@ class xLog extends xLogPrinting {
 			$this->DefaultFormatter = new BasicFormat();
 		return $this->DefaultFormatter;
 	}
-
-
-
-//	public static function ValidateName($name) {
-//		// default to class name
-//		if (empty($name)) {
-//			$trace = \debug_backtrace(FALSE, 3);
-//			$str = $trace[2]['class'];
-//			if ($str == 'ReflectionMethod') {
-//				$str = $trace[1]['class'];
-//			}
-//			$pos = \mb_strrpos($str, '\\');
-//			$name = (
-//				$pos === FALSE
-//				? $str
-//				: \mb_substr($str, $pos+1)
-//			);
-//		}
-//		if (empty($name)) $name = '';
-//		return $name;
-//	}
 
 
 
