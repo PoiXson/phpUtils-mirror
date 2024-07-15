@@ -23,7 +23,7 @@ final class Debug {
 	private static bool $inited = false;
 
 	private static ?bool $enabled = null;
-	private static ?string $desc  = null;
+	private static array $desc = [];
 
 
 
@@ -70,7 +70,7 @@ final class Debug {
 		}
 		// default
 		if (self::$enabled === null)
-			self::debug(false, 'default');
+			self::debug(false);
 	}
 
 
@@ -92,13 +92,11 @@ final class Debug {
 
 	public static function desc(?string $desc=null): ?string {
 		if (!empty($desc)) {
-			if (!empty(self::$desc))
-				self::$desc .= '; ';
-			self::$desc .= $desc;
+			if (!\in_array(needle: $desc, haystack: self::$desc))
+				self::$desc[] = $desc;
 		}
-		if (self::debug())
-			return (empty(self::$desc) ? '' : self::$desc);
-		return null;
+		if (!self::debug()) return null;
+		return \implode('; ', self::$desc);
 	}
 
 
