@@ -14,11 +14,8 @@ class ConcurrentLockException extends \RuntimeException {
 
 
 	public function __construct(?string $file=null) {
-		if (empty($file)) {
-			parent::__construct();
-		} else {
-			parent::__construct("Concurrent lock on file: $file");
-		}
+		if (empty($file)) parent::__construct();
+		else              parent::__construct('Concurrent lock on file: '.$file);
 	}
 
 

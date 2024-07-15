@@ -14,11 +14,8 @@ class NullPointerException extends \RuntimeException {
 
 
 	public function __construct(?string $msg=null) {
-		if (empty($msg)) {
-			parent::__construct();
-		} else {
-			parent::__construct("Null Pointer Exception: $msg");
-		}
+		if (empty($msg)) parent::__construct();
+		else             parent::__construct('Null Pointer Exception: '.$msg);
 	}
 
 

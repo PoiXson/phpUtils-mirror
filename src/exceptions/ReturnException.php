@@ -17,11 +17,8 @@ class ReturnException extends \RuntimeException {
 
 	public function __construct($result=null) {
 		$this->result = $result;
-		if (empty($result)) {
-			parent::__construct();
-		} else {
-			parent::__construct("Return: $result");
-		}
+		if (empty($result)) parent::__construct();
+		else                parent::__construct('Return: '.$result);
 	}
 
 

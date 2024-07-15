@@ -14,11 +14,8 @@ class RequiredArgumentException extends \RuntimeException {
 
 
 	public function __construct(?string $msg=null) {
-		if (empty($msg)) {
-			parent::__construct();
-		} else {
-			parent::__construct("Required Argument: $msg");
-		}
+		if (empty($msg)) parent::__construct();
+		else             parent::__construct('Required Argument: '.$msg);
 	}
 
 
