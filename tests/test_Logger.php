@@ -5,67 +5,76 @@
  * @license AGPL-3
  * @author lorenzo at poixson.com
  * @link https://poixson.com/
- * /
+ */
 namespace pxn\phpUtils\tests;
 
-use \pxn\phpUtils\Logger;
+use \pxn\phpUtils\logger\xLog;
 
 
-/ **
- * @coversDefaultClass \pxn\phpUtils\Logger
- * /
-class LoggerTest extends \PHPUnit\Framework\TestCase {
+/**
+ * @coversDefaultClass \pxn\phpUtils\Logger\xLog
+ */
+class test_Logger extends \PHPUnit\Framework\TestCase {
 
 
 
-//	public function testValidateName() {
+//	public function test_ValidateName() {
 //		$expected = 'LoggerTest';
 //		// null
-//		$result = Logger::ValidateName(NULL);
+//		$result = xLog::ValidateName(null);
 //		$this->assertEquals($expected, $result);
 //		// blank
-//		$result = Logger::ValidateName('');
+//		$result = xLog::ValidateName('');
 //		$this->assertEquals($expected, $result);
 //		// string
-//		$result = Logger::ValidateName('testname');
+//		$result = xLog::ValidateName('testname');
 //		$this->assertEquals('testname', $result);
 //	}
 
 
 
-	public function testInstances() {
-		$a = Logger::get('a');
-		$b = Logger::get('b');
+	/**
+	 * @covers ::GetRoot
+	 */
+	public function test_Instances() {
+		$a = xLog::GetRoot('a');
+		$b = xLog::GetRoot('b');
 		$this->assertNotNull($a);
 		$this->assertNotNull($b);
 		$this->assertTrue($a !== $b);
-		$this->assertTrue($a === Logger::get('a'));
+		$this->assertTrue($a === xLog::GetRoot('a'));
 		unset($a, $b);
 	}
 
 
 
-	public function testEmpty() {
-		$a = Logger::get();
-		$b = Logger::get('');
-		$c = Logger::get(NULL);
+	/**
+	 * @covers ::GetRoot
+	 */
+	public function test_Empty() {
+		$a = xLog::GetRoot();
+		$b = xLog::GetRoot('');
+		$c = xLog::GetRoot(null);
 		$this->assertTrue ($a === $b);
 		$this->assertTrue ($a === $c);
-		$this->assertFalse($a === Logger::get('test'));
+		$this->assertFalse($a === xLog::GetRoot('test'));
 	}
 
 
 
-	public function testSet() {
-		$this->assertFalse(Logger::get('a') === Logger::get('b'));
-		Logger::set(
+	/**
+	 * @covers ::GetRoot
+	 * @covers ::set
+	 */
+	public function test_Set() {
+		$this->assertFalse(xLog::GetRoot('a') === xLog::GetRoot('b'));
+		xLog::set(
 			'a',
-			Logger::get('b')
+			xLog::GetRoot('b')
 		);
-		$this->assertTrue (Logger::get('a') === Logger::get('b'));
+		$this->assertTrue (xLog::GetRoot('a') === xLog::GetRoot('b'));
 	}
 
 
 
 }
-*/

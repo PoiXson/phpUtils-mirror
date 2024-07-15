@@ -5,16 +5,16 @@
  * @license AGPL-3
  * @author lorenzo at poixson.com
  * @link https://poixson.com/
- * /
+ */
 namespace pxn\phpUtils\tests\tools;
 
 use \pxn\phpUtils\tools\LockFile;
 use \pxn\phpUtils\exceptions\ConcurrentLockException;
 
 
-/ **
+/**
  * @coversDefaultClass \pxn\phpUtils\tools\LockFile
- * /
+ */
 class test_LockFile extends \PHPUnit\Framework\TestCase {
 
 	protected string $file = '/tmp/test.txt';
@@ -34,21 +34,17 @@ class test_LockFile extends \PHPUnit\Framework\TestCase {
 			$this->lockB = null;
 		}
 		// remove test file
-		if (!$this->hasFailed()) {
-			if (\is_file($this->file)) {
-				\unlink($this->file);
-			}
-		}
+		if (\is_file($this->file))
+			\unlink($this->file);
 	}
 
 
 
-	/ **
+	/**
 	 * @covers ::__construct
 	 * @covers ::getLock
-	 * /
+	 */
 	public function test_getLock(): void {
-		if ($this->hasFailed()) return;
 		$this->assertNull($this->lockA);
 		$this->assertNull($this->lockB);
 		$this->lockA = new LockFile($this->file);
@@ -67,4 +63,3 @@ class test_LockFile extends \PHPUnit\Framework\TestCase {
 
 
 }
-*/

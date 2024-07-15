@@ -5,25 +5,25 @@
  * @license AGPL-3
  * @author lorenzo at poixson.com
  * @link https://poixson.com/
- * /
+ */
 namespace pxn\phpUtils\tests\tools;
 
 use \pxn\phpUtils\tools\FileFinder;
 
 
-/ **
+/**
  * @coversDefaultClass \pxn\phpUtils\tools\FileFinder
- * /
+ */
 class test_FileFinder extends \PHPUnit\Framework\TestCase {
 
 
 
-	/ **
+	/**
 	 * @covers ::__construct
 	 * @covers ::search_path_parents
 	 * @covers ::find
 	 * @covers ::doFind
-	 * /
+	 */
 	public function test_search_path_parents(): void {
 		// depth 0
 		{
@@ -54,7 +54,7 @@ class test_FileFinder extends \PHPUnit\Framework\TestCase {
 
 
 
-	/ **
+	/**
 	 * @covers ::search_paths
 	 * @covers ::search_files
 	 * @covers ::search_extensions
@@ -66,7 +66,7 @@ class test_FileFinder extends \PHPUnit\Framework\TestCase {
 	 * @covers ::get_search_extensions
 	 * @covers ::findAll
 	 * @covers ::doFind
-	 * /
+	 */
 	public function test_search_paths(): void {
 		$finder = new FileFinder();
 		$this->assertEquals(expected: [], actual: $finder->findAll());
@@ -83,4 +83,3 @@ class test_FileFinder extends \PHPUnit\Framework\TestCase {
 
 
 }
-*/

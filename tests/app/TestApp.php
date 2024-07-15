@@ -5,11 +5,11 @@
  * @license AGPL-3
  * @author lorenzo at poixson.com
  * @link https://poixson.com/
- * /
+ */
 namespace pxn\phpUtils\tests\app;
 
 
-class xAppTest extends \pxn\phpUtils\app\xApp {
+class TestApp extends \pxn\phpUtils\app\xApp {
 
 	public bool $has_checked_run_state = false;
 
@@ -22,6 +22,7 @@ class xAppTest extends \pxn\phpUtils\app\xApp {
 
 
 	protected function check_run_mode(): void {
+		parent::check_run_mode();
 		$this->has_checked_run_state = true;
 	}
 
@@ -33,4 +34,3 @@ class xAppTest extends \pxn\phpUtils\app\xApp {
 
 
 }
-*/

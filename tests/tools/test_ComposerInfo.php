@@ -5,27 +5,27 @@
  * @license AGPL-3
  * @author lorenzo at poixson.com
  * @link https://poixson.com/
- * /
-namespace pxn\phpUtils\tests;
+ */
+namespace pxn\phpUtils\tests\tools;
 
-use \pxn\phpUtils\ComposerInfo;
-use \pxn\phpUtils\Strings;
-
-
-/ **
- * @coversDefaultClass \pxn\phpUtils\ComposerInfo
- * /
-class ComposerInfoTest extends \PHPUnit\Framework\TestCase {
+use \pxn\phpUtils\tools\ComposerInfo;
+use \pxn\phpUtils\utils\StringUtils;
 
 
+/**
+ * @coversDefaultClass \pxn\phpUtils\tools\ComposerInfo
+ */
+class test_ComposerInfo extends \PHPUnit\Framework\TestCase {
 
-	/ **
-	 * @covers ::get
+
+
+	/**
+	 * @covers ::Get
 	 * @covers ::__construct
-	 * /
-	public function testInstances() {
-		$a = ComposerInfo::get();
-		$b = ComposerInfo::get();
+	 */
+	public function test_Instances() {
+		$a = ComposerInfo::Get();
+		$b = ComposerInfo::Get();
 		$this->assertNotNull($a);
 		$this->assertNotNull($b);
 		$this->assertTrue($a === $b);
@@ -33,40 +33,40 @@ class ComposerInfoTest extends \PHPUnit\Framework\TestCase {
 
 
 
-	/ **
+	/**
 	 * @covers ::getFilePath
 	 * @covers ::SanPath
-	 * /
-	public function testPaths() {
-		$expect = \realpath(__DIR__.'/../composer.json');
+	 */
+	public function test_Paths() {
+		$expect = \realpath(__DIR__.'/../../composer.json');
 		// default path
-		$composer = ComposerInfo::get();
+		$composer = ComposerInfo::Get();
 		$this->assertNotNull($composer);
 		$this->assertEquals($expect, $composer->getFilePath());
 		unset($composer);
 		// exact path
-		$path = \realpath(__DIR__.'/../');
-		$composer = ComposerInfo::get($path.'/composer.json');
+		$path = \realpath(__DIR__.'/../../');
+		$composer = ComposerInfo::Get($path.'/composer.json');
 		$this->assertNotNull($composer);
 		$this->assertEquals($expect, $composer->getFilePath());
 		unset($composer, $path);
 		// invalid path
 		try {
-			$composer = ComposerInfo::get('notexisting');
-			$this->assertFalse(TRUE, 'Expected exception not thrown!');
+			$composer = ComposerInfo::Get('notexisting');
+			$this->assertFalse(true, 'Expected exception not thrown!');
 			return;
 		} catch (\Exception $ignore) {}
 	}
 
 
 
-	/ **
+	/**
 	 * @covers ::getName
 	 * @covers ::getVersion
 	 * @covers ::getHomepage
-	 * /
-	public function testValues() {
-		$composer = ComposerInfo::get();
+	 */
+	public function test_Values() {
+		$composer = ComposerInfo::Get();
 		$this->assertNotNull($composer);
 		// name
 		$name = $composer->getName();
@@ -74,15 +74,14 @@ class ComposerInfoTest extends \PHPUnit\Framework\TestCase {
 		// version
 		//$version = $composer->getVersion();
 		//$this->assertNotEmpty($version);
-		//$this->assertTrue(\mb_strpos($version, '.') !== FALSE);
+		//$this->assertTrue(\mb_strpos($version, '.') !== false);
 		// homepage
 		$homepage = $composer->getHomepage();
 		$this->assertNotEmpty($homepage);
 		$this->assertTrue(\str_starts_with(haystack: $homepage, needle: 'http'));
-		$this->assertTrue(\mb_strpos($homepage, '.') !== FALSE);
+		$this->assertTrue(\mb_strpos($homepage, '.') !== false);
 	}
 
 
 
 }
-*/

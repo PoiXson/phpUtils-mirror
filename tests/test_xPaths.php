@@ -5,92 +5,101 @@
  * @license AGPL-3
  * @author lorenzo at poixson.com
  * @link https://poixson.com/
- * /
+ */
 namespace pxn\phpUtils\tests;
 
-use \pxn\phpUtils\Paths;
+use \pxn\phpUtils\xPaths;
 
 
-/ **
- * @coversDefaultClass \pxn\phpUtils\Paths
- * /
-class test_Paths extends \PHPUnit\Framework\TestCase {
+/**
+ * @coversDefaultClass \pxn\phpUtils\xPaths
+ */
+class test_xPaths extends \PHPUnit\Framework\TestCase {
 
 
 
-	/ **
+	/**
 	 * @covers ::init
 	 * @covers ::pwd
 	 * @covers ::entry
 	 * @covers ::get
 	 * @covers ::set
 	 * @covers ::getAll
-	 * /
-	public function test_paths(): void {
+	 */
+	public function test_xPaths(): void {
 		$all = [];
 		// pwd path
-		$path = Paths::pwd();
+		$path = xPaths::pwd();
 		$all['pwd'] = $path;
 		$this->assertNotEmpty($path);
 		$this->assertTrue(\str_starts_with(haystack: $path, needle: '/'));
-		$this->assertEquals(expected: $path, actual: Paths::get('pwd'));
+		$this->assertEquals(expected: $path, actual: xPaths::get('pwd'));
 		$this->assertEquals(expected: \getcwd(), actual: $path);
 		// entry path
-		$path = Paths::entry();
+		$path = xPaths::entry();
 		$all['entry'] = $path;
 		$this->assertNotEmpty($path);
 		$this->assertTrue(\str_starts_with(haystack: $path, needle: '/'));
-		$this->assertEquals(expected: $path, actual: Paths::get('entry'));
+		$this->assertEquals(expected: $path, actual: xPaths::get('entry'));
+		// common path
+		$path = xPaths::common();
+		$all['common'] = $path;
+		$this->assertNotEmpty($path);
+		$this->assertTrue(\str_starts_with(haystack: $path, needle: '/'));
+		$this->assertEquals(expected: $path, actual: xPaths::get('common'));
+
+
+
+
 		// set custom path
 		$all['home'] = '/home';
-		Paths::set(key: 'home', path: '/home');
-		$this->assertEquals(expected: '/home', actual: Paths::get('home'));
+		xPaths::set(key: 'home', path: '/home');
+		$this->assertEquals(expected: '/home', actual: xPaths::get('home'));
 		// set with {pwd}
-		$all['abc'] = Paths::pwd().'/abc';
-		Paths::set(key: 'abc', path: '{pwd}/abc');
-		$this->assertEquals(expected: $all['abc'], actual: Paths::get('abc'));
+		$all['abc'] = xPaths::pwd().'/abc';
+		xPaths::set(key: 'abc', path: '{pwd}/abc');
+		$this->assertEquals(expected: $all['abc'], actual: xPaths::get('abc'));
 		// set with {entry}
-		$all['abcd'] = Paths::entry().'/abcd';
-		Paths::set(key: 'abcd', path: '{entry}/abcd');
-		$this->assertEquals(expected: $all['abcd'], actual: Paths::get('abcd'));
+		$all['abcd'] = xPaths::entry().'/abcd';
+		xPaths::set(key: 'abcd', path: '{entry}/abcd');
+		$this->assertEquals(expected: $all['abcd'], actual: xPaths::get('abcd'));
 		// set with {home}
 		$all['docs'] = '/home/user/docs';
-		Paths::set(key: 'docs', path: '{home}/user/docs');
-		$this->assertEquals(expected: $all['docs'], actual: Paths::get('docs'));
+		xPaths::set(key: 'docs', path: '{home}/user/docs');
+		$this->assertEquals(expected: $all['docs'], actual: xPaths::get('docs'));
 		// all paths
-		$this->assertEquals(expected: $all, actual: Paths::getAll());
+		$this->assertEquals(expected: $all, actual: xPaths::getAll());
 	}
 
-	/ **
-	 * @covers ::assertPathSet
-	 * /
-	public function test_assertPathSet(): void {
-		Paths::assertPathSet('pwd');
-		Paths::assertPathSet('entry');
+	/**
+	 * @covers ::assert
+	 */
+	public function test_assert(): void {
+		xPaths::assert('pwd');
+		xPaths::assert('entry');
 		$this->expectException(\RuntimeException::class);
 		$this->expectExceptionMessage('Path not set: test');
-		Paths::assertPathSet('test');
+		xPaths::assert('test');
 	}
 
-	/ **
+	/**
 	 * @covers ::get
-	 * /
+	 */
 	public function test_path_unknown(): void {
 		$this->expectException(\RuntimeException::class);
 		$this->expectExceptionMessage('Path not set: unknown');
-		Paths::get('unknown');
+		xPaths::get('unknown');
 	}
 
-	/ **
+	/**
 	 * @covers ::set
-	 * /
+	 */
 	public function test_path_tag_unknown(): void {
 		$this->expectException(\RuntimeException::class);
 		$this->expectExceptionMessage('Unknown path tag: unknown');
-		Paths::set(key: 'fail', path: '{unknown}/fail');
+		xPaths::set(key: 'fail', path: '{unknown}/fail');
 	}
 
 
 
 }
-*/

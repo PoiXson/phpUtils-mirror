@@ -5,198 +5,197 @@
  * @license AGPL-3
  * @author lorenzo at poixson.com
  * @link https://poixson.com/
- * /
-namespace pxn\phpUtils\tests;
+ */
+namespace pxn\phpUtils\tests\utils;
 
-use \pxn\phpUtils\Arrays;
-
-
-/ **
- * @coversDefaultClass \pxn\phpUtils\Arrays
- * /
-class ArraysTest extends \PHPUnit\Framework\TestCase {
+use \pxn\phpUtils\utils\ArrayUtils;
 
 
+/**
+ * @coversDefaultClass \pxn\phpUtils\utils\ArrayUtils
+ */
+class test_ArrayUtils extends \PHPUnit\Framework\TestCase {
 
-	/ **
+
+
+	/**
 	 * @covers ::Flatten
-	 * /
-	public function testFlatten(): void {
+	 */
+	public function test_Flatten(): void {
 		// strings
 		$this->assertEquals(
 			[ 'a', 'b', 'c' ],
-			Arrays::Flatten( 'a', 'b', 'c' )
+			ArrayUtils::Flatten( 'a', 'b', 'c' )
 		);
 		// deep
 		$this->assertEquals(
 			[ 'a', 'b', 'c' ],
-			Arrays::Flatten( 'a', ['b', [['c']]] )
+			ArrayUtils::Flatten( 'a', ['b', [['c']]] )
 		);
 		// null
 		$this->assertEquals(
-			[ NULL ],
-			Arrays::Flatten( NULL )
+			[ null ],
+			ArrayUtils::Flatten( null )
 		);
 		$this->assertEquals(
-			[ NULL, NULL, NULL ],
-			Arrays::Flatten( NULL, [NULL, [[NULL]]] )
+			[ null, null, null ],
+			ArrayUtils::Flatten( null, [null, [[null]]] )
 		);
 		// blank string
 		$this->assertEquals(
 			['', '', ''],
-			Arrays::Flatten( '', ['', [['']]] )
+			ArrayUtils::Flatten( '', ['', [['']]] )
 		);
 		// zero 0
 		$this->assertEquals(
 			[0, 0, 0],
-			Arrays::Flatten( 0, [0, [[0]]] )
+			ArrayUtils::Flatten( 0, [0, [[0]]] )
 		);
 		// empty arrays
 		$this->assertEquals(
 			[],
-			Arrays::Flatten( [], [ [[]], [] ] )
+			ArrayUtils::Flatten( [], [ [[]], [] ] )
 		);
 	}
 
 
 
-	/ **
+	/**
 	 * @covers ::TrimFlat
-	 * /
-	public function testTrimFlat(): void {
+	 */
+	public function test_TrimFlat(): void {
 		// strings
 		$this->assertEquals(
 			[ 'a', 'b', 'c' ],
-			Arrays::TrimFlat( 'a', 'b', 'c', '', NULL )
+			ArrayUtils::TrimFlat( 'a', 'b', 'c', '', null )
 		);
 		// deep
 		$this->assertEquals(
 			[ 'a', 'b', 'c' ],
-			Arrays::TrimFlat( 'a', ['b', [['c']]], '', NULL )
+			ArrayUtils::TrimFlat( 'a', ['b', [['c']]], '', null )
 		);
 		// null
 		$this->assertEquals(
 			[],
-			Arrays::TrimFlat( NULL )
+			ArrayUtils::TrimFlat( null )
 		);
 		$this->assertEquals(
 			[],
-			Arrays::TrimFlat( NULL, [NULL, [[NULL]]] )
+			ArrayUtils::TrimFlat( null, [null, [[null]]] )
 		);
 		// blank string
 		$this->assertEquals(
 			[],
-			Arrays::TrimFlat( '', ['', [['']]] )
+			ArrayUtils::TrimFlat( '', ['', [['']]] )
 		);
 		// zero 0
 		$this->assertEquals(
 			[0, 0, 0],
-			Arrays::TrimFlat( 0, [0, [[0]]] )
+			ArrayUtils::TrimFlat( 0, [0, [[0]]] )
 		);
 		// empty arrays
 		$this->assertEquals(
 			[],
-			Arrays::TrimFlat( [], [ [[]], [] ] )
+			ArrayUtils::TrimFlat( [], [ [[]], [] ] )
 		);
 	}
 
 
 
-/ *
+/*
 	/ **
 	 * @covers ::Trim
 	 * /
-	public function testTrim() {
+	public function test_Trim() {
 		// strings
-		$array = [ 'a', 'b', 'c', '', NULL ];
-		Arrays::Trim($array);
+		$array = [ 'a', 'b', 'c', '', null ];
+		ArrayUtils::Trim($array);
 		$this->assertEquals(
 			[ 'a', 'b', 'c' ],
 			$array
 		);
 		// deep
-		$array = [ 'a', 'b', ['c'], [[]], '', NULL ];
-		Arrays::Trim($array);
+		$array = [ 'a', 'b', ['c'], [[]], '', null ];
+		ArrayUtils::Trim($array);
 		$this->assertEquals(
 			[ 'a', 'b', ['c'], [[]] ],
 			$array
 		);
 		// null
-		$array = NULL;
-		Arrays::Trim($array);
+		$array = null;
+		ArrayUtils::Trim($array);
 		$this->assertEquals(
-			NULL,
+			null,
 			$array
 		);
 		// blank/empty
-		$array = [ 0, FALSE, '', [] ];
-		Arrays::Trim($array);
+		$array = [ 0, false, '', [] ];
+		ArrayUtils::Trim($array);
 		$this->assertEquals(
-			[ 0, FALSE ],
+			[ 0, false ],
 			$array
 		);
 		// string (not array)
 		$array = 'abc';
-		Arrays::Trim($array);
+		ArrayUtils::Trim($array);
 		$this->assertEquals(
 			[ 'abc' ],
 			$array
 		);
 	}
-* /
+*/
 
 
 
-	/ **
+	/**
 	 * @covers ::MakeArray
-	 * /
-	public function testMakeArray(): void {
+	 */
+	public function test_MakeArray(): void {
 		// clean
 		$this->assertEquals(
 			[ 'a', 'b', 'c' ],
-			Arrays::MakeArray([ 'a', 'b', 'c' ])
+			ArrayUtils::MakeArray([ 'a', 'b', 'c' ])
 		);
 		// null
 		$this->assertEquals(
 			[],
-			Arrays::MakeArray(NULL)
+			ArrayUtils::MakeArray(null)
 		);
 		// empty string
 		$this->assertEquals(
 			[''],
-			Arrays::MakeArray('')
+			ArrayUtils::MakeArray('')
 		);
 		// string
 		$this->assertEquals(
 			[ 'abc' ],
-			Arrays::MakeArray('abc')
+			ArrayUtils::MakeArray('abc')
 		);
 	}
 
 
 
-	/ **
+	/**
 	 * @covers ::Explode
-	 * /
-	public function testExplode(): void {
+	 */
+	public function test_Explode(): void {
 		// simple string
 		$this->assertEquals(
 			[ 'a', 'b', 'c' ],
-			Arrays::Explode( 'a b,c' )
+			ArrayUtils::Explode( 'a b,c' )
 		);
 		// string
 		$this->assertEquals(
 			[ 'a', 'b', 'c' ],
-			Arrays::Explode('a-b-++=c', '-', '=', '+')
+			ArrayUtils::Explode('a-b-++=c', '-', '=', '+')
 		);
 		// array
 		$this->assertEquals(
 			[ 'abc' ],
-			Arrays::Explode([ 'abc' ])
+			ArrayUtils::Explode([ 'abc' ])
 		);
 	}
 
 
 
 }
-*/
