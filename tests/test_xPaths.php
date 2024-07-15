@@ -24,7 +24,7 @@ class test_xPaths extends \PHPUnit\Framework\TestCase {
 	 * @covers ::entry
 	 * @covers ::get
 	 * @covers ::set
-	 * @covers ::getAll
+	 * @covers ::GetAll
 	 */
 	public function test_xPaths(): void {
 		$all = [];
@@ -68,7 +68,7 @@ class test_xPaths extends \PHPUnit\Framework\TestCase {
 		xPaths::set(key: 'docs', path: '{home}/user/docs');
 		$this->assertEquals(expected: $all['docs'], actual: xPaths::get('docs'));
 		// all paths
-		$this->assertEquals(expected: $all, actual: xPaths::getAll());
+		$this->assertEquals(expected: $all, actual: xPaths::GetAll());
 	}
 
 	/**

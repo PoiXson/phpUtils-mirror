@@ -133,6 +133,10 @@ class xPaths {
 
 
 
+	public static function GetAll(): array {
+		return self::$paths;
+	}
+
 	public static function pwd(): string {
 		self::init();
 		return self::$paths['pwd'];
