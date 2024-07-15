@@ -8,6 +8,9 @@
  */
 namespace pxn\phpUtils;
 
+use \pxn\phpUtils\utils\GeneralUtils;
+use \pxn\phpUtils\pxnDefines as xDef;
+
 
 class qTime {
 
@@ -42,7 +45,7 @@ class qTime {
 
 
 	public function Start() {
-		if ($this->start == Defines::INT_MIN)
+		if ($this->start == xDef::INT_MIN)
 			$this->start = self::Timestamp();
 	}
 	public function Reset() {
@@ -54,7 +57,7 @@ class qTime {
 	public function getTimeSinceStart() {
 		$now   = self::Timestamp();
 		$start = $this->start;
-		if ($start == Defines::INT_MIN)
+		if ($start == xDef::INT_MIN)
 			return false;
 		if ($start > $now)
 			return 0.0;
@@ -64,8 +67,8 @@ class qTime {
 		$now   = self::Timestamp();
 		$start = $this->start;
 		$last  = $this->last;
-		if ($last == Defines::INT_MIN) {
-			if ($start == Defines::INT_MIN)
+		if ($last == xDef::INT_MIN) {
+			if ($start == xDef::INT_MIN)
 				return false;
 			$last = $start;
 		}

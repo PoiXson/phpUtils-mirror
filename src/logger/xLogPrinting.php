@@ -6,7 +6,7 @@
  * @author lorenzo at poixson.com
  * @link https://poixson.com/
  */
-namespace pxn\phpUtils\xLogger;
+namespace pxn\phpUtils\logger;
 
 use \pxn\phpUtils\Strings;
 

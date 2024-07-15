@@ -6,10 +6,10 @@
  * @author lorenzo at poixson.com
  * @link https://poixson.com/
  */
-namespace pxn\phpUtils\xLogger\handlers;
+namespace pxn\phpUtils\logger\handlers;
 
 
-class ShellHandler implements \pxn\phpUtils\xLogger\Handler {
+class ShellHandler implements \pxn\phpUtils\logger\handler\xLogHandler {
 
 	protected $streamOut;
 	protected $streamErr;

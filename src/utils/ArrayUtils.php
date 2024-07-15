@@ -6,10 +6,10 @@
  * @author lorenzo at poixson.com
  * @link https://poixson.com/
  */
-namespace pxn\phpUtils;
+namespace pxn\phpUtils\utils;
 
 
-final class Arrays {
+final class ArrayUtils {
 	private final function __construct() {}
 
 	const DEFAULT_EXPLODE_DELIMS = [ ' ', ',', ';', "\t", "\r", "\n" ];

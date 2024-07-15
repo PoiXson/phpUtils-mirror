@@ -6,10 +6,10 @@
  * @author lorenzo at poixson.com
  * @link https://poixson.com/
  */
-namespace pxn\phpUtils\xLogger\handlers;
+namespace pxn\phpUtils\logger\handlers;
 
 
-class FileHandler implements \pxn\phpUtils\xLogger\Handler {
+class FileHandler implements \pxn\phpUtils\logger\Handler {
 
 	protected $outputFile;
 	protected $handle;

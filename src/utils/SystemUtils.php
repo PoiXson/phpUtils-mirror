@@ -8,8 +8,8 @@
  */
 namespace pxn\phpUtils\utils;
 
-//use \pxn\phpUtils\Paths;
-//use \pxn\phpUtils\pxnDefines as xDef;
+use \pxn\phpUtils\xPaths;
+use \pxn\phpUtils\pxnDefines as xDef;
 
 
 final class SystemUtils {
@@ -97,7 +97,7 @@ final class SystemUtils {
 
 
 	public static function isUsrInstalled(): bool {
-		return \str_starts_with(haystack: Paths::entry(), needle: '/usr/');
+		return \str_starts_with(haystack: xPaths::entry(), needle: '/usr/');
 	}
 
 

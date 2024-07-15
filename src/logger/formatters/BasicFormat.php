@@ -6,10 +6,10 @@
  * @author lorenzo at poixson.com
  * @link https://poixson.com/
  */
-namespace pxn\phpUtils\xLogger\formatters;
+namespace pxn\phpUtils\logger\formatters;
 
-use \pxn\phpUtils\xLogger\xLogFormatter;
-use \pxn\phpUtils\xLogger\xLogRecord;
+use \pxn\phpUtils\logger\xLogFormatter;
+use \pxn\phpUtils\logger\xLogRecord;
 
 
 class BasicFormat implements xLogFormatter {
