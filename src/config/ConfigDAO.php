@@ -11,16 +11,16 @@ namespace pxn\phpUtils\config;
 
 class ConfigDAO {
 
-	protected $data = NULL;
+	protected $data = null;
 	protected $dataDefault = [];
 	protected $dataSuper   = [];
 
-	protected $changed = FALSE;
+	protected $changed = false;
 
 
 
-	protected function __construct(?array $data=NULL) {
-		if ($data !== NULL) {
+	protected function __construct(?array $data=null) {
+		if ($data !== null) {
 			$this->data = $data;
 		}
 		// defaults
@@ -34,9 +34,9 @@ class ConfigDAO {
 
 
 
-	public function data(?array $data=NULL): ?array {
+	public function data(?array $data=null): ?array {
 		$previous = $this->data;
-		if ($data !== NULL) {
+		if ($data !== null) {
 			$this->data = $data;
 		}
 		return $previous;
@@ -64,7 +64,7 @@ class ConfigDAO {
 			return $this->dataDefault[$key];
 		}
 		// no value set
-		return NULL;
+		return null;
 	}
 	public function peakValue(string $key) {
 		// config value
@@ -72,19 +72,19 @@ class ConfigDAO {
 			return $this->data[$key];
 		}
 		// no value set
-		return NULL;
+		return null;
 	}
 	public function getDefault(string $key) {
 		if (isset($this->dataDefault[$key])) {
 			return $this->dataDefault[$key];
 		}
-		return NULL;
+		return null;
 	}
 	public function getSuper(string $key) {
 		if (isset($this->dataSuper[$key])) {
 			return $this->dataSuper[$key];
 		}
-		return NULL;
+		return null;
 	}
 
 
@@ -92,7 +92,7 @@ class ConfigDAO {
 //TODO
 //	public function getDAO($key) {
 //		$dao = $this->peakDAO($key);
-//		if ($dao == NULL) {
+//		if ($dao == null) {
 //			$dao = new ConfigDAO(
 //				$this->name,
 //				$key
@@ -106,52 +106,52 @@ class ConfigDAO {
 //		if (isset($this->daoArray[$key])) {
 //			return $this->daoArray[$key];
 //		}
-//		return NULL;
+//		return null;
 //	}
 
 
 
 	public function getString(string $key): string {
 		$value = $this->getValue($key);
-		if ($value === NULL) {
-			return NULL;
+		if ($value === null) {
+			return null;
 		}
 		return (string) $value;
 	}
 	public function getInt(string $key): ?int {
 		$value = $this->getValue($key);
-		if ($value === NULL) {
-			return NULL;
+		if ($value === null) {
+			return null;
 		}
 		return (integer) $value;
 	}
 	public function getLong(string $key): ?int {
 		$value = $this->getValue($key);
-		if ($value === NULL) {
-			return NULL;
+		if ($value === null) {
+			return null;
 		}
 		return (integer) $value;
 	}
 	public function getFloat(string $key): ?float {
 		$value = $this->getValue($key);
-		if ($value === NULL) {
-			return NULL;
+		if ($value === null) {
+			return null;
 		}
 		return (float) $value;
 	}
 	public function getDouble(string $key): ?float {
 		$value = $this->getValue($key);
-		if ($value === NULL) {
-			return NULL;
+		if ($value === null) {
+			return null;
 		}
 		return (double) $value;
 	}
 	public function getBool(string $key): ?bool {
 		$value = $this->getValue($key);
-		if ($value === NULL) {
-			return NULL;
+		if ($value === null) {
+			return null;
 		}
-		return ($value != FALSE);
+		return ($value != false);
 	}
 
 
@@ -165,7 +165,7 @@ class ConfigDAO {
 	public function setValue(string $key, $value): void {
 		if ($this->data[$key] !== $value) {
 			$this->data[$key] = $value;
-			$this->changed = TRUE;
+			$this->changed = true;
 		}
 	}
 	public function setRef(string $key, &$value): void {

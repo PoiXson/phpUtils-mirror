@@ -16,11 +16,11 @@ use \pxn\phpUtils\Defines;
 
 class cacher_filesystem extends cacher {
 
-	protected $cachePath = NULL;
+	protected $cachePath = null;
 
 
 
-	public function __construct($expireSeconds=NULL, $cachePath=NULL) {
+	public function __construct($expireSeconds=null, $cachePath=null) {
 		parent::__construct($expireSeconds);
 		$this->cachePath = $cachePath;
 	}
@@ -52,25 +52,22 @@ class cacher_filesystem extends cacher {
 
 	protected function _getEntry($source, $context) {
 		// cache disabled
-		if (\debug()) {
+		if (\debug())
 			return $source();
-		}
 		// existing entry
 		$filePath = $this->_getFilePath($context);
-		if (empty($filePath)) {
-			return NULL;
-		}
+		if (empty($filePath))
+			return null;
 		if (\file_exists($filePath)) {
 			// read cache file
 			$data = \file_get_contents($filePath);
 			$result = $this->ValidateData($data, $context);
-			if ($result !== NULL) {
+			if ($result !== null) {
 				// not expired
-				if ($result['expired'] == FALSE
+				if ($result['expired'] == false
 				&& isset($result['value'])
-				&& !empty($result['value']) ) {
+				&& !empty($result['value']) )
 					return $result['value'];
-				}
 			}
 		}
 		// set new entry
@@ -81,30 +78,27 @@ class cacher_filesystem extends cacher {
 	protected function _setEntry($value, $context) {
 		$timestamp = GeneralUtils::Timestamp(0);
 		$filePath = $this->_getFilePath($context);
-		if (empty($filePath)) {
-			return FALSE;
-		}
+		if (empty($filePath))
+			return false;
 		// write cache file
 		$result = \file_put_contents(
 			$filePath,
 			"Timestamp: {$timestamp}\n\n{$value}",
 			\LOCK_EX
 		);
-		if ($result === FALSE) {
-			return FALSE;
-		}
-		return TRUE;
+		if ($result === false)
+			return false;
+		return true;
 	}
 
 
 
 	protected function ValidateData($data, $context) {
 		$pos = \mb_strpos($data, "\n\n");
-		if ($pos === FALSE) {
-			return NULL;
-		}
+		if ($pos === false)
+			return null;
 		list($meta, $data) = \explode("\n\n", $data, 2);
-		$timestamp = NULL;
+		$timestamp = null;
 		foreach(\explode("\n", $meta) as $line) {
 			$line = \trim($line);
 			if (empty($line)) continue;
@@ -122,20 +116,16 @@ class cacher_filesystem extends cacher {
 			}
 		}
 		// timestamp not set or invalid
-		if ($timestamp == NULL || $timestamp <= 0) {
-			return NULL;
-		}
+		if ($timestamp == null || $timestamp <= 0)
+			return null;
 		// timestamp expired
 		$timeNow = GeneralUtils::Timestamp(0);
 		$timeSince = $timeNow - $timestamp;
-		if ($timeSince > $this->expireSeconds) {
-			return [
-				'expired' => TRUE
-			];
-		}
+		if ($timeSince > $this->expireSeconds)
+			return [ 'expired' => true ];
 		// cache value good
 		return [
-			'expired' => FALSE,
+			'expired' => false,
 			'value'   => $data
 		];
 	}
@@ -143,18 +133,16 @@ class cacher_filesystem extends cacher {
 
 
 	protected function _getFilePath($context) {
-		if (empty($this->cachePath)) {
-			return NULL;
-		}
+		if (empty($this->cachePath))
+			return null;
 		return Strings::BuildPath(
 			$this->cachePath,
 			".cache__{$context}"
 		);
 	}
 	protected static function BuildContext(...$context) {
-		if (empty($context)) {
-			return NULL;
-		}
+		if (empty($context))
+			return null;
 		return Arrays::TrimFlatMerge(
 			'__',
 			$context

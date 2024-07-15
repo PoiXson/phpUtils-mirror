@@ -16,12 +16,12 @@ use \Symfony\Component\Console\Output\OutputInterface;
 
 class Router implements \pxn\phpUtils\console\Router {
 
-	protected static $instance = NULL;
+	protected static $instance = null;
 
 
 
 	public static function get() {
-		if (self::$instance == NULL) {
+		if (self::$instance == null) {
 			self::$instance = new static();
 		}
 		return self::$instance;

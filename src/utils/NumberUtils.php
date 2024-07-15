@@ -23,8 +23,7 @@ final class NumberUtils {
 	 * This function is a more specific test of a value. The native
 	 * \is_numeric() function also returns true for hex values.
 	 * @param string $value
-	 * @return boolean Returns true if only contains number characters after
-	 *         being trimmed.
+	 * @return boolean Returns true if only contains number characters after being trimmed.
 	 * /
 	public static function isNumber($value): bool {
 		if ($value === null) return false;

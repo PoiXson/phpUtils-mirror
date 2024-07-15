@@ -11,13 +11,13 @@ namespace pxn\phpUtils\config;
 
 class Config extends ConfigDAO {
 
-	protected $file  = NULL;
-	protected $mtime = NULL;
+	protected $file  = null;
+	protected $mtime = null;
 
 
 
-	public function __construct(?string $file=NULL) {
-		if ($file !== NULL) {
+	public function __construct(?string $file=null) {
+		if ($file !== null) {
 			$this->loadFile($file);
 		}
 		parent::__construct();
@@ -37,7 +37,7 @@ class Config extends ConfigDAO {
 
 
 
-	public function loadFile(?string $file=NULL): void {
+	public function loadFile(?string $file=null): void {
 		if (!empty($file)) {
 			$file = (string) $file;
 			if (!empty($file)) {
@@ -56,13 +56,13 @@ class Config extends ConfigDAO {
 			unset($f);
 		}
 		$data = \file_get_contents($this->file);
-		if ($data === FALSE) {
+		if ($data === false) {
 			throw new \RuntimeException("Failed to read config file: {$this->file}");
 		}
 		// detect file type
 		{
 			$pos = \mb_strrpos($this->file, '.');
-			if ($pos === FALSE) {
+			if ($pos === false) {
 				throw new \RuntimeException("Unknown config file type: {$this->file}");
 			}
 			$ext = \mb_substr($this->file, $pos);
@@ -79,8 +79,8 @@ class Config extends ConfigDAO {
 	}
 	public function loadStringJson(string $data): void {
 		if (empty($data)) return;
-		$json = \json_decode($data, TRUE, \JSON_OBJECT_AS_ARRAY | \JSON_THROW_ON_ERROR);
-		if ($json === NULL) {
+		$json = \json_decode($data, true, \JSON_OBJECT_AS_ARRAY | \JSON_THROW_ON_ERROR);
+		if ($json === null) {
 			throw new \RuntimeException("Failed to parse config file: {$this->file}");
 		}
 		$this->data = $json;
@@ -88,7 +88,7 @@ class Config extends ConfigDAO {
 	public function loadStringYaml(string $data): void {
 		if (empty($data)) return;
 		$yaml = \yaml_parse($data);
-		if ($yaml === NULL) {
+		if ($yaml === null) {
 			throw new \RuntimeException("Failed to parse config file: {$this->file}");
 		}
 		$this->data = $yaml;

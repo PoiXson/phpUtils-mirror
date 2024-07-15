@@ -18,12 +18,12 @@ class ConfigMain extends Config {
 
 
 
-	public function __construct(?string $file=NULL) {
+	public function __construct(?string $file=null) {
 		parent::__construct($file);
 		// debug value
 		{
 			$debugValue = $this->getBool(self::KEY_DEBUG);
-			if ($debugValue !== NULL) {
+			if ($debugValue !== null) {
 				\pxn\phpUtils\Debug::setDebug($debugValue);
 			}
 		}

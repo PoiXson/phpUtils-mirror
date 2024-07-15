@@ -22,7 +22,7 @@ class FullFormat implements xLogFormatter {
 
 	protected $datetime;
 
-	protected static $isCapture = FALSE;
+	protected static $isCapture = false;
 
 
 
@@ -32,29 +32,27 @@ class FullFormat implements xLogFormatter {
 
 
 
-	public function getFormatted(xLogRecord $record) {
+	public function getFormatted(xLogRecord $record): string {
 		$msg = &$record->msg;
 		$msg = \str_replace("\r", '', $msg);
-		if ($record->msg == NULL) {
+		if ($record->msg == null)
 			$record->msg = '<NULL>';
-		}
-		if (empty($record->msg)) {
+		if (empty($record->msg))
 			return '';
-		}
 		// stdOut block
 		$isOut = xLevel::MatchLevel($record->level, xLevel::STDOUT);
 		$isErr = xLevel::MatchLevel($record->level, xLevel::STDERR);
 		if ($isOut) {
 			if (!self::$isCapture) {
-				$msg = "\n <<=== OUT ===>>\n\n{$msg}";
-				self::$isCapture = TRUE;
+				$msg = "\n <<=== OUT ===>>\n\n".$msg;
+				self::$isCapture = true;
 			}
 		} else
 		// stdErr block
 		if ($isErr) {
 			if (!self::$isCapture) {
-				$msg = "\n <<=== ERR ===>>\n\n{$msg}";
-				self::$isCapture = TRUE;
+				$msg = "\n <<=== ERR ===>>\n\n".$msg;
+				self::$isCapture = true;
 			}
 		}
 		// format message
@@ -65,8 +63,8 @@ class FullFormat implements xLogFormatter {
 		// close stdOut/stdErr blocks
 		if (!$isOut && !$isErr) {
 			if (self::$isCapture) {
-				$msg = "\n <<===========>>\n\n{$msg}";
-				self::$isCapture = FALSE;;
+				$msg = "\n <<===========>>\n\n".$msg;
+				self::$isCapture = false;
 			}
 		}
 		// finished formatting

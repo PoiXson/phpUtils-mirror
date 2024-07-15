@@ -18,32 +18,24 @@ class FileHandler implements \pxn\phpUtils\xLogger\Handler {
 
 	public function __construct($outputFile) {
 		$this->outputFile = $outputFile;
-		$this->handle = \fopen(
-				$this->outputFile,
-				'a'
-		);
-		if ($this->handle == FALSE) {
-			throw new \Exception("Failed to open log file for writing! $outputFile");
-		}
+		$this->handle = \fopen($this->outputFile, 'a');
+		if ($this->handle == false)
+			throw new \Exception('Failed to open log file for writing! '.$outputFile);
 	}
 	public function __destruct() {
 		\fclose($this->handle);
-		$this->handle = NULL;
+		$this->handle = null;
 	}
 
 
 
 	public function write($msg) {
 		if (\is_array($msg)) {
-			foreach ($msg as $m) {
+			foreach ($msg as $m)
 				$this->write($m);
-			}
 			return;
 		}
-		\fwrite(
-			$this->handle,
-			"{$msg}\n"
-		);
+		\fwrite($this->handle, $msg."\n");
 	}
 
 

@@ -28,56 +28,56 @@ abstract class BasicEnum {
 
 
 
-	public static function isValidName($name, $ignoreCase=TRUE) {
+	public static function isValidName($name, $ignoreCase=true) {
 		$constants = self::getConstants();
 		if (\array_key_exists($name, $constants)) {
-			return TRUE;
+			return true;
 		}
 		if (!$ignoreCase) {
-			return FALSE;
+			return false;
 		}
 		$keys = \array_map('\\mb_strtolower', \array_keys($constants));
 		return \in_array(\mb_strtolower($name), $keys);
 	}
-	public static function isValidValue($value, $ignoreCase=TRUE) {
+	public static function isValidValue($value, $ignoreCase=true) {
 		$values = \array_values(self::getConstants());
 		if (\in_array($value, $values))
-			return TRUE;
+			return true;
 		if (!$ignoreCase)
-			return FALSE;
+			return false;
 		$vals = \array_map('\\mb_strtolower', \array_values($values));
 		return \in_array(\mb_strtolower($value), $vals);
 	}
 
 
 
-	public static function getByName($name, $ignoreCase=TRUE) {
+	public static function getByName($name, $ignoreCase=true) {
 		$constants = self::getConstants();
 		if (\array_key_exists($name, $constants))
 			return $constants[$name];
 		if (!$ignoreCase)
-			return NULL;
+			return null;
 		$n = \mb_strtolower($name);
 		foreach ($constants as $k => $v) {
 			if(\mb_strtolower($k) == $n)
 				return $v;
 		}
-		return NULL;
+		return null;
 	}
-	public static function getByValue($value, $ignoreCase=TRUE) {
+	public static function getByValue($value, $ignoreCase=true) {
 		$constants = self::getConstants();
-		$result = \array_search($value, $constants, TRUE);
-		if ($result != FALSE)
+		$result = \array_search($value, $constants, true);
+		if ($result != false)
 			return $result;
 		if (!$ignoreCase)
-			return NULL;
+			return null;
 		$val = \mb_strtolower($value);
 		foreach ($constants as $k => $v) {
 			if (\mb_strtolower($v) == $val) {
 				return $k;
 			}
 		}
-		return NULL;
+		return null;
 	}
 
 

@@ -15,74 +15,62 @@ class xLog extends xLogPrinting {
 
 	const DEFAULT_LOGGER = '';
 
-	private static $root = NULL;
+	private static $root = null;
 	private static $loggers = [];
-	private $DefaultFormatter = NULL;
+	private $DefaultFormatter = null;
 
 	protected $name;
 	protected $level;
 	protected $parent;
-	protected $formatter = NULL;
+	protected $formatter = null;
 	protected $handlers = [];
 
 
 
-	public static function init() {
-		if (self::$root == NULL) {
-			self::$root = new self(
-					NULL,
-					NULL
-			);
+	public static function Init(): void {
+		if (self::$root == null) {
+			self::$root = new self(null, null);
 		}
 	}
 
 
 
-	public static function getRoot($name=NULL) {
-		if (self::$root == NULL) {
+	public static function GetRoot(?string $name=null): xLog {
+		if (self::$root == null)
 			self::init();
-		}
-		if (!empty($name)) {
-			return self::$root
-					->get($name);
-		}
+		if (!empty($name))
+			return self::$root->get($name);
 		return self::$root;
 	}
-	public function get($name='') {
-		if (self::$root == NULL) {
+	public function get(?string $name=''): xLog {
+		if (self::$root == null)
 			self::init();
-		}
-		if (empty($name)) {
+		if (empty($name))
 			return $this;
-		}
 		$name = self::ValidateName($name);
-		if (isset(self::$loggers[$name])) {
+		if (isset(self::$loggers[$name]))
 			return self::$loggers[$name];
-		}
 		// new logger
 //			$handler = new StreamHandler('php://stderr', Logger::DEBUG);
 //			$formatter = new LineFormatter(
 //					'[%datetime%] [%level_name%] [%channel%]  %message%  %context% %extra%'."\n",
 //					'Y-m-d H:i:s',
-//					FALSE,
-//					TRUE
+//					false,
+//					true
 //			);
 //			$handler->setFormatter($formatter);
 //			$log->pushHandler($handler);
-		$log = new self(
-				$name,
-				$this
-		);
+		$log = new self($name, $this);
 		self::$loggers[$name] = $log;
 		return $log;
 	}
-	public static function set($name, $log) {
+	public static function Set(string $name, xLog $log): bool {
 		$name = self::ValidateName($name);
-		$existed = isset(self::$loggers[$name]) && self::$loggers[$name] != NULL;
+		$existed = isset(self::$loggers[$name]) && self::$loggers[$name] != null;
 		self::$loggers[$name] = $log;
 		return $existed;
 	}
-	public function getWeak($name='') {
+	public function getWeak(?string $name=''): xLog {
 		$name = self::ValidateName($name);
 		if (isset(self::$loggers[$name]))
 			return self::$loggers[$name];
@@ -103,9 +91,9 @@ class xLog extends xLogPrinting {
 
 
 
-	public static function CaptureBuffer() {
+	public static function CaptureBuffer(): void {
 		\ob_start([
-			self::getRoot(),
+			self::GetRoot(),
 			'ProcessOB'
 		]);
 //		$func = function($buffer) {
@@ -118,7 +106,7 @@ class xLog extends xLogPrinting {
 //		};
 //		\ob_start($func);
 	}
-	public function ProcessOB($buffer) {
+	public function ProcessOB(?string $buffer): void {
 		if (empty($buffer))
 			return;
 		$this->out($buffer);
@@ -126,69 +114,69 @@ class xLog extends xLogPrinting {
 
 
 
-	public function __construct($name, $parent=NULL) {
+	public function __construct(?string $name, ?xLog $parent=null) {
 		$this->name = self::ValidateName($name);
 		$this->parent = $parent;
 	}
 
 
 
-	public function isRoot() {
-		return (empty($this->name) && $this->parent == NULL);
+	public function isRoot(): bool {
+		return (empty($this->name) && $this->parent == null);
 	}
 
 
 
-	public function setLevel($level) {
+	public function setLevel(xLevel $level): void {
 		$this->level = xLevel::FindLevel($level);
 	}
-	public function getLevel() {
+	public function getLevel(): xLevel {
 		return $this->level;
 	}
-	public function isLoggable($level) {
-		if ($level == NULL || $this->level == NULL)
-			return TRUE;
+	public function isLoggable(xLevel $level): bool {
+		if ($level == null || $this->level == null)
+			return true;
 		// force debug mode
 //TODO:
 //		if (xVars::debug())
-//			return TRUE;
+//			return true;
 		if (xLevel::isLoggable($this->level, $level))
-			return TRUE;
-		return FALSE;
+			return true;
+		return false;
 	}
 
 
 
-	protected function buildNameTree(&$list) {
-		if ($this->parent != NULL) {
+	protected function buildNameTree(array &$list): void {
+		if ($this->parent != null) {
 			$this->parent->buildNameTree($list);
 			if (!empty($this->name))
 				$list[] = $this->name;
 		}
 	}
-	public function getNameTree() {
+	public function getNameTree(): array {
 		return $this->buildNameTree($this);
 	}
 
 
 
-	public function addHandler($handler) {
+	public function addHandler(xLogHandler $handler): void {
 		$this->handlers[] = $handler;
 	}
-	public function setHandler($handler) {
+	public function setHandler(xLogHandler $handler): void {
 		$this->handlers = [ $handler ];
 	}
 
 
 
-	public function setFormatter(xLogFormatter $formatter) {
+	public function setFormatter(xLogFormatter $formatter): void {
 		$this->formatter = $formatter;
 	}
 
 
 
-	public function publish($msg='') {
-		if ($this->parent != NULL) {
+	public function publish(?string $msg=''): void {
+		if ($this->parent != null) {
 			$this->parent->publish($msg);
 			//TODO: maybe not return here
 			return;
@@ -203,29 +191,27 @@ class xLog extends xLogPrinting {
 		}
 		$this->writeToHandlers($msg);
 	}
-	protected function writeToHandlers($msg) {
-		foreach ($this->handlers as $handler) {
+	protected function writeToHandlers(string $msg): void {
+		foreach ($this->handlers as $handler)
 			$handler->write($msg);
-		}
 	}
 
 
 
-	public function getFormatter() {
+	public function getFormatter(): xLogFormatter {
 		// specific formatter
-		if($this->formatter != NULL) {
+		if($this->formatter != null)
 			return $this->formatter;
-		}
 		// get from parent
-		if ($this->parent != NULL) {
+		if ($this->parent != null) {
 			$parentFormatter = $this->parent->getFormatter();
-			if ($parentFormatter != NULL)
+			if ($parentFormatter != null)
 				return $parentFormatter;
 		}
 		// default formatter
-		if ($this->DefaultFormatter == NULL)
+		if ($this->DefaultFormatter == null)
 			$this->DefaultFormatter = new BasicFormat();
-			return $this->DefaultFormatter;
+		return $this->DefaultFormatter;
 	}
 
 

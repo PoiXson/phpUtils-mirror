@@ -12,7 +12,7 @@ namespace pxn\phpUtils\xLogger;
 interface Handler {
 
 
-	public function write($msg);
+	public function write(?string $msg): void;
 
 
 }

@@ -12,11 +12,11 @@ namespace pxn\phpUtils;
 final class ShellTools {
 	private final function __construct() {}
 
-	private static $inited = FALSE;
+	private static $inited = false;
 
-	private static $flags = NULL;
-	private static $args  = NULL;
-	private static $stat  = NULL;
+	private static $flags = null;
+	private static $args  = null;
+	private static $stat  = null;
 
 
 
@@ -25,14 +25,14 @@ final class ShellTools {
 			return;
 		}
 		self::initConsoleVars();
-		self::$inited = TRUE;
+		self::$inited = true;
 		// ansi color enabled
 		if (self::hasFlag('--ansi')) {
-			ConfigGeneral::setAnsiColorEnabled(TRUE);
+			ConfigGeneral::setAnsiColorEnabled(true);
 		}
 		// ansi color disabled
 		if (self::hasFlag('--no-ansi')) {
-			ConfigGeneral::setAnsiColorEnabled(FALSE);
+			ConfigGeneral::setAnsiColorEnabled(false);
 		}
 		// detect color support
 		ConfigGeneral::defaultAnsiColorEnabled(
@@ -48,10 +48,10 @@ final class ShellTools {
 			return;
 		}
 		if (!System::isShell()) {
-			return FALSE;
+			return false;
 		}
-		if (self::$flags !== NULL || self::$args !== NULL) {
-			return FALSE;
+		if (self::$flags !== null || self::$args !== null) {
+			return false;
 		}
 		// detect shell state
 		self::$stat = [
@@ -64,7 +64,7 @@ final class ShellTools {
 		global $argv;
 		self::$flags = [];
 		self::$args  = [];
-		$allArgs = FALSE;
+		$allArgs = false;
 		for ($index=1; $index<count($argv); $index++) {
 			$arg = $argv[$index];
 			if (empty($arg)) continue;
@@ -74,14 +74,14 @@ final class ShellTools {
 				continue;
 			}
 			if ($arg == '--') {
-				$allArgs = TRUE;
+				$allArgs = true;
 				continue;
 			}
 			// --flag
 			if (\str_starts_with(haystack: $arg, needle: '--')) {
 				// --flag=value
 				$pos = \mb_strpos($arg, '=');
-				if ($pos !== FALSE) {
+				if ($pos !== false) {
 					$val = \mb_substr($arg, $pos);
 					$arg = \mb_substr($arg, 0, $pos);
 					self::$flags[$arg] = $val;
@@ -98,7 +98,7 @@ final class ShellTools {
 				}
 				// --flag
 				if (!isset(self::$flags[$arg])) {
-					self::$flags[$arg] = TRUE;
+					self::$flags[$arg] = true;
 				}
 				continue;
 			}
@@ -128,14 +128,14 @@ final class ShellTools {
 				}
 				// -f
 				if (!isset(self::$flags[$arg])) {
-					self::$flags[$arg] = TRUE;
+					self::$flags[$arg] = true;
 				}
 				continue;
 			}
 			// not flag, must be argument
 			self::$args[] = $arg;
 		}
-		return TRUE;
+		return true;
 	}
 
 
@@ -159,7 +159,7 @@ final class ShellTools {
 		case 0140000:
 			return 'sock';
 		}
-		return NULL;
+		return null;
 	}
 
 
@@ -174,29 +174,29 @@ final class ShellTools {
 
 
 	// get argument (starts at 0)
-	public static function getArg($index=NULL) {
-		if ($index === NULL) {
+	public static function getArg($index=null) {
+		if ($index === null) {
 			return self::getArg(0);
 		}
 		$index = (int) $index;
 		if (!isset(self::$args[$index])) {
-			return NULL;
+			return null;
 		}
 		return self::$args[$index];
 	}
 	public static function hasArg($arg) {
 		if (empty($arg)) {
-			return NULL;
+			return null;
 		}
 		// match case
 		if (\in_array($arg, self::$args)) {
-			return TRUE;
+			return true;
 		}
 		// case-insensitive
 		if (\in_array( \strtolower($arg), \array_map('\\strtolower', self::$args) )) {
-			return TRUE;
+			return true;
 		}
-		return FALSE;
+		return false;
 	}
 
 
@@ -204,31 +204,31 @@ final class ShellTools {
 	// get one flag
 	public static function getFlag(... $keys) {
 		if (\count($keys) == 0) {
-			return NULL;
+			return null;
 		}
 		foreach ($keys as $key) {
 			$val = self::getFlag_Single($key);
-			if ($val !== NULL) {
+			if ($val !== null) {
 				return $val;
 			}
 		}
-		return NULL;
+		return null;
 	}
 	private static function getFlag_Single($key) {
 		if (empty($key)) {
-			return NULL;
+			return null;
 		}
 		if (isset(self::$flags[$key])) {
 			// don't allow "-x value"
 			$AllowShortFlagValues = ConfigGeneral::getAllowShortFlagValues();
 			if (!$AllowShortFlagValues) {
 				if (!\str_starts_with(haystack: $key, needle: '--')) {
-					return TRUE;
+					return true;
 				}
 			}
 			return self::$flags[$key];
 		}
-		return NULL;
+		return null;
 	}
 
 
@@ -236,19 +236,19 @@ final class ShellTools {
 	// get boolean flag
 	public static function getFlagBool(... $keys) {
 		if (\count($keys) == 0) {
-			return NULL;
+			return null;
 		}
 		foreach ($keys as $key) {
 			$val = self::getFlagBool_Single($key);
-			if ($val !== NULL) {
+			if ($val !== null) {
 				return $val;
 			}
 		}
-		return NULL;
+		return null;
 	}
 	private static function getFlagBool_Single($key) {
 		if (empty($key)) {
-			return NULL;
+			return null;
 		}
 		return General::toBoolean(
 			self::getFlag($key)
@@ -260,19 +260,19 @@ final class ShellTools {
 	// flag exists
 	public static function hasFlag(... $keys) {
 		if (\count($keys) == 0) {
-			return NULL;
+			return null;
 		}
 		foreach ($keys as $key) {
 			$result = self::hasFlag_Single($key);
-			if ($result === TRUE) {
-				return TRUE;
+			if ($result === true) {
+				return true;
 			}
 		}
-		return FALSE;
+		return false;
 	}
 	private static function hasFlag_Single($key) {
 		if (empty($key)) {
-			return NULL;
+			return null;
 		}
 		return isset(self::$flags[$key]);
 	}
@@ -311,7 +311,7 @@ final class ShellTools {
 		}
 		$match = \mb_substr($match, 1, -1);
 		$codes = [];
-		$bold = NULL;
+		$bold = null;
 		$parts = \explode(
 			',',
 			\mb_strtolower($match)
@@ -320,10 +320,10 @@ final class ShellTools {
 			if (empty($part)) continue;
 			$pos = \mb_strpos($part, '=');
 			// {tag}
-			if ($pos === FALSE) {
+			if ($pos === false) {
 				switch ($part) {
 				case 'bold':
-					$bold = TRUE;
+					$bold = true;
 					break;
 				case 'reset':
 					return "\033[0m";
@@ -339,68 +339,68 @@ final class ShellTools {
 					// dark colors
 					case 'black':
 						$codes[] = 30;
-						$bold = ($bold === NULL ? FALSE : $bold);
+						$bold = ($bold === null ? false : $bold);
 						break;
 					case 'red':
 						$codes[] = 31;
-						$bold = ($bold === NULL ? FALSE : $bold);
+						$bold = ($bold === null ? false : $bold);
 						break;
 					case 'green':
 						$codes[] = 32;
-						$bold = ($bold === NULL ? FALSE : $bold);
+						$bold = ($bold === null ? false : $bold);
 						break;
 					case 'orange':
 						$codes[] = 33;
-						$bold = ($bold === NULL ? FALSE : $bold);
+						$bold = ($bold === null ? false : $bold);
 						break;
 					case 'blue':
 						$codes[] = 34;
-						$bold = ($bold === NULL ? FALSE : $bold);
+						$bold = ($bold === null ? false : $bold);
 						break;
 					case 'magenta':
 						$codes[] = 35;
-						$bold = ($bold === NULL ? FALSE : $bold);
+						$bold = ($bold === null ? false : $bold);
 						break;
 					case 'cyan':
 						$codes[] = 36;
-						$bold = ($bold === NULL ? FALSE : $bold);
+						$bold = ($bold === null ? false : $bold);
 						break;
 					case 'lightgray':
 						$codes[] = 37;
-						$bold = ($bold === NULL ? FALSE : $bold);
+						$bold = ($bold === null ? false : $bold);
 						break;
 					// light colors
 					case 'gray':
 						$codes[] = 30;
-						$bold = ($bold === NULL ? TRUE : $bold);
+						$bold = ($bold === null ? true : $bold);
 						break;
 					case 'lightred':
 						$codes[] = 31;
-						$bold = ($bold === NULL ? TRUE : $bold);
+						$bold = ($bold === null ? true : $bold);
 						break;
 					case 'lime':
 						$codes[] = 32;
-						$bold = ($bold === NULL ? TRUE : $bold);
+						$bold = ($bold === null ? true : $bold);
 						break;
 					case 'yellow':
 						$codes[] = 33;
-						$bold = ($bold === NULL ? TRUE : $bold);
+						$bold = ($bold === null ? true : $bold);
 						break;
 					case 'lightblue':
 						$codes[] = 34;
-						$bold = ($bold === NULL ? TRUE : $bold);
+						$bold = ($bold === null ? true : $bold);
 						break;
 					case 'pink':
 						$codes[] = 35;
-						$bold = ($bold === NULL ? TRUE : $bold);
+						$bold = ($bold === null ? true : $bold);
 						break;
 					case 'lightcyan':
 						$codes[] = 36;
-						$bold = ($bold === NULL ? TRUE : $bold);
+						$bold = ($bold === null ? true : $bold);
 						break;
 					case 'white':
 						$codes[] = 37;
-						$bold = ($bold === NULL ? TRUE : $bold);
+						$bold = ($bold === null ? true : $bold);
 						break;
 					}
 				} else // end color tag
@@ -409,77 +409,77 @@ final class ShellTools {
 					// dark colors
 					case 'black':
 						$codes[] = 40;
-						$bold = ($bold === NULL ? FALSE : $bold);
+						$bold = ($bold === null ? false : $bold);
 						break;
 					case 'red':
 						$codes[] = 41;
-						$bold = ($bold === NULL ? FALSE : $bold);
+						$bold = ($bold === null ? false : $bold);
 						break;
 					case 'green':
 						$codes[] = 42;
-						$bold = ($bold === NULL ? FALSE : $bold);
+						$bold = ($bold === null ? false : $bold);
 						break;
 					case 'orange':
 						$codes[] = 43;
-						$bold = ($bold === NULL ? FALSE : $bold);
+						$bold = ($bold === null ? false : $bold);
 						break;
 					case 'blue':
 						$codes[] = 44;
-						$bold = ($bold === NULL ? FALSE : $bold);
+						$bold = ($bold === null ? false : $bold);
 						break;
 					case 'magenta':
 						$codes[] = 45;
-						$bold = ($bold === NULL ? FALSE : $bold);
+						$bold = ($bold === null ? false : $bold);
 						break;
 					case 'cyan':
 						$codes[] = 46;
-						$bold = ($bold === NULL ? FALSE : $bold);
+						$bold = ($bold === null ? false : $bold);
 						break;
 					case 'lightgray':
 						$codes[] = 47;
-						$bold = ($bold === NULL ? FALSE : $bold);
+						$bold = ($bold === null ? false : $bold);
 						break;
 					// light colors
 					case 'gray':
 						$codes[] = 40;
-						$bold = ($bold === NULL ? TRUE : $bold);
+						$bold = ($bold === null ? true : $bold);
 						break;
 					case 'lightred':
 						$codes[] = 41;
-						$bold = ($bold === NULL ? TRUE : $bold);
+						$bold = ($bold === null ? true : $bold);
 						break;
 					case 'lime':
 						$codes[] = 42;
-						$bold = ($bold === NULL ? TRUE : $bold);
+						$bold = ($bold === null ? true : $bold);
 						break;
 					case 'yellow':
 						$codes[] = 43;
-						$bold = ($bold === NULL ? TRUE : $bold);
+						$bold = ($bold === null ? true : $bold);
 						break;
 					case 'lightblue':
 						$codes[] = 44;
-						$bold = ($bold === NULL ? TRUE : $bold);
+						$bold = ($bold === null ? true : $bold);
 						break;
 					case 'pink':
 						$codes[] = 45;
-						$bold = ($bold === NULL ? TRUE : $bold);
+						$bold = ($bold === null ? true : $bold);
 						break;
 					case 'lightcyan':
 						$codes[] = 46;
-						$bold = ($bold === NULL ? TRUE : $bold);
+						$bold = ($bold === null ? true : $bold);
 						break;
 					case 'white':
 						$codes[] = 47;
-						$bold = ($bold === NULL ? TRUE : $bold);
+						$bold = ($bold === null ? true : $bold);
 						break;
 					}
 				} // end bgcolor tag
 			} // end {tag=value}
 		} // end for
-		if ($bold !== NULL) {
+		if ($bold !== null) {
 			\array_unshift(
 				$codes,
-				($bold !== FALSE ? 1 : 0)
+				($bold !== false ? 1 : 0)
 			);
 		}
 		if (\count($codes) > 0) {

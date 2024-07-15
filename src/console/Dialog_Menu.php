@@ -15,8 +15,8 @@ use \pxn\phpUtils\Defines;
 
 class Dialog_Menu extends Dialog {
 
-	protected $msg   = NULL;
-	protected $title = NULL;
+	protected $msg   = null;
+	protected $title = null;
 	protected $options = [];
 
 

@@ -13,12 +13,12 @@ class ComposerInfo {
 
 	private static $instances = [];
 
-	protected $filePath;
+	protected $file_path;
 	protected $json;
 
 
 
-	public static function findJson($depth=2) {
+	public static function FindJson(int $depth=2): ?ComposerInfo {
 		for ($i=0; $i<=$depth; $i++) {
 			$path = \str_repeat('/..', $i);
 			$path = \realpath( '.'.$path.'/' ).'/composer.json';
@@ -30,7 +30,7 @@ class ComposerInfo {
 		}
 		return null;
 	}
-	public static function get($path=null) {
+	public static function Get(?string $path=null): ComposerInfo {
 		$path = self::SanPath($path);
 		try {
 			if (isset(self::$instances[$path])) {
@@ -45,68 +45,62 @@ class ComposerInfo {
 		}
 		return $instance;
 	}
-	protected function __construct($filePath=null) {
-		if (empty($filePath) || !\is_file($filePath)) {
-			throw new \Exception("Invalid composer.json file: $filePath");
-		}
+	protected function __construct(string $file_path=null) {
+		if (empty($file_path))
+			throw new \Exception('Path not provided for composer.json file');
+		if (!\is_file($file_path))
+			throw new \Exception('Invalid composer.json file: '.$file_path);
 		// read file contents
-		$data = \file_get_contents($filePath);
-		if ($data === false) {
-			throw new \Exception("Failed to load composer.json $filePath");
-		}
+		$data = \file_get_contents($file_path);
+		if ($data === false)
+			throw new \Exception('Failed to load composer.json '.$file_path);
 		$this->json = \json_decode($data);
 		unset($data);
-		if ($this->json == null) {
-			throw new \Exception("Failed to parse composer.json $filePath");
-		}
+		if ($this->json == null)
+			throw new \Exception('Failed to parse composer.json '.$file_path);
 //		if (!isset($this->json->version)) {
-//			throw new \Exception("Version field not found in composer.json $filePath");
+//			throw new \Exception('Version field not found in composer.json '.$file_path);
 //		}
-		$this->filePath = $filePath;
+		$this->file_path = $file_path;
 	}
 
 
 
-	public static function SanPath($filePath) {
+	public static function SanPath(?string $path): ?string {
 		// trim filename from end
-		if (\str_ends_with(haystack: $filePath, needle: 'composer.json')) {
-			$filePath = \dirname($filePath);
-		}
+		if (\str_ends_with(haystack: $path, needle: 'composer.json'))
+			$path = \dirname($path);
 		// normalize path
-		$filePath = \realpath($filePath);
+		$result = \realpath($path);
+		$path = $result;
 		// trim /src from end of path
-		if (\str_ends_with(haystack: $filePath, needle: '/src')) {
-			$filePath = \realpath($filePath.'/../');
-		}
+		if (\str_ends_with(haystack: $path, needle: '/src'))
+			$path = \realpath($path.'/../');
 		// validate path
-		if (empty($filePath) || $filePath == '/') {
-			throw new \Exception('Invalid path');
-		}
+		if (empty($path) || $path == '/')
+			throw new \Exception('Invalid path: '.$path);
 		// append filename
-		return $filePath.'/composer.json';
+		return $path.'/composer.json';
 	}
-	public function getFilePath() {
-		return $this->filePath;
+	public function getFilePath(): string {
+		return $this->file_path;
 	}
 
 
 
-	public function getName() {
-		if (!isset($this->json->name)) {
+	public function getName(): string {
+		if (!isset($this->json->name))
 			return null;
-		}
 		return $this->json->name;
 	}
-	public function getVersion() {
-		if (!isset($this->json->version)) {
+	public function getVersion(): string {
+		if (!isset($this->json->version))
 			return null;
-		}
 		return $this->json->version;
 	}
-	public function getHomepage() {
-		if (!isset($this->json->homepage)) {
+	public function getHomepage(): string {
+		if (!isset($this->json->homepage))
 			return null;
-		}
 		return $this->json->homepage;
 	}
 

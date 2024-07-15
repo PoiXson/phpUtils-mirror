@@ -17,14 +17,8 @@ class ShellHandler implements \pxn\phpUtils\xLogger\Handler {
 
 
 	public function __construct() {
-		$this->streamOut = \fopen(
-				'php://stdout',
-				'w'
-		);
-		$this->streamErr = \fopen(
-				'php://stderr',
-				'w'
-		);
+		$this->streamOut = \fopen('php://stdout', 'w');
+		$this->streamErr = \fopen('php://stderr', 'w');
 	}
 
 
@@ -37,15 +31,11 @@ $handle = $this->streamOut;
 
 
 		if (\is_array($msg)) {
-			foreach ($msg as $m) {
+			foreach ($msg as $m)
 				$this->write($m);
-			}
 			return;
 		}
-		\fwrite(
-			$handle,
-			"{$msg}\n"
-		);
+		\fwrite($handle, $msg."\n");
 	}
 
 

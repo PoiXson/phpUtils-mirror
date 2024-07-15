@@ -11,25 +11,22 @@ namespace pxn\phpUtils\xLogger;
 
 class xLogRecord {
 
-	public $msg;
-	public $level;
+	public string $msg;
+	public xLevel $level;
 
 
 
-	public function __construct($level=NULL, $msg='') {
+	public function __construct(?xLevel $level=null, ?string $msg='') {
 		$this->level = $level;
 		$this->msg   = $msg;
 	}
 
 
 
-	public function isLoggable($level) {
-		return xLevel::isLoggable(
-				$this->level,
-				$level
-		);
+	public function isLoggable(xLevel $level): bool {
+		return xLevel::isLoggable($this->level, $level);
 	}
-	public function getLevelFormatted() {
+	public function getLevelFormatted(): string {
 		return xLevel::FindLevelName($this->level);
 	}
 

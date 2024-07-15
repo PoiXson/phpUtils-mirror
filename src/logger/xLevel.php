@@ -48,24 +48,20 @@ final class xLevel {
 
 
 
-	public static function FindLevel($value) {
+	public static function FindLevel($value): ?xLevel {
 		if (empty($value))
-			return NULL;
+			return null;
 		// number value
 		if (Numbers::isNumber($value)) {
 			$value = (int) $value;
-			if ($value == self::OFF)
-				return self::OFF;
-			if ($value == self::ALL)
-				return self::ALL;
+			if ($value == self::OFF) return self::OFF;
+			if ($value == self::ALL) return self::ALL;
 			// find nearest value
 			$level  = self::OFF;
 			$offset = self::OFF;
 			foreach (self::$knownLevels as $key => $val) {
-				if ($val == self::OFF)
-					continue;
-				if ($value < $val)
-					continue;
+				if ($val == self::OFF) continue;
+				if ($value < $val)     continue;
 				if ($value - $val < $offset) {
 					$offset = $value - $val;
 					$level = $val;
@@ -75,68 +71,59 @@ final class xLevel {
 		}
 		// word value
 		$value = \mb_strtoupper($value);
-		if (isset(self::$knownLevels[$value])) {
+		if (isset(self::$knownLevels[$value]))
 			return self::$knownLevels[$value];
-		}
 		// unknown level
-		return NULL;
+		return null;
 	}
-	public static function FindLevelName($value) {
+	public static function FindLevelName($value): ?string {
 		$level = self::FindLevel($value);
-		if ($level == NULL)
-			return NULL;
+		if ($level == null)
+			return null;
 		return self::LevelToName($level);
 	}
-	public static function LevelToName($value) {
+	public static function LevelToName($value): ?string {
 		if (empty($value))
-			return NULL;
+			return null;
 		foreach (self::$knownLevels as $key => $val) {
 			if ($val == $value)
 				return $key;
 		}
-		return NULL;
+		return null;
 	}
 
 
 
-	public static function isLoggable($configuredLevel, $recordLevel) {
-		if ($configuredLevel == NULL)
-			return TRUE;
-		if ($recordLevel == NULL)
-			return TRUE;
-		return ($configuredLevel < $recordLevel);
+	public static function isLoggable(?xLevel $configured_level, ?xLevel $record_level): bool {
+		if ($configured_level == null) return true;
+		if ($record_level     == null) return true;
+		return ($configured_level < $record_level);
 	}
 
 
 
 	// match levels
-	public static function MatchLevel($levelA, $levelB) {
-		if ($levelA == NULL || $levelB == NULL) {
-			return NULL;
-		}
+	public static function MatchLevel(?xLevel $levelA, ?xLevel $levelB): bool {
+		if ($levelA == null || $levelB == null)
+			return null;
 		$lvlA = self::FindLevel($levelA);
 		$lvlB = self::FindLevel($levelB);
 		return ($lvlA == $lvlB);
 	}
-	public static function MatchLevels(... $levels) {
-		if (\count($levels) == 0) {
-			return NULL;
-		}
-		$match = NULL;
+	public static function MatchLevels(xLevel ... $levels): bool {
+		if (\count($levels) == 0)
+			return null;
+		$match = null;
 		foreach ($levels as $lvl) {
-			if ($match == NULL) {
+			if ($match == null) {
 				$match = self::FindLevel($lvl);
 			} else {
-				$result = self::MatchLevel(
-					$lvl,
-					$match
-				);
-				if (!$result) {
-					return FALSE;
-				}
+				$result = self::MatchLevel($lvl, $match);
+				if (!$result)
+					return false;
 			}
 		}
-		return TRUE;
+		return true;
 	}
 
 

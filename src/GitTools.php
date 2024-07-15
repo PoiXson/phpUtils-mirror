@@ -13,13 +13,13 @@ class GitTools {
 
 	private static $instances = [];
 
-	protected $path = NULL;
+	protected $path = null;
 
-	protected $git_tag_info = NULL;
+	protected $git_tag_info = null;
 
 
 
-	public static function get($path=NULL) {
+	public static function get($path=null) {
 		if (empty($path)) {
 			$path = Paths::pwd();
 		}
@@ -29,7 +29,7 @@ class GitTools {
 				Defines::EXIT_CODE_INTERNAL_ERROR);
 		}
 		// existing instance
-		if (isset(self::$instances[$path]) && self::$instances[$path] != NULL) {
+		if (isset(self::$instances[$path]) && self::$instances[$path] != null) {
 			return self::$instances[$path];
 		}
 		// new instance
@@ -44,7 +44,7 @@ class GitTools {
 
 
 	public function getTagInfo() {
-		if ($this->git_tag_info != NULL
+		if ($this->git_tag_info != null
 		&& \is_array($this->git_tag_info)
 		&& \count($this->git_tag_info) > 0) {
 			return $this->tag_info;
@@ -59,8 +59,8 @@ class GitTools {
 		$this->tag_info = [
 			'tag'     => $tag,
 			'current' => empty($commit),
-			'count'   => (empty($commit_count) ? NULL : $commit_count ),
-			'commit'  => (empty($commit)       ? NULL : $commit       ),
+			'count'   => (empty($commit_count) ? null : $commit_count ),
+			'commit'  => (empty($commit)       ? null : $commit       ),
 		];
 		return $this->tag_info;
 	}

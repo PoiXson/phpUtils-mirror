@@ -14,12 +14,12 @@ use \Symfony\Component\Console\Output\OutputInterface;
 
 class Random extends \pxn\phpUtils\console\Command {
 
-	private static $instance = NULL;
+	private static $instance = null;
 
 
 
 	public static function get() {
-		if(self::$instance == NULL) {
+		if(self::$instance == null) {
 			$command = self::RegisterNew('random');
 			$command->setAliases(['rand']);
 			$command->setInfo(
@@ -42,7 +42,7 @@ class Random extends \pxn\phpUtils\console\Command {
 //				),
 //				new InputOption(
 //						'format',
-//						NULL,
+//						null,
 //						InputOption::VALUE_REQUIRED,
 //						'The output format (txt, xml, json, or md)',
 //						'txt'
@@ -67,7 +67,7 @@ class Random extends \pxn\phpUtils\console\Command {
 		}
 		echo "\n\n";
 
-//		if($this->command == NULL) {
+//		if($this->command == null) {
 //			$this->command = $this->getApplication()
 //			->find($input->getArgument('command_name'));
 //		}
@@ -79,7 +79,7 @@ class Random extends \pxn\phpUtils\console\Command {
 //				'format'   => $input->getOption('format'),
 //			]
 //		);
-//		$this->command = NULL;
+//		$this->command = null;
 	}
 
 

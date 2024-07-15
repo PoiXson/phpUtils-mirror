@@ -11,16 +11,16 @@ namespace pxn\phpUtils;
 
 class qTime {
 
-	protected $start = Defines::INT_MIN;
-	protected $last  = Defines::INT_MIN;
+	protected $start = xDef::INT_MIN;
+	protected $last  = xDef::INT_MIN;
 
-	protected static $global = NULL;
+	protected static $global = null;
 
 
 
 	public static function getGlobal() {
-		if (self::$global == NULL)
-			self::$global = new static(TRUE);
+		if (self::$global == null)
+			self::$global = new static(true);
 		return self::$global;
 	}
 	public static function getGlobalSinceStart() {
@@ -34,8 +34,8 @@ class qTime {
 
 
 
-	public function __construct($startNow=TRUE) {
-		if($startNow)
+	public function __construct($start_now=true) {
+		if($start_now)
 			$this->Start();
 	}
 
@@ -55,7 +55,7 @@ class qTime {
 		$now   = self::Timestamp();
 		$start = $this->start;
 		if ($start == Defines::INT_MIN)
-			return FALSE;
+			return false;
 		if ($start > $now)
 			return 0.0;
 		return $now - $start;
@@ -66,7 +66,7 @@ class qTime {
 		$last  = $this->last;
 		if ($last == Defines::INT_MIN) {
 			if ($start == Defines::INT_MIN)
-				return FALSE;
+				return false;
 			$last = $start;
 		}
 		if ($last > $now)
@@ -79,7 +79,7 @@ class qTime {
 
 
 	public static function Timestamp() {
-		return General::Timestamp();
+		return GeneralUtils::Timestamp();
 	}
 
 

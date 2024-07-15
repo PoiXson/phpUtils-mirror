@@ -12,7 +12,7 @@ namespace pxn\phpUtils\xLogger;
 interface xLogFormatter {
 
 
-	public function getFormatted(xLogRecord $record);
+	public function getFormatted(xLogRecord $record): string;
 
 
 }

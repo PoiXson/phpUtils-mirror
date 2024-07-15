@@ -11,8 +11,8 @@ namespace pxn\phpUtils\console;
 
 abstract class Dialog {
 
-	protected $cmd    = NULL;
-	protected $result = NULL;
+	protected $cmd    = null;
+	protected $result = null;
 
 
 
@@ -26,7 +26,7 @@ abstract class Dialog {
 			fail('cmd argument is required!');
 			exit(1);
 		}
-		$pipes = [NULL, NULL, NULL];
+		$pipes = [null, null, null];
 		$in  = fopen ('php://stdin',  'r');
 		$out = fopen ('php://stdout', 'w');
 		$streams = [

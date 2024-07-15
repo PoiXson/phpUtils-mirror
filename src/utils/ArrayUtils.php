@@ -34,7 +34,7 @@ final class Arrays {
 		\array_walk_recursive(
 			$data,
 			function($arr) use (&$result) {
-				if ($arr === NULL || $arr === '')         return;
+				if ($arr === null || $arr === '')         return;
 				if (\is_array($arr) && \count($arr) == 0) return;
 				$result[] = $arr;
 			}
@@ -47,13 +47,13 @@ final class Arrays {
 //TODO: is this useful?
 /*
 	public static function Trim(&$data) {
-		if ($data === NULL)
+		if ($data === null)
 			return;
 		if (!\is_array($data)) {
 			$data = [$data];
 		}
 		foreach ($data as $k => $v) {
-			if ($v === NULL || $v === ''
+			if ($v === null || $v === ''
 			|| (\is_array($v) && \count($v) == 0) ) {
 				unset($data[$k]);
 			}
@@ -65,7 +65,7 @@ final class Arrays {
 
 	// make array if not already
 	public static function MakeArray($data): array {
-		if ($data === NULL)
+		if ($data === null)
 			return [];
 		if (\is_array($data))
 			return $data;
@@ -86,7 +86,7 @@ final class Arrays {
 			foreach ($data as $part) {
 				if (empty($part)) continue;
 				$pos = \mb_strpos($part, $delim);
-				if ($pos === FALSE) {
+				if ($pos === false) {
 					$result[] = $part;
 				} else {
 					$array = \explode($delim, $part);

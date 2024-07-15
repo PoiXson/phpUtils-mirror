@@ -34,7 +34,7 @@ EOF;
 		$pageNum   = NumberUtils::MinMax( (int) $pageNum,   1, $pageLast);
 		$pageWidth = NumberUtils::MinMax( (int) $pageWidth, 1, 5);
 		$pageFrom  = NumberUtils::MinMax($pageNum - $pageWidth, 2);
-		$pageTo    = NumberUtils::MinMax($pageNum + $pageWidth, FALSE, $pageLast - 1);
+		$pageTo    = NumberUtils::MinMax($pageNum + $pageWidth, false, $pageLast - 1);
 		return [
 			'current' => $pageNum,
 			'last'    => $pageLast,

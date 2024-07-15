@@ -23,13 +23,14 @@ abstract class xLogPrinting {
 
 
 
-	public abstract function publish($msg='');
+	public abstract function publish(?string $msg=''): void;
 
 
 
-	public function title($msg) {
+	public function title(string $msg): void {
 		if (!\is_array($msg)) {
-			return $this->title( [ $title ] );
+			$this->title( [ $title ] );
+			return;
 		}
 		$len = 0;
 		foreach ($msg as $m) {
@@ -41,11 +42,7 @@ abstract class xLogPrinting {
 		$this->publish();
 		$this->publish(" ***{$topbottom}*** ");
 		foreach ($msg as $m) {
-			$line = Strings::PadCenter(
-				$m,
-				$len,
-				' '
-			);
+			$line = Strings::PadCenter($m, $len, ' ');
 			$this->publish(" ** $line ** ");
 		}
 		$this->publish(" ***{$topbottom}*** ");
@@ -54,103 +51,48 @@ abstract class xLogPrinting {
 
 
 
-	public function trace($e) {
+	public function trace(\Exception $e): void {
 //TODO:
 fail ('trace() function not finished!!! '.__LINE__.' '.__FILE__);
 	}
 
 
 
-	public function out($msg='') {
-		$this->publish(
-			new xLogRecord(
-				xLevel::STDOUT,
-				$msg
-			)
-		);
+	public function out(?string $msg=''): void {
+		$this->publish(new xLogRecord(xLevel::STDOUT, $msg));
 	}
-	public function err($msg='') {
-		$this->publish(
-			new xLogRecord(
-				xLevel::STDERR,
-				$msg
-			)
-		);
+	public function err(?string $msg=''): void {
+		$this->publish(new xLogRecord(xLevel::STDERR, $msg));
 	}
 
 
 
-	public function finest($msg='') {
-		$this->publish(
-			new xLogRecord(
-				xLevel::FINEST,
-				$msg
-			)
-		);
+	public function finest(?string $msg=''): void {
+		$this->publish(new xLogRecord(xLevel::FINEST, $msg));
 	}
-	public function finer($msg='') {
-		$this->publish(
-			new xLogRecord(
-				xLevel::FINER,
-				$msg
-			)
-		);
+	public function finer(?string $msg=''): void {
+		$this->publish(new xLogRecord(xLevel::FINER, $msg));
 	}
-	public function fine($msg='') {
-		$this->publish(
-			new xLogRecord(
-				xLevel::FINE,
-				$msg
-			)
-		);
+	public function fine(?string $msg=''): void {
+		$this->publish(new xLogRecord(xLevel::FINE, $msg));
 	}
-	public function stats($msg='') {
-		$this->publish(
-			new xLogRecord(
-				xLevel::STATS,
-				$msg
-			)
-		);
+	public function stats(?string $msg=''): void {
+		$this->publish(new xLogRecord(xLevel::STATS, $msg));
 	}
-	public function info($msg='') {
-		$this->publish(
-			new xLogRecord(
-				xLevel::INFO,
-				$msg
-			)
-		);
+	public function info(?string $msg=''): void {
+		$this->publish(new xLogRecord(xLevel::INFO, $msg));
 	}
-	public function warning($msg='') {
-		$this->publish(
-			new xLogRecord(
-				xLevel::WARNING,
-				$msg
-			)
-		);
+	public function warning(?string $msg=''): void {
+		$this->publish(new xLogRecord(xLevel::WARNING, $msg));
 	}
-	public function notice($msg='') {
-		$this->publish(
-			new xLogRecord(
-				xLevel::NOTICE,
-				$msg
-			)
-		);
+	public function notice(?string $msg=''): void {
+		$this->publish(new xLogRecord(xLevel::NOTICE, $msg));
 	}
-	public function severe($msg='') {
-		$this->publish(
-			new xLogRecord(
-				xLevel::SEVERE,
-				$msg
-			)
-		);
+	public function severe(?string $msg=''): void {
+		$this->publish(new xLogRecord(xLevel::SEVERE, $msg));
 	}
-	public function fatal($msg='') {
-		$this->publish (
-			new xLogRecord(
-				xLevel::FATAL,
-				$msg
-			)
-		);
+	public function fatal(?string $msg=''): void {
+		$this->publish (new xLogRecord(xLevel::FATAL, $msg));
 	}
 
 

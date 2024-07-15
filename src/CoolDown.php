@@ -27,15 +27,15 @@ class CoolDown {
 		// first run
 		if ($this->last < 0.0) {
 			$this->last = $current;
-			return TRUE;
+			return true;
 		}
 		// run again
 		if ($current - $this->last >= $this->duration) {
 			$this->last = $current;
-			return TRUE;
+			return true;
 		}
 		// cooling
-		return FALSE;
+		return false;
 	}
 
 

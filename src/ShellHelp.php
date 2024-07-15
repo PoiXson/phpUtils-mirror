@@ -14,11 +14,11 @@ class ShellHelp {
 	const HELP_WIDTH       = 80;
 	const MIN_FLAG_SPACING = 11;
 
-	protected $name = NULL;
-	protected $msg  = NULL;
+	protected $name = null;
+	protected $msg  = null;
 	protected $appendUsage = [];
 
-	protected $command  = NULL;
+	protected $command  = null;
 	protected $commands = [];
 
 	protected $flags     = [
@@ -29,7 +29,7 @@ class ShellHelp {
 
 
 
-	public function __construct($command=NULL) {
+	public function __construct($command=null) {
 		$this->setCommand($command);
 	}
 
@@ -38,7 +38,7 @@ class ShellHelp {
 	public function setSelfName($name) {
 		$this->name =
 			empty($name)
-			? NULL
+			? null
 			: (string) $name;
 		return $this;
 	}
@@ -58,9 +58,9 @@ class ShellHelp {
 
 
 
-	public function setMessage($msg=NULL) {
+	public function setMessage($msg=null) {
 		if (empty($msg)) {
-			$this->msg = NULL;
+			$this->msg = null;
 		} else
 		if (\is_array($msg)) {
 			$this->msg = \implode("\n", $msg);
@@ -90,7 +90,7 @@ class ShellHelp {
 	public function setCommand($command) {
 		$this->command =
 			empty($command)
-			? NULL
+			? null
 			: (string) $command;
 		return $this;
 	}
@@ -104,7 +104,7 @@ class ShellHelp {
 
 
 
-	public function addFlags($flags, $position=NULL) {
+	public function addFlags($flags, $position=null) {
 		$position = (string) $position;
 		$position = \mb_strtolower($position);
 		if ($position == 'post') {

@@ -14,12 +14,12 @@ use \Symfony\Component\Console\Output\OutputInterface;
 
 class Sequential extends \pxn\phpUtils\console\Command {
 
-	private static $instance = NULL;
+	private static $instance = null;
 
 
 
 	public static function get() {
-		if (self::$instance == NULL) {
+		if (self::$instance == null) {
 			$command = self::RegisterNew('sequential');
 			$command->setAliases(['seq']);
 			$command->setInfo(
