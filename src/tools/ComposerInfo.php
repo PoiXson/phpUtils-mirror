@@ -32,16 +32,11 @@ class ComposerInfo {
 	}
 	public static function Get(?string $path=null): ComposerInfo {
 		$path = self::SanPath($path);
-		try {
-			if (isset(self::$instances[$path])) {
-				$instance = self::$instances[$path];
-			} else {
-				$instance = new static($path);
-				self::$instances[$path] = $instance;
-			}
-		} catch (\Exception $e) {
-			fail('Failed to get composer instance!',
-				Defines::EXIT_CODE_INTERNAL_ERROR, $e);
+		if (isset(self::$instances[$path])) {
+			$instance = self::$instances[$path];
+		} else {
+			$instance = new static($path);
+			self::$instances[$path] = $instance;
 		}
 		return $instance;
 	}
@@ -67,11 +62,14 @@ class ComposerInfo {
 
 
 	public static function SanPath(?string $path): ?string {
+		if (empty($path)) $path = '';
 		// trim filename from end
 		if (\str_ends_with(haystack: $path, needle: 'composer.json'))
 			$path = \dirname($path);
 		// normalize path
 		$result = \realpath($path);
+		if (empty($result))
+			throw new \Exception('Path not found: '.$path);
 		$path = $result;
 		// trim /src from end of path
 		if (\str_ends_with(haystack: $path, needle: '/src'))
