@@ -86,8 +86,8 @@ final class Debug {
 			if (self::$enabled !== $enable) {
 				self::$enabled = $enable;
 				self::EnableDisable(self::$enabled);
-				self::desc($desc);
 			}
+			self::desc($desc);
 		}
 		// default
 		if (self::$enabled === null)
