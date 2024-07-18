@@ -53,8 +53,8 @@ namespace {
 
 	// GetVar()
 	if (!\function_exists('GetVar')) {
-		function GetVar(string $name, string $type='s', ?string $sources=null) {
-			return \pxn\phpUtils\utils\GeneralUtils::GetVar($name, $type, $sources);
+		function GetVar(string $name, string $type='s', ?string $src=null) {
+			return \pxn\phpUtils\utils\GeneralUtils::GetVar(name: $name, type: $type, src: $src);
 		}
 	}
 
