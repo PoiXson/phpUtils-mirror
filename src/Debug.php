@@ -33,16 +33,16 @@ final class Debug {
 		self::$inited = true;
 		// by define
 		if (\defined('DEBUG')) {
-			self::debug(true, 'by define');
+			self::debug(true, 'by-define');
 		} else
 		if (\defined('pxn\\phpUtils\\DEBUG')) {
-			self::debug(true, 'by phpUtils define');
+			self::debug(true, 'by-phpUtils-define');
 		}
 		// by run mode
 		$sapi = \php_sapi_name();
 		switch ($sapi) {
-			case 'cli-server': self::debug(true, 'php internal server'); break;
-			case 'phpdbg':     self::debug(true, 'by phpdbg');           break;
+			case 'cli-server': self::debug(true, 'php-internal-server'); break;
+			case 'phpdbg':     self::debug(true, 'by-phpdbg');           break;
 			default: break;
 		}
 		// .debug file
@@ -52,7 +52,7 @@ final class Debug {
 			$finder->search_files('debug', '.debug');
 			$found = $finder->find();
 			if (!empty($found)) {
-				self::debug(true, "by $found file");
+				self::debug(true, "by-file-$found");
 			}
 		}
 		if (self::debug()) {
