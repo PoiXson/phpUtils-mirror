@@ -47,7 +47,7 @@ abstract class xApp {
 
 
 
-	public function getName(): string {
+	public function getAppName(): string {
 		$clss = \get_class($this);
 		$pos = \mb_strrpos(haystack: $clss, needle: '\\');
 		if ($pos === false)
