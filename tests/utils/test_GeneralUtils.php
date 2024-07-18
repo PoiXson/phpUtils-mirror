@@ -74,7 +74,7 @@ class test_GeneralUtils extends \PHPUnit\Framework\TestCase {
 
 
 	/**
-	 * @covers ::getVar
+	 * @covers ::GetVar
 	 */
 	public function test_GetVar(): void {
 		$key = 'abcd';
@@ -82,16 +82,12 @@ class test_GeneralUtils extends \PHPUnit\Framework\TestCase {
 		$_POST[$key]    = '5678';
 		$_COOKIE[$key]  = '9123';
 		$_SESSION[$key] = '4567';
-		// string/get
-		$this->assertEquals(expected: '1234', actual: GeneralUtils::getVar($key, 's', 'g'));
-		// string/post
-		$this->assertEquals(expected: '5678', actual: GeneralUtils::getVar($key, 's', 'p'));
-		// string/get/post
-		$this->assertEquals(expected: '5678', actual: GeneralUtils::getVar($key, 's'     ));
-		// string/cookie
-		$this->assertEquals(expected: '9123', actual: GeneralUtils::getVar($key, 's', 'c'));
-		// string/session
-		$this->assertEquals(expected: '4567', actual: GeneralUtils::getVar($key, 's', 's'));
+		$this->assertEquals(expected: '1234', actual: GeneralUtils::GetVar($key, 's', 'g')); // string/get
+		$this->assertEquals(expected: '5678', actual: GeneralUtils::GetVar($key, 's', 'p')); // string/post
+		$this->assertEquals(expected: '5678', actual: GeneralUtils::GetVar($key, 's'     )); // string/get/post
+		$this->assertEquals(expected: '9123', actual: GeneralUtils::GetVar($key, 's', 'c')); // string/cookie
+		$this->assertEquals(expected: '4567', actual: GeneralUtils::GetVar($key, 's', 's')); // string/session
+		$this->assertEquals(expected: '5678', actual: GeneralUtils::GetVar($key, 's','gp')); // string/get-post
 		// unknown source
 		$this->expectException(\InvalidArgumentException::class);
 		$this->expectExceptionMessage('Unknown value source: z');
