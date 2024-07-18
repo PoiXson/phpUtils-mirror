@@ -73,26 +73,26 @@ final class GeneralUtils {
 	 * @param string $name - Name or key requested.
 	 * @param string $type - Casts value to this type.
 	 *     Possible values: str, int, float, double, bool
-	 * @param string $source - Strings representing the data source. (from least to greatest importance)
+	 * @param string $src - Strings representing the data source. (from least to greatest importance)
 	 *     Possible values: get, post, cookie, session
 	 * @return object - Returns the requested value, cast to requested type.
 	 */
-	public static function GetVar(string $name, ?string $type=null, ?string $sources=null) {
-		if (empty($type   )) $type    = 's';
-		if (empty($sources)) $sources = 'gp';
+	public static function GetVar(string $name, ?string $type=null, ?string $src=null) {
+		if (empty($type)) $type = 's';
+		if (empty($src )) $src  = 'gp';
 		$value = null;
 		$val = null;
-		$len = \mb_strlen($sources);
+		$len = \mb_strlen($src);
 		for ($i=0; $i<$len; $i++) {
-			$src = \mb_strtolower(\mb_substr($sources, $i, 1));
-			switch ($src) {
+			$chr = \mb_strtolower(\mb_substr($src, $i, 1));
+			switch ($chr) {
 				case 'g': $val = self::Get(       $name, $type); break;
 				case 'p': $val = self::Post(      $name, $type); break;
 				case 'c': $val = self::GetCookie( $name, $type); break;
 				case 'e': $val = self::GetEnv(    $name, $type); break;
 				case 'v': $val = self::GetServer( $name, $type); break;
 				case 's': $val = self::GetSession($name, $type); break;
-				default: throw new \InvalidArgumentException('Unknown value source: '.$src);
+				default: throw new \InvalidArgumentException('Unknown value source: '.$chr);
 			}
 			if ($val !== null)
 				$value = $val;
