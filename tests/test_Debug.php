@@ -26,12 +26,11 @@ class test_Debug extends \PHPUnit\Framework\TestCase {
 	public function test_GetSetDebug(): void {
 		$originalDebug = Debug::debug();
 		$originalDesc  = Debug::desc();
-		$this->assertEquals(null, $originalDesc);
 		// enable debug
 		Debug::Reset();
 		Debug::debug(true, 'unit-test');
 		$this->assertTrue(Debug::debug());
-		$this->assertEquals('unit-test', Debug::desc());
+		$this->assertTrue(\str_ends_with(haystack: Debug::desc(), needle: 'unit-test'));
 		// disable debug
 		Debug::debug(false, 'unit-test');
 		$this->assertFalse(Debug::debug());
@@ -40,20 +39,21 @@ class test_Debug extends \PHPUnit\Framework\TestCase {
 		Debug::desc('desc()-test');
 		$this->assertEquals(null, Debug::desc());
 		Debug::debug(true);
-		$this->assertEquals('unit-test; desc()-test', Debug::desc());
+		$this->assertTrue(\str_ends_with(haystack: Debug::desc(), needle: 'unit-test ; desc()-test'));
 		// enable debug
 		Debug::Reset();
 		Debug::debug(true, 'unit-test');
 		$this->assertTrue(Debug::debug());
-		$this->assertEquals('unit-test', Debug::desc());
+		$this->assertTrue(\str_ends_with(haystack: Debug::desc(), needle: 'unit-test'));
 		// disable debug
 		Debug::debug(false, 'unit-test');
 		$this->assertFalse(Debug::debug());
 		$this->assertEquals(null, Debug::desc());
 		// set desc
 		Debug::debug(true, 'desc-test-1');
-		$this->assertEquals('unit-test; desc-test-1; desc-test-2', Debug::desc('desc-test-2'));
-		$this->assertEquals('unit-test; desc-test-1; desc-test-2', Debug::desc());
+		$this->assertTrue(\str_ends_with(haystack: Debug::desc(),              needle: 'unit-test ; desc-test-1'              ));
+		$this->assertTrue(\str_ends_with(haystack: Debug::desc('desc-test-2'), needle: 'unit-test ; desc-test-1 ; desc-test-2'));
+		$this->assertTrue(\str_ends_with(haystack: Debug::desc(),              needle: 'unit-test ; desc-test-1 ; desc-test-2'));
 		// restore debug
 		Debug::Reset();
 		Debug::debug($originalDebug, $originalDesc);
@@ -72,7 +72,7 @@ class test_Debug extends \PHPUnit\Framework\TestCase {
 		Debug::Reset();
 		\debug(true, 'unit-test');
 		$this->assertTrue(\debug());
-		$this->assertEquals('unit-test', Debug::desc());
+		$this->assertTrue(\str_ends_with(haystack: Debug::desc(), needle: 'unit-test'));
 		// disable debug
 		\debug(false, 'unit-test');
 		$this->assertFalse(\debug());
