@@ -22,22 +22,14 @@ class test_GeneralUtils extends \PHPUnit\Framework\TestCase {
 	 * @covers ::CastType
 	 */
 	public function test_CastType(): void {
-//		// null
-//		$this->assertSame(expected: 123, actual: GeneralUtils::CastType(123, null));
-		// string
-		$this->assertSame(expected: '123', actual: GeneralUtils::CastType(123, 's'));
-		// integer
-		$this->assertSame(expected: 123, actual: GeneralUtils::CastType('123', 'i'));
-		// long
-		$this->assertSame(expected: 123, actual: GeneralUtils::CastType('123', 'l'));
-		// float
-		$this->assertSame(expected: 123e0, actual: GeneralUtils::CastType('123', 'f'));
-		// double
-		$this->assertSame(expected: 123.0, actual: GeneralUtils::CastType('123', 'd'));
-		// boolean
-		$this->assertSame(expected: true, actual: GeneralUtils::CastType('t', 'b'));
-		// unknown
-		$this->assertSame(expected: 'abc', actual: GeneralUtils::CastType('abc', 'z'));
+//		$this->assertSame(expected: 123, actual: GeneralUtils::CastType(123, null)); // null
+		$this->assertSame(expected: '123', actual: GeneralUtils::CastType( 123,  's')); // string
+		$this->assertSame(expected: 123,   actual: GeneralUtils::CastType('123', 'i')); // integer
+		$this->assertSame(expected: 123,   actual: GeneralUtils::CastType('123', 'l')); // long
+		$this->assertSame(expected: 123e0, actual: GeneralUtils::CastType('123', 'f')); // float
+		$this->assertSame(expected: 123.0, actual: GeneralUtils::CastType('123', 'd')); // double
+		$this->assertSame(expected: true,  actual: GeneralUtils::CastType('t',   'b')); // boolean
+		$this->assertSame(expected: 'abc', actual: GeneralUtils::CastType('abc', 'z')); // unknown
 	}
 
 
@@ -46,28 +38,20 @@ class test_GeneralUtils extends \PHPUnit\Framework\TestCase {
 	 * @covers ::castBoolean
 	 */
 	public function test_CastBoolean(): void {
-		// null
-		$this->assertNull( GeneralUtils::castBoolean(null)       );
-		// boolean
-		$this->assertTrue(  GeneralUtils::castBoolean(true)      );
+		$this->assertNull(  GeneralUtils::castBoolean(null)      ); // null
+		$this->assertTrue(  GeneralUtils::castBoolean(true)      ); // boolean
 		$this->assertFalse( GeneralUtils::castBoolean(false)     );
-		// true/false
-		$this->assertTrue(  GeneralUtils::castBoolean('true')    );
+		$this->assertTrue(  GeneralUtils::castBoolean('true')    ); // true/false
 		$this->assertFalse( GeneralUtils::castBoolean('false')   );
-		// yes/no
-		$this->assertTrue(  GeneralUtils::castBoolean('yes')     );
+		$this->assertTrue(  GeneralUtils::castBoolean('yes')     ); // yes/no
 		$this->assertFalse( GeneralUtils::castBoolean('no')      );
-		// allow/deny
-		$this->assertTrue(  GeneralUtils::castBoolean('allow')   );
+		$this->assertTrue(  GeneralUtils::castBoolean('allow')   ); // allow/deny
 		$this->assertFalse( GeneralUtils::castBoolean('deny')    );
-		// enable/disable
-		$this->assertTrue(  GeneralUtils::castBoolean('enable')  );
+		$this->assertTrue(  GeneralUtils::castBoolean('enable')  ); // enable/disable
 		$this->assertFalse( GeneralUtils::castBoolean('disable') );
-		// on/off
-		$this->assertTrue(  GeneralUtils::castBoolean('on')      );
+		$this->assertTrue(  GeneralUtils::castBoolean('on')      ); // on/off
 		$this->assertFalse( GeneralUtils::castBoolean('off')     );
-		// 1/0
-		$this->assertTrue(  GeneralUtils::castBoolean(1)         );
+		$this->assertTrue(  GeneralUtils::castBoolean(1)         ); // 1/0
 		$this->assertFalse( GeneralUtils::castBoolean(0)         );
 	}
 
@@ -78,16 +62,16 @@ class test_GeneralUtils extends \PHPUnit\Framework\TestCase {
 	 */
 	public function test_GetVar(): void {
 		$key = 'abcd';
-		$_GET[$key]     = '1234';
-		$_POST[$key]    = '5678';
-		$_COOKIE[$key]  = '9123';
-		$_SESSION[$key] = '4567';
-		$this->assertEquals(expected: '1234', actual: GeneralUtils::GetVar($key, 's', 'g')); // string/get
-		$this->assertEquals(expected: '5678', actual: GeneralUtils::GetVar($key, 's', 'p')); // string/post
-		$this->assertEquals(expected: '5678', actual: GeneralUtils::GetVar($key, 's'     )); // string/get/post
-		$this->assertEquals(expected: '9123', actual: GeneralUtils::GetVar($key, 's', 'c')); // string/cookie
-		$this->assertEquals(expected: '4567', actual: GeneralUtils::GetVar($key, 's', 's')); // string/session
-		$this->assertEquals(expected: '5678', actual: GeneralUtils::GetVar($key, 's','gp')); // string/get-post
+		$_GET[$key]     = 'abcd';
+		$_POST[$key]    = 'efgh';
+		$_COOKIE[$key]  = 'ijkl';
+		$_SESSION[$key] = 'mnop';
+		$this->assertEquals(expected: 'abcd', actual: GeneralUtils::GetVar(name: $key, type: 's', src: 'g' )); // string/get
+		$this->assertEquals(expected: 'efgh', actual: GeneralUtils::GetVar(name: $key, type: 's', src: 'p' )); // string/post
+		$this->assertEquals(expected: 'efgh', actual: GeneralUtils::GetVar(name: $key, type: 's'           )); // string/get/post
+		$this->assertEquals(expected: 'ijkl', actual: GeneralUtils::GetVar(name: $key, type: 's', src: 'c' )); // string/cookie
+		$this->assertEquals(expected: 'mnop', actual: GeneralUtils::GetVar(name: $key, type: 's', src: 's' )); // string/session
+		$this->assertEquals(expected: 'efgh', actual: GeneralUtils::GetVar(name: $key, type: 's', src: 'gp')); // string/get-post
 		// unknown source
 		$this->expectException(\InvalidArgumentException::class);
 		$this->expectExceptionMessage('Unknown value source: z');
