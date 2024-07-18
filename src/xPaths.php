@@ -45,7 +45,22 @@ class xPaths {
 			self::$paths['entry'] = \realpath($path);
 		}
 		// common root
-		self::$paths['common'] = StringUtils::trim(self::$paths['entry'], '/public', '/scripts');
+		{
+			$path = self::$paths['entry'];
+			$remove = [
+				'/public',
+				'/scripts',
+				'/vendor',
+				'/vendor/bin',
+			];
+			foreach ($remove as $entry) {
+				if (\str_ends_with(haystack: $path, needle: $entry))
+					$path = \mb_substr($path, 0, \mb_strlen($path)-\mb_strlen($entry));
+			}
+			if (empty($path))
+				throw new \Exception('Failed to detect common path');
+			self::$paths['common'] = $path;
+		}
 		// twig cache
 		if (\is_dir(self::$paths['common'].'/cache')) {
 			self::$paths['twig-cache'] = self::$paths['common'].'/cache';
