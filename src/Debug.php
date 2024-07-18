@@ -101,7 +101,7 @@ final class Debug {
 				self::$desc[] = $desc;
 		}
 		if (!self::debug()) return null;
-		return \implode('; ', self::$desc);
+		return \implode(' ; ', self::$desc);
 	}
 
 
