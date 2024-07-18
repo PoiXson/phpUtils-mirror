@@ -6,7 +6,9 @@
  * @author lorenzo at poixson.com
  * @link https://poixson.com/
  * /
-namespace pxn\phpUtils;
+namespace pxn\phpUtils\tools;
+
+use \pxn\phpUtils\utils\ShellUtils;
 
 
 class ShellHelp {

@@ -6,10 +6,10 @@
  * @author lorenzo at poixson.com
  * @link https://poixson.com/
  * /
-namespace pxn\phpUtils;
+namespace pxn\phpUtils\utils;
 
 
-final class ShellTools {
+final class ShellUtils {
 	private final function __construct() {}
 
 	private static $inited = false;
