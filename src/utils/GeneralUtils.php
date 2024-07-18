@@ -213,42 +213,36 @@ final class GeneralUtils {
 
 
 
-//TODO
-/*
-	/ **
+	/**
 	 * Sends http headers to disable page caching.
 	 * @return boolean - true if successful; false if headers already sent.
 	 * @codeCoverageIgnore
-	 * /
-	public static function NoPageCache() {
-		if (SystemUtils::isShell())
-			return;
-		if (self::$INITED_NoPageCache)
-			return true;
-		if (\headers_sent())
-			return false;
+	 */
+	private static bool $INITED_NoPageCache = false;
+	public static function NoPageCache(): bool {
+		if (SystemUtils::isShell())    return false;
+		if (self::$INITED_NoPageCache) return true;
+		if (\headers_sent())           return false;
 		@\header('Expires: Mon, 26 Jul 1990 05:00:00 GMT');
 		@\header('Last-Modified: '.gmdate('D, d M Y H:i:s').' GMT');
-		@\header('Cache-Control: no-store, no-cache, must-revalidate');
+		@\header('Cache-Control: no-store, no-cache, must-revalidate, max-age=0');
 		@\header('Cache-Control: post-check=0, pre-check=0', false);
 		@\header('Pragma: no-cache');
 		self::$INITED_NoPageCache = true;
 		return true;
 	}
-	private static $INITED_NoPageCache = false;
 
 
 
-	/ **
+	/**
 	 * Forward to provided url.
 	 * @param string $url - The url/address in which to forward to.
 	 * @param number $delay - Optional delay in seconds before forwarding.
 	 * @codeCoverageIgnore
-	 * /
-	public static function ForwardTo(string $url='/', int $delay=0):void {
-		if (empty($url)) {
+	 */
+	public static function ForwardTo(string $url='/', int $delay=0): void {
+		if (empty($url))
 			$url = '/';
-		}
 		if (SystemUtils::isShell()) {
 			echo "--FORWARD: $url\n";
 		} else {
@@ -264,22 +258,20 @@ EOF;
 		}
 		exit(0);
 	}
-* /
 
 
 
-	/ **
+	/**
 	 * Scroll to the bottom of the page.
 	 * @param string $id - Optional id of element in which to scroll.
 	 * @codeCoverageIgnore
-	 * /
+	 */
 	public static function ScrollToBottom(?string $id=null): void {
 		if (SystemUtils::isShell()) {
 			echo "--SCROLL--\n";
 		} else {
-			if (empty($id)) {
+			if (empty($id))
 				$id = 'document';
-			}
 			echo <<<EOF
 <!-- ScrollToBottom() -->
 <script type="text/javascript"><!--//
@@ -293,7 +285,7 @@ EOF;
 
 
 //TODO: is this useful?
-/ *
+/*
 	/ **
 	 * Validates an object by class name.
 	 * @param string $className - Name of class to look for.

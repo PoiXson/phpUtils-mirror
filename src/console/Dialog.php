@@ -22,10 +22,8 @@ abstract class Dialog {
 
 	public function run() {
 		$cmd = (string) $this->cmd;
-		if (empty($cmd)) {
-			fail('cmd argument is required!');
-			exit(1);
-		}
+		if (empty($cmd))
+			throw new \Exception('cmd argument is required!');
 		$pipes = [null, null, null];
 		$in  = fopen ('php://stdin',  'r');
 		$out = fopen ('php://stdout', 'w');
@@ -34,11 +32,7 @@ abstract class Dialog {
 			1 => $out,
 			2 => ['pipe', 'w']
 		];
-		$p = \proc_open(
-			$cmd,
-			$streams,
-			$pipes
-		);
+		$p = \proc_open($cmd, $streams, $pipes);
 		$this->result = \stream_get_contents($pipes[2]);
 		\fclose($pipes[2]);
 		\fclose($out);

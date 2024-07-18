@@ -5,7 +5,7 @@
  * @license AGPL-3
  * @author lorenzo at poixson.com
  * @link https://poixson.com/
- * /
+ */
 namespace pxn\phpUtils;
 
 
@@ -24,14 +24,11 @@ class GitTools {
 			$path = Paths::pwd();
 		}
 		$p = \realpath($path);
-		if (empty($p)) {
-			fail("Invalid path: $path",
-				Defines::EXIT_CODE_INTERNAL_ERROR);
-		}
+		if (empty($p))
+			throw new \Exception('Invalid path: '.$path);
 		// existing instance
-		if (isset(self::$instances[$path]) && self::$instances[$path] != null) {
+		if (isset(self::$instances[$path]) && self::$instances[$path] != null)
 			return self::$instances[$path];
-		}
 		// new instance
 		$instance = new static($p);
 		self::$instances[$path] = $instance;
@@ -46,9 +43,8 @@ class GitTools {
 	public function getTagInfo() {
 		if ($this->git_tag_info != null
 		&& \is_array($this->git_tag_info)
-		&& \count($this->git_tag_info) > 0) {
+		&& \count($this->git_tag_info) > 0)
 			return $this->tag_info;
-		}
 		// get tag info from git
 		$cmd = "/usr/bin/git describe --tags";
 		$result = \shell_exec($cmd);
@@ -68,4 +64,3 @@ class GitTools {
 
 
 }
-*/

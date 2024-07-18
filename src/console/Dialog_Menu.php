@@ -24,10 +24,8 @@ class Dialog_Menu extends Dialog {
 	public function run() {
 		
 		$cmd = $this->getCommand();
-		$this->setCmd(
-			$cmd
-		);
-		echo "CMD: ";
+		$this->setCmd($cmd);
+		echo 'CMD: ';
 		dump($cmd);
 		parent::run($cmd);
 		return $this->result;
@@ -36,21 +34,11 @@ class Dialog_Menu extends Dialog {
 
 
 	public function getCommand() {
-		if (\count($this->options) == 0) {
-			fail('Menu Dialog requires options!',
-				Defines::EXIT_CODE_INVALID_ARGUMENT);
-		}
+		if (\count($this->options) == 0)
+			throw new \Exception('Menu Dialog requires options!');
 		$msg = \escapeshellarg($this->msg);
-		$menuHeight = NumberUtils::MinMax(
-			\count($this->options),
-			3,
-			100
-		);
-		$height = NumberUtils::MinMax(
-			$menuHeight + 7,
-			11,
-			107
-		);
+		$menuHeight = NumberUtils::MinMax(\count($this->options), 3, 100);
+		$height = NumberUtils::MinMax($menuHeight + 7, 11, 107);
 		$width = 20;
 		// build command
 		$cmd = [];
@@ -68,9 +56,8 @@ class Dialog_Menu extends Dialog {
 		foreach ($this->options as $key => $val) {
 			$sizeKey = \mb_strlen($key);
 			$sizeVal = \mb_strlen($val);
-			if ($sizeKey + $sizeVal > $width) {
+			if ($sizeKey + $sizeVal > $width)
 				$width = $sizeKey + $sizeVal;
-			}
 			$cmd[] = $key;
 			$cmd[] = $val;
 		}
@@ -90,11 +77,8 @@ class Dialog_Menu extends Dialog {
 	public function addOption($key, $val) {
 		$key = SanUtils::AlphaNum( (string) $key );
 		$val = \escapeshellarg( (string) $val );
-		if (empty($key)) {
-			$this->options[] = $val;
-		} else {
-			$this->options[$key] = $val;
-		}
+		if (empty($key)) $this->options[] = $val;
+		else             $this->options[$key] = $val;
 		return $this;
 	}
 

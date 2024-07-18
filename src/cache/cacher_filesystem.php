@@ -110,9 +110,7 @@ class cacher_filesystem extends cacher {
 				continue;
 			// unknown key
 			default:
-				fail("Unknown tag in cache file: $context - $line",
-					Defines::EXIT_CODE_UNAVAILABLE);
-				break;
+				throw new \Exception("Unknown tag in cache file: $context - $line");
 			}
 		}
 		// timestamp not set or invalid
