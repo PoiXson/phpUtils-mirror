@@ -77,13 +77,15 @@ final class GeneralUtils {
 	 *     Possible values: get, post, cookie, session
 	 * @return object - Returns the requested value, cast to requested type.
 	 */
-	public static function GetVar(string $name, string $type='s', string...$sources) {
-		if (\count($sources) == 0)
-			$sources = ['g', 'p'];
+	public static function GetVar(string $name, ?string $type=null, ?string $sources=null) {
+		if (empty($type   )) $type    = 's';
+		if (empty($sources)) $sources = 'gp';
 		$value = null;
 		$val = null;
-		foreach ($sources as $src) {
-			switch (\mb_strtolower(\mb_substr($src, 0, 1))) {
+		$len = \mb_strlen($sources);
+		for ($i=0; $i<$len; $i++) {
+			$src = \mb_strtolower(\mb_substr($sources, $i, 1));
+			switch ($src) {
 				case 'g': $val = self::Get(       $name, $type); break;
 				case 'p': $val = self::Post(      $name, $type); break;
 				case 'c': $val = self::GetCookie( $name, $type); break;
