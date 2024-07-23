@@ -34,15 +34,13 @@ if (!\str_starts_with($app_ns, '\\')) $app_ns  = '\\'.$app_ns;
 if (!\str_ends_with(  $app_ns, '\\')) $app_ns .= '\\';
 
 // find class
-$app_class = null;
-if (\class_exists($app_ns.'Website')) {
-	$app_class =  $app_ns.'Website';
-} else
-if (\class_exists($app_ns.'ShellApp')) {
-	$app_class =  $app_ns.'ShellApp';
-} else {
-	throw new \RuntimeException('Failed to detect app class');
-}
+$app_class = (
+	\pxn\phpUtils\utils\SystemUtils::IsShell()
+	? $app_ns.'Tool'
+	: $app_ns.'Website'
+);
+if (!\class_exists($app_class))
+	throw new \RuntimeException('Failed to detect app class: '.$app_class);
 
 // load app
 $app = new $app_class($loader);
