@@ -56,16 +56,20 @@ final class Debug {
 			}
 		}
 		if (self::debug()) {
-			// filp whoops
-			if (\class_exists('Whoops\\Run')) {
-				$whoops = new \Whoops\Run();
-				$whoops->pushHandler(new \Whoops\Handler\PrettyPageHandler());
-				$whoops->register();
-			}
-			// collision
-			if (\class_exists('NunoMaduro\\Collision\\Provider')) {
-				$collision = new \NunoMaduro\Collision\Provider();
-				$collision->register();
+			if (SystemUtils::IsWeb()) {
+				// filp whoops
+				if (\class_exists('Whoops\\Run')) {
+					$whoops = new \Whoops\Run();
+					$whoops->pushHandler(new \Whoops\Handler\PrettyPageHandler());
+					$whoops->register();
+				}
+			} else
+			if (SystemUtils::IsShell()) {
+				// collision
+				if (\class_exists('NunoMaduro\\Collision\\Provider')) {
+					$collision = new \NunoMaduro\Collision\Provider();
+					$collision->register();
+				}
 			}
 		}
 		// default
