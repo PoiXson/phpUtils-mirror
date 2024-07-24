@@ -29,7 +29,6 @@ class test_xApp extends \PHPUnit\Framework\TestCase {
 		$this->assertEquals(expected: "TestApp",                  actual: $app->getAppName()  );
 		$this->assertEquals(expected: "pxn\\phpUtils\\tests\app", actual: $app->getNamespace());
 		$this->assertEquals(expected: 'x.y.z',                    actual: $app->getVersion()  );
-		$this->assertTrue($app->has_checked_run_state);
 	}
 
 

@@ -73,7 +73,7 @@ class ShellHelp {
 
 
 	public function setCommand(string $command): self {
-		$this->command = (empty($command) ? null : (string) $command;
+		$this->command = (empty($command) ? null : (string) $command);
 		return $this;
 	}
 	public function addCommands(array $commands): self {

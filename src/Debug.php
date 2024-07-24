@@ -137,10 +137,10 @@ final class Debug {
 	private static function EnableDisable(bool $enable): void {
 		$is_shell = SystemUtils::IsShell();
 		\error_reporting(\E_ALL);
-		\ini_set('display_errors', $enable  ? 'On' : 'Off');
-		\ini_set('html_errors',    $isShell ? 'Off' : 'On');
+		\ini_set('display_errors', $enable   ? 'On' : 'Off');
+		\ini_set('html_errors',    $is_shell ? 'Off' : 'On');
 		\ini_set('log_errors',     'On');
-		\ini_set('error_log',      $isShell ? '/var/log/php_shell_error' : 'error_log');
+		\ini_set('error_log',      $is_shell ? '/var/log/php_shell_error' : 'error_log');
 		if ($enable && self::hasKint()) {
 			Kint::$expanded = true;
 			Kint::$aliases[] = 'dd';
