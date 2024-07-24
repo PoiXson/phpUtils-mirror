@@ -19,21 +19,21 @@ class test_SystemUtils extends \PHPUnit\Framework\TestCase {
 
 
 	/**
-	 * @covers ::isShell
-	 * @covers ::isWeb
+	 * @covers ::IsShell
+	 * @covers ::IsWeb
 	 */
-	public function test_isShell(): void {
-		$this->assertTrue( SystemUtils::isShell());
-		$this->assertFalse(SystemUtils::isWeb());
+	public function test_IsShell(): void {
+		$this->assertTrue( SystemUtils::IsShell());
+		$this->assertFalse(SystemUtils::IsWeb());
 	}
 
 
 
 	/**
-	 * @covers ::isUsrInstalled
+	 * @covers ::IsUsrInstalled
 	 */
-	public function test_isUsrInstalled(): void {
-		$this->assertFalse(SystemUtils::isUsrInstalled());
+	public function test_IsUsrInstalled(): void {
+		$this->assertFalse(SystemUtils::IsUsrInstalled());
 	}
 
 
@@ -41,16 +41,16 @@ class test_SystemUtils extends \PHPUnit\Framework\TestCase {
 	/**
 	 * @covers ::GetUser
 	 * @covers ::DenySuperUser
-	 * @covers ::isSuperUser
+	 * @covers ::IsSuperUser
 	 */
 	public function test_GetUser(): void {
 		SystemUtils::DenySuperUser();
 		$this->assertNotEmpty(SystemUtils::GetUser());
-		$this->assertTrue( SystemUtils::isSuperUser('root'));
-		$this->assertTrue( SystemUtils::isSuperUser('system'));
-		$this->assertTrue( SystemUtils::isSuperUser('admin'));
-		$this->assertTrue( SystemUtils::isSuperUser('administrator'));
-		$this->assertFalse(SystemUtils::isSuperUser('user'));
+		$this->assertTrue( SystemUtils::IsSuperUser('root'));
+		$this->assertTrue( SystemUtils::IsSuperUser('system'));
+		$this->assertTrue( SystemUtils::IsSuperUser('admin'));
+		$this->assertTrue( SystemUtils::IsSuperUser('administrator'));
+		$this->assertFalse(SystemUtils::IsSuperUser('user'));
 	}
 
 
@@ -64,7 +64,7 @@ class test_SystemUtils extends \PHPUnit\Framework\TestCase {
 
 
 	/ **
-	 * @covers ::getUser
+	 * @covers ::GetUser
 	 * /
 	public function testGetUser(): void {
 		$originalUser = (
@@ -74,11 +74,11 @@ class test_SystemUtils extends \PHPUnit\Framework\TestCase {
 		);
 		// test SERVER[USER]
 		$_SERVER['USER'] = 'testuser';
-		$this->assertEquals('testuser', SystemUtils::getUser());
+		$this->assertEquals('testuser', SystemUtils::GetUser());
 		// test whoami
 		unset($_SERVER['USER']);
-		$this->assertIsString(SystemUtils::getUser());
-		$this->assertEquals($originalUser, SystemUtils::getUser());
+		$this->assertIsString(SystemUtils::GetUser());
+		$this->assertEquals($originalUser, SystemUtils::GetUser());
 		// restore _SERVER[USER]
 		if ($originalUser === null) {
 			if (isset($_SERVER['USER'])) {
@@ -107,7 +107,7 @@ class test_SystemUtils extends \PHPUnit\Framework\TestCase {
 			)
 		);
 		// create test dirs
-		System::mkDir($cwd.self::TEST_DIR1.self::TEST_DIR2, 700);
+		SystemUtils::mkDir($cwd.self::TEST_DIR1.self::TEST_DIR2, 700);
 		$this->assertTrue(
 			\is_dir($cwd.self::TEST_DIR1.self::TEST_DIR2),
 			\sprintf(
@@ -123,7 +123,7 @@ class test_SystemUtils extends \PHPUnit\Framework\TestCase {
 			$cwd.self::TEST_DIR1.self::TEST_DIR2.'TestFile.txt'
 		));
 		// recursively delete test directories
-		System::rmDir($cwd.self::TEST_DIR1);
+		SystemUtils::rmDir($cwd.self::TEST_DIR1);
 		// ensure removed
 		$this->assertFalse(
 			\is_dir($cwd.self::TEST_DIR1),

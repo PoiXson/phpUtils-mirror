@@ -222,7 +222,7 @@ final class GeneralUtils {
 	 */
 	private static bool $INITED_NoPageCache = false;
 	public static function NoPageCache(): bool {
-		if (SystemUtils::isShell())    return false;
+		if (SystemUtils::IsShell())    return false;
 		if (self::$INITED_NoPageCache) return true;
 		if (\headers_sent())           return false;
 		@\header('Expires: Mon, 26 Jul 1990 05:00:00 GMT');
@@ -245,7 +245,7 @@ final class GeneralUtils {
 	public static function ForwardTo(string $url='/', int $delay=0): void {
 		if (empty($url))
 			$url = '/';
-		if (SystemUtils::isShell()) {
+		if (SystemUtils::IsShell()) {
 			echo "--FORWARD: $url\n";
 		} else {
 			if (\headers_sent() || $delay > 0) {
@@ -269,7 +269,7 @@ EOF;
 	 * @codeCoverageIgnore
 	 */
 	public static function ScrollToBottom(?string $id=null): void {
-		if (SystemUtils::isShell()) {
+		if (SystemUtils::IsShell()) {
 			echo "--SCROLL--\n";
 		} else {
 			if (empty($id))

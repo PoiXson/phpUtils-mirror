@@ -135,7 +135,7 @@ final class Debug {
 
 
 	private static function EnableDisable(bool $enable): void {
-		$isShell = SystemUtils::isShell();
+		$is_shell = SystemUtils::IsShell();
 		\error_reporting(\E_ALL);
 		\ini_set('display_errors', $enable  ? 'On' : 'Off');
 		\ini_set('html_errors',    $isShell ? 'Off' : 'On');

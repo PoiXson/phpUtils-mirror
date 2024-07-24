@@ -46,22 +46,22 @@ final class SystemUtils {
 		exit(xDef::EXIT_CODE_GENERAL);
 	}
 
-	public static function isShell(): bool {
+	public static function IsShell(): bool {
 		if (self::$isCLI === null)
 			self::$isCLI = self::DetectCLI();
 		return self::$isCLI;
 	}
-	public static function isWeb(): bool {
+	public static function IsWeb(): bool {
 		if (self::$isCLI === null)
 			self::$isCLI = self::DetectCLI();
-		return ! self::isShell();
+		return ! self::IsShell();
 	}
 
 
 
 	/** @codeCoverageIgnore */
 	public static function AssertShell(): void {
-		if (!self::isShell()) {
+		if (!self::IsShell()) {
 //TODO
 			echo "This is a CLI script\n";
 			exit(xDef::EXIT_CODE_GENERAL);
@@ -69,7 +69,7 @@ final class SystemUtils {
 	}
 	/** @codeCoverageIgnore */
 	public static function AssertWeb(): void {
-		if (!self::isWeb()) {
+		if (!self::IsWeb()) {
 //TODO
 			echo "This script is a website\n";
 			exit(xDef::EXIT_CODE_GENERAL);
@@ -96,7 +96,7 @@ final class SystemUtils {
 
 
 
-	public static function isUsrInstalled(): bool {
+	public static function IsUsrInstalled(): bool {
 		return \str_starts_with(haystack: xPaths::entry(), needle: '/usr/');
 	}
 
@@ -118,7 +118,7 @@ final class SystemUtils {
 			exit(xDef::EXIT_CODE_NOPERM);
 		}
 	}
-	public static function isSuperUser(?string $who=null): bool {
+	public static function IsSuperUser(?string $who=null): bool {
 		if (empty($who))
 			$who = self::getUser();
 		$who = \strtolower($who);

@@ -41,7 +41,7 @@ final class ShellUtils {
 	}
 	private static function initConsoleVars(): bool {
 		if (self::$inited)      return false;
-		if (!System::isShell()) return false;
+		if (!SystemUtils::IsShell()) return false;
 		if (self::$flags !== null || self::$args !== null)
 			return false;
 		// detect shell state
