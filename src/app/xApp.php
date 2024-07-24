@@ -32,6 +32,7 @@ abstract class xApp {
 
 
 	public abstract function run(): void;
+	public abstract function doExit(): void;
 
 	protected function check_run_mode(): void {
 	}
