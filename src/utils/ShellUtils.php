@@ -14,22 +14,22 @@ final class ShellUtils {
 
 	private static bool $inited = false;
 
-	private static array $flags = null;
-	private static array $args  = null;
-	private static array $stat  = null;
+	private static ?array $flags = null;
+	private static ?array $args  = null;
+	private static ?array $stat  = null;
 
 
 
-	public static function init() {
+	public static function init(): void {
 		if (self::$inited)
 			return;
-		self::initConsoleVars();
+		self::InitConsoleVars();
 		self::$inited = true;
 		// ansi color enabled
-		if (self::hasFlag('--ansi'))
+		if (self::HasFlag('--ansi'))
 			ConfigGeneral::setAnsiColorEnabled(true);
 		// ansi color disabled
-		if (self::hasFlag('--no-ansi'))
+		if (self::HasFlag('--no-ansi'))
 			ConfigGeneral::setAnsiColorEnabled(false);
 		// detect color support
 		ConfigGeneral::defaultAnsiColorEnabled(
@@ -39,16 +39,16 @@ final class ShellUtils {
 		if (ConfigGeneral::isAnsiColorEnabled())
 			echo self::FormatString('{clear}');
 	}
-	private static function initConsoleVars(): bool {
+	private static function InitConsoleVars(): bool {
 		if (self::$inited)      return false;
 		if (!SystemUtils::IsShell()) return false;
 		if (self::$flags !== null || self::$args !== null)
 			return false;
 		// detect shell state
 		self::$stat = [
-			'stdin'  => self::getStat(\STDIN),
-			'stdout' => self::getStat(\STDOUT),
-			'stderr' => self::getStat(\STDERR)
+			'stdin'  => self::GetStat(\STDIN),
+			'stdout' => self::GetStat(\STDOUT),
+			'stderr' => self::GetStat(\STDERR)
 		];
 		// parse shell arguments
 		$AllowShortFlagValues = ConfigGeneral::getAllowShortFlagValues();
@@ -128,7 +128,7 @@ final class ShellUtils {
 
 
 
-	public static function getStat($handle) {
+	public static function GetStat(\resource $handle): ?string {
 		$stat = \fstat($handle);
 		$mode = $stat['mode'] & 0170000;
 		switch ($mode) {
@@ -145,25 +145,25 @@ final class ShellUtils {
 
 
 	// get all as array
-	public static function getArgs() {
+	public static function GetArgs(): array {
 		return self::$args;
 	}
-	public static function getFlags() {
+	public static function GetFlags(): array {
 		return self::$flags;
 	}
 
 
 
 	// get argument (starts at 0)
-	public static function getArg($index=null) {
+	public static function GetArg(?int $index=null): ?string {
 		if ($index === null)
-			return self::getArg(0);
+			return self::GetArg(0);
 		$index = (int) $index;
 		if (!isset(self::$args[$index]))
 			return null;
 		return self::$args[$index];
 	}
-	public static function hasArg($arg) {
+	public static function HasArg(?string $arg): ?bool {
 		if (empty($arg))
 			return null;
 		// match case
@@ -178,17 +178,17 @@ final class ShellUtils {
 
 
 	// get one flag
-	public static function getFlag(... $keys) {
+	public static function GetFlag(string ... $keys): ?string {
 		if (\count($keys) == 0)
 			return null;
 		foreach ($keys as $key) {
-			$val = self::getFlag_Single($key);
+			$val = self::GetFlag_Single($key);
 			if ($val !== null)
 				return $val;
 		}
 		return null;
 	}
-	private static function getFlag_Single($key) {
+	private static function GetFlag_Single(?string $key): ?string {
 		if (empty($key))
 			return null;
 		if (isset(self::$flags[$key])) {
@@ -206,36 +206,36 @@ final class ShellUtils {
 
 
 	// get boolean flag
-	public static function getFlagBool(... $keys) {
+	public static function GetFlagBool(string ... $keys): ?bool {
 		if (\count($keys) == 0)
 			return null;
 		foreach ($keys as $key) {
-			$val = self::getFlagBool_Single($key);
+			$val = self::GetFlagBool_Single($key);
 			if ($val !== null)
 				return $val;
 		}
 		return null;
 	}
-	private static function getFlagBool_Single($key) {
+	private static function GetFlagBool_Single(?string $key): ?bool {
 		if (empty($key))
 			return null;
-		return General::toBoolean(self::getFlag($key));
+		return GeneralUtils::CastBoolean(self::GetFlag($key));
 	}
 
 
 
 	// flag exists
-	public static function hasFlag(... $keys) {
+	public static function HasFlag(string ... $keys): ?bool {
 		if (\count($keys) == 0)
 			return null;
 		foreach ($keys as $key) {
-			$result = self::hasFlag_Single($key);
+			$result = self::HasFlag_Single($key);
 			if ($result === true)
 				return true;
 		}
 		return false;
 	}
-	private static function hasFlag_Single($key) {
+	private static function HasFlag_Single(?string $key): ?bool {
 		if (empty($key))
 			return null;
 		return isset(self::$flags[$key]);
@@ -244,9 +244,9 @@ final class ShellUtils {
 
 
 	// has -h or --help flag
-	public static function isHelp() {
-		return self::hasFlag('-h') ||
-			self::hasFlag('--help');
+	public static function IsHelp(): bool {
+		return self::HasFlag('-h') ||
+			self::HasFlag('--help');
 	}
 
 
@@ -257,14 +257,14 @@ final class ShellUtils {
 
 
 
-	public static function FormatString($str) {
+	public static function FormatString(string $str): string {
 		return \preg_replace_callback(
 			'#\{[a-z0-9,=]+\}#i',
 			[ __CLASS__, 'FormatString_Callback' ],
 			$str
 		);
 	}
-	public static function FormatString_Callback(array $matches) {
+	public static function FormatString_Callback(array $matches): string {
 		$match = \reset($matches);
 		if (!ConfigGeneral::isAnsiColorEnabled())
 			return '';
