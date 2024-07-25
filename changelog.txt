@@ -1,15 +1,22 @@
 phpUtils - PHP Utilities Library
 
 
+2024-07-24 - 0.4.24
+===================
+* added xApp->doExit() function
+* added public-tool.sh script
+* fixed/improved loading of filp whoops and collision
+
+
 2024-07-24 - 0.4.23
 ===================
 * renaming functions and classes
 * moved utility classes into utils/ namespace
-* cleanup and fixes and improvements
 * added new ImageUtils class
 * added xApp->getAppName() ->getNamespace() and ->getVersion() functions
 * use a string rather than array for sources argument of GetVar() function
 * fixed and improved detecting of website or shell tool in public-index.php
+* cleanup and fixes and improvements
 * updated dependencies
 
 
