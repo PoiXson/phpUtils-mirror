@@ -9,7 +9,7 @@
 namespace pxn\phpUtils\logger\handlers;
 
 
-interface Handler {
+interface xLogHandler {
 
 
 	public function write(?string $msg): void;
