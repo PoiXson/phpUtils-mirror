@@ -42,7 +42,7 @@ final class WebUtils {
 	 * @param number $delay - Optional delay in seconds before forwarding.
 	 * @codeCoverageIgnore
 	 */
-	public static function ForwardTo(string $url='/', int $delay=0): void {
+	public static function ForwardTo(?string $url=null, int $delay=0): void {
 		if (empty($url)) $url = '/';
 		if (SystemUtils::IsShell()) {
 			echo '--FORWARD: '.$url."\n";
