@@ -110,12 +110,10 @@ final class Debug {
 
 
 
-	public static function dd($var=null): void {
-		if ($var !== null) {
-			if (self::hasKint())
-				\Kint\Renderer\RichRenderer::$folder = false;
-			self::dump($var);
-		}
+	public static function dd($var): void {
+		if (self::hasKint())
+			\Kint\Renderer\RichRenderer::$folder = false;
+		self::dump($var);
 		exit(1);
 	}
 
