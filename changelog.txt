@@ -1,6 +1,14 @@
 phpUtils - PHP Utilities Library
 
 
+2024-07-28 - 0.4.25
+===================
+* moved NoPageCache() ForwardTo() and ScrollToBottom() functions to WebUtils class
+* fixed dd() function to also accept null
+* fixed namespace paths for xLog
+* updated dependencies
+
+
 2024-07-24 - 0.4.24
 ===================
 * added xApp->doExit() function
@@ -165,7 +173,7 @@ phpUtils - PHP Utilities Library
 2020-01-09 - 0.2.1
 ==================
 * changed ComposerAdditionalVendor class from static to instance
-* updated composer dependencies
+* updated dependencies
 
 
 2019-12-31 - 0.2.0
