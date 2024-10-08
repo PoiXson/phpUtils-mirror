@@ -1,6 +1,11 @@
 phpUtils - PHP Utilities Library
 
 
+2024-10-08 - 0.4.27
+===================
+* updated dependencies
+
+
 2024-07-28 - 0.4.25
 ===================
 * moved NoPageCache() ForwardTo() and ScrollToBottom() functions to WebUtils class
