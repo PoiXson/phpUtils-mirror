@@ -152,6 +152,19 @@ class xPaths {
 
 
 
+	public static function ReplaceTags(string $path) {
+		if (empty($path)) return $path;
+		if (\mb_substr($path, 0, 1) === '{') {
+			foreach (self::$paths as $key => $val) {
+				if (\str_starts_with(haystack: $path, needle: '{'.$key.'}'))
+					return $val.\mb_substr($path, \mb_strlen($key)+2);
+			}
+		}
+		return $path;
+	}
+
+
+
 	public static function GetAll(): array {
 		return self::$paths;
 	}

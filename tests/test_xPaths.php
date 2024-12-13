@@ -71,6 +71,23 @@ class test_xPaths extends \PHPUnit\Framework\TestCase {
 		$this->assertEquals(expected: $all, actual: xPaths::GetAll());
 	}
 
+
+
+	/**
+	 * @covers ::ReplaceTags
+	 */
+	public function test_xPaths_ReplaceTags(): void {
+		// replace in string
+		$common = \realpath(__dir__.'/..');
+		$this->assertEquals(expected: $common, actual: xPaths::common());
+		$this->assertEquals(expected: $common        .'/abc', actual: xPaths::ReplaceTags('{common}/abc'  ));
+		$this->assertEquals(expected: xPaths::pwd()  .'/abc', actual: xPaths::ReplaceTags(   '{pwd}/abc'  ));
+		$this->assertEquals(expected: xPaths::entry().'/abc', actual: xPaths::ReplaceTags( '{entry}/abc'  ));
+		$this->assertEquals(expected: '/abc/{pwd}/def',       actual: xPaths::ReplaceTags('/abc/{pwd}/def'));
+	}
+
+
+
 	/**
 	 * @covers ::assert
 	 */
