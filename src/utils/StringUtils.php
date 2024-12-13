@@ -8,7 +8,6 @@
  */
 namespace pxn\phpUtils\utils;
 
-use \pxn\phpUtils\Paths;
 use \pxn\phpUtils\pxnDefines as xDef;
 
 

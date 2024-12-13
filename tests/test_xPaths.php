@@ -47,10 +47,6 @@ class test_xPaths extends \PHPUnit\Framework\TestCase {
 		$this->assertNotEmpty($path);
 		$this->assertTrue(\str_starts_with(haystack: $path, needle: '/'));
 		$this->assertEquals(expected: $path, actual: xPaths::get('common'));
-
-
-
-
 		// set custom path
 		$all['home'] = '/home';
 		xPaths::set(key: 'home', path: '/home');

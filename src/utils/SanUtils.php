@@ -15,6 +15,7 @@ final class SanUtils {
 
 
 
+	// a-z A-Z 0-9
 	public static function alpha_num(string $value, string $extra=null): string {
 		return \preg_replace(
 			pattern: '/[^a-zA-Z0-9'.($extra??'').']+/',
@@ -23,19 +24,26 @@ final class SanUtils {
 		);
 	}
 
+	// a-z A-Z 0-9 _ -
 	public static function alpha_num_simple(string $value, string $extra=null): string {
 		return self::alpha_num(value: $value, extra: '\_\-'.($extra??''));
 	}
+
+
 
 	public static function rep_space(string $value): string {
 		$result = self::alpha_num(value: $value, extra: '\_\-\s');
 		return \str_replace(search: ' ', replace: '_', subject: $result);
 	}
 
+
+
 	public static function path_safe(string $path): string {
 		$result = self::alpha_num(value: $path, extra: '\.\/\_\-\s');
 		return \str_replace(search: ' ', replace: '_', subject: $result);
 	}
+
+
 
 	public static function base64(string $value): string {
 		return self::alpha_num(value: $value, extra: '\=');
