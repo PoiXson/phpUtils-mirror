@@ -23,8 +23,8 @@ final class SanUtils {
 		);
 	}
 
-	public static function alpha_num_simple(string $value): string {
-		return self::alpha_num(value: $value, extra: '\_\-');
+	public static function alpha_num_simple(string $value, string $extra=null): string {
+		return self::alpha_num(value: $value, extra: '\_\-'.($extra??''));
 	}
 
 	public static function rep_space(string $value): string {
